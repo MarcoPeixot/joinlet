@@ -1,0 +1,7031 @@
+[
+  {
+    "id": "quantum-bell",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Preparação de um par de Bell",
+    "description": "Fluxo conceitual: prepare dois qubits, aplique H e CNOT e leia correlações clássicas. Não é um simulador.",
+    "keywords": [
+      "Bell pair preparation",
+      "bell state",
+      "emaranhamento",
+      "entanglement",
+      "qiskit",
+      "quantum",
+      "Preparação de um par de Bell",
+      "Fluxo conceitual: prepare dois qubits, aplique H e CNOT e leia correlações clássicas. Não é um simulador.",
+      "Conceptual workflow: prepare two qubits, apply H and CNOT, and read classical correlations. This is not a simulator.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "q0": {
+        "x": 30.0,
+        "y": -40.0,
+        "w": 180,
+        "h": 180
+      },
+      "q1": {
+        "x": 30.0,
+        "y": 150.0,
+        "w": 180,
+        "h": 180
+      },
+      "H": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "CNOT": {
+        "x": 750.0,
+        "y": -40.0,
+        "w": 180,
+        "h": 180
+      },
+      "Bell": {
+        "x": 1110.0,
+        "y": -40.0,
+        "w": 180,
+        "h": 180
+      },
+      "Readout": {
+        "x": 1080,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Bits": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "q0",
+        "label": "Qubit de controle",
+        "description": "Qubit preparado no estado |0⟩ antes das portas.",
+        "icon": "domain:qubit",
+        "tech": "Initial state |0⟩",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "q1",
+        "label": "Qubit alvo",
+        "description": "Qubit preparado no estado |0⟩ antes das portas.",
+        "icon": "domain:qubit",
+        "tech": "Initial state |0⟩",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "H",
+        "label": "Porta Hadamard",
+        "description": "Transformação de base usada para preparar superposição.",
+        "icon": "domain:quantum-gate",
+        "tech": "Hadamard · H",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "CNOT",
+        "label": "Porta CNOT",
+        "description": "Inverte o alvo condicionada ao estado do controle.",
+        "icon": "domain:entanglement",
+        "tech": "Controlled X",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Bell",
+        "label": "Par emaranhado",
+        "description": "Estado conjunto que não se decompõe em estados independentes.",
+        "icon": "domain:entanglement",
+        "tech": "Entanglement",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Readout",
+        "label": "Medição quântica",
+        "description": "Produz um resultado clássico conforme a base de medição.",
+        "icon": "domain:measurement",
+        "tech": "Measurement",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Bits",
+        "label": "Registrador clássico",
+        "description": "Armazena resultados clássicos das medições.",
+        "icon": "domain:measurement",
+        "tech": "Classical bits",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "q0",
+        "to": "H",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "H",
+        "to": "CNOT",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "q1",
+        "to": "CNOT",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "CNOT",
+        "to": "Bell",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Bell",
+        "to": "Readout",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Readout",
+        "to": "Bits",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "quantum-grover",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Busca de Grover",
+    "description": "Superposição, oráculo e difusão, com repetição controlada antes da medição. Modelo conceitual do algoritmo.",
+    "keywords": [
+      "Grover search",
+      "amplitude amplification",
+      "oracle",
+      "quantum",
+      "Busca de Grover",
+      "Superposição, oráculo e difusão, com repetição controlada antes da medição. Modelo conceitual do algoritmo.",
+      "Superposition, oracle and diffusion with controlled repetition before measurement. Conceptual algorithm model.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Registrador quântico",
+        "description": "Conjunto de qubits endereçáveis em um circuito.",
+        "icon": "domain:quantum-register",
+        "tech": "Quantum register",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Porta Hadamard",
+        "description": "Transformação de base usada para preparar superposição.",
+        "icon": "domain:quantum-gate",
+        "tech": "Hadamard · H",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Oráculo quântico",
+        "description": "Codifica a função consultada por um algoritmo quântico.",
+        "icon": "domain:quantum-oracle",
+        "tech": "Oracle",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Operador de difusão",
+        "description": "Amplificação de amplitude após a marcação do oráculo de Grover.",
+        "icon": "domain:quantum-gate",
+        "tech": "Grover diffusion",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Medição quântica",
+        "description": "Produz um resultado clássico conforme a base de medição.",
+        "icon": "domain:measurement",
+        "tech": "Measurement",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Registrador clássico",
+        "description": "Armazena resultados clássicos das medições.",
+        "icon": "domain:measurement",
+        "tech": "Classical bits",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "C",
+        "connector": "-->",
+        "label": "repetir"
+      }
+    ]
+  },
+  {
+    "id": "quantum-vqe",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Otimização híbrida VQE",
+    "description": "Ansatz parametrizado, estimativa de energia e atualização clássica dos parâmetros em um ciclo híbrido.",
+    "keywords": [
+      "Hybrid VQE optimization",
+      "variational",
+      "energy",
+      "hybrid",
+      "quantum",
+      "Otimização híbrida VQE",
+      "Ansatz parametrizado, estimativa de energia e atualização clássica dos parâmetros em um ciclo híbrido.",
+      "Parameterized ansatz, energy estimation and classical parameter updates in a hybrid loop.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Otimizador clássico",
+        "description": "Atualiza parâmetros a partir de uma função objetivo estimada.",
+        "icon": "domain:quantum-optimizer",
+        "tech": "Hybrid loop",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Ansatz variacional",
+        "description": "Circuito parametrizado de uma otimização variacional.",
+        "icon": "domain:quantum-circuit",
+        "tech": "VQE · QAOA",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Processador quântico",
+        "description": "Backend físico que executa circuitos sujeitos a restrições e ruído.",
+        "icon": "domain:quantum-backend",
+        "tech": "QPU",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Observável",
+        "description": "Operador cujos valores esperados podem ser estimados por medições.",
+        "icon": "domain:measurement",
+        "tech": "Expectation value",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Medição quântica",
+        "description": "Produz um resultado clássico conforme a base de medição.",
+        "icon": "domain:measurement",
+        "tech": "Measurement",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "label": "parâmetros",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "label": "circuito",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "label": "amostras",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "D",
+        "label": "estatísticas de medição",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "A",
+        "label": "estimativa de energia",
+        "connector": "-->"
+      }
+    ]
+  },
+  {
+    "id": "quantum-execution",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Execução de circuitos quânticos",
+    "description": "Circuito lógico, transpilação, backend e resultados, com caminho alternativo de simulação.",
+    "keywords": [
+      "Quantum circuit execution",
+      "backend",
+      "qpu",
+      "simulation",
+      "quantum",
+      "Execução de circuitos quânticos",
+      "Circuito lógico, transpilação, backend e resultados, com caminho alternativo de simulação.",
+      "Logical circuit, transpilation, backend and results with an alternative simulation path.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Circuito quântico",
+        "description": "Sequência lógica de portas e medições; o desenho não executa o circuito.",
+        "icon": "domain:quantum-circuit",
+        "tech": "Quantum circuit",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Transpilador quântico",
+        "description": "Mapeia o circuito para portas e conectividade do backend.",
+        "icon": "domain:quantum-circuit",
+        "tech": "Transpilation",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Processador quântico",
+        "description": "Backend físico que executa circuitos sujeitos a restrições e ruído.",
+        "icon": "domain:quantum-backend",
+        "tech": "QPU",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Medição quântica",
+        "description": "Produz um resultado clássico conforme a base de medição.",
+        "icon": "domain:measurement",
+        "tech": "Measurement",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Registrador clássico",
+        "description": "Armazena resultados clássicos das medições.",
+        "icon": "domain:measurement",
+        "tech": "Classical bits",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Simulador quântico",
+        "description": "Simulação clássica de um circuito, com custos que dependem do método.",
+        "icon": "domain:quantum-simulator",
+        "tech": "Statevector · tensor network",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "F",
+        "connector": ">",
+        "label": "simulação"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "E",
+        "connector": ">",
+        "label": "resultados"
+      }
+    ]
+  },
+  {
+    "id": "quantum-error-correction",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Ciclo de correção quântica",
+    "description": "Medições de síndrome alimentam um decodificador e uma atualização de correção; sem prometer eliminação de todo ruído.",
+    "keywords": [
+      "Quantum error correction loop",
+      "syndrome",
+      "decoder",
+      "error correction",
+      "quantum",
+      "Ciclo de correção quântica",
+      "Medições de síndrome alimentam um decodificador e uma atualização de correção; sem prometer eliminação de todo ruído.",
+      "Syndrome measurements feed a decoder and correction update; this does not imply eliminating all noise.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Registrador quântico",
+        "description": "Conjunto de qubits endereçáveis em um circuito.",
+        "icon": "domain:quantum-register",
+        "tech": "Quantum register",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Modelo de ruído",
+        "description": "Representa canais de erro ou decoerência em uma simulação.",
+        "icon": "domain:quantum-noise",
+        "tech": "Noise channel",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Medição de síndrome",
+        "description": "Extrai informações de erros sem ler diretamente o estado lógico.",
+        "icon": "domain:quantum-error-correction",
+        "tech": "Quantum error correction",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Decodificador de erros",
+        "description": "Infere correções a partir dos resultados de síndrome.",
+        "icon": "domain:quantum-error-correction",
+        "tech": "Syndrome decoding",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Porta Pauli",
+        "description": "Operações X, Y ou Z sobre um qubit.",
+        "icon": "domain:quantum-gate",
+        "tech": "Pauli · X/Y/Z",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "A",
+        "connector": "-->",
+        "label": "próximo ciclo"
+      }
+    ]
+  },
+  {
+    "id": "quantum-qaoa",
+    "libraryId": "quantum",
+    "category": "Computação quântica",
+    "title": "Fluxo híbrido QAOA",
+    "description": "Problema codificado, circuito variacional e amostragem com realimentação de um otimizador clássico.",
+    "keywords": [
+      "Hybrid QAOA workflow",
+      "qaoa",
+      "optimization",
+      "quantum",
+      "Fluxo híbrido QAOA",
+      "Problema codificado, circuito variacional e amostragem com realimentação de um otimizador clássico.",
+      "Encoded problem, variational circuit and sampling with classical optimizer feedback.",
+      "Computação quântica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Operador de custo",
+        "description": "Codifica o objetivo de otimização usado no circuito variacional.",
+        "icon": "domain:quantum-oracle",
+        "tech": "Cost Hamiltonian",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Otimizador clássico",
+        "description": "Atualiza parâmetros a partir de uma função objetivo estimada.",
+        "icon": "domain:quantum-optimizer",
+        "tech": "Hybrid loop",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Ansatz variacional",
+        "description": "Circuito parametrizado de uma otimização variacional.",
+        "icon": "domain:quantum-circuit",
+        "tech": "VQE · QAOA",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Processador quântico",
+        "description": "Backend físico que executa circuitos sujeitos a restrições e ruído.",
+        "icon": "domain:quantum-backend",
+        "tech": "QPU",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Medição quântica",
+        "description": "Produz um resultado clássico conforme a base de medição.",
+        "icon": "domain:measurement",
+        "tech": "Measurement",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "B",
+        "connector": "-->",
+        "label": "objetivo"
+      }
+    ]
+  },
+  {
+    "id": "blockchain-dapp",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Aplicação Web3 com contratos",
+    "description": "Carteira assina a transação, RPC submete à execução e o indexador projeta eventos para consulta.",
+    "keywords": [
+      "Smart contract dApp",
+      "dapp",
+      "ethereum",
+      "web3",
+      "blockchain",
+      "Aplicação Web3 com contratos",
+      "Carteira assina a transação, RPC submete à execução e o indexador projeta eventos para consulta.",
+      "A wallet signs a transaction, RPC submits it for execution, and an indexer projects events for querying.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "Wallet": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "RPC": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Execution": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Contract": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Events": {
+        "x": 1080,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Ledger": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "Wallet",
+        "label": "Carteira",
+        "description": "Assina transações e gerencia referências às chaves; não representa custódia obrigatória.",
+        "icon": "domain:wallet",
+        "tech": "Wallet",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "RPC",
+        "label": "Endpoint RPC",
+        "description": "Interface para consultar a rede e submeter transações.",
+        "icon": "domain:block",
+        "tech": "JSON-RPC",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Execution",
+        "label": "Cliente de execução",
+        "description": "Executa transações e mantém o estado de execução.",
+        "icon": "domain:smart-contract",
+        "tech": "Execution layer",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Contract",
+        "label": "Contrato inteligente",
+        "description": "Programa executado de acordo com as regras da blockchain.",
+        "icon": "domain:smart-contract",
+        "tech": "Smart contract",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Events",
+        "label": "Indexador de eventos",
+        "description": "Lê blocos e eventos para construir projeções de consulta.",
+        "icon": "domain:ledger",
+        "tech": "Event indexing",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Ledger",
+        "label": "Ledger distribuído",
+        "description": "Histórico de estados ou transações replicado entre participantes.",
+        "icon": "domain:ledger",
+        "tech": "Distributed ledger",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "Wallet",
+        "to": "RPC",
+        "connector": ">",
+        "label": "transação assinada"
+      },
+      {
+        "op": "connect",
+        "from": "RPC",
+        "to": "Execution",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Execution",
+        "to": "Contract",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Contract",
+        "to": "Ledger",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Ledger",
+        "to": "Events",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Events",
+        "to": "RPC",
+        "connector": ">",
+        "label": "consulta"
+      }
+    ]
+  },
+  {
+    "id": "ethereum-node",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Nó Ethereum: execução e consenso",
+    "description": "Clientes separados se comunicam pela Engine API; o validador participa do consenso.",
+    "keywords": [
+      "Ethereum execution and consensus node",
+      "ethereum",
+      "node",
+      "consensus",
+      "execution",
+      "blockchain",
+      "Nó Ethereum: execução e consenso",
+      "Clientes separados se comunicam pela Engine API; o validador participa do consenso.",
+      "Separate clients communicate over the Engine API; the validator participates in consensus.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "RPC": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Execution": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Pool": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Consensus": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Validator": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Ledger": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "RPC",
+        "label": "Endpoint RPC",
+        "description": "Interface para consultar a rede e submeter transações.",
+        "icon": "domain:block",
+        "tech": "JSON-RPC",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Execution",
+        "label": "Cliente de execução",
+        "description": "Executa transações e mantém o estado de execução.",
+        "icon": "domain:smart-contract",
+        "tech": "Execution layer",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Pool",
+        "label": "Pool de transações",
+        "description": "Mantém transações pendentes antes de sua inclusão em blocos.",
+        "icon": "domain:mempool",
+        "tech": "Mempool",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Consensus",
+        "label": "Cliente de consenso",
+        "description": "Acompanha a escolha da cadeia e as regras de consenso.",
+        "icon": "domain:consensus",
+        "tech": "Consensus layer",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Validator",
+        "label": "Validador",
+        "description": "Participante que valida e, conforme o protocolo, propõe ou atesta blocos.",
+        "icon": "domain:validator",
+        "tech": "Validator",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "Ledger",
+        "label": "Ledger distribuído",
+        "description": "Histórico de estados ou transações replicado entre participantes.",
+        "icon": "domain:ledger",
+        "tech": "Distributed ledger",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "RPC",
+        "to": "Execution",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Pool",
+        "to": "Execution",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Consensus",
+        "to": "Execution",
+        "connector": "<>",
+        "label": "Engine API"
+      },
+      {
+        "op": "connect",
+        "from": "Validator",
+        "to": "Consensus",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Execution",
+        "to": "Ledger",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Consensus",
+        "to": "Ledger",
+        "connector": ">",
+        "label": "validação de blocos"
+      }
+    ]
+  },
+  {
+    "id": "blockchain-zk-rollup",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Rollup com prova de validade",
+    "description": "Sequenciador ordena transações, execução gera estado, prover gera prova e L1 verifica os compromissos publicados.",
+    "keywords": [
+      "Validity-proof rollup",
+      "zk",
+      "validity proof",
+      "layer 2",
+      "blockchain",
+      "Rollup com prova de validade",
+      "Sequenciador ordena transações, execução gera estado, prover gera prova e L1 verifica os compromissos publicados.",
+      "A sequencer orders transactions, execution produces state, a prover generates proof, and L1 verifies posted commitments.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Carteira",
+        "description": "Assina transações e gerencia referências às chaves; não representa custódia obrigatória.",
+        "icon": "domain:wallet",
+        "tech": "Wallet",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Sequenciador",
+        "description": "Ordena transações em um sistema de rollup.",
+        "icon": "domain:rollup",
+        "tech": "Transaction ordering",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Cliente de execução",
+        "description": "Executa transações e mantém o estado de execução.",
+        "icon": "domain:smart-contract",
+        "tech": "Execution layer",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Gerador de prova ZK",
+        "description": "Gera uma prova para uma afirmação e um circuito definidos.",
+        "icon": "domain:zk-proof",
+        "tech": "Zero-knowledge proof",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Verificador na L1",
+        "description": "Verifica a prova de validade e suas entradas públicas na camada de liquidação.",
+        "icon": "domain:zk-proof",
+        "tech": "L1 settlement",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Disponibilidade de dados",
+        "description": "Publicação e acesso aos dados necessários para verificar ou reconstruir estado.",
+        "icon": "domain:ledger",
+        "tech": "Data availability",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "F",
+        "connector": ">",
+        "label": "dados do lote"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">",
+        "label": "compromisso"
+      }
+    ]
+  },
+  {
+    "id": "blockchain-indexing",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Indexação de eventos on-chain",
+    "description": "Blocos e eventos são indexados em projeções consultáveis; mantenha checkpoints e considere reorganizações.",
+    "keywords": [
+      "On-chain event indexing",
+      "events",
+      "indexer",
+      "reorg",
+      "blockchain",
+      "Indexação de eventos on-chain",
+      "Blocos e eventos são indexados em projeções consultáveis; mantenha checkpoints e considere reorganizações.",
+      "Blocks and events are indexed into queryable projections; keep checkpoints and account for reorganizations.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Ledger distribuído",
+        "description": "Histórico de estados ou transações replicado entre participantes.",
+        "icon": "domain:ledger",
+        "tech": "Distributed ledger",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Indexador de eventos",
+        "description": "Lê blocos e eventos para construir projeções de consulta.",
+        "icon": "domain:ledger",
+        "tech": "Event indexing",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Processador de streaming",
+        "description": "Transforma eventos com estado, janelas e regras de tempo.",
+        "icon": "domain:data-stream",
+        "tech": "Event time · windows",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Data warehouse",
+        "description": "Organiza dados analíticos para consultas e agregações.",
+        "icon": "domain:warehouse",
+        "tech": "Analytics",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Endpoint RPC",
+        "description": "Interface para consultar a rede e submeter transações.",
+        "icon": "domain:block",
+        "tech": "JSON-RPC",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "B",
+        "connector": "-->",
+        "label": "checkpoint"
+      }
+    ]
+  },
+  {
+    "id": "blockchain-merkle",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Prova de inclusão Merkle",
+    "description": "Hashes de folhas e irmãos permitem reconstruir a raiz e conferir a inclusão sem baixar todos os registros.",
+    "keywords": [
+      "Merkle inclusion proof",
+      "merkle tree",
+      "inclusion",
+      "hash",
+      "blockchain",
+      "Prova de inclusão Merkle",
+      "Hashes de folhas e irmãos permitem reconstruir a raiz e conferir a inclusão sem baixar todos os registros.",
+      "Leaf and sibling hashes reconstruct the root and check inclusion without downloading all records.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Bloco",
+        "description": "Agrupa transações e referencia um bloco anterior conforme o protocolo.",
+        "icon": "domain:block",
+        "tech": "Block",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Árvore de Merkle",
+        "description": "Combina hashes para produzir uma raiz e provas de inclusão.",
+        "icon": "domain:merkle-tree",
+        "tech": "Merkle proof",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Gerador de prova Merkle",
+        "description": "Coleta os hashes irmãos necessários para reconstruir a raiz.",
+        "icon": "domain:merkle-tree",
+        "tech": "Merkle inclusion proof",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Cliente leve",
+        "description": "Verifica informações selecionadas usando cabeçalhos e provas.",
+        "icon": "domain:validator",
+        "tech": "Light client",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Verificador de prova",
+        "description": "Verifica uma prova segundo suas entradas públicas e chave de verificação.",
+        "icon": "domain:zk-proof",
+        "tech": "Proof verification",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "blockchain-multisig",
+    "libraryId": "blockchain",
+    "category": "Blockchain e Web3",
+    "title": "Aprovação e execução multisig",
+    "description": "Uma proposta recebe assinaturas até o limiar definido antes de executar a chamada ao contrato.",
+    "keywords": [
+      "Multisig approval and execution",
+      "multisig",
+      "threshold",
+      "wallet",
+      "blockchain",
+      "Aprovação e execução multisig",
+      "Uma proposta recebe assinaturas até o limiar definido antes de executar a chamada ao contrato.",
+      "A proposal collects signatures up to a defined threshold before executing a contract call.",
+      "Blockchain e Web3"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Carteira",
+        "description": "Assina transações e gerencia referências às chaves; não representa custódia obrigatória.",
+        "icon": "domain:wallet",
+        "tech": "Wallet",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Carteira multisig",
+        "description": "Exige um limiar de assinaturas para autorizar operações.",
+        "icon": "domain:wallet",
+        "tech": "Threshold approval",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Serviço de assinatura",
+        "description": "Assina artefatos ou mensagens com controle de acesso à chave.",
+        "icon": "domain:kms",
+        "tech": "Digital signatures",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Contrato inteligente",
+        "description": "Programa executado de acordo com as regras da blockchain.",
+        "icon": "domain:smart-contract",
+        "tech": "Smart contract",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Ledger distribuído",
+        "description": "Histórico de estados ou transações replicado entre participantes.",
+        "icon": "domain:ledger",
+        "tech": "Distributed ledger",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "label": "proposta",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "label": "pedido de assinatura",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "B",
+        "label": "assinaturas",
+        "connector": "-->"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "label": "limiar atingido",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "label": "resultado da transação",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "ai-agentic-rag",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "RAG com agente e ferramentas",
+    "description": "Agente decide recuperar contexto ou chamar ferramentas; guardrails e revisão limitam as ações.",
+    "keywords": [
+      "Agentic RAG",
+      "rag",
+      "agent",
+      "retrieval",
+      "tools",
+      "ai-ml",
+      "RAG com agente e ferramentas",
+      "Agente decide recuperar contexto ou chamar ferramentas; guardrails e revisão limitam as ações.",
+      "An agent chooses retrieval or tools; guardrails and review constrain actions.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "H": {
+        "x": 1080,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Template de prompt",
+        "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "icon": "domain:prompt",
+        "tech": "Prompt assembly",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Agente com ferramentas",
+        "description": "Coordena chamadas ao modelo e ferramentas dentro de limites definidos.",
+        "icon": "domain:agent",
+        "tech": "Agent loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Recuperador",
+        "description": "Seleciona documentos relevantes a uma consulta e aos filtros de acesso.",
+        "icon": "domain:retriever",
+        "tech": "Retrieval",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Índice vetorial",
+        "description": "Indexa vetores para busca aproximada ou exata por similaridade.",
+        "icon": "domain:vector-index",
+        "tech": "ANN · vector search",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Guardrail",
+        "description": "Valida entradas, saídas ou ações segundo regras explícitas.",
+        "icon": "domain:guardrail",
+        "tech": "Safety checks",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Revisão humana",
+        "description": "Pede decisão humana antes de uma ação ou publicação sensível.",
+        "icon": "domain:evaluation",
+        "tech": "Human in the loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "H",
+        "label": "Ferramenta do agente",
+        "description": "Operação com contrato de entrada, autorização e saída verificáveis.",
+        "icon": "domain:tool",
+        "tech": "Tool calling",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "label": "pedido",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "E",
+        "label": "chamada ao modelo",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "label": "consulta de recuperação",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "label": "buscar",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "C",
+        "label": "candidatos",
+        "connector": "-->"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "label": "contexto",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "label": "resposta ou ação proposta",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "label": "checagem de políticas",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "G",
+        "to": "H",
+        "label": "ação aprovada",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "H",
+        "to": "B",
+        "label": "resultado da ferramenta",
+        "connector": "-->"
+      }
+    ]
+  },
+  {
+    "id": "ai-hybrid-retrieval",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Busca híbrida com reranking",
+    "description": "Ingestão e embeddings alimentam candidatos; reordene e monte contexto antes da resposta do modelo.",
+    "keywords": [
+      "Hybrid retrieval and reranking",
+      "bm25",
+      "hybrid search",
+      "reranking",
+      "ai-ml",
+      "Busca híbrida com reranking",
+      "Ingestão e embeddings alimentam candidatos; reordene e monte contexto antes da resposta do modelo.",
+      "Ingestion and embeddings produce candidates; rerank and assemble context before model generation.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Lexical": {
+        "x": 360,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Segmentador de documentos",
+        "description": "Divide documentos preservando metadados e referências de origem.",
+        "icon": "domain:tokenizer",
+        "tech": "Chunking",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Modelo de embeddings",
+        "description": "Converte entradas em vetores para comparação e recuperação.",
+        "icon": "domain:embedding",
+        "tech": "Embeddings",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Índice vetorial",
+        "description": "Indexa vetores para busca aproximada ou exata por similaridade.",
+        "icon": "domain:vector-index",
+        "tech": "ANN · vector search",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Recuperador",
+        "description": "Seleciona documentos relevantes a uma consulta e aos filtros de acesso.",
+        "icon": "domain:retriever",
+        "tech": "Retrieval",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Reordenador",
+        "description": "Reavalia candidatos recuperados para melhorar a ordenação.",
+        "icon": "domain:reranker",
+        "tech": "Reranking",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Template de prompt",
+        "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "icon": "domain:prompt",
+        "tech": "Prompt assembly",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "Lexical",
+        "label": "Índice lexical BM25",
+        "description": "Recupera candidatos por termos e relevância lexical.",
+        "icon": "domain:retriever",
+        "tech": "BM25",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "label": "segmentos",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "label": "vetores",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "Lexical",
+        "label": "termos",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "label": "candidatos vetoriais",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Lexical",
+        "to": "D",
+        "label": "candidatos lexicais",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "label": "candidatos combinados",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "label": "contexto ordenado",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "label": "prompt",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "ai-graph-rag",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "GraphRAG com conhecimento",
+    "description": "Entidades e relações alimentam a recuperação em grafo; combine evidências recuperadas no prompt.",
+    "keywords": [
+      "Knowledge-grounded GraphRAG",
+      "graphrag",
+      "knowledge graph",
+      "entities",
+      "ai-ml",
+      "GraphRAG com conhecimento",
+      "Entidades e relações alimentam a recuperação em grafo; combine evidências recuperadas no prompt.",
+      "Entities and relationships support graph retrieval; combine retrieved evidence in the prompt.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Dataset versionado",
+        "description": "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+        "icon": "domain:feature-store",
+        "tech": "Dataset versioning",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Grafo de conhecimento",
+        "description": "Entidades e relações com semântica e proveniência definidas.",
+        "icon": "domain:graph-db",
+        "tech": "Entities · relations",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Recuperação em grafo",
+        "description": "Recupera entidades e relações relevantes para contextualizar o modelo.",
+        "icon": "domain:graph-db",
+        "tech": "GraphRAG",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Template de prompt",
+        "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "icon": "domain:prompt",
+        "tech": "Prompt assembly",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "connector": ">",
+        "label": "relações"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "C",
+        "connector": "-->",
+        "label": "feedback da recuperação"
+      }
+    ]
+  },
+  {
+    "id": "ai-model-serving",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Serving com roteamento de modelos",
+    "description": "Roteie pedidos para inferência ou cache e avalie latência e qualidade das respostas.",
+    "keywords": [
+      "Model serving and routing",
+      "vllm",
+      "serving",
+      "routing",
+      "cache",
+      "ai-ml",
+      "Serving com roteamento de modelos",
+      "Roteie pedidos para inferência ou cache e avalie latência e qualidade das respostas.",
+      "Route requests to inference or cache and evaluate response latency and quality.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Template de prompt",
+        "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "icon": "domain:prompt",
+        "tech": "Prompt assembly",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Roteador de modelos",
+        "description": "Seleciona um modelo segundo capacidade, orçamento e disponibilidade.",
+        "icon": "domain:model-router",
+        "tech": "Routing · fallback",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Servidor de inferência",
+        "description": "Serve previsões com limites de concorrência, latência e recursos.",
+        "icon": "domain:inference",
+        "tech": "Model serving",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Cache de respostas",
+        "description": "Reutiliza respostas sob regras de validade, isolamento e equivalência.",
+        "icon": "domain:vector-index",
+        "tech": "Semantic cache",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "F",
+        "connector": ">",
+        "label": "consulta ao cache"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "E",
+        "connector": ">",
+        "label": "resposta em cache"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "B",
+        "connector": "-->",
+        "label": "métricas"
+      }
+    ]
+  },
+  {
+    "id": "ai-fine-tuning",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Fine-tuning e promoção de modelos",
+    "description": "Dataset versionado, adaptação, avaliação em conjunto separado e promoção revisada do artefato.",
+    "keywords": [
+      "Fine-tuning and model promotion",
+      "lora",
+      "fine tuning",
+      "mlops",
+      "ai-ml",
+      "Fine-tuning e promoção de modelos",
+      "Dataset versionado, adaptação, avaliação em conjunto separado e promoção revisada do artefato.",
+      "Versioned dataset, adaptation, evaluation on a separate split, and reviewed artifact promotion.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Dataset versionado",
+        "description": "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+        "icon": "domain:feature-store",
+        "tech": "Dataset versioning",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Fine-tuning com adaptadores",
+        "description": "Adapta um modelo com parâmetros ou módulos selecionados.",
+        "icon": "domain:training",
+        "tech": "LoRA · adapters",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Rastreamento de experimentos",
+        "description": "Relaciona parâmetros, métricas e artefatos de execuções.",
+        "icon": "domain:evaluation",
+        "tech": "Experiment tracking",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Revisão humana",
+        "description": "Pede decisão humana antes de uma ação ou publicação sensível.",
+        "icon": "domain:evaluation",
+        "tech": "Human in the loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Registro de modelos",
+        "description": "Versiona modelos, métricas, artefatos e estados de promoção.",
+        "icon": "domain:feature-store",
+        "tech": "Model registry",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Servidor de inferência",
+        "description": "Serve previsões com limites de concorrência, latência e recursos.",
+        "icon": "domain:inference",
+        "tech": "Model serving",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">",
+        "label": "métricas"
+      }
+    ]
+  },
+  {
+    "id": "ai-evaluation-harness",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Harness de avaliação de IA",
+    "description": "Casos versionados exercitam modelos e guardrails; compare métricas e peça revisão antes de promover.",
+    "keywords": [
+      "AI evaluation harness",
+      "evals",
+      "evaluation",
+      "regression",
+      "ai-ml",
+      "Harness de avaliação de IA",
+      "Casos versionados exercitam modelos e guardrails; compare métricas e peça revisão antes de promover.",
+      "Versioned cases exercise models and guardrails; compare metrics and review before promotion.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Dataset versionado",
+        "description": "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+        "icon": "domain:feature-store",
+        "tech": "Dataset versioning",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Guardrail",
+        "description": "Valida entradas, saídas ou ações segundo regras explícitas.",
+        "icon": "domain:guardrail",
+        "tech": "Safety checks",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Revisão humana",
+        "description": "Pede decisão humana antes de uma ação ou publicação sensível.",
+        "icon": "domain:evaluation",
+        "tech": "Human in the loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Registro de modelos",
+        "description": "Versiona modelos, métricas, artefatos e estados de promoção.",
+        "icon": "domain:feature-store",
+        "tech": "Model registry",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "D",
+        "connector": ">",
+        "label": "resultados esperados"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "B",
+        "connector": "-->",
+        "label": "sinal de regressão"
+      }
+    ]
+  },
+  {
+    "id": "ai-feature-pipeline",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Pipeline de features para ML",
+    "description": "Transforme dados, valide atributos e separe consumo offline para treinamento e online para inferência.",
+    "keywords": [
+      "ML feature pipeline",
+      "feature store",
+      "training serving skew",
+      "mlops",
+      "ai-ml",
+      "Pipeline de features para ML",
+      "Transforme dados, valide atributos e separe consumo offline para treinamento e online para inferência.",
+      "Transform data, validate features and separate offline training from online inference consumption.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Dataset versionado",
+        "description": "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+        "icon": "domain:feature-store",
+        "tech": "Dataset versioning",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Transformação de dados",
+        "description": "Aplica regras de limpeza, junção e modelagem de dados.",
+        "icon": "domain:data-pipeline",
+        "tech": "ELT · transformations",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Validação de qualidade",
+        "description": "Verifica contratos, distribuição, completude e consistência.",
+        "icon": "domain:evaluation",
+        "tech": "Data validation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Feature store",
+        "description": "Organiza atributos para treinamento e inferência com regras de consistência.",
+        "icon": "domain:feature-store",
+        "tech": "Online · offline features",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Job de treinamento",
+        "description": "Ajusta parâmetros de um modelo com um conjunto de dados e objetivo.",
+        "icon": "domain:training",
+        "tech": "Model training",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Servidor de inferência",
+        "description": "Serve previsões com limites de concorrência, latência e recursos.",
+        "icon": "domain:inference",
+        "tech": "Model serving",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Monitor de drift",
+        "description": "Compara distribuições ou métricas em busca de mudanças relevantes.",
+        "icon": "domain:evaluation",
+        "tech": "Data · concept drift",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "F",
+        "connector": ">",
+        "label": "features online"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">",
+        "label": "modelo"
+      },
+      {
+        "op": "connect",
+        "from": "G",
+        "to": "B",
+        "connector": "-->",
+        "label": "sinal de drift"
+      }
+    ]
+  },
+  {
+    "id": "ai-multimodal",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Assistente multimodal",
+    "description": "Visão e fala produzem representações para o modelo; valide a resposta antes de retornar à aplicação.",
+    "keywords": [
+      "Multimodal assistant",
+      "multimodal",
+      "vision",
+      "speech",
+      "ai-ml",
+      "Assistente multimodal",
+      "Visão e fala produzem representações para o modelo; valide a resposta antes de retornar à aplicação.",
+      "Vision and speech produce representations for the model; validate output before returning it to the application.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Modelo de visão",
+        "description": "Extrai representações ou previsões de imagens.",
+        "icon": "domain:vision",
+        "tech": "Computer vision",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Reconhecimento de fala",
+        "description": "Converte sinais de áudio em texto ou representações temporais.",
+        "icon": "domain:speech",
+        "tech": "ASR",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Template de prompt",
+        "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "icon": "domain:prompt",
+        "tech": "Prompt assembly",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Modelo de linguagem",
+        "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "icon": "domain:llm",
+        "tech": "LLM",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Guardrail",
+        "description": "Valida entradas, saídas ou ações segundo regras explícitas.",
+        "icon": "domain:guardrail",
+        "tech": "Safety checks",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">",
+        "label": "contexto de imagem"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">",
+        "label": "transcrição"
+      }
+    ]
+  },
+  {
+    "id": "ai-multi-agent",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Coordenação de múltiplos agentes",
+    "description": "Roteador distribui tarefas; agentes usam ferramentas e memória com autorização e revisão explícitas.",
+    "keywords": [
+      "Multi-agent coordination",
+      "multi agent",
+      "orchestration",
+      "langgraph",
+      "ai-ml",
+      "Coordenação de múltiplos agentes",
+      "Roteador distribui tarefas; agentes usam ferramentas e memória com autorização e revisão explícitas.",
+      "A router distributes tasks; agents use tools and memory with explicit authorization and review.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Roteador de modelos",
+        "description": "Seleciona um modelo segundo capacidade, orçamento e disponibilidade.",
+        "icon": "domain:model-router",
+        "tech": "Routing · fallback",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Agente com ferramentas",
+        "description": "Coordena chamadas ao modelo e ferramentas dentro de limites definidos.",
+        "icon": "domain:agent",
+        "tech": "Agent loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Ferramenta do agente",
+        "description": "Operação com contrato de entrada, autorização e saída verificáveis.",
+        "icon": "domain:tool",
+        "tech": "Tool calling",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Memória do agente",
+        "description": "Guarda estado ou histórico recuperável com escopo e retenção definidos.",
+        "icon": "domain:feature-store",
+        "tech": "Scoped memory",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Revisão humana",
+        "description": "Pede decisão humana antes de uma ação ou publicação sensível.",
+        "icon": "domain:evaluation",
+        "tech": "Human in the loop",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "connector": ">",
+        "label": "ler memória"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "B",
+        "connector": "-->",
+        "label": "estado"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "B",
+        "connector": "-->",
+        "label": "aprovação"
+      }
+    ]
+  },
+  {
+    "id": "ai-local-inference",
+    "libraryId": "ai-ml",
+    "category": "IA e machine learning",
+    "title": "Inferência local com RAG",
+    "description": "Aplicação recupera contexto de um índice local e usa um servidor de modelos no próprio ambiente.",
+    "keywords": [
+      "Local inference with RAG",
+      "ollama",
+      "qdrant",
+      "local",
+      "rag",
+      "ai-ml",
+      "Inferência local com RAG",
+      "Aplicação recupera contexto de um índice local e usa um servidor de modelos no próprio ambiente.",
+      "An application retrieves context from a local index and uses a model server in its own environment.",
+      "IA e machine learning"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Segmentador de documentos",
+        "description": "Divide documentos preservando metadados e referências de origem.",
+        "icon": "domain:tokenizer",
+        "tech": "Chunking",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Modelo de embeddings",
+        "description": "Converte entradas em vetores para comparação e recuperação.",
+        "icon": "domain:embedding",
+        "tech": "Embeddings",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Qdrant",
+        "description": "Armazenamento e busca de vetores com filtros de metadados.",
+        "icon": "qdrant",
+        "tech": "Qdrant",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Recuperador",
+        "description": "Seleciona documentos relevantes a uma consulta e aos filtros de acesso.",
+        "icon": "domain:retriever",
+        "tech": "Retrieval",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Ollama",
+        "description": "Execução e exposição local de modelos compatíveis.",
+        "icon": "ollama",
+        "tech": "Ollama",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">",
+        "label": "contexto local"
+      }
+    ]
+  },
+  {
+    "id": "ds-binary-search-tree",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Árvore de busca binária",
+    "description": "Chaves menores à esquerda e maiores à direita; exemplo de busca pela chave 6.",
+    "keywords": [
+      "Binary search tree",
+      "bst",
+      "binary tree",
+      "search",
+      "data-structures",
+      "Árvore de busca binária",
+      "Chaves menores à esquerda e maiores à direita; exemplo de busca pela chave 6.",
+      "Smaller keys on the left and larger keys on the right; example search for key 6.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "Root": {
+        "x": 790.0,
+        "y": 0.0,
+        "w": 100,
+        "h": 100
+      },
+      "Left": {
+        "x": 430.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "Right": {
+        "x": 1150.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "L1": {
+        "x": 70.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "L6": {
+        "x": 790.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "L4": {
+        "x": 430.0,
+        "y": 570.0,
+        "w": 100,
+        "h": 100
+      },
+      "L7": {
+        "x": 1150.0,
+        "y": 570.0,
+        "w": 100,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "Root",
+        "label": "8",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Left",
+        "label": "3",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Right",
+        "label": "10",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "L1",
+        "label": "1",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "L6",
+        "label": "6",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "L4",
+        "label": "4",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "L7",
+        "label": "7",
+        "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "Root",
+        "to": "Left",
+        "connector": ">",
+        "label": "< 8"
+      },
+      {
+        "op": "connect",
+        "from": "Root",
+        "to": "Right",
+        "connector": ">",
+        "label": "> 8"
+      },
+      {
+        "op": "connect",
+        "from": "Left",
+        "to": "L1",
+        "connector": ">",
+        "label": "< 3"
+      },
+      {
+        "op": "connect",
+        "from": "Left",
+        "to": "L6",
+        "connector": ">",
+        "label": "> 3"
+      },
+      {
+        "op": "connect",
+        "from": "L6",
+        "to": "L4",
+        "connector": ">",
+        "label": "< 6"
+      },
+      {
+        "op": "connect",
+        "from": "L6",
+        "to": "L7",
+        "connector": ">",
+        "label": "> 6"
+      }
+    ]
+  },
+  {
+    "id": "ds-min-heap",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Heap mínimo e prioridade",
+    "description": "Cada pai tem prioridade menor ou igual à de seus filhos; não confunda com a ordenação de uma BST.",
+    "keywords": [
+      "Min-heap and priority queue",
+      "heap",
+      "priority queue",
+      "minimum",
+      "data-structures",
+      "Heap mínimo e prioridade",
+      "Cada pai tem prioridade menor ou igual à de seus filhos; não confunda com a ordenação de uma BST.",
+      "Each parent has priority no greater than its children; this is not BST ordering.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "R": {
+        "x": 790.0,
+        "y": 0.0,
+        "w": 100,
+        "h": 100
+      },
+      "A": {
+        "x": 430.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "B": {
+        "x": 1150.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "C": {
+        "x": 70.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "D": {
+        "x": 430.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "E": {
+        "x": 1150.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "F": {
+        "x": 1510.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "R",
+        "label": "1",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "3",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "2",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "7",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "5",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "4",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "6",
+        "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "R",
+        "to": "A",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "R",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "F",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "ds-trie-prefix",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Trie para busca por prefixo",
+    "description": "Prefixos compartilhados formam as palavras car, cat e dog; os nós finais marcam palavras completas.",
+    "keywords": [
+      "Trie for prefix search",
+      "trie",
+      "autocomplete",
+      "prefix",
+      "data-structures",
+      "Trie para busca por prefixo",
+      "Prefixos compartilhados formam as palavras car, cat e dog; os nós finais marcam palavras completas.",
+      "Shared prefixes form car, cat and dog; terminal nodes mark complete words.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "root": {
+        "x": 790.0,
+        "y": 0.0,
+        "w": 100,
+        "h": 100
+      },
+      "c": {
+        "x": 430.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "d": {
+        "x": 1150.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "ca": {
+        "x": 430.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "do": {
+        "x": 1150.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "car": {
+        "x": 70.0,
+        "y": 570.0,
+        "w": 100,
+        "h": 100
+      },
+      "cat": {
+        "x": 790.0,
+        "y": 570.0,
+        "w": 100,
+        "h": 100
+      },
+      "dog": {
+        "x": 1150.0,
+        "y": 570.0,
+        "w": 100,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "root",
+        "label": "Raiz",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "c",
+        "label": "c",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "d",
+        "label": "d",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "ca",
+        "label": "ca",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "do",
+        "label": "do",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "car",
+        "label": "car · fim",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "cat",
+        "label": "cat · fim",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "dog",
+        "label": "dog · fim",
+        "description": "Compartilha prefixos para indexar sequências de símbolos.",
+        "color": "orange",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "root",
+        "to": "c",
+        "connector": ">",
+        "label": "c"
+      },
+      {
+        "op": "connect",
+        "from": "root",
+        "to": "d",
+        "connector": ">",
+        "label": "d"
+      },
+      {
+        "op": "connect",
+        "from": "c",
+        "to": "ca",
+        "connector": ">",
+        "label": "a"
+      },
+      {
+        "op": "connect",
+        "from": "d",
+        "to": "do",
+        "connector": ">",
+        "label": "o"
+      },
+      {
+        "op": "connect",
+        "from": "ca",
+        "to": "car",
+        "connector": ">",
+        "label": "r"
+      },
+      {
+        "op": "connect",
+        "from": "ca",
+        "to": "cat",
+        "connector": ">",
+        "label": "t"
+      },
+      {
+        "op": "connect",
+        "from": "do",
+        "to": "dog",
+        "connector": ">",
+        "label": "g"
+      }
+    ]
+  },
+  {
+    "id": "ds-hash-collisions",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Tabela hash com colisões",
+    "description": "Duas chaves atingem o mesmo bucket e são mantidas em uma cadeia; outra chave vai para um bucket distinto.",
+    "keywords": [
+      "Hash table collision handling",
+      "hash map",
+      "collision",
+      "buckets",
+      "data-structures",
+      "Tabela hash com colisões",
+      "Duas chaves atingem o mesmo bucket e são mantidas em uma cadeia; outra chave vai para um bucket distinto.",
+      "Two keys reach one bucket and are stored in a chain; another key maps to a different bucket.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "KeyA": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "KeyB": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Hash": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Bucket0": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Bucket1": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "EntryA": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "EntryB": {
+        "x": 1440,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "KeyA",
+        "label": "Chave A",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "KeyB",
+        "label": "Chave B",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "Hash",
+        "label": "Tabela hash",
+        "description": "Mapeia chaves a buckets usando uma função hash e tratamento de colisões.",
+        "icon": "domain:hash-table",
+        "tech": "Hash map",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "Bucket0",
+        "label": "Bucket 0",
+        "description": "Posição ou grupo de entradas que compartilham um índice hash.",
+        "icon": "domain:hash-table",
+        "tech": "Collision bucket",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "Bucket1",
+        "label": "Bucket 1",
+        "description": "Posição ou grupo de entradas que compartilham um índice hash.",
+        "icon": "domain:hash-table",
+        "tech": "Collision bucket",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "EntryA",
+        "label": "Entrada A",
+        "description": "Elementos ligados por referências ao próximo nó.",
+        "icon": "domain:linked-list",
+        "tech": "Linked nodes",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "EntryB",
+        "label": "Entrada B",
+        "description": "Elementos ligados por referências ao próximo nó.",
+        "icon": "domain:linked-list",
+        "tech": "Linked nodes",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "KeyA",
+        "to": "Hash",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "KeyB",
+        "to": "Hash",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Hash",
+        "to": "Bucket0",
+        "connector": ">",
+        "label": "h(key) = 0"
+      },
+      {
+        "op": "connect",
+        "from": "Hash",
+        "to": "Bucket1",
+        "connector": ">",
+        "label": "h(key) = 1"
+      },
+      {
+        "op": "connect",
+        "from": "Bucket0",
+        "to": "EntryA",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "EntryA",
+        "to": "EntryB",
+        "connector": ">",
+        "label": "colisão"
+      }
+    ]
+  },
+  {
+    "id": "ds-lru-cache",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Cache LRU com mapa e lista",
+    "description": "Mapa localiza entradas e uma lista duplamente encadeada mantém a ordem de recência.",
+    "keywords": [
+      "LRU cache with map and list",
+      "lru",
+      "cache",
+      "recency",
+      "data-structures",
+      "Cache LRU com mapa e lista",
+      "Mapa localiza entradas e uma lista duplamente encadeada mantém a ordem de recência.",
+      "A map locates entries and a doubly linked list maintains recency order.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Mapa de entradas",
+        "description": "Localiza uma entrada por sua chave.",
+        "icon": "domain:hash-table",
+        "tech": "Hash map",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Entrada mais recente",
+        "description": "Cabeça da lista de recência.",
+        "icon": "domain:linked-list",
+        "tech": "MRU",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Entrada intermediária",
+        "description": "Mantém referências anterior e próxima na lista.",
+        "icon": "domain:linked-list",
+        "tech": "Doubly linked entry",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Entrada menos recente",
+        "description": "Cauda da lista e primeira candidata à remoção por capacidade.",
+        "icon": "domain:linked-list",
+        "tech": "LRU",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Pedido de leitura",
+        "description": "Consulta a chave e promove a entrada encontrada para a cabeça.",
+        "icon": "domain:retriever",
+        "tech": "Lookup",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "A",
+        "label": "consulta por chave",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "label": "referência da entrada",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "label": "próximo / anterior",
+        "connector": "<>"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "label": "próximo / anterior",
+        "connector": "<>"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "B",
+        "label": "promover após acesso",
+        "connector": "-->"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "A",
+        "label": "remover referência",
+        "connector": "-->"
+      }
+    ]
+  },
+  {
+    "id": "ds-producer-consumer",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Buffer circular produtor-consumidor",
+    "description": "Produtor publica posições disponíveis; consumidor avança o índice de leitura com política explícita para buffer cheio.",
+    "keywords": [
+      "Producer–consumer ring buffer",
+      "ring buffer",
+      "fifo",
+      "backpressure",
+      "data-structures",
+      "Buffer circular produtor-consumidor",
+      "Produtor publica posições disponíveis; consumidor avança o índice de leitura com política explícita para buffer cheio.",
+      "A producer publishes available slots; a consumer advances the read index under an explicit full-buffer policy.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Produtor",
+        "description": "Produz entradas e respeita a capacidade disponível do buffer.",
+        "icon": "domain:data-stream",
+        "tech": "Producer",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Buffer circular",
+        "description": "Reutiliza posições de um array com índices de leitura e escrita.",
+        "icon": "domain:ring-buffer",
+        "tech": "Circular buffer",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Índice de escrita",
+        "description": "Indica a próxima posição disponível para escrita.",
+        "icon": "domain:array",
+        "tech": "Write cursor",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Consumidor",
+        "description": "Lê entradas publicadas e libera capacidade após o consumo.",
+        "icon": "domain:data-stream",
+        "tech": "Consumer",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Índice de leitura",
+        "description": "Indica a próxima posição que pode ser consumida.",
+        "icon": "domain:array",
+        "tech": "Read cursor",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "label": "escrever",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "label": "ler",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "B",
+        "label": "índice de escrita",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "label": "avançar",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "B",
+        "label": "capacidade disponível",
+        "connector": "-->"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "A",
+        "label": "contrapressão",
+        "connector": "-->"
+      }
+    ]
+  },
+  {
+    "id": "ds-segment-tree",
+    "libraryId": "data-structures",
+    "category": "Estruturas de dados",
+    "title": "Árvore de segmentos para somas",
+    "description": "Intervalos agregam os valores [2, 1, 3, 4]; a raiz contém a soma total 10.",
+    "keywords": [
+      "Range-sum segment tree",
+      "range query",
+      "segment tree",
+      "sum",
+      "data-structures",
+      "Árvore de segmentos para somas",
+      "Intervalos agregam os valores [2, 1, 3, 4]; a raiz contém a soma total 10.",
+      "Intervals aggregate [2, 1, 3, 4]; the root holds the total sum 10.",
+      "Estruturas de dados"
+    ],
+    "positions": {
+      "R": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "A": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 1080,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 0,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 360,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 1080,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 1440,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "R",
+        "label": "[0..3] = 10",
+        "description": "Resume intervalos para consultas e atualizações de faixas.",
+        "icon": "domain:segment-tree",
+        "tech": "Range queries",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "[0..1] = 3",
+        "description": "Resume intervalos para consultas e atualizações de faixas.",
+        "icon": "domain:segment-tree",
+        "tech": "Range queries",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "[2..3] = 7",
+        "description": "Resume intervalos para consultas e atualizações de faixas.",
+        "icon": "domain:segment-tree",
+        "tech": "Range queries",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "[0] = 2",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "[1] = 1",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "[2] = 3",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "[3] = 4",
+        "description": "Elementos endereçados por índice em uma organização sequencial.",
+        "icon": "domain:array",
+        "tech": "Indexed sequence",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "R",
+        "to": "A",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "R",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "F",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "graph-bfs",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "Busca em largura: camadas",
+    "description": "O grafo não ponderado forma camadas a partir de A; use uma fila FIFO para visitar os vizinhos.",
+    "keywords": [
+      "Breadth-first search layers",
+      "bfs",
+      "breadth first",
+      "graph traversal",
+      "graphs",
+      "Busca em largura: camadas",
+      "O grafo não ponderado forma camadas a partir de A; use uma fila FIFO para visitar os vizinhos.",
+      "This unweighted graph forms layers from A; use a FIFO queue to visit neighbors.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "A": {
+        "x": 48.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      },
+      "B": {
+        "x": 408.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "C": {
+        "x": 408.0,
+        "y": 358.0,
+        "w": 144,
+        "h": 144
+      },
+      "D": {
+        "x": 768.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "E": {
+        "x": 768.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      },
+      "F": {
+        "x": 768.0,
+        "y": 358.0,
+        "w": 144,
+        "h": 144
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "A · início",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "B · camada 1",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "C · camada 1",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "D · camada 2",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "E · camada 2",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "F · camada 2",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "E",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "F",
+        "connector": "-"
+      }
+    ]
+  },
+  {
+    "id": "graph-dijkstra",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "Caminho mínimo ponderado",
+    "description": "Pesos não negativos: de A a E, o caminho A → C → B → D → E tem custo 6.",
+    "keywords": [
+      "Weighted shortest path",
+      "dijkstra",
+      "shortest path",
+      "non negative",
+      "graphs",
+      "Caminho mínimo ponderado",
+      "Pesos não negativos: de A a E, o caminho A → C → B → D → E tem custo 6.",
+      "Non-negative weights: from A to E, path A → C → B → D → E has cost 6.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "A": {
+        "x": 70.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "B": {
+        "x": 430.0,
+        "y": 0.0,
+        "w": 100,
+        "h": 100
+      },
+      "C": {
+        "x": 430.0,
+        "y": 380.0,
+        "w": 100,
+        "h": 100
+      },
+      "D": {
+        "x": 790.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      },
+      "E": {
+        "x": 1150.0,
+        "y": 190.0,
+        "w": 100,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "A",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "B",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "C",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "D",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "E",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">",
+        "label": "4"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">",
+        "label": "1"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "B",
+        "connector": ">",
+        "label": "2"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "D",
+        "connector": ">",
+        "label": "1"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">",
+        "label": "5"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">",
+        "label": "2"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "E",
+        "connector": ">",
+        "label": "7"
+      }
+    ]
+  },
+  {
+    "id": "graph-dependency-dag",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "DAG de dependências de build",
+    "description": "Dependências sem ciclos permitem execução por ordenação topológica e paralelismo entre etapas independentes.",
+    "keywords": [
+      "Build dependency DAG",
+      "dag",
+      "topological sort",
+      "dependencies",
+      "graphs",
+      "DAG de dependências de build",
+      "Dependências sem ciclos permitem execução por ordenação topológica e paralelismo entre etapas independentes.",
+      "Acyclic dependencies allow topological execution and parallel independent stages.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "Source": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Lint": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "Types": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Build": {
+        "x": 360,
+        "y": 380,
+        "w": 240,
+        "h": 100
+      },
+      "Tests": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "Package": {
+        "x": 1080,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "Source",
+        "label": "Código fonte",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Lint",
+        "label": "Lint",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Types",
+        "label": "Tipos",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Build",
+        "label": "Build",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Tests",
+        "label": "Testes",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "Package",
+        "label": "Pacote",
+        "description": "Dependências dirigidas sem ciclos.",
+        "icon": "domain:dag",
+        "tech": "DAG",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "Source",
+        "to": "Lint",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Source",
+        "to": "Types",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Source",
+        "to": "Build",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Build",
+        "to": "Tests",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Lint",
+        "to": "Package",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Types",
+        "to": "Package",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "Tests",
+        "to": "Package",
+        "connector": ">"
+      }
+    ]
+  },
+  {
+    "id": "graph-bipartite-matching",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "Grafo bipartido de atribuições",
+    "description": "Pessoas e tarefas são conjuntos distintos; arestas indicam compatibilidade, sem resolver o matching automaticamente.",
+    "keywords": [
+      "Bipartite assignment graph",
+      "bipartite",
+      "matching",
+      "assignment",
+      "graphs",
+      "Grafo bipartido de atribuições",
+      "Pessoas e tarefas são conjuntos distintos; arestas indicam compatibilidade, sem resolver o matching automaticamente.",
+      "People and tasks are distinct sets; edges indicate compatibility without automatically solving the matching.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "Alice": {
+        "x": 48.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "Bob": {
+        "x": 48.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      },
+      "Carol": {
+        "x": 48.0,
+        "y": 358.0,
+        "w": 144,
+        "h": 144
+      },
+      "T1": {
+        "x": 768.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "T2": {
+        "x": 768.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      },
+      "T3": {
+        "x": 768.0,
+        "y": 358.0,
+        "w": 144,
+        "h": 144
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "Alice",
+        "label": "Alice",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Bob",
+        "label": "Bob",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Carol",
+        "label": "Carol",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "T1",
+        "label": "Tarefa 1",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "T2",
+        "label": "Tarefa 2",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "T3",
+        "label": "Tarefa 3",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "Alice",
+        "to": "T1",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "Alice",
+        "to": "T2",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "Bob",
+        "to": "T2",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "Bob",
+        "to": "T3",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "Carol",
+        "to": "T1",
+        "connector": "-"
+      },
+      {
+        "op": "connect",
+        "from": "Carol",
+        "to": "T3",
+        "connector": "-"
+      }
+    ]
+  },
+  {
+    "id": "graph-knowledge-model",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "Grafo de conhecimento com proveniência",
+    "description": "Pessoas, organizações e documentos conectados por relações explícitas e fontes; adapte a ontologia ao domínio.",
+    "keywords": [
+      "Knowledge graph with provenance",
+      "knowledge graph",
+      "ontology",
+      "provenance",
+      "graphs",
+      "Grafo de conhecimento com proveniência",
+      "Pessoas, organizações e documentos conectados por relações explícitas e fontes; adapte a ontologia ao domínio.",
+      "People, organizations and documents connected through explicit relationships and sources; adapt the ontology to your domain.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "Person": {
+        "x": 48.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "Org": {
+        "x": 408.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "Project": {
+        "x": 768.0,
+        "y": -22.0,
+        "w": 144,
+        "h": 144
+      },
+      "Doc": {
+        "x": 408.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      },
+      "Source": {
+        "x": 768.0,
+        "y": 168.0,
+        "w": 144,
+        "h": 144
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "Person",
+        "label": "Pessoa",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Org",
+        "label": "Organização",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Project",
+        "label": "Projeto",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Doc",
+        "label": "Documento",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "add_node",
+        "id": "Source",
+        "label": "Fonte",
+        "description": "Entidade identificável dentro de um grafo.",
+        "color": "purple",
+        "shape": "circle"
+      },
+      {
+        "op": "connect",
+        "from": "Person",
+        "to": "Org",
+        "connector": ">",
+        "label": "MEMBER_OF"
+      },
+      {
+        "op": "connect",
+        "from": "Org",
+        "to": "Project",
+        "connector": ">",
+        "label": "OWNS"
+      },
+      {
+        "op": "connect",
+        "from": "Person",
+        "to": "Doc",
+        "connector": ">",
+        "label": "AUTHORED"
+      },
+      {
+        "op": "connect",
+        "from": "Doc",
+        "to": "Project",
+        "connector": ">",
+        "label": "DESCRIBES"
+      },
+      {
+        "op": "connect",
+        "from": "Doc",
+        "to": "Source",
+        "connector": ">",
+        "label": "DERIVED_FROM"
+      }
+    ]
+  },
+  {
+    "id": "graph-gnn-training",
+    "libraryId": "graphs",
+    "category": "Grafos e algoritmos",
+    "title": "Treinamento de rede neural em grafo",
+    "description": "Grafo e atributos alimentam amostragem, propagação de mensagens e avaliação com divisão de dados explícita.",
+    "keywords": [
+      "Graph neural network training",
+      "gnn",
+      "message passing",
+      "graph learning",
+      "graphs",
+      "Treinamento de rede neural em grafo",
+      "Grafo e atributos alimentam amostragem, propagação de mensagens e avaliação com divisão de dados explícita.",
+      "Graph and features feed sampling, message passing and evaluation with an explicit data split.",
+      "Grafos e algoritmos"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Banco de grafos",
+        "description": "Persiste e consulta entidades e relacionamentos.",
+        "icon": "domain:graph-db",
+        "tech": "Property graph · RDF",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Feature store",
+        "description": "Organiza atributos para treinamento e inferência com regras de consistência.",
+        "icon": "domain:feature-store",
+        "tech": "Online · offline features",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Rede neural em grafo",
+        "description": "Aprende representações usando atributos e estrutura de vizinhança.",
+        "icon": "domain:directed-graph",
+        "tech": "GNN · message passing",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Job de treinamento",
+        "description": "Ajusta parâmetros de um modelo com um conjunto de dados e objetivo.",
+        "icon": "domain:training",
+        "tech": "Model training",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Avaliação de modelos",
+        "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "icon": "domain:evaluation",
+        "tech": "Evaluation",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Registro de modelos",
+        "description": "Versiona modelos, métricas, artefatos e estados de promoção.",
+        "icon": "domain:feature-store",
+        "tech": "Model registry",
+        "presentation": "card",
+        "color": "purple"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">",
+        "label": "vizinhanças"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "D",
+        "connector": "-->",
+        "label": "métricas"
+      }
+    ]
+  },
+  {
+    "id": "data-cdc-lakehouse",
+    "libraryId": "data-platforms",
+    "category": "Plataformas de dados",
+    "title": "CDC para lakehouse",
+    "description": "Mudanças são capturadas, validadas e materializadas em tabelas analíticas com checkpoints e catálogo.",
+    "keywords": [
+      "CDC to lakehouse",
+      "cdc",
+      "lakehouse",
+      "streaming",
+      "data-platforms",
+      "CDC para lakehouse",
+      "Mudanças são capturadas, validadas e materializadas em tabelas analíticas com checkpoints e catálogo.",
+      "Changes are captured, validated and materialized into analytical tables with checkpoints and catalog metadata.",
+      "Plataformas de dados"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Captura de mudanças",
+        "description": "Propaga mudanças de uma fonte preservando posição e ordem aplicáveis.",
+        "icon": "domain:cdc",
+        "tech": "CDC",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Registro de schemas",
+        "description": "Versiona contratos de eventos e regras de compatibilidade.",
+        "icon": "domain:warehouse",
+        "tech": "Schema evolution",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Processador de streaming",
+        "description": "Transforma eventos com estado, janelas e regras de tempo.",
+        "icon": "domain:data-stream",
+        "tech": "Event time · windows",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Validação de qualidade",
+        "description": "Verifica contratos, distribuição, completude e consistência.",
+        "icon": "domain:evaluation",
+        "tech": "Data validation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Lakehouse",
+        "description": "Combina tabelas em arquivos com transações e metadados de catálogo.",
+        "icon": "domain:data-lake",
+        "tech": "Transactional tables",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Catálogo de dados",
+        "description": "Registra descoberta, propriedade, esquema e proveniência dos datasets.",
+        "icon": "domain:warehouse",
+        "tech": "Data governance",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Camada semântica BI",
+        "description": "Publica medidas e dimensões consistentes para análise.",
+        "icon": "domain:warehouse",
+        "tech": "Metrics · dimensions",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "connector": ">",
+        "label": "mudanças validadas"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">",
+        "label": "metadados"
+      }
+    ]
+  },
+  {
+    "id": "data-outbox",
+    "libraryId": "data-platforms",
+    "category": "Plataformas de dados",
+    "title": "Outbox transacional e projeções",
+    "description": "Estado de negócio e evento são gravados juntos; CDC entrega eventos a uma projeção com deduplicação.",
+    "keywords": [
+      "Transactional outbox and projections",
+      "outbox",
+      "cdc",
+      "deduplication",
+      "data-platforms",
+      "Outbox transacional e projeções",
+      "Estado de negócio e evento são gravados juntos; CDC entrega eventos a uma projeção com deduplicação.",
+      "Business state and event are written together; CDC delivers events to a deduplicating projection.",
+      "Plataformas de dados"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Outbox transacional",
+        "description": "Grava eventos e estado de negócio na mesma transação local.",
+        "icon": "domain:cdc",
+        "tech": "Outbox pattern",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Captura de mudanças",
+        "description": "Propaga mudanças de uma fonte preservando posição e ordem aplicáveis.",
+        "icon": "domain:cdc",
+        "tech": "CDC",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Processador de streaming",
+        "description": "Transforma eventos com estado, janelas e regras de tempo.",
+        "icon": "domain:data-stream",
+        "tech": "Event time · windows",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Data warehouse",
+        "description": "Organiza dados analíticos para consultas e agregações.",
+        "icon": "domain:warehouse",
+        "tech": "Analytics",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Validação de qualidade",
+        "description": "Verifica contratos, distribuição, completude e consistência.",
+        "icon": "domain:evaluation",
+        "tech": "Data validation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Fila de quarentena",
+        "description": "Isola eventos inválidos para inspeção e reprocessamento.",
+        "icon": "domain:data-stream",
+        "tech": "Dead-letter queue",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "F",
+        "connector": "-->",
+        "label": "eventos inválidos"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "C",
+        "connector": "-->",
+        "label": "reprocessar"
+      }
+    ]
+  },
+  {
+    "id": "data-governed-pipeline",
+    "libraryId": "data-platforms",
+    "category": "Plataformas de dados",
+    "title": "Pipeline com qualidade e linhagem",
+    "description": "Ingestão e transformação produzem tabelas com testes, catálogo e rastreabilidade de origem.",
+    "keywords": [
+      "Data quality and lineage pipeline",
+      "data quality",
+      "lineage",
+      "governance",
+      "data-platforms",
+      "Pipeline com qualidade e linhagem",
+      "Ingestão e transformação produzem tabelas com testes, catálogo e rastreabilidade de origem.",
+      "Ingestion and transformation produce tables with tests, catalog metadata and source traceability.",
+      "Plataformas de dados"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Data lake",
+        "description": "Armazena conjuntos de dados em arquivos e formatos definidos.",
+        "icon": "domain:data-lake",
+        "tech": "Object storage",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Orquestrador de dados",
+        "description": "Coordena dependências, tentativas e agendamento de pipelines.",
+        "icon": "domain:data-pipeline",
+        "tech": "Pipeline orchestration",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Transformação de dados",
+        "description": "Aplica regras de limpeza, junção e modelagem de dados.",
+        "icon": "domain:data-pipeline",
+        "tech": "ELT · transformations",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Validação de qualidade",
+        "description": "Verifica contratos, distribuição, completude e consistência.",
+        "icon": "domain:evaluation",
+        "tech": "Data validation",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Data warehouse",
+        "description": "Organiza dados analíticos para consultas e agregações.",
+        "icon": "domain:warehouse",
+        "tech": "Analytics",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Linhagem de dados",
+        "description": "Relaciona fontes, transformações e destinos de dados.",
+        "icon": "domain:data-pipeline",
+        "tech": "Lineage",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Catálogo de dados",
+        "description": "Registra descoberta, propriedade, esquema e proveniência dos datasets.",
+        "icon": "domain:warehouse",
+        "tech": "Data governance",
+        "presentation": "card",
+        "color": "blue"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "F",
+        "connector": ">",
+        "label": "linhagem da transformação"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">",
+        "label": "proveniência"
+      }
+    ]
+  },
+  {
+    "id": "security-zero-trust",
+    "libraryId": "security",
+    "category": "Segurança e identidade",
+    "title": "Acesso com políticas e identidade",
+    "description": "Identidade e contexto alimentam a decisão; o ponto de aplicação protege o recurso e registra auditoria.",
+    "keywords": [
+      "Identity-aware policy access",
+      "zero trust",
+      "authorization",
+      "identity",
+      "security",
+      "Acesso com políticas e identidade",
+      "Identidade e contexto alimentam a decisão; o ponto de aplicação protege o recurso e registra auditoria.",
+      "Identity and context inform a decision; the enforcement point protects the resource and records an audit trail.",
+      "Segurança e identidade"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Provedor de identidade",
+        "description": "Autentica sujeitos e emite afirmações verificáveis.",
+        "icon": "domain:identity",
+        "tech": "OIDC · SAML",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Motor de políticas",
+        "description": "Decide acesso a partir de identidade, recurso e contexto.",
+        "icon": "domain:policy",
+        "tech": "Authorization",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Ponto de aplicação de políticas",
+        "description": "Aplica decisões de acesso na fronteira do recurso.",
+        "icon": "domain:zero-trust",
+        "tech": "Zero trust",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Cofre de segredos",
+        "description": "Guarda segredos com autorização, auditoria e ciclo de vida.",
+        "icon": "domain:secret",
+        "tech": "Secret management",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Trilha de auditoria",
+        "description": "Registra ações com identidade, recurso, tempo e resultado.",
+        "icon": "domain:policy",
+        "tech": "Audit log",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "C",
+        "connector": ">",
+        "label": "identidade"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "connector": ">",
+        "label": "registro da decisão"
+      }
+    ]
+  },
+  {
+    "id": "security-artifact-signing",
+    "libraryId": "security",
+    "category": "Segurança e identidade",
+    "title": "Assinatura e verificação de artefatos",
+    "description": "Chave protegida assina artefatos; verificação de assinatura e proveniência precede a liberação.",
+    "keywords": [
+      "Artifact signing and verification",
+      "supply chain",
+      "signing",
+      "provenance",
+      "security",
+      "Assinatura e verificação de artefatos",
+      "Chave protegida assina artefatos; verificação de assinatura e proveniência precede a liberação.",
+      "A protected key signs artifacts; signature and provenance verification precede release.",
+      "Segurança e identidade"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Gerenciamento de chaves",
+        "description": "Controla geração, rotação e uso de chaves criptográficas.",
+        "icon": "domain:kms",
+        "tech": "KMS",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Serviço de assinatura",
+        "description": "Assina artefatos ou mensagens com controle de acesso à chave.",
+        "icon": "domain:kms",
+        "tech": "Digital signatures",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Verificador de artefatos",
+        "description": "Confere integridade, assinatura e proveniência de artefatos.",
+        "icon": "domain:policy",
+        "tech": "Software supply chain",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Verificação de atestação",
+        "description": "Confere evidências de estado ou identidade de um ambiente.",
+        "icon": "domain:policy",
+        "tech": "Attestation",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Trilha de auditoria",
+        "description": "Registra ações com identidade, recurso, tempo e resultado.",
+        "icon": "domain:policy",
+        "tech": "Audit log",
+        "presentation": "card",
+        "color": "green"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "connector": ">",
+        "label": "resultado da verificação"
+      }
+    ]
+  },
+  {
+    "id": "edge-iot-telemetry",
+    "libraryId": "edge",
+    "category": "Edge, IoT e robótica",
+    "title": "Telemetria IoT do sensor ao lakehouse",
+    "description": "Sensores enviam eventos por gateway e MQTT; processamento alimenta o gêmeo digital e análise.",
+    "keywords": [
+      "IoT telemetry from sensor to lakehouse",
+      "iot",
+      "mqtt",
+      "telemetry",
+      "digital twin",
+      "edge",
+      "Telemetria IoT do sensor ao lakehouse",
+      "Sensores enviam eventos por gateway e MQTT; processamento alimenta o gêmeo digital e análise.",
+      "Sensors send events through a gateway and MQTT; processing feeds a digital twin and analytics.",
+      "Edge, IoT e robótica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "G": {
+        "x": 720,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Sensor",
+        "description": "Produz medições com unidade, tempo e identidade do dispositivo.",
+        "icon": "domain:sensor",
+        "tech": "Telemetry",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Gateway edge",
+        "description": "Agrega dispositivos e adapta protocolos perto da origem.",
+        "icon": "domain:edge-gateway",
+        "tech": "Protocol gateway",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Broker MQTT",
+        "description": "Roteia publicações e assinaturas por tópicos e políticas de acesso.",
+        "icon": "domain:edge-gateway",
+        "tech": "MQTT",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Coletor de telemetria",
+        "description": "Recebe, valida e encaminha amostras e eventos de dispositivos.",
+        "icon": "domain:sensor",
+        "tech": "Device telemetry",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Processador de streaming",
+        "description": "Transforma eventos com estado, janelas e regras de tempo.",
+        "icon": "domain:data-stream",
+        "tech": "Event time · windows",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Gêmeo digital",
+        "description": "Mantém uma representação de um ativo e seu estado observado.",
+        "icon": "domain:digital-twin",
+        "tech": "Digital twin",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "G",
+        "label": "Lakehouse",
+        "description": "Combina tabelas em arquivos com transações e metadados de catálogo.",
+        "icon": "domain:data-lake",
+        "tech": "Transactional tables",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "G",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "G",
+        "connector": ">",
+        "label": "histórico de dados"
+      },
+      {
+        "op": "connect",
+        "from": "F",
+        "to": "B",
+        "connector": "-->",
+        "label": "estado do dispositivo"
+      }
+    ]
+  },
+  {
+    "id": "edge-robotics-loop",
+    "libraryId": "edge",
+    "category": "Edge, IoT e robótica",
+    "title": "Percepção e atuação robótica",
+    "description": "Sensor, inferência e controlador produzem comandos para o atuador; segurança e latência dependem do sistema físico.",
+    "keywords": [
+      "Robotics perception–action loop",
+      "robotics",
+      "ros2",
+      "edge ai",
+      "perception",
+      "edge",
+      "Percepção e atuação robótica",
+      "Sensor, inferência e controlador produzem comandos para o atuador; segurança e latência dependem do sistema físico.",
+      "Sensors, inference and control produce actuator commands; safety and latency depend on the physical system.",
+      "Edge, IoT e robótica"
+    ],
+    "positions": {
+      "A": {
+        "x": 0,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "B": {
+        "x": 360,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "C": {
+        "x": 720,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "D": {
+        "x": 1080,
+        "y": 0,
+        "w": 240,
+        "h": 100
+      },
+      "E": {
+        "x": 0,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      },
+      "F": {
+        "x": 360,
+        "y": 190,
+        "w": 240,
+        "h": 100
+      }
+    },
+    "ops": [
+      {
+        "op": "set_style",
+        "set": {
+          "direction": "right",
+          "styleMode": "plain",
+          "typeface": "clean"
+        }
+      },
+      {
+        "op": "add_node",
+        "id": "A",
+        "label": "Sensor",
+        "description": "Produz medições com unidade, tempo e identidade do dispositivo.",
+        "icon": "domain:sensor",
+        "tech": "Telemetry",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "B",
+        "label": "Inferência no dispositivo",
+        "description": "Executa um modelo perto do sensor com orçamento de recursos.",
+        "icon": "domain:inference",
+        "tech": "Edge AI",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "C",
+        "label": "Controlador robótico",
+        "description": "Coordena percepção e atuação; limites temporais dependem do sistema.",
+        "icon": "domain:robot",
+        "tech": "Robotics",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "D",
+        "label": "Atuador",
+        "description": "Aplica comandos ao ambiente físico sob limites de segurança.",
+        "icon": "domain:robot",
+        "tech": "Actuation",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "E",
+        "label": "Coletor de telemetria",
+        "description": "Recebe, valida e encaminha amostras e eventos de dispositivos.",
+        "icon": "domain:sensor",
+        "tech": "Device telemetry",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "add_node",
+        "id": "F",
+        "label": "Gêmeo digital",
+        "description": "Mantém uma representação de um ativo e seu estado observado.",
+        "icon": "domain:digital-twin",
+        "tech": "Digital twin",
+        "presentation": "card",
+        "color": "orange"
+      },
+      {
+        "op": "connect",
+        "from": "A",
+        "to": "B",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "B",
+        "to": "C",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "D",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "E",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "E",
+        "to": "F",
+        "connector": ">"
+      },
+      {
+        "op": "connect",
+        "from": "D",
+        "to": "A",
+        "connector": "-->",
+        "label": "realimentação do ambiente"
+      },
+      {
+        "op": "connect",
+        "from": "C",
+        "to": "E",
+        "connector": ">",
+        "label": "telemetria do controle"
+      }
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+# Require maintainer review for CI and publication/security boundaries.
+/.github/ @MarcoPeixot
+/scripts/check-publication.py @MarcoPeixot
+/scripts/test_publication.py @MarcoPeixot
+/.gitleaks* @MarcoPeixot
+/.gitignore @MarcoPeixot
+/.dockerignore @MarcoPeixot
+/LICENSE @MarcoPeixot
+/TRADEMARKS.md @MarcoPeixot
+/SECURITY.md @MarcoPeixot

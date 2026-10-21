@@ -1,0 +1,8 @@
+.joinlet-language { display: inline-flex; align-items: center; gap: 5px; color: inherit; flex-shrink: 0; }
+.joinlet-language select { font: inherit; font-size: 11px; font-weight: 600; color: inherit; background: transparent; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 9px; padding: 8px 5px; min-height: 34px; cursor: pointer; }
+.joinlet-language select:focus-visible { outline: 2px solid #87d83c; outline-offset: 3px; }
+.joinlet-language option { background: #151e22; color: #faf9f4; }
+.joinlet-language [role=alert] { max-width: 220px; font-size: 11px; }
+@media(max-width: 420px) { .joinlet-language > svg { display: none; } }
+
+:root[data-theme='light'] .joinlet-language option { background: #ffffff; color: #111827; }

@@ -1,0 +1,33 @@
+{
+    "TargetGroups": [
+        {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+            "TargetGroupName": "shop-web-tg",
+            "Protocol": "HTTP",
+            "Port": 8080,
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "HealthCheckProtocol": "HTTP",
+            "HealthCheckPort": "traffic-port",
+            "HealthCheckEnabled": true,
+            "HealthCheckPath": "/health",
+            "Matcher": {
+                "HttpCode": "200"
+            },
+            "LoadBalancerArns": [
+                "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188"
+            ],
+            "TargetType": "instance",
+            "ProtocolVersion": "HTTP1",
+            "IpAddressType": "ipv4"
+        },
+        {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-api-tg/6d0ecf831eec9f09",
+            "TargetGroupName": "shop-api-tg",
+            "TargetType": "lambda",
+            "LoadBalancerArns": [
+                "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188"
+            ],
+            "HealthCheckEnabled": false
+        }
+    ]
+}

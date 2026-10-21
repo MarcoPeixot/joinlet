@@ -1,0 +1,23 @@
+{
+    "Buckets": [
+        {
+            "Name": "shop-assets-prod",
+            "CreationDate": "2024-11-01T12:00:00+00:00",
+            "BucketRegion": "us-east-1"
+        },
+        {
+            "Name": "shop-logs-prod",
+            "CreationDate": "2024-11-01T12:05:00+00:00",
+            "BucketRegion": "us-east-1"
+        },
+        {
+            "Name": "shop-eu-backups",
+            "CreationDate": "2025-01-05T08:00:00+00:00",
+            "BucketRegion": "eu-west-1"
+        }
+    ],
+    "Owner": {
+        "DisplayName": "shop",
+        "ID": "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be"
+    }
+}

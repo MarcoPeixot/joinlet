@@ -1,0 +1,243 @@
+# Joinlet — valida o workspace `.arch/`, comenta o diff semântico no PR e (opcional) sincroniza o diagrama com os
+# arquivos do repositório listados em `.arch/sources.json` (`joinlet sync`).
+#
+# Copie para `.github/workflows/strukt.yml` do seu repositório e ajuste STRUKT_REPO/STRUKT_REF.
+# O runner precisa clonar o repositório do Joinlet (público) e ter `bun` e `gh` (já vem no runner).
+#
+# Sincronização por PR (jobs `sync` e `commit-sync`): só roda em PRs da própria branch do repositório (nunca em forks).
+# O job `sync` (somente leitura, sem credencial) executa o CLI sobre o conteúdo do PR e entrega um patch; o job
+# `commit-sync` (o único com `contents: write`) NÃO executa o CLI nem código do PR: valida que o patch só toca `.arch/`,
+# aplica e faz o push na branch do PR. Commits feitos com o GITHUB_TOKEN não disparam novas execuções; para que os
+# checks rodem de novo no commit de sincronização, crie o segredo STRUKT_SYNC_TOKEN (PAT ou token de GitHub App com
+# permissão de escrita em conteúdo). Sem ele o commit é feito do mesmo jeito, só não há nova execução.
+# Prefere só avisar? Troque o `commit-sync` por uma etapa `joinlet sync --check` no job `architecture` (falha na deriva).
+name: strukt
+
+on:
+  pull_request:
+
+# Uma execução por PR: um push novo cancela a anterior (o patch do `sync` seria de um commit velho).
+concurrency:
+  group: strukt-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  # Troque pelo repositório do Joinlet (ou pelo seu fork).
+  STRUKT_REPO: https://github.com/owner/strukt.git
+  STRUKT_REF: main
+
+jobs:
+  architecture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # O diff semântico precisa do ref base.
+          fetch-depth: 0
+          # Nenhuma etapa seguinte precisa do token gravado no .git/config.
+          persist-credentials: false
+
+      - name: Instalar o bun
+        id: setup_bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Instalar o CLI do Joinlet
+        id: install
+        run: |
+          git clone --depth 1 --branch "$STRUKT_REF" "$STRUKT_REPO" "$RUNNER_TEMP/strukt"
+          (cd "$RUNNER_TEMP/strukt" && bun install --frozen-lockfile)
+
+      - name: Validar o workspace (.arch/)
+        run: |
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" check --dir . --json
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" context --dir . --check
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" verify --dir . --json --strict
+
+      # Diff visual (antes/depois) em SVG, um por diagrama alterado. O markdown do GitHub não exibe imagens de
+      # artefatos, então o SVG vai como artefato e o comentário só aponta para ele. Os SVG saem em $RUNNER_TEMP (fora do
+      # checkout do PR): arquivos ou links plantados no PR nunca são publicados como "diff visual".
+      # As etapas do SVG nunca bloqueiam o comentário semântico (continue-on-error).
+      - name: Gerar o diff visual (SVG)
+        id: svg
+        continue-on-error: true
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" diff --dir . \
+            "origin/$BASE_REF" HEAD --svg "$RUNNER_TEMP/strukt-diff"
+
+      - name: Publicar o diff visual como artefato
+        id: upload
+        if: steps.svg.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: strukt-diff
+          path: ${{ runner.temp }}/strukt-diff
+          if-no-files-found: ignore
+          overwrite: true
+
+      - name: Comentar o diff semântico no PR
+        # Não comenta em execução cancelada nem quando a instalação falhou (evita comentário velho/vazio).
+        if: ${{ !cancelled() && steps.setup_bun.conclusion == 'success' && steps.install.conclusion == 'success' }}
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Só aponta para o artefato quando o upload deu certo.
+          ARTIFACT_URL: ${{ steps.upload.outcome == 'success' && format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) || '' }}
+        run: |
+          args=()
+          if [ -n "$ARTIFACT_URL" ]; then args+=(--artifact-url "$ARTIFACT_URL"); fi
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" pr-comment --dir . \
+            --base "origin/$BASE_REF" \
+            --head HEAD \
+            "${args[@]}"
+
+  # --- Sincronização das fontes (.arch/sources.json) -----------------------------------------------------------
+  # Etapa 1 de 2: roda o CLI sobre o conteúdo exato do PR, sem nenhuma credencial (contents: read, checkout sem
+  # token gravado) e entrega só um patch de `.arch/`. Código de terceiros (o CLI, suas dependências) e arquivos do PR
+  # passam por aqui, por isso este job nunca tem permissão de escrita.
+  sync:
+    # Nunca em PRs de forks: a branch tem que ser do próprio repositório.
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.patch.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # O commit exato do PR (não o merge com a base): o patch precisa aplicar na branch do PR.
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Procurar fontes de sincronização
+        id: probe
+        run: |
+          if [ -f .arch/sources.json ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Instalar o bun
+        id: setup_bun
+        if: steps.probe.outputs.configured == 'true'
+        uses: oven-sh/setup-bun@v2
+
+      - name: Instalar o CLI do Joinlet
+        id: install
+        if: steps.probe.outputs.configured == 'true'
+        run: |
+          git clone --depth 1 --branch "$STRUKT_REF" "$STRUKT_REPO" "$RUNNER_TEMP/strukt"
+          (cd "$RUNNER_TEMP/strukt" && bun install --frozen-lockfile)
+
+      # Importa os arquivos das fontes e mescla nos diagramas (ids, posições e anotações manuais são preservados).
+      # Código de saída 1 = fonte ilegível ou .arch/sources.json inválido: o job falha, mas o relatório vai para o resumo.
+      - name: Sincronizar o diagrama com as fontes
+        id: sync_run
+        if: steps.probe.outputs.configured == 'true'
+        run: |
+          mkdir -p "$RUNNER_TEMP/strukt-sync"
+          status=0
+          bun "$RUNNER_TEMP/strukt/apps/cli/src/main.ts" sync --dir . --markdown > "$RUNNER_TEMP/strukt-sync/report.md" || status=$?
+          cat "$RUNNER_TEMP/strukt-sync/report.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
+      # Só o que mudou em .arch/ vira patch (sem renomeações, sem binários, sem filtros externos).
+      - name: Gerar o patch de .arch/
+        id: patch
+        if: steps.probe.outputs.configured == 'true'
+        run: |
+          git add -A -- .arch
+          git diff --cached --no-color --no-ext-diff --no-textconv --no-renames -- .arch > "$RUNNER_TEMP/strukt-sync/sync.patch"
+          if [ -s "$RUNNER_TEMP/strukt-sync/sync.patch" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publicar o patch como artefato
+        id: upload_patch
+        if: steps.patch.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: strukt-sync
+          path: ${{ runner.temp }}/strukt-sync/sync.patch
+          if-no-files-found: error
+          overwrite: true
+
+  # Etapa 2 de 2: o único job com `contents: write`. Não instala nem executa o CLI, o bun nem nada que venha do PR:
+  # só `git` e shell. O patch (que veio de um job que viu conteúdo do PR) é tratado como entrada não confiável:
+  # tamanho limitado, só arquivos comuns, só caminhos dentro de `.arch/`.
+  commit-sync:
+    needs: sync
+    if: ${{ needs.sync.outputs.changed == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A branch do PR (do mesmo repositório). Com STRUKT_SYNC_TOKEN o push dispara novas execuções.
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.STRUKT_SYNC_TOKEN || github.token }}
+
+      - name: Baixar o patch
+        id: download
+        uses: actions/download-artifact@v4
+        with:
+          name: strukt-sync
+          path: ${{ runner.temp }}/strukt-sync
+
+      - name: Validar o patch (só .arch/, só arquivos comuns)
+        id: validate
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          patch="$RUNNER_TEMP/strukt-sync/sync.patch"
+          # A branch recebeu commits depois que o patch foi calculado: esta execução já está velha.
+          if [ "$(git rev-parse HEAD)" != "$HEAD_SHA" ]; then
+            echo "A branch do PR avançou desde o cálculo do patch; a próxima execução refaz a sincronização."
+            exit 1
+          fi
+          if [ "$(wc -c < "$patch")" -gt 5000000 ]; then
+            echo "Patch grande demais (mais de 5 MB)."
+            exit 1
+          fi
+          # Só arquivos comuns (100644): nada de links simbólicos, submódulos ou mudança de permissão.
+          not_regular="$(grep -E '^(old mode|new mode|new file mode|deleted file mode) ' "$patch" | grep -Ev ' 100644$' || true)"
+          not_regular="$not_regular$(grep -E '^index [0-9a-f]+\.\.[0-9a-f]+ [0-9]+$' "$patch" | grep -Ev ' 100644$' || true)"
+          if [ -n "$not_regular" ]; then
+            echo "O patch mexe em algo que não é arquivo comum:"
+            echo "$not_regular"
+            exit 1
+          fi
+          # Só caminhos dentro de .arch/, sem "." nem ".." como parte do caminho.
+          outside="$(git apply --numstat "$patch" | cut -f3- | grep -Ev '^\.arch/[A-Za-z0-9._/-]+$' || true)"
+          dots="$(git apply --numstat "$patch" | cut -f3- | grep -E '(^|/)\.{1,2}(/|$)' || true)"
+          if [ -n "$outside$dots" ]; then
+            echo "O patch toca caminhos fora de .arch/:"
+            echo "$outside$dots"
+            exit 1
+          fi
+
+      - name: Aplicar o patch e enviar para a branch do PR
+        id: push
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git apply --index --allow-empty --include='.arch/*' "$RUNNER_TEMP/strukt-sync/sync.patch"
+          if git diff --cached --quiet; then
+            echo "Nada a commitar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(arch): sincroniza .arch/ com as fontes (joinlet sync)"
+          git push origin "HEAD:refs/heads/$HEAD_REF"

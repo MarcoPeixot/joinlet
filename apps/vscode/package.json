@@ -1,0 +1,111 @@
+{
+  "name": "strukt-vscode",
+  "displayName": "Joinlet",
+  "description": "Valida, compara e abre a arquitetura do Joinlet (.arch/) no VS Code.",
+  "version": "0.0.0",
+  "private": true,
+  "publisher": "strukt",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "./dist/extension.cjs",
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": ">=22.4"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "schema": "bun scripts/write-schema.ts",
+    "build": "bun run schema && bun build src/extension.ts --target=node --format=cjs --external vscode --outfile dist/extension.cjs",
+    "package": "bun run build && bunx @vscode/vsce package --no-dependencies --allow-missing-repository"
+  },
+  "dependencies": {
+    "@strukt/core": "workspace:*",
+    "@strukt/json": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4"
+  },
+  "activationEvents": [
+    "workspaceContains:.arch/strukt.json"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Em pastas não confiáveis a extensão só valida o JSON aberto; validar o workspace e comparar com o HEAD executam a CLI do Joinlet e ficam desligados."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "strukt.check",
+        "title": "Joinlet: Validar workspace"
+      },
+      {
+        "command": "strukt.diff",
+        "title": "Joinlet: Diff contra HEAD"
+      },
+      {
+        "command": "strukt.open",
+        "title": "Joinlet: Abrir no Joinlet"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "*.strukt.json"
+        ],
+        "url": "./schemas/strukt.schema.json"
+      }
+    ],
+    "configuration": {
+      "title": "Joinlet",
+      "properties": {
+        "strukt.cli.path": {
+          "type": "string",
+          "default": "strukt",
+          "scope": "machine",
+          "markdownDescription": "Executável da CLI `strukt` (precisa estar no PATH ou ser um caminho absoluto). Só vale nas configurações do usuário: um repositório não escolhe o que a extensão executa."
+        },
+        "strukt.cli.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "machine",
+          "markdownDescription": "Argumentos colocados antes do comando, por exemplo `[\"/caminho/strukt/apps/cli/src/main.ts\"]` com `strukt.cli.path` = `bun`."
+        },
+        "strukt.appUrl": {
+          "type": "string",
+          "default": "http://localhost:5178",
+          "markdownDescription": "Endereço http(s) do app do Joinlet aberto por **Joinlet: Abrir no Joinlet**."
+        },
+        "strukt.diffRef": {
+          "type": "string",
+          "default": "HEAD",
+          "markdownDescription": "Ref do git comparado com a pasta de trabalho por **Joinlet: Diff contra HEAD**."
+        },
+        "strukt.check.drift": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Inclui `--drift` em **Joinlet: Validar workspace** (compara as evidências com os arquivos do repositório; avisos)."
+        },
+        "strukt.check.strict": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Com `strukt.check.drift`, trata a deriva das evidências como erro (`--strict`, como no CI)."
+        },
+        "strukt.liveDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Valida os arquivos `*.strukt.json` abertos enquanto você digita (parser do Joinlet, mensagens em pt-BR)."
+        }
+      }
+    }
+  }
+}

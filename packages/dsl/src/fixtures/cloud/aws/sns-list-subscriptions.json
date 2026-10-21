@@ -1,0 +1,25 @@
+{
+    "Subscriptions": [
+        {
+            "SubscriptionArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts:1111",
+            "Owner": "123456789012",
+            "Protocol": "email",
+            "Endpoint": "ops-oncall@example.com",
+            "TopicArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts"
+        },
+        {
+            "SubscriptionArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts:2222",
+            "Owner": "123456789012",
+            "Protocol": "lambda",
+            "Endpoint": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker",
+            "TopicArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts"
+        },
+        {
+            "SubscriptionArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts:3333",
+            "Owner": "123456789012",
+            "Protocol": "sqs",
+            "Endpoint": "arn:aws:sqs:us-east-1:123456789012:shop-orders-dlq",
+            "TopicArn": "arn:aws:sns:us-east-1:123456789012:shop-alerts"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+# Corresponding source
+
+Joinlet application source: <https://github.com/MarcoPeixot/joinlet>.
+
+Releases and container images must identify their source commit. Build a release image from a clean, reviewed checkout and pass its commit as `--build-arg JOINLET_REVISION=<commit>`. Keep the source revision and build/deployment instructions available to recipients and to users entitled to source under the AGPL. A repository homepage pointing to a different version is not a substitute for the corresponding source.
+
+If operating a modified version over a network, follow the AGPL source-offer requirements for that version. Operational credentials and customer data are not corresponding source and must not be included in a source release.
+
+The initial prepared repository is held privately for review and must become publicly accessible before distributing it as a public open-source release or publishing images relying on this source location. The old development repository is not the source-distribution endpoint.
+
+Third-party notices and asset terms are in `THIRD_PARTY_NOTICES.md` and `docs/third-party/`.

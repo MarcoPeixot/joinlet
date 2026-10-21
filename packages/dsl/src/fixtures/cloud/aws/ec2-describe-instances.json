@@ -1,0 +1,234 @@
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-0123456789abcdef0",
+            "OwnerId": "123456789012",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-03-02T14:20:00+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-0123456789abcdef0"
+                            }
+                        }
+                    ],
+                    "ClientToken": "abc",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::123456789012:instance-profile/shop-web",
+                        "Id": "AIPAEXAMPLE"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "NetworkInterfaceId": "eni-0aaaa",
+                            "PrivateIpAddress": "10.0.11.21",
+                            "SubnetId": "subnet-0c33cccc3333cccc3",
+                            "VpcId": "vpc-0a1b2c3d4e5f60718"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0b2b2b2b2b2b2b2b2",
+                            "GroupName": "shop-web-sg"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "InstanceId": "i-0123456789abcdef0",
+                    "ImageId": "ami-0123456789abcdef0",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-11-21.ec2.internal",
+                    "PrivateIpAddress": "10.0.11.21",
+                    "KeyName": "shop-prod",
+                    "InstanceType": "t3.medium",
+                    "LaunchTime": "2025-03-02T14:19:00+00:00",
+                    "Placement": {
+                        "AvailabilityZone": "us-east-1a",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "SubnetId": "subnet-0c33cccc3333cccc3",
+                    "VpcId": "vpc-0a1b2c3d4e5f60718",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "shop-web-1"
+                        },
+                        {
+                            "Key": "env",
+                            "Value": "prod"
+                        }
+                    ]
+                },
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-03-02T14:20:00+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-0123456789abcdef0"
+                            }
+                        }
+                    ],
+                    "ClientToken": "abc",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::123456789012:instance-profile/shop-web",
+                        "Id": "AIPAEXAMPLE"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "NetworkInterfaceId": "eni-0aaaa",
+                            "PrivateIpAddress": "10.0.11.21",
+                            "SubnetId": "subnet-0d44dddd4444dddd4",
+                            "VpcId": "vpc-0a1b2c3d4e5f60718"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0b2b2b2b2b2b2b2b2",
+                            "GroupName": "shop-web-sg"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "InstanceId": "i-0fedcba9876543210",
+                    "ImageId": "ami-0123456789abcdef0",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-11-21.ec2.internal",
+                    "PrivateIpAddress": "10.0.11.21",
+                    "KeyName": "shop-prod",
+                    "InstanceType": "t3.medium",
+                    "LaunchTime": "2025-03-02T14:19:00+00:00",
+                    "Placement": {
+                        "AvailabilityZone": "us-east-1b",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "SubnetId": "subnet-0d44dddd4444dddd4",
+                    "VpcId": "vpc-0a1b2c3d4e5f60718",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "shop-web-2"
+                        },
+                        {
+                            "Key": "env",
+                            "Value": "prod"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-0aaaaaaaaaaaaaaaa",
+            "OwnerId": "123456789012",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-03-02T14:20:00+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-0123456789abcdef0"
+                            }
+                        }
+                    ],
+                    "ClientToken": "abc",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::123456789012:instance-profile/shop-web",
+                        "Id": "AIPAEXAMPLE"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "NetworkInterfaceId": "eni-0aaaa",
+                            "PrivateIpAddress": "10.0.11.21",
+                            "SubnetId": "subnet-0c33cccc3333cccc3",
+                            "VpcId": "vpc-0a1b2c3d4e5f60718"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0b2b2b2b2b2b2b2b2",
+                            "GroupName": "shop-web-sg"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "InstanceId": "i-0bbbbbbbbbbbbbbbb",
+                    "ImageId": "ami-0123456789abcdef0",
+                    "State": {
+                        "Code": 48,
+                        "Name": "terminated"
+                    },
+                    "PrivateDnsName": "ip-10-0-11-21.ec2.internal",
+                    "PrivateIpAddress": "10.0.11.21",
+                    "KeyName": "shop-prod",
+                    "InstanceType": "m5.large",
+                    "LaunchTime": "2025-03-02T14:19:00+00:00",
+                    "Placement": {
+                        "AvailabilityZone": "us-east-1a",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "SubnetId": "subnet-0c33cccc3333cccc3",
+                    "VpcId": "vpc-0a1b2c3d4e5f60718",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "shop-old-batch"
+                        },
+                        {
+                            "Key": "env",
+                            "Value": "prod"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

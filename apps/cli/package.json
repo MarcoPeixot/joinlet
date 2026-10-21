@@ -1,0 +1,31 @@
+{
+  "name": "@strukt/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "joinlet": "./src/main.ts",
+    "strukt": "./src/main.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@strukt/core": "workspace:*",
+    "@strukt/dsl": "workspace:*",
+    "@strukt/git": "workspace:*",
+    "@strukt/json": "workspace:*",
+    "@strukt/layout": "workspace:*",
+    "@strukt/ops": "workspace:*",
+    "@strukt/workspace": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "yaml": "^2.9.1"
+  },
+  "license": "AGPL-3.0-only"
+}

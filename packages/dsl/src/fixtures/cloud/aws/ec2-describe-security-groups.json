@@ -1,0 +1,45 @@
+{
+    "SecurityGroups": [
+        {
+            "Description": "ALB ingress",
+            "GroupName": "shop-alb-sg",
+            "IpPermissions": [
+                {
+                    "FromPort": 443,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "ToPort": 443
+                }
+            ],
+            "OwnerId": "123456789012",
+            "GroupId": "sg-0a1a1a1a1a1a1a1a1",
+            "IpPermissionsEgress": [],
+            "VpcId": "vpc-0a1b2c3d4e5f60718"
+        },
+        {
+            "Description": "web tier",
+            "GroupName": "shop-web-sg",
+            "IpPermissions": [
+                {
+                    "FromPort": 8080,
+                    "IpProtocol": "tcp",
+                    "UserIdGroupPairs": [
+                        {
+                            "GroupId": "sg-0a1a1a1a1a1a1a1a1",
+                            "UserId": "123456789012"
+                        }
+                    ],
+                    "ToPort": 8080
+                }
+            ],
+            "OwnerId": "123456789012",
+            "GroupId": "sg-0b2b2b2b2b2b2b2b2",
+            "IpPermissionsEgress": [],
+            "VpcId": "vpc-0a1b2c3d4e5f60718"
+        }
+    ]
+}

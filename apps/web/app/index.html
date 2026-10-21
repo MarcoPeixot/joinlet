@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/joinlet-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joinlet</title>
+    <script>
+      // Applies the saved theme before first paint (mirrors themeAttribute in src/ui/theme.ts).
+      // Nothing saved means light (paper); "system" only follows the OS when the visitor chose it.
+      try {
+        var p = localStorage.getItem('strukt:theme');
+        var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme =
+          p === 'contrast' ? 'contrast' : p === 'dark' ? 'dark' : p === 'system' ? (d ? 'dark' : 'light') : 'light';
+        // Same mapping as resolveAccent in src/ui/accent.ts.
+        var a = localStorage.getItem('strukt:accent');
+        document.documentElement.dataset.accent =
+          a === 'lime' || a === 'cobalt' || a === 'signal' || a === 'iris' || a === 'emerald' || a === 'amber' || a === 'graphite' ? a : 'lime';
+      } catch (e) { document.documentElement.dataset.theme = document.documentElement.dataset.theme || 'light'; }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

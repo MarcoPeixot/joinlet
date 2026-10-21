@@ -1,0 +1,45 @@
+{
+    "services": [
+        {
+            "serviceArn": "arn:aws:ecs:us-east-1:123456789012:service/shop-cluster/shop-checkout",
+            "serviceName": "shop-checkout",
+            "clusterArn": "arn:aws:ecs:us-east-1:123456789012:cluster/shop-cluster",
+            "loadBalancers": [
+                {
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+                    "containerName": "checkout",
+                    "containerPort": 8080
+                }
+            ],
+            "status": "ACTIVE",
+            "desiredCount": 3,
+            "runningCount": 3,
+            "launchType": "FARGATE",
+            "platformVersion": "LATEST",
+            "taskDefinition": "arn:aws:ecs:us-east-1:123456789012:task-definition/shop-checkout:42",
+            "deploymentConfiguration": {
+                "maximumPercent": 200,
+                "minimumHealthyPercent": 100
+            },
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "subnets": [
+                        "subnet-0c33cccc3333cccc3"
+                    ],
+                    "securityGroups": [
+                        "sg-0b2b2b2b2b2b2b2b2"
+                    ],
+                    "assignPublicIp": "DISABLED"
+                }
+            },
+            "createdAt": "2025-03-01T10:00:00.000000+00:00",
+            "events": [
+                {
+                    "id": "x",
+                    "message": "(service shop-checkout) has reached a steady state."
+                }
+            ]
+        }
+    ],
+    "failures": []
+}

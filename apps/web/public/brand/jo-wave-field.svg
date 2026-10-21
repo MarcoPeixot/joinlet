@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <!-- Neutral outside the hand. The falloff keeps the shoulder fixed while the tip bends. -->
+  <defs>
+    <radialGradient id="bend" gradientUnits="userSpaceOnUse" cx="1450" cy="385" r="145" gradientTransform="translate(0 -173.25) scale(1 1.45)">
+      <stop offset="0" stop-color="rgb(245,220,128)"/>
+      <stop offset=".25" stop-color="rgb(245,220,128)"/>
+      <stop offset="1" stop-color="rgb(128,128,128)"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="0" y1="340" x2="0" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0"/>
+      <stop offset=".16" stop-color="white"/>
+      <stop offset=".8" stop-color="white"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="falloff"><path fill="url(#edge)" d="M1318 340h218v250h-218z"/></mask>
+  </defs>
+  <path fill="rgb(128,128,128)" d="M0 0h1536v1024H0z"/>
+  <path fill="url(#bend)" mask="url(#falloff)" d="M1318 340h218v250h-218z"/>
+</svg>

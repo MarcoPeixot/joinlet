@@ -1,0 +1,37 @@
+{
+    "NatGateways": [
+        {
+            "CreateTime": "2025-03-02T14:10:11+00:00",
+            "NatGatewayAddresses": [
+                {
+                    "AllocationId": "eipalloc-0123456789abcdef0",
+                    "NetworkInterfaceId": "eni-0abc123def4567890",
+                    "PrivateIp": "10.0.1.15",
+                    "PublicIp": "203.0.113.10"
+                }
+            ],
+            "NatGatewayId": "nat-0123456789abcdef0",
+            "State": "available",
+            "SubnetId": "subnet-0a11aaaa1111aaaa1",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "ConnectivityType": "public",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-nat-a"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        },
+        {
+            "NatGatewayId": "nat-0deadbeef00000000",
+            "State": "deleted",
+            "SubnetId": "subnet-0b22bbbb2222bbbb2",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "ConnectivityType": "public"
+        }
+    ]
+}

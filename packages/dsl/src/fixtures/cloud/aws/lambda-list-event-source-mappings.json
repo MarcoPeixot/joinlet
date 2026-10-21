@@ -1,0 +1,13 @@
+{
+    "EventSourceMappings": [
+        {
+            "UUID": "a1b2c3d4-0000-1111-2222-333344445555",
+            "BatchSize": 10,
+            "EventSourceArn": "arn:aws:sqs:us-east-1:123456789012:shop-orders",
+            "FunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker",
+            "LastModified": "2025-03-11T11:05:00.000000+00:00",
+            "State": "Enabled",
+            "StateTransitionReason": "USER_INITIATED"
+        }
+    ]
+}

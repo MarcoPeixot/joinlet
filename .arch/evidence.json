@@ -1,0 +1,118 @@
+{
+  "arquitetura-do-joinlet": {
+    "AI": [
+      {
+        "contains": "export function createHostedAi",
+        "line": 149,
+        "path": "apps/remote/src/hostedAi.ts",
+        "snippet": "06748771"
+      }
+    ],
+    "Agents": [
+      {
+        "contains": "export function createStruktServer",
+        "line": 39,
+        "path": "apps/mcp/src/server.ts",
+        "snippet": "9cd3748e"
+      }
+    ],
+    "Browser": [
+      {
+        "contains": "createIdbAdapter",
+        "line": 56,
+        "path": "apps/web/src/workspace/idb.ts",
+        "snippet": "791105a1"
+      }
+    ],
+    "Domain": [
+      {
+        "contains": "export interface DiagramModel",
+        "line": 127,
+        "path": "packages/core/src/model.ts",
+        "snippet": "84136d69"
+      }
+    ],
+    "Extension": [
+      {
+        "contains": "export function activate",
+        "line": 22,
+        "path": "apps/vscode/src/extension.ts",
+        "snippet": "0eb813a4"
+      }
+    ],
+    "GitHub": [
+      {
+        "contains": "export async function openGithubWorkspace",
+        "line": 54,
+        "path": "apps/remote/src/githubWorkspace.ts",
+        "snippet": "93ac10ab"
+      }
+    ],
+    "Local": [
+      {
+        "contains": "export function createApp",
+        "line": 163,
+        "path": "apps/server/src/app.ts",
+        "snippet": "e10d9d11"
+      }
+    ],
+    "Remote": [
+      {
+        "contains": "export function createRemoteApp",
+        "line": 22,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "d237291e"
+      }
+    ],
+    "SQLite": [
+      {
+        "contains": "export function createHostedStore",
+        "line": 51,
+        "path": "apps/remote/src/hostedStore.ts",
+        "snippet": "d87adde2"
+      }
+    ],
+    "Web": [
+      {
+        "contains": "export interface Workspace",
+        "line": 27,
+        "path": "apps/web/src/workspace/workspace.ts",
+        "snippet": "14ff4c74"
+      }
+    ],
+    "Workspace": [
+      {
+        "contains": "export interface WorkspaceData",
+        "line": 32,
+        "path": "packages/workspace/src/workspace.ts",
+        "snippet": "5cd52aee"
+      }
+    ]
+  },
+  "distribuicao-do-codigo-joinlet": {
+    "Checks": [
+      {
+        "contains": "Reject runtime/private files",
+        "line": 2,
+        "path": "scripts/check-publication.py",
+        "snippet": "0ce3f8d2"
+      }
+    ],
+    "Deployment": [
+      {
+        "contains": "name: joinlet",
+        "line": 1,
+        "path": "deploy/compose.yml",
+        "snippet": "67135681"
+      }
+    ],
+    "Product": [
+      {
+        "contains": "joinlet",
+        "line": 2,
+        "path": "package.json",
+        "snippet": "46840b99"
+      }
+    ]
+  }
+}

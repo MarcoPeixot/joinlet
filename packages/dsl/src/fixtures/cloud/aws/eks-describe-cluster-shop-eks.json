@@ -1,0 +1,31 @@
+{
+    "cluster": {
+        "name": "shop-eks",
+        "arn": "arn:aws:eks:us-east-1:123456789012:cluster/shop-eks",
+        "createdAt": "2025-01-15T08:00:00.000000+00:00",
+        "version": "1.29",
+        "endpoint": "https://ABCDEF0123456789.gr7.us-east-1.eks.amazonaws.com",
+        "roleArn": "arn:aws:iam::123456789012:role/shop-eks",
+        "resourcesVpcConfig": {
+            "subnetIds": [
+                "subnet-0c33cccc3333cccc3",
+                "subnet-0d44dddd4444dddd4"
+            ],
+            "securityGroupIds": [],
+            "clusterSecurityGroupId": "sg-0cluster",
+            "vpcId": "vpc-0a1b2c3d4e5f60718",
+            "endpointPublicAccess": true
+        },
+        "identity": {
+            "oidc": {
+                "issuer": "https://oidc.eks.us-east-1.amazonaws.com/id/ABCDEF0123456789"
+            }
+        },
+        "status": "ACTIVE",
+        "certificateAuthority": {
+            "data": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJMU1ERXhOVEE0TURBd01Gb1hEVE0xTURFeE16QTRNREF3TUZvd0ZURVRNQkVHQTFVRQ=="
+        },
+        "platformVersion": "eks.8",
+        "tags": {}
+    }
+}

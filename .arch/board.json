@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "h": 200,
+      "id": "diagram:arquitetura-do-joinlet",
+      "kind": "diagram",
+      "slug": "arquitetura-do-joinlet",
+      "w": 280,
+      "x": 40,
+      "y": 40
+    },
+    {
+      "h": 200,
+      "id": "doc:funcionamento-do-joinlet",
+      "kind": "doc",
+      "slug": "funcionamento-do-joinlet",
+      "w": 280,
+      "x": 360,
+      "y": 40
+    },
+    {
+      "h": 200,
+      "id": "doc:codigo-aberto-e-limites-de-publicacao",
+      "kind": "doc",
+      "slug": "codigo-aberto-e-limites-de-publicacao",
+      "w": 280,
+      "x": 680,
+      "y": 40
+    },
+    {
+      "h": 200,
+      "id": "diagram:distribuicao-do-codigo-joinlet",
+      "kind": "diagram",
+      "slug": "distribuicao-do-codigo-joinlet",
+      "w": 280,
+      "x": 1000,
+      "y": 40
+    },
+    {
+      "h": 200,
+      "id": "doc:distribuicao-e-operacao",
+      "kind": "doc",
+      "slug": "distribuicao-e-operacao",
+      "w": 280,
+      "x": 40,
+      "y": 280
+    }
+  ],
+  "connections": [],
+  "sections": [],
+  "version": 1
+}

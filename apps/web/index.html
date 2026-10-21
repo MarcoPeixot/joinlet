@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/joinlet-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joinlet — connect ideas, build systems</title>
+    <meta name="description" content="Diagrams, documents and sketches in an AI-powered workspace. Design systems, capture decisions and connect your architecture to code. Try it without an account." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <meta property="og:image" content="https://joinlet.co/brand/joinlet-social.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Joinlet — Connect ideas. Build systems. Meet Jo, our connected mascots." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://joinlet.co/brand/joinlet-social.png" />
+    <style>
+      .landing-fallback{background:#f7f9fc;color:#111827;font:17px/1.7 system-ui,sans-serif;min-height:100vh;padding:0 6%;box-sizing:border-box}.landing-fallback *{box-sizing:border-box}.landing-fallback header{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:24px 0}.landing-fallback a{color:inherit}.landing-fallback header>a:first-child{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:750;text-decoration:none}.landing-fallback section:first-child{display:flex;align-items:center;gap:40px;padding:60px 0}.landing-fallback section:first-child>div{flex:1}.landing-fallback section:first-child>img{width:44%;height:auto}.landing-fallback h1{font-size:clamp(34px,4vw,58px);line-height:1.08;letter-spacing:-.04em;margin:20px 0}.landing-fallback em{color:#356b16;font-style:normal}.landing-fallback .eyebrow,.landing-fallback .small{font-size:12px}.landing-fallback .start{display:inline-block;background:#a3ff3d;border-radius:30px;padding:12px 24px;font-weight:600;text-decoration:none;margin-top:12px}.fallback-features{max-width:780px;padding-bottom:48px}.landing-fallback h2{font-size:26px;line-height:1.25;margin-top:36px}.landing-fallback footer{padding:24px 0;border-top:1px solid #ddd}@media(max-width:640px){.landing-fallback section:first-child{flex-direction:column;padding:30px 0;gap:10px}.landing-fallback section:first-child>img{width:90%}.landing-fallback header>a:last-child{font-size:13px}}
+    </style>
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://joinlet.co/" />
+    <meta property="og:url" content="https://joinlet.co/" />
+    <meta property="og:site_name" content="Joinlet" />
+    <meta property="og:title" content="Joinlet — connect ideas, build systems" />
+    <meta property="og:description" content="Diagrams, documents, sketches and an AI agent. Your architecture in one workspace, from the first sketch to your repository." />
+    <script>
+      // Applies the saved theme before first paint, shared with the editor (mirrors themeAttribute in src/ui/theme.ts).
+      // Default landing theme is light; explicit preferences remain shared with the editor.
+      try {
+        var p = localStorage.getItem('strukt:theme');
+        var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme =
+          p === 'contrast' ? 'contrast' : p === 'dark' ? 'dark' : p === 'system' ? (d ? 'dark' : 'light') : 'light';
+      } catch (e) { document.documentElement.dataset.theme = document.documentElement.dataset.theme || 'light'; }
+    </script>
+
+  </head>
+  <body>
+    <div id="root"><div class="landing-fallback">
+      <header><a href="/" aria-label="Joinlet home"><img src="/brand/joinlet-icon.svg" width="34" height="34" alt="" /> Joinlet</a><a href="/app/">Open the editor ↗</a></header>
+      <main><section><div><p class="eyebrow">DESIGN · DOCUMENT · CONNECT</p><h1>Turn complex systems into <em>clear diagrams.</em></h1><p>A visual workspace for designing, exploring and documenting software architecture. Connect ideas. Build systems.</p><a class="start" href="/app/">Open Joinlet →</a><p class="small">No account required · Saved in your browser</p></div><img src="/brand/jo-connected-v2.webp" width="1024" height="683" alt="Jo, the connected charcoal and lime Joinlet mascots" fetchpriority="high" /></section>
+      <section class="fallback-features"><h2>Design, document and evolve.</h2><p>Connect services and databases in a visual diagram. Keep decisions in linked documents, explore ideas in sketches, and discuss changes with your team.</p><h2>Your architecture, with your code.</h2><p>Keep readable files in .arch/, track changes with Git and provide architecture context to coding agents through MCP.</p><h2>Your model. Your provider.</h2><p>The visual editor works in your browser. AI features require the Joinlet local server and your own provider connection. <a href="/setup/">Learn how to set up AI.</a> <a href="/docs/">Read the documentation.</a></p><h2>Keep your work.</h2><p>Work is stored locally in your browser. Export your workspace as a ZIP, or export diagrams as SVG, PNG, Mermaid or PlantUML.</p></section></main>
+      <footer>Joinlet · joinlet.co · <a href="/app/">Start designing</a></footer>
+    </div></div>
+    <noscript><p style="text-align:center;font:14px system-ui;padding:16px">Enable JavaScript to use the interactive demo and editor. This page and the setup guide remain readable without it.</p></noscript>
+    <script type="module" src="/src/landing/main.tsx"></script>
+  </body>
+</html>

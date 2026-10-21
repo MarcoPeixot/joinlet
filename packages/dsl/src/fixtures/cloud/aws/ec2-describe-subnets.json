@@ -1,0 +1,96 @@
+{
+    "Subnets": [
+        {
+            "AvailabilityZone": "us-east-1a",
+            "AvailabilityZoneId": "use1-az1",
+            "AvailableIpAddressCount": 240,
+            "CidrBlock": "10.0.1.0/24",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": true,
+            "State": "available",
+            "SubnetId": "subnet-0a11aaaa1111aaaa1",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "OwnerId": "123456789012",
+            "SubnetArn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0a11aaaa1111aaaa1",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-public-a"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        },
+        {
+            "AvailabilityZone": "us-east-1b",
+            "AvailabilityZoneId": "use1-az2",
+            "AvailableIpAddressCount": 240,
+            "CidrBlock": "10.0.2.0/24",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": true,
+            "State": "available",
+            "SubnetId": "subnet-0b22bbbb2222bbbb2",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "OwnerId": "123456789012",
+            "SubnetArn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0b22bbbb2222bbbb2",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-public-b"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        },
+        {
+            "AvailabilityZone": "us-east-1a",
+            "AvailabilityZoneId": "use1-az1",
+            "AvailableIpAddressCount": 236,
+            "CidrBlock": "10.0.11.0/24",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false,
+            "State": "available",
+            "SubnetId": "subnet-0c33cccc3333cccc3",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "OwnerId": "123456789012",
+            "SubnetArn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0c33cccc3333cccc3",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-private-a"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        },
+        {
+            "AvailabilityZone": "us-east-1b",
+            "AvailabilityZoneId": "use1-az2",
+            "AvailableIpAddressCount": 238,
+            "CidrBlock": "10.0.12.0/24",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false,
+            "State": "available",
+            "SubnetId": "subnet-0d44dddd4444dddd4",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "OwnerId": "123456789012",
+            "SubnetArn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0d44dddd4444dddd4",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-private-b"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        }
+    ]
+}

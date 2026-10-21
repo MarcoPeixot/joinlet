@@ -1,0 +1,641 @@
+{
+  "style": {
+    "direction": "right",
+    "colorMode": "pastel",
+    "styleMode": "plain",
+    "typeface": "clean"
+  },
+  "elements": {
+    "Experiências": {
+      "kind": "group",
+      "id": "Experiências"
+    },
+    "Portal do produtor": {
+      "kind": "node",
+      "id": "Portal do produtor",
+      "parentId": "Experiências",
+      "icon": "monitor",
+      "tech": "Produtos · ofertas · conteúdo",
+      "presentation": "card"
+    },
+    "Página de vendas": {
+      "kind": "node",
+      "id": "Página de vendas",
+      "parentId": "Experiências",
+      "icon": "globe",
+      "tech": "Aquisição e conversão",
+      "presentation": "card"
+    },
+    "Checkout": {
+      "kind": "node",
+      "id": "Checkout",
+      "parentId": "Experiências",
+      "icon": "shopping-cart",
+      "tech": "Compra avulsa · planos · cupom",
+      "presentation": "card"
+    },
+    "Área de membros": {
+      "kind": "node",
+      "id": "Área de membros",
+      "parentId": "Experiências",
+      "icon": "book-open",
+      "tech": "Aulas · progresso · certificado",
+      "presentation": "card"
+    },
+    "Portal do afiliado": {
+      "kind": "node",
+      "id": "Portal do afiliado",
+      "parentId": "Experiências",
+      "icon": "chart-no-axes-combined",
+      "tech": "Links · vendas · comissão",
+      "presentation": "card"
+    },
+    "Comércio": {
+      "kind": "group",
+      "id": "Comércio"
+    },
+    "Catálogo e ofertas": {
+      "kind": "node",
+      "id": "Catálogo e ofertas",
+      "parentId": "Comércio",
+      "icon": "tags",
+      "tech": "Curso · preço · bump · upsell",
+      "presentation": "card"
+    },
+    "Pedidos": {
+      "kind": "node",
+      "id": "Pedidos",
+      "parentId": "Comércio",
+      "icon": "receipt",
+      "tech": "Estado da compra · itens",
+      "presentation": "card"
+    },
+    "Pagamentos": {
+      "kind": "node",
+      "id": "Pagamentos",
+      "parentId": "Comércio",
+      "icon": "credit-card",
+      "tech": "Pix/cartão · idempotência",
+      "presentation": "card"
+    },
+    "Assinaturas": {
+      "kind": "node",
+      "id": "Assinaturas",
+      "parentId": "Comércio",
+      "icon": "repeat",
+      "tech": "Faturas · renovação · cobrança",
+      "presentation": "card"
+    },
+    "Pós-venda": {
+      "kind": "node",
+      "id": "Pós-venda",
+      "parentId": "Comércio",
+      "icon": "life-buoy",
+      "tech": "Reembolso · disputa · suporte",
+      "presentation": "card"
+    },
+    "Entrega": {
+      "kind": "group",
+      "id": "Entrega"
+    },
+    "Direitos de acesso": {
+      "kind": "node",
+      "id": "Direitos de acesso",
+      "parentId": "Entrega",
+      "icon": "key",
+      "tech": "Concede/suspende/revoga acesso",
+      "presentation": "card"
+    },
+    "Cursos e progresso": {
+      "kind": "node",
+      "id": "Cursos e progresso",
+      "parentId": "Entrega",
+      "icon": "graduation-cap",
+      "tech": "Aulas · avaliações · certificado",
+      "presentation": "card"
+    },
+    "Mídia e player": {
+      "kind": "node",
+      "id": "Mídia e player",
+      "parentId": "Entrega",
+      "icon": "play",
+      "tech": "Upload e URLs assinadas",
+      "presentation": "card"
+    },
+    "Comunidades": {
+      "kind": "node",
+      "id": "Comunidades",
+      "parentId": "Entrega",
+      "icon": "users",
+      "tech": "Provisionamento de membros",
+      "presentation": "card"
+    },
+    "Financeiro": {
+      "kind": "group",
+      "id": "Financeiro"
+    },
+    "Atribuição de afiliados": {
+      "kind": "node",
+      "id": "Atribuição de afiliados",
+      "parentId": "Financeiro",
+      "icon": "link",
+      "tech": "Cookie/link · conversão",
+      "presentation": "card"
+    },
+    "Comissões e saldo": {
+      "kind": "node",
+      "id": "Comissões e saldo",
+      "parentId": "Financeiro",
+      "icon": "wallet",
+      "tech": "Ledger · split · reversões",
+      "presentation": "card"
+    },
+    "Repasses": {
+      "kind": "node",
+      "id": "Repasses",
+      "parentId": "Financeiro",
+      "icon": "landmark",
+      "tech": "Elegibilidade · conciliação",
+      "presentation": "card"
+    },
+    "Serviços transversais": {
+      "kind": "group",
+      "id": "Serviços transversais"
+    },
+    "Usuários e segurança": {
+      "kind": "node",
+      "id": "Usuários e segurança",
+      "parentId": "Serviços transversais",
+      "icon": "shield-check",
+      "tech": "Identidade · RBAC · privacidade",
+      "presentation": "card"
+    },
+    "Eventos e jobs": {
+      "kind": "node",
+      "id": "Eventos e jobs",
+      "parentId": "Serviços transversais",
+      "icon": "workflow",
+      "tech": "Outbox · retry · DLQ",
+      "presentation": "card"
+    },
+    "Notificações": {
+      "kind": "node",
+      "id": "Notificações",
+      "parentId": "Serviços transversais",
+      "icon": "bell",
+      "tech": "Compra · acesso · renovação",
+      "presentation": "card"
+    },
+    "Webhooks e integrações": {
+      "kind": "node",
+      "id": "Webhooks e integrações",
+      "parentId": "Serviços transversais",
+      "icon": "webhook",
+      "tech": "Entrega assinada · retry",
+      "presentation": "card"
+    },
+    "Dados e operação": {
+      "kind": "group",
+      "id": "Dados e operação"
+    },
+    "PostgreSQL": {
+      "kind": "node",
+      "id": "PostgreSQL",
+      "parentId": "Dados e operação",
+      "icon": "postgresql",
+      "tech": "Dados transacionais e ledger",
+      "presentation": "card"
+    },
+    "Redis": {
+      "kind": "node",
+      "id": "Redis",
+      "parentId": "Dados e operação",
+      "icon": "redis",
+      "tech": "Fila · cache · rate limit",
+      "presentation": "card"
+    },
+    "Objetos de mídia": {
+      "kind": "node",
+      "id": "Objetos de mídia",
+      "parentId": "Dados e operação",
+      "icon": "aws:s3",
+      "tech": "Vídeos · anexos · origem",
+      "presentation": "card"
+    },
+    "Observabilidade": {
+      "kind": "node",
+      "id": "Observabilidade",
+      "parentId": "Dados e operação",
+      "icon": "activity",
+      "tech": "Logs · métricas · trilhas",
+      "presentation": "card"
+    },
+    "Serviços externos": {
+      "kind": "group",
+      "id": "Serviços externos"
+    },
+    "PSP e antifraude": {
+      "kind": "node",
+      "id": "PSP e antifraude",
+      "parentId": "Serviços externos",
+      "icon": "credit-card",
+      "tech": "Cobrança · estorno · liquidação",
+      "presentation": "card"
+    },
+    "CDN de vídeo": {
+      "kind": "node",
+      "id": "CDN de vídeo",
+      "parentId": "Serviços externos",
+      "icon": "globe",
+      "tech": "Distribuição de mídia",
+      "presentation": "card"
+    },
+    "E-mail e mensagens": {
+      "kind": "node",
+      "id": "E-mail e mensagens",
+      "parentId": "Serviços externos",
+      "icon": "mail",
+      "tech": "Entrega ao comprador",
+      "presentation": "card"
+    },
+    "Produtor": {
+      "kind": "node",
+      "id": "Produtor",
+      "icon": "user",
+      "tech": "Cria e vende cursos",
+      "presentation": "card"
+    },
+    "Aluno": {
+      "kind": "node",
+      "id": "Aluno",
+      "icon": "graduation-cap",
+      "tech": "Compra e aprende",
+      "presentation": "card"
+    },
+    "Afiliado": {
+      "kind": "node",
+      "id": "Afiliado",
+      "icon": "megaphone",
+      "tech": "Divulga por link rastreado",
+      "presentation": "card"
+    }
+  },
+  "order": [
+    "Experiências",
+    "Portal do produtor",
+    "Página de vendas",
+    "Checkout",
+    "Área de membros",
+    "Portal do afiliado",
+    "Comércio",
+    "Catálogo e ofertas",
+    "Pedidos",
+    "Pagamentos",
+    "Assinaturas",
+    "Pós-venda",
+    "Entrega",
+    "Direitos de acesso",
+    "Cursos e progresso",
+    "Mídia e player",
+    "Comunidades",
+    "Financeiro",
+    "Atribuição de afiliados",
+    "Comissões e saldo",
+    "Repasses",
+    "Serviços transversais",
+    "Usuários e segurança",
+    "Eventos e jobs",
+    "Notificações",
+    "Webhooks e integrações",
+    "Dados e operação",
+    "PostgreSQL",
+    "Redis",
+    "Objetos de mídia",
+    "Observabilidade",
+    "Serviços externos",
+    "PSP e antifraude",
+    "CDN de vídeo",
+    "E-mail e mensagens",
+    "Produtor",
+    "Aluno",
+    "Afiliado"
+  ],
+  "edges": [
+    {
+      "id": "Produtor→Portal do produtor",
+      "from": "Produtor",
+      "to": "Portal do produtor",
+      "connector": ">",
+      "label": "gerencia"
+    },
+    {
+      "id": "Aluno→Página de vendas",
+      "from": "Aluno",
+      "to": "Página de vendas",
+      "connector": ">",
+      "label": "descobre curso"
+    },
+    {
+      "id": "Aluno→Área de membros",
+      "from": "Aluno",
+      "to": "Área de membros",
+      "connector": ">",
+      "label": "aprende"
+    },
+    {
+      "id": "Afiliado→Portal do afiliado",
+      "from": "Afiliado",
+      "to": "Portal do afiliado",
+      "connector": ">",
+      "label": "acompanha"
+    },
+    {
+      "id": "Portal do produtor→Catálogo e ofertas",
+      "from": "Portal do produtor",
+      "to": "Catálogo e ofertas",
+      "connector": ">",
+      "label": "publica curso/oferta"
+    },
+    {
+      "id": "Portal do produtor→Mídia e player",
+      "from": "Portal do produtor",
+      "to": "Mídia e player",
+      "connector": ">",
+      "label": "envia conteúdo"
+    },
+    {
+      "id": "Página de vendas→Catálogo e ofertas",
+      "from": "Página de vendas",
+      "to": "Catálogo e ofertas",
+      "connector": ">",
+      "label": "consulta oferta"
+    },
+    {
+      "id": "Página de vendas→Checkout",
+      "from": "Página de vendas",
+      "to": "Checkout",
+      "connector": ">",
+      "label": "comprar"
+    },
+    {
+      "id": "Checkout→Catálogo e ofertas",
+      "from": "Checkout",
+      "to": "Catálogo e ofertas",
+      "connector": ">",
+      "label": "preço/cupom/bump"
+    },
+    {
+      "id": "Checkout→Atribuição de afiliados",
+      "from": "Checkout",
+      "to": "Atribuição de afiliados",
+      "connector": ">",
+      "label": "registra origem"
+    },
+    {
+      "id": "Checkout→Pedidos",
+      "from": "Checkout",
+      "to": "Pedidos",
+      "connector": ">",
+      "label": "cria compra"
+    },
+    {
+      "id": "Pedidos→Pagamentos",
+      "from": "Pedidos",
+      "to": "Pagamentos",
+      "connector": ">",
+      "label": "solicita cobrança"
+    },
+    {
+      "id": "Pagamentos→PSP e antifraude",
+      "from": "Pagamentos",
+      "to": "PSP e antifraude",
+      "connector": ">",
+      "label": "Pix/cartão"
+    },
+    {
+      "id": "PSP e antifraude→Pagamentos",
+      "from": "PSP e antifraude",
+      "to": "Pagamentos",
+      "connector": "-->",
+      "label": "webhook: status/disputa"
+    },
+    {
+      "id": "Pagamentos→Pedidos",
+      "from": "Pagamentos",
+      "to": "Pedidos",
+      "connector": ">",
+      "label": "atualiza status"
+    },
+    {
+      "id": "Pagamentos→Eventos e jobs",
+      "from": "Pagamentos",
+      "to": "Eventos e jobs",
+      "connector": "-->",
+      "label": "pagamento confirmado"
+    },
+    {
+      "id": "Assinaturas→Pagamentos",
+      "from": "Assinaturas",
+      "to": "Pagamentos",
+      "connector": ">",
+      "label": "cobra renovação"
+    },
+    {
+      "id": "Eventos e jobs→Assinaturas",
+      "from": "Eventos e jobs",
+      "to": "Assinaturas",
+      "connector": "-->",
+      "label": "status da fatura"
+    },
+    {
+      "id": "Pós-venda→PSP e antifraude",
+      "from": "Pós-venda",
+      "to": "PSP e antifraude",
+      "connector": ">",
+      "label": "solicita estorno"
+    },
+    {
+      "id": "Pós-venda→Eventos e jobs",
+      "from": "Pós-venda",
+      "to": "Eventos e jobs",
+      "connector": "-->",
+      "label": "reembolso/chargeback"
+    },
+    {
+      "id": "Eventos e jobs→Direitos de acesso",
+      "from": "Eventos e jobs",
+      "to": "Direitos de acesso",
+      "connector": "-->",
+      "label": "aprovação/revogação"
+    },
+    {
+      "id": "Direitos de acesso→Comunidades",
+      "from": "Direitos de acesso",
+      "to": "Comunidades",
+      "connector": ">",
+      "label": "ativa/remove membro"
+    },
+    {
+      "id": "Área de membros→Direitos de acesso",
+      "from": "Área de membros",
+      "to": "Direitos de acesso",
+      "connector": ">",
+      "label": "valida permissão"
+    },
+    {
+      "id": "Área de membros→Cursos e progresso",
+      "from": "Área de membros",
+      "to": "Cursos e progresso",
+      "connector": ">",
+      "label": "aprendizado"
+    },
+    {
+      "id": "Área de membros→Mídia e player",
+      "from": "Área de membros",
+      "to": "Mídia e player",
+      "connector": ">",
+      "label": "URL assinada"
+    },
+    {
+      "id": "Área de membros→CDN de vídeo",
+      "from": "Área de membros",
+      "to": "CDN de vídeo",
+      "connector": ">",
+      "label": "reproduz vídeo"
+    },
+    {
+      "id": "Mídia e player→Objetos de mídia",
+      "from": "Mídia e player",
+      "to": "Objetos de mídia",
+      "connector": ">",
+      "label": "upload/objetos"
+    },
+    {
+      "id": "CDN de vídeo→Objetos de mídia",
+      "from": "CDN de vídeo",
+      "to": "Objetos de mídia",
+      "connector": ">",
+      "label": "origem"
+    },
+    {
+      "id": "Portal do afiliado→Atribuição de afiliados",
+      "from": "Portal do afiliado",
+      "to": "Atribuição de afiliados",
+      "connector": ">",
+      "label": "gera link rastreado"
+    },
+    {
+      "id": "Portal do afiliado→Comissões e saldo",
+      "from": "Portal do afiliado",
+      "to": "Comissões e saldo",
+      "connector": ">",
+      "label": "consulta comissão"
+    },
+    {
+      "id": "Eventos e jobs→Comissões e saldo",
+      "from": "Eventos e jobs",
+      "to": "Comissões e saldo",
+      "connector": "-->",
+      "label": "provisiona/reverte"
+    },
+    {
+      "id": "Comissões e saldo→Repasses",
+      "from": "Comissões e saldo",
+      "to": "Repasses",
+      "connector": ">",
+      "label": "saldo elegível"
+    },
+    {
+      "id": "Repasses→PSP e antifraude",
+      "from": "Repasses",
+      "to": "PSP e antifraude",
+      "connector": ">",
+      "label": "paga/liquida"
+    },
+    {
+      "id": "Eventos e jobs→Notificações",
+      "from": "Eventos e jobs",
+      "to": "Notificações",
+      "connector": "-->",
+      "label": "compra/acesso/cobrança"
+    },
+    {
+      "id": "Notificações→E-mail e mensagens",
+      "from": "Notificações",
+      "to": "E-mail e mensagens",
+      "connector": ">",
+      "label": "envia"
+    },
+    {
+      "id": "Eventos e jobs→Webhooks e integrações",
+      "from": "Eventos e jobs",
+      "to": "Webhooks e integrações",
+      "connector": "-->",
+      "label": "eventos de negócio"
+    },
+    {
+      "id": "Experiências→Usuários e segurança",
+      "from": "Experiências",
+      "to": "Usuários e segurança",
+      "connector": ">",
+      "label": "identidade e RBAC"
+    },
+    {
+      "id": "Comércio→PostgreSQL",
+      "from": "Comércio",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "compras e contratos"
+    },
+    {
+      "id": "Entrega→PostgreSQL",
+      "from": "Entrega",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "acesso e progresso"
+    },
+    {
+      "id": "Financeiro→PostgreSQL",
+      "from": "Financeiro",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "ledger e conciliação"
+    },
+    {
+      "id": "Usuários e segurança→PostgreSQL",
+      "from": "Usuários e segurança",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "identidades"
+    },
+    {
+      "id": "Eventos e jobs→Redis",
+      "from": "Eventos e jobs",
+      "to": "Redis",
+      "connector": ">",
+      "label": "jobs/retry/DLQ"
+    },
+    {
+      "id": "Eventos e jobs→PostgreSQL",
+      "from": "Eventos e jobs",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "outbox/idempotência"
+    },
+    {
+      "id": "Serviços transversais→Observabilidade",
+      "from": "Serviços transversais",
+      "to": "Observabilidade",
+      "connector": ">",
+      "label": "telemetria e auditoria"
+    },
+    {
+      "id": "Pós-venda→Direitos de acesso",
+      "from": "Pós-venda",
+      "to": "Direitos de acesso",
+      "connector": ">",
+      "label": "suspende por política"
+    }
+  ],
+  "diagnostics": []
+}

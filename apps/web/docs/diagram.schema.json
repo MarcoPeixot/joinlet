@@ -1,0 +1,363 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://strukt.dev/strukt.schema.json",
+  "title": "Diagrama do Joinlet",
+  "description": "Diagrama do Joinlet (version 1): nós e grupos com propriedades, conexões e estilo. Posições ficam no .layout.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "nodes"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 1
+    },
+    "style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "right",
+            "down",
+            "left",
+            "up"
+          ]
+        },
+        "colorMode": {
+          "enum": [
+            "pastel",
+            "bold",
+            "outline"
+          ]
+        },
+        "styleMode": {
+          "enum": [
+            "shadow",
+            "plain",
+            "watercolor"
+          ]
+        },
+        "typeface": {
+          "enum": [
+            "rough",
+            "clean",
+            "mono"
+          ]
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/element"
+      }
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/connection"
+      }
+    }
+  },
+  "$defs": {
+    "element": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/node"
+        },
+        {
+          "$ref": "#/$defs/group"
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "presentation": {
+          "enum": [
+            "card",
+            "icon",
+            "table",
+            "participant"
+          ]
+        },
+        "layoutRole": {
+          "enum": [
+            "entry",
+            "peer",
+            "shared"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nome do elemento (é o id; único no diagrama)."
+        },
+        "label": {
+          "type": "string",
+          "description": "Rótulo exibido no lugar do nome."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Ícone: aws-*, gcp-*, azure-*, k8s-*, marca ou genérico."
+        },
+        "color": {
+          "type": "string",
+          "description": "Cor da paleta ou hex."
+        },
+        "tech": {
+          "type": "string",
+          "description": "Tecnologia (ex.: \"PostgreSQL 16\")."
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrição/responsabilidades."
+        },
+        "link": {
+          "type": "string",
+          "description": "URL ou \"doc:<slug>\" / \"diagram:<slug>\"."
+        },
+        "colorMode": {
+          "enum": [
+            "pastel",
+            "bold",
+            "outline"
+          ]
+        },
+        "styleMode": {
+          "enum": [
+            "shadow",
+            "plain",
+            "watercolor"
+          ]
+        },
+        "typeface": {
+          "enum": [
+            "rough",
+            "clean",
+            "mono"
+          ]
+        },
+        "type": {
+          "const": "node"
+        },
+        "shape": {
+          "enum": [
+            "rectangle",
+            "cylinder",
+            "diamond",
+            "document",
+            "ellipse",
+            "hexagon",
+            "oval",
+            "parallelogram",
+            "star",
+            "trapezoid",
+            "triangle",
+            "circle",
+            "cloud",
+            "queue",
+            "bucket",
+            "actor",
+            "component",
+            "server",
+            "browser",
+            "mobile",
+            "package",
+            "note",
+            "process",
+            "delay"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string"
+              },
+              "key": {
+                "enum": [
+                  "PK",
+                  "FK"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "presentation": {
+          "enum": [
+            "card",
+            "icon",
+            "table",
+            "participant"
+          ]
+        },
+        "layoutRole": {
+          "enum": [
+            "entry",
+            "peer",
+            "shared"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nome do elemento (é o id; único no diagrama)."
+        },
+        "label": {
+          "type": "string",
+          "description": "Rótulo exibido no lugar do nome."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Ícone: aws-*, gcp-*, azure-*, k8s-*, marca ou genérico."
+        },
+        "color": {
+          "type": "string",
+          "description": "Cor da paleta ou hex."
+        },
+        "tech": {
+          "type": "string",
+          "description": "Tecnologia (ex.: \"PostgreSQL 16\")."
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrição/responsabilidades."
+        },
+        "link": {
+          "type": "string",
+          "description": "URL ou \"doc:<slug>\" / \"diagram:<slug>\"."
+        },
+        "colorMode": {
+          "enum": [
+            "pastel",
+            "bold",
+            "outline"
+          ]
+        },
+        "styleMode": {
+          "enum": [
+            "shadow",
+            "plain",
+            "watercolor"
+          ]
+        },
+        "typeface": {
+          "enum": [
+            "rough",
+            "clean",
+            "mono"
+          ]
+        },
+        "canvasFrame": {
+          "type": "boolean",
+          "description": "Área de diagrama independente no canvas."
+        },
+        "type": {
+          "const": "group"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/element"
+          }
+        }
+      }
+    },
+    "connection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to"
+      ],
+      "properties": {
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fromCardinality": {
+          "enum": [
+            "one",
+            "many",
+            "zero-one",
+            "zero-many"
+          ]
+        },
+        "toCardinality": {
+          "enum": [
+            "one",
+            "many",
+            "zero-one",
+            "zero-many"
+          ]
+        },
+        "type": {
+          "enum": [
+            ">",
+            "<",
+            "<>",
+            "-",
+            "--",
+            "-->"
+          ]
+        },
+        "fromPort": {
+          "enum": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        "toPort": {
+          "enum": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

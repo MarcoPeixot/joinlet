@@ -1,0 +1,33 @@
+{
+    "LoadBalancers": [
+        {
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188",
+            "DNSName": "shop-alb-1234567890.us-east-1.elb.amazonaws.com",
+            "CanonicalHostedZoneId": "Z35SXDOTRQ7X7K",
+            "CreatedTime": "2025-03-02T14:30:00.123000+00:00",
+            "LoadBalancerName": "shop-alb",
+            "Scheme": "internet-facing",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "State": {
+                "Code": "active"
+            },
+            "Type": "application",
+            "AvailabilityZones": [
+                {
+                    "ZoneName": "us-east-1a",
+                    "SubnetId": "subnet-0a11aaaa1111aaaa1",
+                    "LoadBalancerAddresses": []
+                },
+                {
+                    "ZoneName": "us-east-1b",
+                    "SubnetId": "subnet-0b22bbbb2222bbbb2",
+                    "LoadBalancerAddresses": []
+                }
+            ],
+            "SecurityGroups": [
+                "sg-0a1a1a1a1a1a1a1a1"
+            ],
+            "IpAddressType": "ipv4"
+        }
+    ]
+}

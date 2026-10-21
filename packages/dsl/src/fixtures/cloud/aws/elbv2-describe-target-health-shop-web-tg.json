@@ -1,0 +1,34 @@
+{
+    "TargetHealthDescriptions": [
+        {
+            "Target": {
+                "Id": "i-0123456789abcdef0",
+                "Port": 8080
+            },
+            "HealthCheckPort": "8080",
+            "TargetHealth": {
+                "State": "healthy"
+            }
+        },
+        {
+            "Target": {
+                "Id": "i-0fedcba9876543210",
+                "Port": 8080
+            },
+            "HealthCheckPort": "8080",
+            "TargetHealth": {
+                "State": "healthy"
+            }
+        },
+        {
+            "Target": {
+                "Id": "10.0.99.99",
+                "Port": 8080
+            },
+            "TargetHealth": {
+                "State": "unused",
+                "Reason": "Target.NotRegistered"
+            }
+        }
+    ]
+}

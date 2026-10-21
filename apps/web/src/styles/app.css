@@ -1,0 +1,716 @@
+@import 'tailwindcss';
+
+/*
+ * Joinlet workspace tokens (apps/web/DESIGN.md).
+ * Neutral light surfaces, charcoal in dark mode, lime connections and indigo accents.
+ * Every chrome color lives here; ui/theme.ts mirrors the canvas ones for React Flow and the export.
+ */
+:root {
+  --sk-bg: #eef1f5;
+  --sk-lime: #a3ff3d;
+  --sk-indigo: #6366f1;
+  --sk-logo-dark: #111827;
+  --sk-logo-joint: #fbfcfe;
+  --sk-canvas: #fbfcfe;
+  --sk-panel: #ffffff;
+  --sk-panel-2: #f4f6f9;
+  --sk-panel-3: #e8edf4;
+  --sk-line: #dce3ec;
+  --sk-line-strong: #bcc8d7;
+  --sk-edge: #a5b3c5;
+  --sk-ink: #111827;
+  --sk-muted: #4d5b6d;
+  --sk-faint: #566579;
+  --sk-accent: #356b16;
+  --sk-accent-strong: #a3ff3d;
+  --sk-accent-soft: rgba(119, 196, 42, 0.14);
+  --sk-accent-ink: #111827;
+  --sk-brand: linear-gradient(#356b16, #356b16);
+  --sk-success: #1f7a3d;
+  --sk-warning: #8f5b00;
+  --sk-info: #1d6fa5;
+  --sk-danger: #c2413a;
+  --sk-danger-soft: rgba(194, 65, 58, 0.1);
+  --sk-diff-added: #2f9a4e;
+  --sk-diff-removed: #c2413a;
+  --sk-diff-changed: #bf7f1f;
+  /* Text on the canvas (edge labels in a diff): the line colors above are shapes (3:1), these are AA. */
+  --sk-diff-added-text: #226f38;
+  --sk-diff-removed-text: #b83a33;
+  --sk-diff-changed-text: #8a5a12;
+  --sk-flow-out: #356b16;
+  --sk-flow-in: #0e8fbf;
+  --sk-highlight: inset 0 0 0 0 transparent;
+  --sk-shadow-panel: 0 2px 8px -2px rgba(30, 47, 73, 0.10), 0 1px 2px rgba(30, 47, 73, 0.05);
+  --sk-shadow-pop: 0 12px 32px -8px rgba(30, 47, 73, 0.18), 0 2px 8px rgba(24, 28, 40, 0.06);
+  --sk-elev-2: 0 12px 32px -8px rgba(30, 47, 73, 0.18), 0 2px 8px rgba(24, 28, 40, 0.06);
+  --sk-glow: 0 0 0 3px rgba(119, 196, 42, 0.2);
+  --sk-node-shadow: 0 2px 5px rgba(30, 47, 73, 0.08);
+  --sk-node-sheen: none;
+  --sk-vignette: none;
+  --sk-overlay: rgba(20, 22, 30, 0.28);
+  --sk-scrim: rgba(15, 17, 26, 0.4);
+  --sk-tooltip-bg: #16171b;
+  --sk-tooltip-ink: #f4f4f2;
+  --sk-radius-panel: 12px;
+  --sk-radius-control: 7px;
+  --sk-radius-chip: 5px;
+  --sk-header-height: 52px;
+  --sk-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --sk-motion-fast: 120ms;
+  --sk-motion: 180ms;
+  --sk-motion-slow: 260ms;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'],
+:root[data-theme='contrast'] {
+  --sk-bg: #131b20;
+  --sk-logo-dark: #f5f7f2;
+  --sk-logo-joint: #111827;
+  --sk-canvas: #0d1318;
+  --sk-panel: #151d23;
+  --sk-panel-2: #1c272e;
+  --sk-panel-3: #243139;
+  --sk-line: rgba(239, 240, 245, 0.045);
+  --sk-line-strong: rgba(239, 240, 245, 0.1);
+  --sk-ink: #f5f7f2;
+  --sk-muted: #b5bfc4;
+  --sk-faint: #a3b0b5;
+  --sk-edge: #43535d;
+  --sk-accent: #a3ff3d;
+  --sk-accent-strong: #a3ff3d;
+  --sk-accent-soft: rgba(163, 255, 61, 0.1);
+  --sk-accent-ink: #111827;
+  --sk-brand: linear-gradient(#a3ff3d, #a3ff3d);
+  --sk-success: #4cc26e;
+  --sk-warning: #e3a445;
+  --sk-info: #5cb3e8;
+  --sk-danger: #ef6b62;
+  --sk-danger-soft: rgba(239, 107, 98, 0.13);
+  --sk-diff-added: #4cc26e;
+  --sk-diff-removed: #ef6b62;
+  --sk-diff-changed: #e3a445;
+  --sk-diff-added-text: #4cc26e;
+  --sk-diff-removed-text: #ef6b62;
+  --sk-diff-changed-text: #e3a445;
+  --sk-flow-out: #a3ff3d;
+  --sk-flow-in: #6fb7ff;
+  --sk-highlight: none;
+  --sk-shadow-panel: 0 2px 8px -2px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.16);
+  --sk-shadow-pop: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --sk-glow: 0 0 0 3px rgba(163, 255, 61, 0.17);
+  --sk-node-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --sk-node-sheen: none;
+  --sk-vignette: none;
+  --sk-elev-2: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --sk-overlay: rgba(4, 5, 7, 0.55);
+  --sk-scrim: rgba(4, 5, 7, 0.65);
+  --sk-tooltip-bg: #ececef;
+  --sk-tooltip-ink: #111214;
+  color-scheme: dark;
+}
+
+/* Alto contraste: base escura (o canvas e o export usam o tema escuro), texto AAA e linhas firmes. */
+:root[data-theme='contrast'] {
+  --sk-panel: #0a0a0c;
+  --sk-panel-2: #16161a;
+  --sk-panel-3: #212127;
+  --sk-line: rgba(255, 255, 255, 0.28);
+  --sk-line-strong: rgba(255, 255, 255, 0.55);
+  --sk-ink: #ffffff;
+  --sk-muted: #d0d1d8;
+  --sk-faint: #bdbfc8;
+  --sk-accent: #baff73;
+  --sk-tooltip-bg: #ffffff;
+  --sk-tooltip-ink: #000000;
+}
+
+/*
+ * Cor de destaque (Configurações › Geral): each theme overrides only the --sk-accent* family (and the focus flow
+ * colour that follows it). Lima is the default above. Saved accent choices remain available. Alto contraste keeps its own accent. The matching foreground on
+ * --sk-accent-strong and --sk-accent on the panels stay above 4.5:1 (ui/contrast.test.ts).
+ */
+:root[data-theme='light'][data-accent='cobalt'] { --sk-accent: #2563eb; --sk-accent-strong: #2563eb; --sk-accent-ink: #ffffff; --sk-accent-soft: rgba(37, 99, 235, .09); --sk-flow-out: #2563eb; }
+:root[data-theme='dark'][data-accent='cobalt'] { --sk-accent: #79b4ff; --sk-accent-strong: #2563eb; --sk-accent-ink: #ffffff; --sk-accent-soft: rgba(121, 180, 255, .12); --sk-flow-out: #79b4ff; }
+:root[data-theme='light'][data-accent='signal'] { --sk-accent-ink: #ffffff; --sk-accent: #c2410c; --sk-accent-strong: #c2410c; --sk-accent-soft: rgba(194, 65, 12, 0.1); --sk-flow-out: #c2410c; --sk-glow: 0 0 0 4px rgba(194, 65, 12, 0.12); }
+:root[data-theme='dark'][data-accent='signal'] { --sk-accent-ink: #ffffff; --sk-accent: #ff6a2b; --sk-accent-strong: #c2410c; --sk-accent-soft: rgba(255, 106, 43, 0.14); --sk-flow-out: #ff6a2b; --sk-glow: 0 0 0 3px rgba(255, 106, 43, 0.14); }
+:root[data-theme='light'][data-accent='iris'] { --sk-accent-ink: #ffffff; --sk-accent: #4f5bd5; --sk-accent-strong: #4f5bd5; --sk-accent-soft: rgba(79, 91, 213, 0.1); --sk-flow-out: #4f5bd5; --sk-glow: 0 0 0 4px rgba(79, 91, 213, 0.12); }
+:root[data-theme='dark'][data-accent='iris'] { --sk-accent-ink: #ffffff; --sk-accent: #8b95ff; --sk-accent-strong: #5562e8; --sk-accent-soft: rgba(124, 136, 255, 0.15); --sk-flow-out: #8b95ff; --sk-glow: 0 0 0 3px rgba(139, 149, 255, 0.14); }
+:root[data-theme='light'][data-accent='emerald'] { --sk-accent-ink: #ffffff; --sk-accent: #08704f; --sk-accent-strong: #08704f; --sk-accent-soft: rgba(8, 112, 79, 0.1); --sk-flow-out: #08704f; }
+:root[data-theme='light'][data-accent='amber'] { --sk-accent-ink: #ffffff; --sk-accent: #8f5200; --sk-accent-strong: #8f5200; --sk-accent-soft: rgba(143, 82, 0, 0.1); --sk-flow-out: #8f5200; }
+:root[data-theme='light'][data-accent='graphite'] { --sk-accent-ink: #ffffff; --sk-accent: #3f4451; --sk-accent-strong: #3f4451; --sk-accent-soft: rgba(63, 68, 81, 0.1); --sk-flow-out: #3f4451; }
+:root[data-theme='dark'][data-accent='emerald'] { --sk-accent-ink: #ffffff; --sk-accent: #5fd3a4; --sk-accent-strong: #0d8060; --sk-accent-soft: rgba(95, 211, 164, 0.15); --sk-flow-out: #5fd3a4; }
+:root[data-theme='dark'][data-accent='amber'] { --sk-accent-ink: #ffffff; --sk-accent: #f0b34a; --sk-accent-strong: #a35b00; --sk-accent-soft: rgba(240, 179, 74, 0.15); --sk-flow-out: #f0b34a; }
+:root[data-theme='dark'][data-accent='graphite'] { --sk-accent-ink: #ffffff; --sk-accent: #b4b9c6; --sk-accent-strong: #545a68; --sk-accent-soft: rgba(180, 185, 198, 0.15); --sk-flow-out: #b4b9c6; }
+
+@theme inline {
+  --color-bg: var(--sk-bg);
+  --color-canvas: var(--sk-canvas);
+  --color-panel: var(--sk-panel);
+  --color-panel-2: var(--sk-panel-2);
+  --color-panel-3: var(--sk-panel-3);
+  --color-line: var(--sk-line);
+  --color-line-strong: var(--sk-line-strong);
+  --color-ink: var(--sk-ink);
+  --color-muted: var(--sk-muted);
+  --color-faint: var(--sk-faint);
+  --color-accent: var(--sk-accent);
+  --color-accent-strong: var(--sk-accent-strong);
+  --color-accent-soft: var(--sk-accent-soft);
+  --color-accent-ink: var(--sk-accent-ink);
+  --color-success: var(--sk-success);
+  --color-warning: var(--sk-warning);
+  --color-info: var(--sk-info);
+  --color-danger: var(--sk-danger);
+  --color-danger-soft: var(--sk-danger-soft);
+  --shadow-panel: var(--sk-shadow-panel);
+  --shadow-pop: var(--sk-shadow-pop);
+  --shadow-elev-2: var(--sk-elev-2);
+  --radius-panel: var(--sk-radius-panel);
+  --radius-control: var(--sk-radius-control);
+  --radius-chip: var(--sk-radius-chip);
+  --font-ui: 'Sora Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  --font-display: 'Sora Variable', system-ui, sans-serif;
+  --text-meta: 11px;
+  --text-meta--line-height: 16px;
+  --text-caption: 12px;
+  --text-caption--line-height: 17px;
+  --text-body: 13px;
+  --text-body--line-height: 20px;
+  --text-title: 13px;
+  --text-title--line-height: 20px;
+  --text-heading: 15px;
+  --text-heading--line-height: 22px;
+  --text-display: 22px;
+  --text-display--line-height: 28px;
+  --ease-sk: var(--sk-ease);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.45;
+  background: var(--sk-bg);
+  color: var(--sk-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+/* In the base layer, so a component's `outline-none` (utilities layer) can replace it with its own ring. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--sk-accent);
+    outline-offset: 2px;
+  }
+}
+
+::selection {
+  background: var(--sk-accent-soft);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sk-line-strong) transparent;
+}
+
+/* Counters, zoom and other changing numbers keep their width. */
+.sk-num {
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3,
+.sk-empty-title {
+  text-wrap: balance;
+}
+
+/* Level-1 section headers (panel sections, settings groups): plain, medium, muted. The sidebar uses caption text. */
+.sk-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--sk-muted);
+}
+
+/* Floating surfaces over the canvas: opaque cards (no blur). */
+.sk-float {
+  border: 1px solid var(--sk-line);
+  background: var(--sk-panel);
+  box-shadow: var(--sk-shadow-panel);
+}
+
+.sk-pop {
+  border: 1px solid var(--sk-line-strong);
+  background: var(--sk-panel);
+  box-shadow: var(--sk-shadow-pop);
+}
+
+/* Focus on a field or card inside the floating chrome: the Iris glow, from tokens only. */
+.sk-focus-glow:focus-within {
+  border-color: var(--sk-accent);
+  box-shadow: var(--sk-glow);
+}
+
+/* Hover = one surface step up; active = soft accent. Rows and menu items inside floating cards. */
+.sk-float [role='menuitem']:hover,
+.sk-pop [role='menuitem']:hover,
+.sk-float [data-highlighted],
+.sk-pop [data-highlighted] {
+  background: var(--sk-panel-2);
+}
+.sk-float [data-active='true'],
+.sk-pop [role='menuitemcheckbox'][data-state='checked'] {
+  background: var(--sk-accent-soft);
+  color: var(--sk-accent);
+}
+
+/* Popovers, menus and tooltips: one step above the panels. */
+.sk-elev-2 {
+  box-shadow: var(--sk-elev-2);
+}
+
+.sk-brand-text {
+  background: var(--sk-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+kbd,
+.sk-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1;
+  color: var(--sk-muted);
+  background: var(--sk-panel-2);
+}
+
+@keyframes sk-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sk-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.sk-shimmer {
+  background: linear-gradient(90deg, var(--sk-muted) 0%, var(--sk-ink) 40%, var(--sk-muted) 80%) 0 0 / 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sk-shimmer 1.6s linear infinite;
+}
+
+/* Placeholder bars while a panel's chunk loads. */
+.sk-skeleton {
+  background: linear-gradient(90deg, var(--sk-panel-2) 0%, var(--sk-panel-3) 50%, var(--sk-panel-2) 100%) 0 0 / 200% 100%;
+  animation: sk-shimmer 1.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-skeleton {
+    animation: none;
+  }
+}
+
+:root[data-reduce-motion] .sk-skeleton {
+  animation: none;
+}
+
+/* Radix-driven surfaces animate with CSS: they grow out of their trigger and fade away. */
+.sk-anim-pop[data-state='open'] {
+  animation: sk-pop-in 170ms var(--sk-ease);
+}
+
+.sk-anim-pop[data-state='closed'] {
+  animation: sk-pop-out 110ms ease-in forwards;
+}
+
+@keyframes sk-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-2px);
+  }
+}
+
+@keyframes sk-pop-out {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.sk-tooltip {
+  background: var(--sk-tooltip-bg);
+  color: var(--sk-tooltip-ink);
+  box-shadow: var(--sk-elev-2);
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  animation: sk-tooltip-in 140ms var(--sk-ease);
+}
+
+.sk-tooltip[data-state='instant-open'] {
+  animation: none;
+}
+
+@keyframes sk-tooltip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+.sk-tooltip__keys kbd {
+  border-color: color-mix(in srgb, var(--sk-tooltip-ink) 22%, transparent);
+  background: color-mix(in srgb, var(--sk-tooltip-ink) 10%, transparent);
+  color: color-mix(in srgb, var(--sk-tooltip-ink) 75%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Configurações › Geral › Reduzir movimento: the same, chosen in the app. */
+:root[data-reduce-motion] *,
+:root[data-reduce-motion] ::before,
+:root[data-reduce-motion] ::after {
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  animation-delay: 0ms !important;
+  transition-duration: 1ms !important;
+}
+
+:root[data-reduce-motion] .strukt-flow {
+  display: none;
+}
+
+/* AI-written architecture doc (panels/DocModal.tsx). */
+.sk-markdown {
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.sk-markdown h1 {
+  margin: 0 0 14px;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.sk-markdown h2 {
+  margin: 28px 0 8px;
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.sk-markdown p,
+.sk-markdown ul,
+.sk-markdown ol,
+.sk-markdown table {
+  margin: 0 0 10px;
+}
+
+.sk-markdown ul,
+.sk-markdown ol {
+  padding-left: 20px;
+  list-style: revert;
+}
+
+.sk-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.sk-markdown th,
+.sk-markdown td {
+  padding: 4px 8px;
+  border: 1px solid var(--sk-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.sk-markdown code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--sk-panel-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* M4: workspace docs reuse .sk-markdown; what the AI modal did not need. No `img` rule: the sanitizer
+   allowlist (docs/markdown.ts) never lets an <img> through, in docs or in the AI modal. */
+.sk-markdown > :first-child { margin-top: 0; }
+.sk-markdown h3 { margin: 20px 0 6px; font-size: 17px; font-weight: 650; }
+.sk-markdown a { color: var(--sk-accent); text-decoration: underline; }
+/* A chat citation (chat/citations.ts): an element of the workspace, shown as a chip. */
+.sk-markdown a[href^="#cite/"] { padding: 0 6px; border-radius: var(--sk-radius-chip, 6px); background: var(--sk-accent-soft); font-size: 0.92em; font-weight: 550; text-decoration: none; }
+.sk-markdown a[href^="#cite/"]:hover { text-decoration: underline; }
+.sk-markdown blockquote { margin: 0 0 10px; padding-left: 12px; border-left: 3px solid var(--sk-line-strong); color: var(--sk-muted); }
+.sk-markdown pre { margin: 0 0 10px; padding: 10px; overflow-x: auto; border-radius: var(--sk-radius-control); background: var(--sk-panel-2); }
+.sk-markdown pre code { padding: 0; background: none; }
+
+/* Excalidraw (sketch editor, loaded on demand): its islands and accent follow the app's tokens. */
+:root .excalidraw,
+:root .excalidraw.theme--dark {
+  --island-bg-color: var(--sk-panel);
+  --color-surface-lowest: var(--sk-panel);
+  --color-primary: var(--sk-accent-strong);
+  --color-primary-darker: var(--sk-accent-strong);
+  --color-primary-light: var(--sk-accent-soft);
+  --default-border-color: var(--sk-line);
+  --focus-highlight-color: var(--sk-accent);
+}
+
+/* Toast: a thin bar shows the time left; it freezes with the timer (hover/focus, WCAG 2.2.1). */
+.sk-toast-bar {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  transform-origin: left center;
+  background: color-mix(in srgb, var(--sk-tooltip-ink) 55%, transparent);
+  animation: sk-toast-bar linear forwards;
+}
+
+@keyframes sk-toast-bar {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-toast-bar {
+    display: none;
+  }
+}
+
+:root[data-reduce-motion] .sk-toast-bar {
+  display: none;
+}
+
+/* A check mark that draws itself (Salvar versão). */
+.sk-check-draw path {
+  stroke-dasharray: 24;
+  animation: sk-check-draw 380ms var(--sk-ease) both;
+}
+
+@keyframes sk-check-draw {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Selection properties float inside the canvas: reserve their complete width for the AI composer. */
+@media (min-width: 640px) {
+  main:has(> aside.sk-float) .sk-composer {
+    right: 384px;
+  }
+  /* With the panel open the canvas is narrow: keep the card clear of the zoom controls in the corner. */
+  main:has(> aside.sk-float) .sk-composer > div {
+    padding-left: 180px;
+    padding-right: 12px;
+  }
+}
+
+/* The header grows with touch targets; all content offsets follow the same token. */
+@media (pointer: coarse) {
+  :root { --sk-header-height: 60px; }
+  .sk-topbar-group {
+    min-height: 44px;
+  }
+  nav[aria-label='Workspace'] button[aria-expanded] {
+    min-height: 40px;
+  }
+}
+
+/* Comment tool (comments/CommentLayer): while it is on, the canvas asks for a click, and the pins stay clickable. */
+.react-flow.sk-commenting,
+.react-flow.sk-commenting .react-flow__pane,
+.react-flow.sk-commenting .react-flow__node,
+.react-flow.sk-commenting .react-flow__edge {
+  cursor: crosshair !important;
+}
+.react-flow.sk-commenting .sk-comment-ui,
+.react-flow.sk-commenting .sk-comment-ui * {
+  cursor: default !important;
+}
+.react-flow.sk-commenting .sk-comment-ui button {
+  cursor: pointer !important;
+}
+
+/* One backdrop across the main view, header reserve and the gaps around floating panels. */
+.sk-workspace-surface { --sk-workspace-surface: var(--sk-canvas); background: var(--sk-workspace-surface); }
+.sk-workspace-surface[data-surface='document'] { --sk-workspace-surface: var(--sk-panel); }
+
+
+/* A continuous workspace frame, inspired by desktop editors. Popovers keep their own elevation. */
+.sk-workbench-header { background: transparent; }
+.sk-docked-panel {
+  top: var(--sk-chrome-bottom, var(--sk-header-height)); right: 0; bottom: 0;
+  border: 0; border-radius: 0;
+  background: var(--sk-panel); box-shadow: none;
+}
+.sk-chat-conversation { scrollbar-gutter: stable; }
+.sk-chat-compose { margin: 0 12px 12px; padding: 10px; border: 0; border-radius: 14px; background: var(--sk-panel-2); }
+.sk-chat-compose:focus-within { background: color-mix(in srgb, var(--sk-panel-2) 85%, var(--sk-panel-3)); }
+.sk-chat-compose textarea { min-height: 58px; padding: 2px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.sk-chat-compose textarea:focus { outline: none; }
+.sk-chat-compose button { align-self: flex-end; }
+.sk-chat-user { border: 0; background: var(--sk-panel-2); border-radius: 10px; }
+
+
+/* High-contrast mode retains explicit surface boundaries; standard themes rely on spacing and fill. */
+:root[data-theme='contrast'] .sk-float,
+:root[data-theme='contrast'] .sk-pop,
+:root[data-theme='contrast'] .sk-chat-compose { outline: 1px solid var(--sk-line-strong); outline-offset: -1px; }
+
+
+.sk-chat-assistants summary::-webkit-details-marker { display: none; }
+.sk-chat-assistants summary > svg { transition: transform var(--sk-motion-fast) var(--sk-ease); }
+.sk-chat-assistants[open] summary > svg { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .sk-chat-assistants summary > svg { transition: none; } }
+:root[data-reduce-motion] .sk-chat-assistants summary > svg { transition: none; }
+
+.sk-chat-send, .sk-chat-send:hover { background: var(--sk-accent-strong); color: var(--sk-accent-ink); }
+
+/* Structural editor panes, like a desktop workbench: one quiet frame per work area. */
+.sk-workspace-surface { --sk-floating-toolbar-bottom: var(--sk-chrome-bottom, var(--sk-header-height)); --sk-content-offset: calc(var(--sk-floating-toolbar-bottom) + 12px); background: var(--sk-bg); }
+.sk-topbar-group { border: 1px solid var(--sk-line-strong); border-radius: 10px; }
+.sk-workbench-canvas:not([data-presenting]) {
+  margin: var(--sk-content-offset) 4px 8px;
+  border: 1px solid var(--sk-line-strong); border-radius: 10px;
+  --sk-header-height: 0px; --sk-chrome-bottom: 0px;
+}
+.sk-workbench-canvas[data-view='diagram']:not([data-presenting]) { margin-top: 8px; --sk-chrome-bottom: calc(var(--sk-floating-toolbar-bottom) - 8px); }
+@media (max-width: 1100px) { .sk-workbench-canvas[data-view='diagram']:not([data-presenting]) { --sk-header-height: calc(var(--sk-floating-toolbar-bottom) - 8px); } }
+.sk-docked-panel { top: 8px; right: 8px; bottom: 8px; border: 1px solid var(--sk-line-strong); border-radius: 10px; }
+.sk-workbench-divider { position: absolute; top: var(--sk-content-offset, 0px); bottom: 8px; z-index: 45; width: 8px; cursor: col-resize; touch-action: none; pointer-events: auto; outline-offset: -2px; }
+.sk-workbench-divider.is-left { left: 0; }
+.sk-workbench-divider.is-right { right: 0; }
+.sk-workbench-divider::after { content: ''; position: absolute; inset: 0 3px; border-radius: 2px; transition: background-color var(--sk-motion-fast); }
+.sk-workbench-divider:hover::after, .sk-workbench-divider:active::after, .sk-workbench-divider:focus-visible::after { background: var(--sk-accent); }
+@media (max-width: 639px) { .sk-workbench-canvas:not([data-presenting]) { margin-right: 3px; margin-left: 3px; margin-bottom: 4px; border-radius: 8px; } }
+
+.sk-chat-panel > header { height: 48px; padding-left: 18px; }
+.sk-chat-panel > header h2 { font-size: 14px; font-weight: 500; }
+.sk-chat-session-title { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 12px; padding: 0 18px 12px; font-size: 12px; font-weight: 500; }
+.sk-chat-history { padding: 0 2px; }
+.sk-chat-history.is-compact { padding-bottom: 10px; }
+.sk-chat-history-search { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 8px 10px; background: var(--sk-panel-2); border-radius: 7px; }
+.sk-chat-history-search input { width: 100%; min-width: 0; font-size: 12px; outline: none; }
+.sk-chat-history-search:focus-within { outline: 2px solid var(--sk-accent); outline-offset: 1px; }
+.sk-chat-history-row { display: flex; min-width: 0; align-items: center; gap: 6px; min-height: 36px; padding: 5px 8px; margin-inline: -8px; border-radius: 6px; }
+.sk-chat-history-row:hover, .sk-chat-history-row[data-active] { background: var(--sk-panel-2); }
+.sk-chat-history-row > button { min-height: 28px; }
+.sk-chat-compose { margin: 6px 12px 12px; padding: 14px 14px 10px; border-radius: 20px; background: var(--sk-panel-2); }
+.sk-chat-compose textarea { min-height: 58px; width: 100%; line-height: 1.65; }
+.sk-chat-compose-tools { display: flex; width: 100%; min-width: 0; align-items: center; gap: 8px; }
+.sk-chat-context { display: flex; max-width: 48%; min-width: 0; align-items: center; gap: 6px; font-size: 11px; color: var(--sk-muted); }
+.sk-chat-context > svg { flex: none; }
+.sk-chat-compose-tools > button { flex: none; border-radius: 50%; }
+.sk-chat-message-actions { display: flex; gap: 2px; margin: 8px 0 0 -6px; }
+.sk-chat-message-actions button { height: 26px; min-width: 26px; }
+@media (max-width: 639px) { .sk-chat-compose-tools > [role='status'] { font-size: 10px; } }
+
+/* Actions belong to the canvas; the independent dock can use its full height. */
+.sk-right-dock .sk-workbench-divider { top: 8px; }
+
+.sk-chat-model-trigger { display: flex; min-width: 0; max-width: calc(100% - 44px); align-items: center; gap: 7px; min-height: 30px; padding: 5px 7px; margin-left: -5px; border-radius: 7px !important; color: var(--sk-muted); font-size: 11px; text-align: left; transition: background var(--sk-motion-fast), color var(--sk-motion-fast); }
+.sk-chat-model-trigger:hover { background: var(--sk-panel-3); color: var(--sk-ink); }
+.sk-chat-model-trigger:disabled { opacity: .5; cursor: default; }
+.sk-chat-model-trigger > svg { flex: none; }
+.sk-chat-model-popover { width: min(340px, calc(100vw - 24px)); }
+.sk-chat-model-list { max-height: min(280px, 35dvh); overflow-y: auto; padding: 0 6px; }
+.sk-chat-model-option { display: flex; width: 100%; min-width: 0; align-items: center; justify-content: space-between; gap: 10px; border-radius: 7px; padding: 9px 10px; text-align: left; font-size: 12px; transition: background var(--sk-motion-fast); }
+.sk-chat-model-option:hover, .sk-chat-model-option[aria-pressed='true'] { background: var(--sk-panel-2); }
+
+.sk-chat-model-popover > div:last-child > button:last-child { justify-content: flex-start; }
+body:has(.sk-chat-model-popover) .sk-tooltip { visibility: hidden; }
+
+/* The hit area stays generous; its visible line lies exactly over the panel's border. */
+.sk-workbench-divider { top: 8px; }
+.sk-workbench-divider::after { inset: 0 auto 0 0; width: 1px; border-radius: 0; }
+.sk-workbench-divider.is-right::after { left: auto; right: 0; }
+.sk-right-dock .sk-workbench-divider::after { top: 10px; bottom: 10px; }
+.sk-code-dock .sk-workbench-divider { top: 0; right: -1px; bottom: 0; }
+
+
+/* Quiet feedback while the model prepares its first text; no invented progress steps. */
+.sk-chat-thinking { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 10px 0; color: var(--sk-muted); font-size: 13px; line-height: 20px; }
+.sk-chat-thinking__dots { display: inline-flex; align-items: center; gap: 4px; height: 16px; padding: 0 2px; }
+.sk-chat-thinking__dots > span { width: 4px; height: 4px; border-radius: 50%; background: var(--sk-accent); animation: sk-chat-thinking-dot 1.3s ease-in-out infinite; }
+.sk-chat-thinking__dots > span:nth-child(2) { animation-delay: 150ms; }
+.sk-chat-thinking__dots > span:nth-child(3) { animation-delay: 300ms; }
+@keyframes sk-chat-thinking-dot { 0%, 60%, 100% { opacity: .35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .sk-chat-thinking__dots > span { animation: none; opacity: .7; } }
+:root[data-reduce-motion] .sk-chat-thinking__dots > span { animation: none; opacity: .7; }
+
+.sk-diagram-tools { top: max(calc(var(--sk-header-height) + 12px), var(--sk-sidebar-toggle-offset, 0px)); transition: top var(--sk-motion-fast) var(--sk-ease); }
+@media (min-width: 640px) {
+  .sk-workspace-surface[data-sidebar-open='false'][data-code-open='false'] { --sk-sidebar-toggle-offset: 68px; }
+}
+@media (prefers-reduced-motion: reduce) { .sk-diagram-tools { transition: none; } }
+:root[data-reduce-motion] .sk-diagram-tools { transition: none; }
+
+.sk-jo-activity { display: flex; align-items: center; gap: 12px; min-height: 90px; padding: 10px 0; color: var(--sk-muted); font-size: 12px; line-height: 1.6; }
+.sk-jo-activity > div:last-child { min-width: 0; }
+.sk-jo-image { flex: none; width: 100px; height: 72px; }
+.sk-jo-image img { width: 100%; height: 100%; object-fit: contain; }
+.sk-jo-detail { display: block; font-size: 11px; opacity: .85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Overview uses the same full-height canvas frame as diagrams; actions float inside it. */
+.sk-workbench-canvas[data-view='board']:not([data-presenting]) { margin-top: 8px; }
+.sk-workbench-header[data-embedded] { top: 16px; }
+.sk-overview-tools.react-flow__panel { top: 16px; left: 16px; margin: 0; }
+.sk-workspace-surface[data-sidebar-open='false'] .sk-overview-tools { left: 68px; }
+@media(max-width:1100px){ .sk-overview-tools.react-flow__panel { top: calc(var(--sk-floating-toolbar-bottom) + 4px); left: 12px; } }
+
+/* Light fields need a visible boundary on white settings and document surfaces. */
+:root[data-theme='light'] .sk-input:not(:focus) {
+  border-color: var(--sk-line-strong);
+  background: var(--sk-panel);
+}
+:root[data-theme='light'] .sk-input:not(:focus):not(:disabled):hover {
+  border-color: var(--sk-muted);
+}

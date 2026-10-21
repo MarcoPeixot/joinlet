@@ -1,0 +1,52 @@
+{
+    "DBInstances": [
+        {
+            "DBInstanceIdentifier": "shop-db",
+            "DBInstanceClass": "db.r6g.large",
+            "Engine": "postgres",
+            "DBInstanceStatus": "available",
+            "MasterUsername": "shopadmin",
+            "DBName": "shop",
+            "Endpoint": {
+                "Address": "shop-db.cabc123.us-east-1.rds.amazonaws.com",
+                "Port": 5432,
+                "HostedZoneId": "Z2R2ITUGPM61AM"
+            },
+            "AllocatedStorage": 200,
+            "InstanceCreateTime": "2025-02-20T10:00:00.000000+00:00",
+            "VpcSecurityGroups": [
+                {
+                    "VpcSecurityGroupId": "sg-0b2b2b2b2b2b2b2b2",
+                    "Status": "active"
+                }
+            ],
+            "DBSubnetGroup": {
+                "DBSubnetGroupName": "shop-db-subnets",
+                "VpcId": "vpc-0a1b2c3d4e5f60718",
+                "SubnetGroupStatus": "Complete",
+                "Subnets": [
+                    {
+                        "SubnetIdentifier": "subnet-0c33cccc3333cccc3",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1a"
+                        },
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-0d44dddd4444dddd4",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1b"
+                        },
+                        "SubnetStatus": "Active"
+                    }
+                ]
+            },
+            "MultiAZ": true,
+            "EngineVersion": "15.4",
+            "PubliclyAccessible": false,
+            "StorageEncrypted": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "DBInstanceArn": "arn:aws:rds:us-east-1:123456789012:db:shop-db"
+        }
+    ]
+}

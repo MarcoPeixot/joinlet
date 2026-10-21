@@ -1,0 +1,449 @@
+[
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Instance",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "web-1",
+    "location": "us-central1-a",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/zones/us-central1-a/instances/web-1",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "RUNNING",
+    "networkTags": [
+      "http-server"
+    ]
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Instance",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "web-2",
+    "location": "us-central1-b",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/zones/us-central1-b/instances/web-2",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "TERMINATED"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Disk",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "web-1",
+    "location": "us-central1-a",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/zones/us-central1-a/disks/web-1",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "READY"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Network",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-net",
+    "location": "global",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/global/networks/shop-net",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Subnetwork",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-subnet",
+    "location": "us-central1",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/regions/us-central1/subnetworks/shop-subnet",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Firewall",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "allow-http",
+    "location": "global",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/global/firewalls/allow-http",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/ForwardingRule",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-lb",
+    "location": "global",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/global/forwardingRules/shop-lb",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "compute.googleapis.com/Route",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "default-route",
+    "location": "global",
+    "name": "//compute.googleapis.com/projects/shop-prod-123456/global/routes/default-route",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "storage.googleapis.com/Bucket",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-prod-assets",
+    "location": "us",
+    "name": "//storage.googleapis.com/shop-prod-assets",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "sqladmin.googleapis.com/Instance",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-pg",
+    "location": "us-central1",
+    "name": "//cloudsql.googleapis.com/projects/shop-prod-123456/instances/shop-pg",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "RUNNABLE"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "run.googleapis.com/Service",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-api",
+    "location": "us-central1",
+    "name": "//run.googleapis.com/projects/shop-prod-123456/locations/us-central1/services/shop-api",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "cloudfunctions.googleapis.com/CloudFunction",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-resize",
+    "location": "us-central1",
+    "name": "//cloudfunctions.googleapis.com/projects/shop-prod-123456/locations/us-central1/functions/shop-resize",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "ACTIVE"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "container.googleapis.com/Cluster",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-gke",
+    "location": "us-central1",
+    "name": "//container.googleapis.com/projects/shop-prod-123456/locations/us-central1/clusters/shop-gke",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "RUNNING"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "pubsub.googleapis.com/Topic",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "orders",
+    "location": "global",
+    "name": "//pubsub.googleapis.com/projects/shop-prod-123456/topics/orders",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "bigquery.googleapis.com/Dataset",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "analytics",
+    "location": "us",
+    "name": "//bigquery.googleapis.com/projects/shop-prod-123456/datasets/analytics",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "redis.googleapis.com/Instance",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "shop-cache",
+    "location": "us-central1",
+    "name": "//redis.googleapis.com/projects/shop-prod-123456/locations/us-central1/instances/shop-cache",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012",
+    "state": "READY"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "secretmanager.googleapis.com/Secret",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "db-password",
+    "location": "global",
+    "name": "//secretmanager.googleapis.com/projects/shop-prod-123456/secrets/db-password",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "iam.googleapis.com/ServiceAccount",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "sa",
+    "location": "global",
+    "name": "//iam.googleapis.com/projects/shop-prod-123456/serviceAccounts/sa@shop-prod-123456.iam.gserviceaccount.com",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  },
+  {
+    "additionalAttributes": {
+      "externalIPs": [
+        "203.0.113.77"
+      ],
+      "internalIPs": [
+        "10.128.0.5"
+      ]
+    },
+    "assetType": "serviceusage.googleapis.com/Service",
+    "createTime": "2025-02-01T09:00:00Z",
+    "displayName": "compute.googleapis.com",
+    "location": "global",
+    "name": "//serviceusage.googleapis.com/projects/123456789012/services/compute.googleapis.com",
+    "project": "projects/123456789012",
+    "updateTime": "2025-03-01T10:00:00Z",
+    "labels": {
+      "env": "prod",
+      "token": "SENTINEL-GCP-LABEL-SECRET"
+    },
+    "parentAssetType": "cloudresourcemanager.googleapis.com/Project",
+    "parentFullResourceName": "//cloudresourcemanager.googleapis.com/projects/123456789012"
+  }
+]

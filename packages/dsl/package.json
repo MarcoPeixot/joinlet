@@ -1,0 +1,26 @@
+{
+  "name": "@strukt/dsl",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lite": "./src/lite.ts",
+    "./import": "./src/import.ts",
+    "./export": "./src/export.ts",
+    "./cloud-fixtures": "./src/fixtures/cloud.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@strukt/core": "workspace:*",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@strukt/json": "workspace:*",
+    "fast-check": "^4.10.2"
+  },
+  "license": "AGPL-3.0-only"
+}

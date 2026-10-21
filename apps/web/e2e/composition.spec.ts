@@ -1,0 +1,23 @@
+import {expect,test} from '@playwright/test';
+import {savedDiagram} from './storage';
+const ids=['API','Core','IA','Integrações','Insights','Mídia','Infra'];
+const connections=[...ids.slice(1).map(to=>({from:'API',to})),{from:'IA',to:'Core',label:'Usuário / acesso'},{from:'IA',to:'Integrações',label:'Ferramentas'},{from:'IA',to:'Infra',label:'Jobs / dados'},{from:'Insights',to:'Integrações',label:'Aquisição'},{from:'Insights',to:'Infra',label:'Persistência'},{from:'Mídia',to:'Infra',label:'Arquivos / jobs'}];
+test('scene composition remains editable and survives undo/reload',async({page})=>{
+ await page.goto('/app/');
+ await page.getByRole('button',{name:'Mostrar/ocultar código'}).click();
+ await page.locator('.cm-content').click();await page.keyboard.press('ControlOrMeta+a');
+ await page.keyboard.insertText(JSON.stringify({version:1,style:{direction:'down',typeface:'clean'},nodes:ids.map(id=>({id,presentation:'card',layoutRole:id==='API'?'entry':id==='Infra'?'shared':'peer',icon:'server',tech:id==='API'?'NestJS · Node.js':undefined})),connections}));
+ await expect(page.locator('.react-flow__node-card')).toHaveCount(7);
+ await page.getByRole('button',{name:'Mostrar/ocultar código'}).click();
+ await page.getByRole('button',{name:'Aparência do diagrama',exact:true}).click();await page.getByRole('button',{name:'Compor arquitetura',exact:true}).click();await page.keyboard.press('Escape');
+ const peer=page.locator('[data-id="Core"]'),shared=page.locator('[data-id="Infra"]');
+ await expect.poll(async()=> (await shared.boundingBox())!.width/(await peer.boundingBox())!.width).toBeGreaterThan(5);
+ await expect.poll(async()=> (await savedDiagram(page))?.model.edges.length).toBe(12);
+ const api=page.locator('[data-id="API"]');
+ await api.locator('.strukt-label').dblclick();await page.locator('.strukt-label-input').fill('API gateway');await page.locator('.strukt-label-input').press('Enter');
+ await expect(page.locator('[data-id="API gateway"]')).toBeVisible();
+ await page.keyboard.press('ControlOrMeta+z');await expect(page.locator('[data-id="API"]')).toBeVisible();
+ await expect.poll(async()=> (await savedDiagram(page))?.model.elements.API?.presentation).toBe('card');
+ await page.reload();await expect(page.locator('.react-flow__node-card')).toHaveCount(7);
+ await expect.poll(async()=> (await shared.boundingBox())!.width/(await peer.boundingBox())!.width).toBeGreaterThan(5);
+});

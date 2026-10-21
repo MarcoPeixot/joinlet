@@ -1,0 +1,21 @@
+{
+  "name": "@strukt/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts",
+    "./cloud": "./src/cloudComponents.ts",
+    "./catalog": "./src/componentCatalog.ts",
+    "./specialist": "./src/specialistComponents.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "fast-check": "^4.10.2"
+  },
+  "license": "AGPL-3.0-only"
+}

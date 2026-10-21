@@ -1,0 +1,50 @@
+.sk-settings { border-radius: 16px; }
+.sk-settings nav { border-radius: 16px 0 0 16px; }
+.sk-ai-connections { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 28px; align-items: start; }
+.sk-provider-list { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.sk-provider-choice { display: flex; min-width: 0; align-items: center; gap: 10px; padding: 10px; border-radius: 9px; text-align: left; color: var(--sk-muted); transition: background var(--sk-motion-fast), color var(--sk-motion-fast); }
+.sk-provider-choice:hover { background: var(--sk-panel-2); color: var(--sk-ink); }
+.sk-provider-choice.is-selected { background: var(--sk-panel-2); color: var(--sk-ink); }
+.sk-provider-choice.is-selected .sk-provider-choice-mark { color: var(--sk-ink); background: var(--sk-accent-soft); }
+.sk-provider-choice-mark { flex: none; }
+.sk-provider-detail { min-width: 0; padding-top: 2px; animation: sk-provider-appear 160ms ease-out; }
+.sk-provider-card { min-width: 0; }
+.sk-provider-card > header { row-gap: 12px; }
+.sk-settings-key-note { max-width: 62ch; margin-top: 4px; }
+@media (max-width: 850px) {
+  .sk-ai-connections { display: flex; flex-direction: column; gap: 24px; }
+  .sk-ai-connections > div { width: 100%; }
+  .sk-provider-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .sk-provider-detail { animation: none; } }
+
+@keyframes sk-provider-appear { from { transform: translateY(4px); } to { transform: translateY(0); } }
+.sk-settings .bg-danger-soft { color: color-mix(in srgb, var(--sk-danger) 85%, var(--sk-ink)); }
+
+.sk-accent-picker { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+.sk-accent-option { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 10px; border: 1px solid var(--sk-line); border-radius: 9px; color: var(--sk-muted); background: var(--sk-panel); text-align: left; font-size: 12px; transition: background var(--sk-motion-fast),border-color var(--sk-motion-fast); }
+.sk-accent-option:hover { background: var(--sk-panel-2); border-color: var(--sk-line-strong); }
+.sk-accent-option[aria-pressed=true] { background: var(--sk-accent-soft); border-color: var(--sk-accent); color: var(--sk-ink); }
+.sk-accent-swatch { display: grid; place-items: center; width: 25px; height: 25px; flex: none; color: #12211c; border-radius: 50%; box-shadow: inset 0 0 0 1px #00000012; }
+.sk-accent-selected { width: 5px; height: 5px; border-radius: 50%; background: var(--sk-accent); margin-left: auto; flex: none; }
+.sk-integration-mark { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border: 1px solid var(--sk-line); background: var(--sk-panel); border-radius: 10px; }
+.sk-integration-mark > svg { width: 22px; height: 22px; }
+.sk-integration-title { display: flex; align-items: center; gap: 8px; }
+.sk-integration-submarks { display: inline-flex; gap: 7px; color: var(--sk-muted); }.sk-integration-submarks svg { width: 15px; height: 15px; }
+.sk-integration-card > header { flex-wrap: wrap; }.sk-integration-card > header > .sk-integration-copy { flex: 1 1 180px; }
+@media(max-width:400px){ .sk-accent-option { gap: 7px; padding: 8px; font-size: 11px; } }
+
+.sk-ai-setup { padding:24px; border:1px solid var(--sk-line); border-radius:16px; background:var(--sk-panel-2); display:flex; flex-direction:column; gap:16px; }
+.sk-ai-setup h3 { font-size:20px; font-weight:600; }
+.sk-ai-setup p { color:var(--sk-muted); font-size:13px; line-height:1.7; }
+.sk-ai-setup ol { padding-left:24px; display:grid; gap:22px; }
+.sk-ai-setup li::marker { color:var(--sk-accent); font-weight:600; }
+.sk-ai-setup li strong { display:block; margin-bottom:6px; font-size:14px; }
+.sk-ai-setup a { color:var(--sk-ink); text-decoration:underline; font-size:13px; overflow-wrap:anywhere; }
+.sk-setup-command { display:flex; gap:12px; align-items:center; background:var(--sk-panel); padding:12px; border:1px solid var(--sk-line); border-radius:10px; margin:12px 0; }
+.sk-setup-command pre { flex:1; min-width:0; font-size:12px; line-height:1.8; }
+.sk-setup-command button { padding:8px; border-radius:8px; }
+.sk-setup-diagnostic { font-size:12px; color:var(--sk-muted); }
+.sk-setup-diagnostic summary { cursor:pointer; }
+.sk-ai-steps { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; }
+.sk-ai-steps li { border:1px solid var(--sk-line); border-radius:999px; padding:6px 10px; color:var(--sk-muted); font-size:12px; }

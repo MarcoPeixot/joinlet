@@ -1,0 +1,15 @@
+{
+    "Items": [
+        {
+            "ApiEndpoint": "https://abc123xyz.execute-api.us-east-1.amazonaws.com",
+            "ApiId": "abc123xyz",
+            "ApiKeySelectionExpression": "$request.header.x-api-key",
+            "CreatedDate": "2025-02-01T10:00:00+00:00",
+            "DisableExecuteApiEndpoint": false,
+            "Name": "shop-http-api",
+            "ProtocolType": "HTTP",
+            "RouteSelectionExpression": "$request.method $request.path",
+            "Tags": {}
+        }
+    ]
+}

@@ -1,0 +1,328 @@
+{
+  "style": {
+    "direction": "right",
+    "colorMode": "pastel",
+    "styleMode": "plain",
+    "typeface": "clean"
+  },
+  "elements": {
+    "Frontend": {
+      "kind": "group",
+      "id": "Frontend",
+      "icon": "monitor-smartphone",
+      "color": "blue",
+      "layoutRole": "peer"
+    },
+    "Web App": {
+      "kind": "node",
+      "id": "Web App",
+      "parentId": "Frontend",
+      "icon": "react",
+      "presentation": "card"
+    },
+    "Mobile": {
+      "kind": "node",
+      "id": "Mobile",
+      "parentId": "Frontend",
+      "icon": "smartphone",
+      "presentation": "card"
+    },
+    "Serviços": {
+      "kind": "group",
+      "id": "Serviços",
+      "icon": "layers",
+      "color": "purple",
+      "layoutRole": "entry"
+    },
+    "Vendas": {
+      "kind": "group",
+      "id": "Vendas",
+      "parentId": "Serviços",
+      "icon": "credit-card",
+      "color": "purple"
+    },
+    "Pedidos": {
+      "kind": "node",
+      "id": "Pedidos",
+      "parentId": "Vendas",
+      "icon": "nodejs",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Pagamentos": {
+      "kind": "node",
+      "id": "Pagamentos",
+      "parentId": "Vendas",
+      "icon": "go",
+      "tech": "Go",
+      "presentation": "card"
+    },
+    "Checkout": {
+      "kind": "node",
+      "id": "Checkout",
+      "parentId": "Vendas",
+      "icon": "shopping-cart",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Educação": {
+      "kind": "group",
+      "id": "Educação",
+      "parentId": "Serviços",
+      "icon": "document",
+      "color": "purple"
+    },
+    "Catálogo": {
+      "kind": "node",
+      "id": "Catálogo",
+      "parentId": "Educação",
+      "icon": "document",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Alunos": {
+      "kind": "node",
+      "id": "Alunos",
+      "parentId": "Educação",
+      "icon": "users",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Matrículas": {
+      "kind": "node",
+      "id": "Matrículas",
+      "parentId": "Educação",
+      "icon": "document",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Notificações": {
+      "kind": "node",
+      "id": "Notificações",
+      "parentId": "Educação",
+      "icon": "bell",
+      "tech": "Node.js",
+      "presentation": "card"
+    },
+    "Dados": {
+      "kind": "group",
+      "id": "Dados",
+      "icon": "database",
+      "color": "green",
+      "layoutRole": "shared"
+    },
+    "PostgreSQL": {
+      "kind": "node",
+      "id": "PostgreSQL",
+      "parentId": "Dados",
+      "icon": "postgres",
+      "presentation": "card"
+    },
+    "Redis": {
+      "kind": "node",
+      "id": "Redis",
+      "parentId": "Dados",
+      "icon": "redis",
+      "presentation": "card"
+    },
+    "Armazenamento": {
+      "kind": "node",
+      "id": "Armazenamento",
+      "parentId": "Dados",
+      "icon": "aws:s3",
+      "tech": "AWS S3",
+      "presentation": "card"
+    },
+    "Kafka": {
+      "kind": "node",
+      "id": "Kafka",
+      "icon": "kafka",
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    "Borda": {
+      "kind": "group",
+      "id": "Borda",
+      "icon": "shield",
+      "color": "blue",
+      "layoutRole": "peer"
+    },
+    "API Gateway": {
+      "kind": "node",
+      "id": "API Gateway",
+      "parentId": "Borda",
+      "icon": "nginx",
+      "presentation": "card"
+    },
+    "Load Balancer": {
+      "kind": "node",
+      "id": "Load Balancer",
+      "parentId": "Borda",
+      "icon": "nginx",
+      "tech": "NGINX",
+      "presentation": "card"
+    }
+  },
+  "order": [
+    "Frontend",
+    "Web App",
+    "Mobile",
+    "Serviços",
+    "Vendas",
+    "Pedidos",
+    "Pagamentos",
+    "Checkout",
+    "Educação",
+    "Catálogo",
+    "Alunos",
+    "Matrículas",
+    "Notificações",
+    "Dados",
+    "PostgreSQL",
+    "Redis",
+    "Armazenamento",
+    "Kafka",
+    "Borda",
+    "API Gateway",
+    "Load Balancer"
+  ],
+  "edges": [
+    {
+      "id": "API Gateway→Pedidos",
+      "from": "API Gateway",
+      "to": "Pedidos",
+      "connector": ">"
+    },
+    {
+      "id": "API Gateway→Pagamentos",
+      "from": "API Gateway",
+      "to": "Pagamentos",
+      "connector": ">"
+    },
+    {
+      "id": "Pedidos→PostgreSQL",
+      "from": "Pedidos",
+      "to": "PostgreSQL",
+      "connector": ">",
+      "label": "SQL"
+    },
+    {
+      "id": "Pagamentos→PostgreSQL",
+      "from": "Pagamentos",
+      "to": "PostgreSQL",
+      "connector": ">"
+    },
+    {
+      "id": "Pedidos→Redis",
+      "from": "Pedidos",
+      "to": "Redis",
+      "connector": ">",
+      "label": "cache"
+    },
+    {
+      "id": "Pedidos→Kafka",
+      "from": "Pedidos",
+      "to": "Kafka",
+      "connector": "-->",
+      "label": "eventos"
+    },
+    {
+      "id": "Kafka→Pagamentos",
+      "from": "Kafka",
+      "to": "Pagamentos",
+      "connector": "-->"
+    },
+    {
+      "id": "Web App→Load Balancer",
+      "from": "Web App",
+      "to": "Load Balancer",
+      "connector": ">",
+      "label": "HTTPS"
+    },
+    {
+      "id": "Mobile→Load Balancer",
+      "from": "Mobile",
+      "to": "Load Balancer",
+      "connector": ">",
+      "label": "HTTPS"
+    },
+    {
+      "id": "Load Balancer→API Gateway",
+      "from": "Load Balancer",
+      "to": "API Gateway",
+      "connector": ">"
+    },
+    {
+      "id": "API Gateway→Checkout",
+      "from": "API Gateway",
+      "to": "Checkout",
+      "connector": ">"
+    },
+    {
+      "id": "API Gateway→Catálogo",
+      "from": "API Gateway",
+      "to": "Catálogo",
+      "connector": ">"
+    },
+    {
+      "id": "API Gateway→Alunos",
+      "from": "API Gateway",
+      "to": "Alunos",
+      "connector": ">"
+    },
+    {
+      "id": "Checkout→Pagamentos",
+      "from": "Checkout",
+      "to": "Pagamentos",
+      "connector": ">",
+      "label": "cobra"
+    },
+    {
+      "id": "Checkout→Matrículas",
+      "from": "Checkout",
+      "to": "Matrículas",
+      "connector": ">",
+      "label": "confirma"
+    },
+    {
+      "id": "Catálogo→PostgreSQL",
+      "from": "Catálogo",
+      "to": "PostgreSQL",
+      "connector": ">"
+    },
+    {
+      "id": "Catálogo→Armazenamento",
+      "from": "Catálogo",
+      "to": "Armazenamento",
+      "connector": ">",
+      "label": "vídeos"
+    },
+    {
+      "id": "Alunos→PostgreSQL",
+      "from": "Alunos",
+      "to": "PostgreSQL",
+      "connector": ">"
+    },
+    {
+      "id": "Matrículas→PostgreSQL",
+      "from": "Matrículas",
+      "to": "PostgreSQL",
+      "connector": ">"
+    },
+    {
+      "id": "Matrículas→Kafka",
+      "from": "Matrículas",
+      "to": "Kafka",
+      "connector": "-->",
+      "label": "matriculou"
+    },
+    {
+      "id": "Kafka→Notificações",
+      "from": "Kafka",
+      "to": "Notificações",
+      "connector": "-->",
+      "label": "notifica"
+    }
+  ],
+  "diagnostics": []
+}

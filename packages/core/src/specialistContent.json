@@ -1,0 +1,4339 @@
+{
+  "libraries": [
+    {
+      "id": "quantum",
+      "label": "Computação quântica",
+      "description": "Qubits, circuitos e fluxos híbridos clássico-quânticos."
+    },
+    {
+      "id": "blockchain",
+      "label": "Blockchain e Web3",
+      "description": "Nós, contratos, consenso e infraestruturas de redes distribuídas."
+    },
+    {
+      "id": "ai-ml",
+      "label": "IA e machine learning",
+      "description": "Agentes, recuperação, treinamento, inferência e avaliação de modelos."
+    },
+    {
+      "id": "data-structures",
+      "label": "Estruturas de dados",
+      "description": "Estruturas fundamentais, índices e organização de dados em memória."
+    },
+    {
+      "id": "graphs",
+      "label": "Grafos e algoritmos",
+      "description": "Relacionamentos, travessias, dependências e análise de grafos."
+    },
+    {
+      "id": "data-platforms",
+      "label": "Plataformas de dados",
+      "description": "Ingestão, transformação, qualidade e governança de dados."
+    },
+    {
+      "id": "security",
+      "label": "Segurança e identidade",
+      "description": "Políticas, identidades, criptografia e fronteiras de confiança."
+    },
+    {
+      "id": "edge",
+      "label": "Edge, IoT e robótica",
+      "description": "Sensores, dispositivos, telemetria e processamento no edge."
+    }
+  ],
+  "components": [
+    {
+      "id": "qubit",
+      "label": "Qubit",
+      "category": "Computação quântica",
+      "description": "Unidade de informação quântica com estado normalizado.",
+      "libraryId": "quantum",
+      "icon": "domain:qubit",
+      "tech": "Quantum state",
+      "color": "gray",
+      "keywords": [
+        "Qubit",
+        "Unidade de informação quântica com estado normalizado.",
+        "Quantum information unit with a normalized state.",
+        "Quantum state",
+        "quantum",
+        "qubit"
+      ],
+      "shape": "circle",
+      "width": 140,
+      "height": 140
+    },
+    {
+      "id": "quantum-register",
+      "label": "Registrador quântico",
+      "category": "Computação quântica",
+      "description": "Conjunto de qubits endereçáveis em um circuito.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-register",
+      "tech": "Quantum register",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Registrador quântico",
+        "Conjunto de qubits endereçáveis em um circuito.",
+        "Quantum register",
+        "Addressable qubits within a circuit.",
+        "quantum",
+        "quantum-register"
+      ]
+    },
+    {
+      "id": "classical-register",
+      "label": "Registrador clássico",
+      "category": "Computação quântica",
+      "description": "Armazena resultados clássicos das medições.",
+      "libraryId": "quantum",
+      "icon": "domain:measurement",
+      "tech": "Classical bits",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Registrador clássico",
+        "Armazena resultados clássicos das medições.",
+        "Classical register",
+        "Stores classical measurement outcomes.",
+        "Classical bits",
+        "quantum",
+        "classical-register"
+      ]
+    },
+    {
+      "id": "quantum-hadamard",
+      "label": "Porta Hadamard",
+      "category": "Computação quântica",
+      "description": "Transformação de base usada para preparar superposição.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-gate",
+      "tech": "Hadamard · H",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Porta Hadamard",
+        "Transformação de base usada para preparar superposição.",
+        "Hadamard gate",
+        "Basis transformation used to prepare superposition.",
+        "Hadamard · H",
+        "quantum",
+        "quantum-hadamard"
+      ]
+    },
+    {
+      "id": "quantum-pauli",
+      "label": "Porta Pauli",
+      "category": "Computação quântica",
+      "description": "Operações X, Y ou Z sobre um qubit.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-gate",
+      "tech": "Pauli · X/Y/Z",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Porta Pauli",
+        "Operações X, Y ou Z sobre um qubit.",
+        "Pauli gate",
+        "X, Y or Z operations on one qubit.",
+        "Pauli · X/Y/Z",
+        "quantum",
+        "quantum-pauli"
+      ]
+    },
+    {
+      "id": "quantum-rotation",
+      "label": "Rotação parametrizada",
+      "category": "Computação quântica",
+      "description": "Rotação Rx, Ry ou Rz controlada por um parâmetro.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-gate",
+      "tech": "Rx · Ry · Rz",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Rotação parametrizada",
+        "Rotação Rx, Ry ou Rz controlada por um parâmetro.",
+        "Parameterized rotation",
+        "Rx, Ry or Rz rotation controlled by a parameter.",
+        "Rx · Ry · Rz",
+        "quantum",
+        "quantum-rotation"
+      ]
+    },
+    {
+      "id": "quantum-cnot",
+      "label": "Porta CNOT",
+      "category": "Computação quântica",
+      "description": "Inverte o alvo condicionada ao estado do controle.",
+      "libraryId": "quantum",
+      "icon": "domain:entanglement",
+      "tech": "Controlled X",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Porta CNOT",
+        "Inverte o alvo condicionada ao estado do controle.",
+        "CNOT gate",
+        "Flips a target conditioned on the control state.",
+        "Controlled X",
+        "quantum",
+        "quantum-cnot"
+      ]
+    },
+    {
+      "id": "quantum-measurement",
+      "label": "Medição quântica",
+      "category": "Computação quântica",
+      "description": "Produz um resultado clássico conforme a base de medição.",
+      "libraryId": "quantum",
+      "icon": "domain:measurement",
+      "tech": "Measurement",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Medição quântica",
+        "Produz um resultado clássico conforme a base de medição.",
+        "Quantum measurement",
+        "Produces a classical outcome in the measurement basis.",
+        "Measurement",
+        "quantum",
+        "quantum-measurement"
+      ]
+    },
+    {
+      "id": "quantum-entanglement",
+      "label": "Par emaranhado",
+      "category": "Computação quântica",
+      "description": "Estado conjunto que não se decompõe em estados independentes.",
+      "libraryId": "quantum",
+      "icon": "domain:entanglement",
+      "tech": "Entanglement",
+      "color": "gray",
+      "keywords": [
+        "Par emaranhado",
+        "Estado conjunto que não se decompõe em estados independentes.",
+        "Entangled pair",
+        "Joint state that cannot be factored into independent states.",
+        "Entanglement",
+        "quantum",
+        "quantum-entanglement"
+      ],
+      "shape": "circle",
+      "width": 140,
+      "height": 140
+    },
+    {
+      "id": "quantum-circuit",
+      "label": "Circuito quântico",
+      "category": "Computação quântica",
+      "description": "Sequência lógica de portas e medições; o desenho não executa o circuito.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-circuit",
+      "tech": "Quantum circuit",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Circuito quântico",
+        "Sequência lógica de portas e medições; o desenho não executa o circuito.",
+        "Quantum circuit",
+        "Logical gates and measurements; this drawing does not execute a circuit.",
+        "quantum",
+        "quantum-circuit"
+      ]
+    },
+    {
+      "id": "quantum-oracle",
+      "label": "Oráculo quântico",
+      "category": "Computação quântica",
+      "description": "Codifica a função consultada por um algoritmo quântico.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-oracle",
+      "tech": "Oracle",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Oráculo quântico",
+        "Codifica a função consultada por um algoritmo quântico.",
+        "Quantum oracle",
+        "Encodes the function queried by a quantum algorithm.",
+        "Oracle",
+        "quantum",
+        "quantum-oracle"
+      ]
+    },
+    {
+      "id": "quantum-diffuser",
+      "label": "Operador de difusão",
+      "category": "Computação quântica",
+      "description": "Amplificação de amplitude após a marcação do oráculo de Grover.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-gate",
+      "tech": "Grover diffusion",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Operador de difusão",
+        "Amplificação de amplitude após a marcação do oráculo de Grover.",
+        "Diffusion operator",
+        "Amplitude amplification after Grover oracle marking.",
+        "Grover diffusion",
+        "quantum",
+        "quantum-diffuser"
+      ]
+    },
+    {
+      "id": "quantum-ansatz",
+      "label": "Ansatz variacional",
+      "category": "Computação quântica",
+      "description": "Circuito parametrizado de uma otimização variacional.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-circuit",
+      "tech": "VQE · QAOA",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ansatz variacional",
+        "Circuito parametrizado de uma otimização variacional.",
+        "Variational ansatz",
+        "Parameterized circuit used in variational optimization.",
+        "VQE · QAOA",
+        "quantum",
+        "quantum-ansatz"
+      ]
+    },
+    {
+      "id": "quantum-observable",
+      "label": "Observável",
+      "category": "Computação quântica",
+      "description": "Operador cujos valores esperados podem ser estimados por medições.",
+      "libraryId": "quantum",
+      "icon": "domain:measurement",
+      "tech": "Expectation value",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Observável",
+        "Operador cujos valores esperados podem ser estimados por medições.",
+        "Observable",
+        "Operator whose expectation values can be estimated by measurement.",
+        "Expectation value",
+        "quantum",
+        "quantum-observable"
+      ]
+    },
+    {
+      "id": "quantum-optimizer",
+      "label": "Otimizador clássico",
+      "category": "Computação quântica",
+      "description": "Atualiza parâmetros a partir de uma função objetivo estimada.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-optimizer",
+      "tech": "Hybrid loop",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Otimizador clássico",
+        "Atualiza parâmetros a partir de uma função objetivo estimada.",
+        "Classical optimizer",
+        "Updates parameters from an estimated objective function.",
+        "Hybrid loop",
+        "quantum",
+        "quantum-optimizer"
+      ]
+    },
+    {
+      "id": "quantum-simulator",
+      "label": "Simulador quântico",
+      "category": "Computação quântica",
+      "description": "Simulação clássica de um circuito, com custos que dependem do método.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-simulator",
+      "tech": "Statevector · tensor network",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Simulador quântico",
+        "Simulação clássica de um circuito, com custos que dependem do método.",
+        "Quantum simulator",
+        "Classical circuit simulation with method-dependent resource costs.",
+        "Statevector · tensor network",
+        "quantum",
+        "quantum-simulator"
+      ]
+    },
+    {
+      "id": "quantum-qpu",
+      "label": "Processador quântico",
+      "category": "Computação quântica",
+      "description": "Backend físico que executa circuitos sujeitos a restrições e ruído.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-backend",
+      "tech": "QPU",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Processador quântico",
+        "Backend físico que executa circuitos sujeitos a restrições e ruído.",
+        "Quantum processor",
+        "Physical backend executing circuits subject to constraints and noise.",
+        "QPU",
+        "quantum",
+        "quantum-qpu"
+      ]
+    },
+    {
+      "id": "quantum-transpiler",
+      "label": "Transpilador quântico",
+      "category": "Computação quântica",
+      "description": "Mapeia o circuito para portas e conectividade do backend.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-circuit",
+      "tech": "Transpilation",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Transpilador quântico",
+        "Mapeia o circuito para portas e conectividade do backend.",
+        "Quantum transpiler",
+        "Maps a circuit to the backend gate set and connectivity.",
+        "Transpilation",
+        "quantum",
+        "quantum-transpiler"
+      ]
+    },
+    {
+      "id": "quantum-noise",
+      "label": "Modelo de ruído",
+      "category": "Computação quântica",
+      "description": "Representa canais de erro ou decoerência em uma simulação.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-noise",
+      "tech": "Noise channel",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Modelo de ruído",
+        "Representa canais de erro ou decoerência em uma simulação.",
+        "Noise model",
+        "Represents error or decoherence channels in a simulation.",
+        "Noise channel",
+        "quantum",
+        "quantum-noise"
+      ]
+    },
+    {
+      "id": "quantum-syndrome",
+      "label": "Medição de síndrome",
+      "category": "Computação quântica",
+      "description": "Extrai informações de erros sem ler diretamente o estado lógico.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-error-correction",
+      "tech": "Quantum error correction",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Medição de síndrome",
+        "Extrai informações de erros sem ler diretamente o estado lógico.",
+        "Syndrome measurement",
+        "Extracts error information without directly reading the logical state.",
+        "Quantum error correction",
+        "quantum",
+        "quantum-syndrome"
+      ]
+    },
+    {
+      "id": "quantum-decoder",
+      "label": "Decodificador de erros",
+      "category": "Computação quântica",
+      "description": "Infere correções a partir dos resultados de síndrome.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-error-correction",
+      "tech": "Syndrome decoding",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Decodificador de erros",
+        "Infere correções a partir dos resultados de síndrome.",
+        "Error decoder",
+        "Infers corrections from syndrome outcomes.",
+        "Syndrome decoding",
+        "quantum",
+        "quantum-decoder"
+      ]
+    },
+    {
+      "id": "chain-block",
+      "label": "Bloco",
+      "category": "Blockchain e Web3",
+      "description": "Agrupa transações e referencia um bloco anterior conforme o protocolo.",
+      "libraryId": "blockchain",
+      "icon": "domain:block",
+      "tech": "Block",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Bloco",
+        "Agrupa transações e referencia um bloco anterior conforme o protocolo.",
+        "Block",
+        "Groups transactions and references a predecessor according to the protocol.",
+        "blockchain",
+        "chain-block"
+      ]
+    },
+    {
+      "id": "chain-ledger",
+      "label": "Ledger distribuído",
+      "category": "Blockchain e Web3",
+      "description": "Histórico de estados ou transações replicado entre participantes.",
+      "libraryId": "blockchain",
+      "icon": "domain:ledger",
+      "tech": "Distributed ledger",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ledger distribuído",
+        "Histórico de estados ou transações replicado entre participantes.",
+        "Distributed ledger",
+        "State or transaction history replicated across participants.",
+        "blockchain",
+        "chain-ledger"
+      ]
+    },
+    {
+      "id": "chain-wallet",
+      "label": "Carteira",
+      "category": "Blockchain e Web3",
+      "description": "Assina transações e gerencia referências às chaves; não representa custódia obrigatória.",
+      "libraryId": "blockchain",
+      "icon": "domain:wallet",
+      "tech": "Wallet",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Carteira",
+        "Assina transações e gerencia referências às chaves; não representa custódia obrigatória.",
+        "Wallet",
+        "Signs transactions and manages key references; custody is not implied.",
+        "blockchain",
+        "chain-wallet"
+      ]
+    },
+    {
+      "id": "chain-rpc",
+      "label": "Endpoint RPC",
+      "category": "Blockchain e Web3",
+      "description": "Interface para consultar a rede e submeter transações.",
+      "libraryId": "blockchain",
+      "icon": "domain:block",
+      "tech": "JSON-RPC",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Endpoint RPC",
+        "Interface para consultar a rede e submeter transações.",
+        "RPC endpoint",
+        "Interface for querying the network and submitting transactions.",
+        "JSON-RPC",
+        "blockchain",
+        "chain-rpc"
+      ]
+    },
+    {
+      "id": "chain-contract",
+      "label": "Contrato inteligente",
+      "category": "Blockchain e Web3",
+      "description": "Programa executado de acordo com as regras da blockchain.",
+      "libraryId": "blockchain",
+      "icon": "domain:smart-contract",
+      "tech": "Smart contract",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Contrato inteligente",
+        "Programa executado de acordo com as regras da blockchain.",
+        "Smart contract",
+        "Program executed under blockchain protocol rules.",
+        "blockchain",
+        "chain-contract"
+      ]
+    },
+    {
+      "id": "chain-validator",
+      "label": "Validador",
+      "category": "Blockchain e Web3",
+      "description": "Participante que valida e, conforme o protocolo, propõe ou atesta blocos.",
+      "libraryId": "blockchain",
+      "icon": "domain:validator",
+      "tech": "Validator",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Validador",
+        "Participante que valida e, conforme o protocolo, propõe ou atesta blocos.",
+        "Validator",
+        "Participant validating and, protocol permitting, proposing or attesting blocks.",
+        "blockchain",
+        "chain-validator"
+      ]
+    },
+    {
+      "id": "chain-consensus",
+      "label": "Cliente de consenso",
+      "category": "Blockchain e Web3",
+      "description": "Acompanha a escolha da cadeia e as regras de consenso.",
+      "libraryId": "blockchain",
+      "icon": "domain:consensus",
+      "tech": "Consensus layer",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cliente de consenso",
+        "Acompanha a escolha da cadeia e as regras de consenso.",
+        "Consensus client",
+        "Tracks fork choice and consensus rules.",
+        "Consensus layer",
+        "blockchain",
+        "chain-consensus"
+      ]
+    },
+    {
+      "id": "chain-execution",
+      "label": "Cliente de execução",
+      "category": "Blockchain e Web3",
+      "description": "Executa transações e mantém o estado de execução.",
+      "libraryId": "blockchain",
+      "icon": "domain:smart-contract",
+      "tech": "Execution layer",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cliente de execução",
+        "Executa transações e mantém o estado de execução.",
+        "Execution client",
+        "Executes transactions and maintains execution state.",
+        "Execution layer",
+        "blockchain",
+        "chain-execution"
+      ]
+    },
+    {
+      "id": "chain-mempool",
+      "label": "Pool de transações",
+      "category": "Blockchain e Web3",
+      "description": "Mantém transações pendentes antes de sua inclusão em blocos.",
+      "libraryId": "blockchain",
+      "icon": "domain:mempool",
+      "tech": "Mempool",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Pool de transações",
+        "Mantém transações pendentes antes de sua inclusão em blocos.",
+        "Transaction pool",
+        "Holds pending transactions before block inclusion.",
+        "Mempool",
+        "blockchain",
+        "chain-mempool"
+      ]
+    },
+    {
+      "id": "chain-indexer",
+      "label": "Indexador de eventos",
+      "category": "Blockchain e Web3",
+      "description": "Lê blocos e eventos para construir projeções de consulta.",
+      "libraryId": "blockchain",
+      "icon": "domain:ledger",
+      "tech": "Event indexing",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Indexador de eventos",
+        "Lê blocos e eventos para construir projeções de consulta.",
+        "Event indexer",
+        "Reads blocks and events to build queryable projections.",
+        "Event indexing",
+        "blockchain",
+        "chain-indexer"
+      ]
+    },
+    {
+      "id": "chain-merkle",
+      "label": "Árvore de Merkle",
+      "category": "Blockchain e Web3",
+      "description": "Combina hashes para produzir uma raiz e provas de inclusão.",
+      "libraryId": "blockchain",
+      "icon": "domain:merkle-tree",
+      "tech": "Merkle proof",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore de Merkle",
+        "Combina hashes para produzir uma raiz e provas de inclusão.",
+        "Merkle tree",
+        "Combines hashes into a root and inclusion proofs.",
+        "Merkle proof",
+        "blockchain",
+        "chain-merkle"
+      ]
+    },
+    {
+      "id": "chain-oracle",
+      "label": "Oráculo de dados",
+      "category": "Blockchain e Web3",
+      "description": "Publica informações externas sob um modelo explícito de confiança.",
+      "libraryId": "blockchain",
+      "icon": "domain:oracle",
+      "tech": "External data",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Oráculo de dados",
+        "Publica informações externas sob um modelo explícito de confiança.",
+        "Data oracle",
+        "Publishes external information under an explicit trust model.",
+        "External data",
+        "blockchain",
+        "chain-oracle"
+      ]
+    },
+    {
+      "id": "chain-bridge",
+      "label": "Ponte entre redes",
+      "category": "Blockchain e Web3",
+      "description": "Transfere mensagens ou representações de ativos com suposições de confiança próprias.",
+      "libraryId": "blockchain",
+      "icon": "domain:bridge",
+      "tech": "Cross-chain messaging",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ponte entre redes",
+        "Transfere mensagens ou representações de ativos com suposições de confiança próprias.",
+        "Cross-chain bridge",
+        "Transfers messages or asset representations under its own trust assumptions.",
+        "Cross-chain messaging",
+        "blockchain",
+        "chain-bridge"
+      ]
+    },
+    {
+      "id": "chain-rollup",
+      "label": "Rollup L2",
+      "category": "Blockchain e Web3",
+      "description": "Agrupa execução fora da L1 e publica dados ou compromissos conforme o protocolo.",
+      "libraryId": "blockchain",
+      "icon": "domain:rollup",
+      "tech": "Layer 2",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Rollup L2",
+        "Agrupa execução fora da L1 e publica dados ou compromissos conforme o protocolo.",
+        "L2 rollup",
+        "Batches execution outside L1 and posts data or commitments per protocol.",
+        "Layer 2",
+        "blockchain",
+        "chain-rollup"
+      ]
+    },
+    {
+      "id": "chain-sequencer",
+      "label": "Sequenciador",
+      "category": "Blockchain e Web3",
+      "description": "Ordena transações em um sistema de rollup.",
+      "libraryId": "blockchain",
+      "icon": "domain:rollup",
+      "tech": "Transaction ordering",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Sequenciador",
+        "Ordena transações em um sistema de rollup.",
+        "Sequencer",
+        "Orders transactions in a rollup system.",
+        "Transaction ordering",
+        "blockchain",
+        "chain-sequencer"
+      ]
+    },
+    {
+      "id": "chain-prover",
+      "label": "Gerador de prova ZK",
+      "category": "Blockchain e Web3",
+      "description": "Gera uma prova para uma afirmação e um circuito definidos.",
+      "libraryId": "blockchain",
+      "icon": "domain:zk-proof",
+      "tech": "Zero-knowledge proof",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Gerador de prova ZK",
+        "Gera uma prova para uma afirmação e um circuito definidos.",
+        "ZK prover",
+        "Generates a proof for a defined statement and circuit.",
+        "Zero-knowledge proof",
+        "blockchain",
+        "chain-prover"
+      ]
+    },
+    {
+      "id": "chain-verifier",
+      "label": "Verificador de prova",
+      "category": "Blockchain e Web3",
+      "description": "Verifica uma prova segundo suas entradas públicas e chave de verificação.",
+      "libraryId": "blockchain",
+      "icon": "domain:zk-proof",
+      "tech": "Proof verification",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Verificador de prova",
+        "Verifica uma prova segundo suas entradas públicas e chave de verificação.",
+        "Proof verifier",
+        "Checks a proof against its public inputs and verification key.",
+        "Proof verification",
+        "blockchain",
+        "chain-verifier"
+      ]
+    },
+    {
+      "id": "chain-data-availability",
+      "label": "Disponibilidade de dados",
+      "category": "Blockchain e Web3",
+      "description": "Publicação e acesso aos dados necessários para verificar ou reconstruir estado.",
+      "libraryId": "blockchain",
+      "icon": "domain:ledger",
+      "tech": "Data availability",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Disponibilidade de dados",
+        "Publicação e acesso aos dados necessários para verificar ou reconstruir estado.",
+        "Data availability",
+        "Publishing and accessing data needed to verify or reconstruct state.",
+        "blockchain",
+        "chain-data-availability"
+      ]
+    },
+    {
+      "id": "chain-multisig",
+      "label": "Carteira multisig",
+      "category": "Blockchain e Web3",
+      "description": "Exige um limiar de assinaturas para autorizar operações.",
+      "libraryId": "blockchain",
+      "icon": "domain:wallet",
+      "tech": "Threshold approval",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Carteira multisig",
+        "Exige um limiar de assinaturas para autorizar operações.",
+        "Multisig wallet",
+        "Requires a signature threshold to authorize operations.",
+        "Threshold approval",
+        "blockchain",
+        "chain-multisig"
+      ]
+    },
+    {
+      "id": "chain-ipfs",
+      "label": "Armazenamento endereçado por conteúdo",
+      "category": "Blockchain e Web3",
+      "description": "Recupera conteúdo por identificador derivado do conteúdo.",
+      "libraryId": "blockchain",
+      "icon": "domain:ledger",
+      "tech": "IPFS · content addressing",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Armazenamento endereçado por conteúdo",
+        "Recupera conteúdo por identificador derivado do conteúdo.",
+        "Content-addressed storage",
+        "Retrieves content using an identifier derived from the content.",
+        "IPFS · content addressing",
+        "blockchain",
+        "chain-ipfs"
+      ]
+    },
+    {
+      "id": "chain-nft",
+      "label": "Registro de tokens",
+      "category": "Blockchain e Web3",
+      "description": "Contrato que mantém propriedade e metadados de tokens.",
+      "libraryId": "blockchain",
+      "icon": "domain:smart-contract",
+      "tech": "Token registry",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Registro de tokens",
+        "Contrato que mantém propriedade e metadados de tokens.",
+        "Token registry",
+        "Contract maintaining token ownership and metadata.",
+        "blockchain",
+        "chain-nft"
+      ]
+    },
+    {
+      "id": "chain-light-client",
+      "label": "Cliente leve",
+      "category": "Blockchain e Web3",
+      "description": "Verifica informações selecionadas usando cabeçalhos e provas.",
+      "libraryId": "blockchain",
+      "icon": "domain:validator",
+      "tech": "Light client",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cliente leve",
+        "Verifica informações selecionadas usando cabeçalhos e provas.",
+        "Light client",
+        "Verifies selected information using headers and proofs.",
+        "blockchain",
+        "chain-light-client"
+      ]
+    },
+    {
+      "id": "ai-model",
+      "label": "Modelo de linguagem",
+      "category": "IA e machine learning",
+      "description": "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+      "libraryId": "ai-ml",
+      "icon": "domain:llm",
+      "tech": "LLM",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Modelo de linguagem",
+        "Gera ou transforma sequências de tokens segundo o contexto enviado.",
+        "Language model",
+        "Generates or transforms token sequences from supplied context.",
+        "LLM",
+        "ai-ml",
+        "ai-model"
+      ]
+    },
+    {
+      "id": "ai-embedding",
+      "label": "Modelo de embeddings",
+      "category": "IA e machine learning",
+      "description": "Converte entradas em vetores para comparação e recuperação.",
+      "libraryId": "ai-ml",
+      "icon": "domain:embedding",
+      "tech": "Embeddings",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Modelo de embeddings",
+        "Converte entradas em vetores para comparação e recuperação.",
+        "Embedding model",
+        "Converts inputs into vectors for comparison and retrieval.",
+        "Embeddings",
+        "ai-ml",
+        "ai-embedding"
+      ]
+    },
+    {
+      "id": "ai-vector-index",
+      "label": "Índice vetorial",
+      "category": "IA e machine learning",
+      "description": "Indexa vetores para busca aproximada ou exata por similaridade.",
+      "libraryId": "ai-ml",
+      "icon": "domain:vector-index",
+      "tech": "ANN · vector search",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Índice vetorial",
+        "Indexa vetores para busca aproximada ou exata por similaridade.",
+        "Vector index",
+        "Indexes vectors for approximate or exact similarity search.",
+        "ANN · vector search",
+        "ai-ml",
+        "ai-vector-index"
+      ]
+    },
+    {
+      "id": "ai-retriever",
+      "label": "Recuperador",
+      "category": "IA e machine learning",
+      "description": "Seleciona documentos relevantes a uma consulta e aos filtros de acesso.",
+      "libraryId": "ai-ml",
+      "icon": "domain:retriever",
+      "tech": "Retrieval",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Recuperador",
+        "Seleciona documentos relevantes a uma consulta e aos filtros de acesso.",
+        "Retriever",
+        "Selects documents relevant to a query and access filters.",
+        "Retrieval",
+        "ai-ml",
+        "ai-retriever"
+      ]
+    },
+    {
+      "id": "ai-reranker",
+      "label": "Reordenador",
+      "category": "IA e machine learning",
+      "description": "Reavalia candidatos recuperados para melhorar a ordenação.",
+      "libraryId": "ai-ml",
+      "icon": "domain:reranker",
+      "tech": "Reranking",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Reordenador",
+        "Reavalia candidatos recuperados para melhorar a ordenação.",
+        "Reranker",
+        "Rescores retrieved candidates to improve ranking.",
+        "Reranking",
+        "ai-ml",
+        "ai-reranker"
+      ]
+    },
+    {
+      "id": "ai-agent",
+      "label": "Agente com ferramentas",
+      "category": "IA e machine learning",
+      "description": "Coordena chamadas ao modelo e ferramentas dentro de limites definidos.",
+      "libraryId": "ai-ml",
+      "icon": "domain:agent",
+      "tech": "Agent loop",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Agente com ferramentas",
+        "Coordena chamadas ao modelo e ferramentas dentro de limites definidos.",
+        "Tool-using agent",
+        "Coordinates model and tool calls within defined limits.",
+        "Agent loop",
+        "ai-ml",
+        "ai-agent"
+      ]
+    },
+    {
+      "id": "ai-tool",
+      "label": "Ferramenta do agente",
+      "category": "IA e machine learning",
+      "description": "Operação com contrato de entrada, autorização e saída verificáveis.",
+      "libraryId": "ai-ml",
+      "icon": "domain:tool",
+      "tech": "Tool calling",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ferramenta do agente",
+        "Operação com contrato de entrada, autorização e saída verificáveis.",
+        "Agent tool",
+        "Operation with explicit input, authorization and output contracts.",
+        "Tool calling",
+        "ai-ml",
+        "ai-tool"
+      ]
+    },
+    {
+      "id": "ai-guardrail",
+      "label": "Guardrail",
+      "category": "IA e machine learning",
+      "description": "Valida entradas, saídas ou ações segundo regras explícitas.",
+      "libraryId": "ai-ml",
+      "icon": "domain:guardrail",
+      "tech": "Safety checks",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Guardrail",
+        "Valida entradas, saídas ou ações segundo regras explícitas.",
+        "Validates inputs, outputs or actions against explicit rules.",
+        "Safety checks",
+        "ai-ml",
+        "ai-guardrail"
+      ]
+    },
+    {
+      "id": "ai-evaluation",
+      "label": "Avaliação de modelos",
+      "category": "IA e machine learning",
+      "description": "Executa casos de teste e registra métricas de qualidade ou regressão.",
+      "libraryId": "ai-ml",
+      "icon": "domain:evaluation",
+      "tech": "Evaluation",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Avaliação de modelos",
+        "Executa casos de teste e registra métricas de qualidade ou regressão.",
+        "Model evaluation",
+        "Runs test cases and records quality or regression metrics.",
+        "Evaluation",
+        "ai-ml",
+        "ai-evaluation"
+      ]
+    },
+    {
+      "id": "ai-feature-store",
+      "label": "Feature store",
+      "category": "IA e machine learning",
+      "description": "Organiza atributos para treinamento e inferência com regras de consistência.",
+      "libraryId": "ai-ml",
+      "icon": "domain:feature-store",
+      "tech": "Online · offline features",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Feature store",
+        "Organiza atributos para treinamento e inferência com regras de consistência.",
+        "Organizes features for training and inference with consistency rules.",
+        "Online · offline features",
+        "ai-ml",
+        "ai-feature-store"
+      ]
+    },
+    {
+      "id": "ai-training",
+      "label": "Job de treinamento",
+      "category": "IA e machine learning",
+      "description": "Ajusta parâmetros de um modelo com um conjunto de dados e objetivo.",
+      "libraryId": "ai-ml",
+      "icon": "domain:training",
+      "tech": "Model training",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Job de treinamento",
+        "Ajusta parâmetros de um modelo com um conjunto de dados e objetivo.",
+        "Training job",
+        "Fits model parameters using a dataset and objective.",
+        "Model training",
+        "ai-ml",
+        "ai-training"
+      ]
+    },
+    {
+      "id": "ai-inference",
+      "label": "Servidor de inferência",
+      "category": "IA e machine learning",
+      "description": "Serve previsões com limites de concorrência, latência e recursos.",
+      "libraryId": "ai-ml",
+      "icon": "domain:inference",
+      "tech": "Model serving",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Servidor de inferência",
+        "Serve previsões com limites de concorrência, latência e recursos.",
+        "Inference server",
+        "Serves predictions with concurrency, latency and resource limits.",
+        "Model serving",
+        "ai-ml",
+        "ai-inference"
+      ]
+    },
+    {
+      "id": "ai-tokenizer",
+      "label": "Tokenizador",
+      "category": "IA e machine learning",
+      "description": "Transforma texto em tokens usando o vocabulário do modelo.",
+      "libraryId": "ai-ml",
+      "icon": "domain:tokenizer",
+      "tech": "Tokenization",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Tokenizador",
+        "Transforma texto em tokens usando o vocabulário do modelo.",
+        "Tokenizer",
+        "Transforms text into tokens using the model vocabulary.",
+        "Tokenization",
+        "ai-ml",
+        "ai-tokenizer"
+      ]
+    },
+    {
+      "id": "ai-prompt",
+      "label": "Template de prompt",
+      "category": "IA e machine learning",
+      "description": "Monta instruções e contexto distinguindo dados de regras do sistema.",
+      "libraryId": "ai-ml",
+      "icon": "domain:prompt",
+      "tech": "Prompt assembly",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Template de prompt",
+        "Monta instruções e contexto distinguindo dados de regras do sistema.",
+        "Prompt template",
+        "Assembles instructions and context while separating data from system rules.",
+        "Prompt assembly",
+        "ai-ml",
+        "ai-prompt"
+      ]
+    },
+    {
+      "id": "ai-model-router",
+      "label": "Roteador de modelos",
+      "category": "IA e machine learning",
+      "description": "Seleciona um modelo segundo capacidade, orçamento e disponibilidade.",
+      "libraryId": "ai-ml",
+      "icon": "domain:model-router",
+      "tech": "Routing · fallback",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Roteador de modelos",
+        "Seleciona um modelo segundo capacidade, orçamento e disponibilidade.",
+        "Model router",
+        "Selects a model by capability, budget and availability.",
+        "Routing · fallback",
+        "ai-ml",
+        "ai-model-router"
+      ]
+    },
+    {
+      "id": "ai-human-review",
+      "label": "Revisão humana",
+      "category": "IA e machine learning",
+      "description": "Pede decisão humana antes de uma ação ou publicação sensível.",
+      "libraryId": "ai-ml",
+      "icon": "domain:evaluation",
+      "tech": "Human in the loop",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Revisão humana",
+        "Pede decisão humana antes de uma ação ou publicação sensível.",
+        "Human review",
+        "Requests a human decision before a sensitive action or publication.",
+        "Human in the loop",
+        "ai-ml",
+        "ai-human-review"
+      ]
+    },
+    {
+      "id": "ai-memory",
+      "label": "Memória do agente",
+      "category": "IA e machine learning",
+      "description": "Guarda estado ou histórico recuperável com escopo e retenção definidos.",
+      "libraryId": "ai-ml",
+      "icon": "domain:feature-store",
+      "tech": "Scoped memory",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Memória do agente",
+        "Guarda estado ou histórico recuperável com escopo e retenção definidos.",
+        "Agent memory",
+        "Stores recoverable state or history with defined scope and retention.",
+        "Scoped memory",
+        "ai-ml",
+        "ai-memory"
+      ]
+    },
+    {
+      "id": "ai-chunker",
+      "label": "Segmentador de documentos",
+      "category": "IA e machine learning",
+      "description": "Divide documentos preservando metadados e referências de origem.",
+      "libraryId": "ai-ml",
+      "icon": "domain:tokenizer",
+      "tech": "Chunking",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Segmentador de documentos",
+        "Divide documentos preservando metadados e referências de origem.",
+        "Document chunker",
+        "Splits documents while preserving metadata and source references.",
+        "Chunking",
+        "ai-ml",
+        "ai-chunker"
+      ]
+    },
+    {
+      "id": "ai-registry",
+      "label": "Registro de modelos",
+      "category": "IA e machine learning",
+      "description": "Versiona modelos, métricas, artefatos e estados de promoção.",
+      "libraryId": "ai-ml",
+      "icon": "domain:feature-store",
+      "tech": "Model registry",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Registro de modelos",
+        "Versiona modelos, métricas, artefatos e estados de promoção.",
+        "Model registry",
+        "Versions models, metrics, artifacts and promotion states.",
+        "ai-ml",
+        "ai-registry"
+      ]
+    },
+    {
+      "id": "ai-drift",
+      "label": "Monitor de drift",
+      "category": "IA e machine learning",
+      "description": "Compara distribuições ou métricas em busca de mudanças relevantes.",
+      "libraryId": "ai-ml",
+      "icon": "domain:evaluation",
+      "tech": "Data · concept drift",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Monitor de drift",
+        "Compara distribuições ou métricas em busca de mudanças relevantes.",
+        "Drift monitor",
+        "Compares distributions or metrics for meaningful changes.",
+        "Data · concept drift",
+        "ai-ml",
+        "ai-drift"
+      ]
+    },
+    {
+      "id": "ai-fine-tuning",
+      "label": "Fine-tuning com adaptadores",
+      "category": "IA e machine learning",
+      "description": "Adapta um modelo com parâmetros ou módulos selecionados.",
+      "libraryId": "ai-ml",
+      "icon": "domain:training",
+      "tech": "LoRA · adapters",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Fine-tuning com adaptadores",
+        "Adapta um modelo com parâmetros ou módulos selecionados.",
+        "Adapter fine-tuning",
+        "Adapts a model through selected parameters or modules.",
+        "LoRA · adapters",
+        "ai-ml",
+        "ai-fine-tuning"
+      ]
+    },
+    {
+      "id": "ai-vision",
+      "label": "Modelo de visão",
+      "category": "IA e machine learning",
+      "description": "Extrai representações ou previsões de imagens.",
+      "libraryId": "ai-ml",
+      "icon": "domain:vision",
+      "tech": "Computer vision",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Modelo de visão",
+        "Extrai representações ou previsões de imagens.",
+        "Vision model",
+        "Extracts representations or predictions from images.",
+        "Computer vision",
+        "ai-ml",
+        "ai-vision"
+      ]
+    },
+    {
+      "id": "ai-speech",
+      "label": "Reconhecimento de fala",
+      "category": "IA e machine learning",
+      "description": "Converte sinais de áudio em texto ou representações temporais.",
+      "libraryId": "ai-ml",
+      "icon": "domain:speech",
+      "tech": "ASR",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Reconhecimento de fala",
+        "Converte sinais de áudio em texto ou representações temporais.",
+        "Speech recognition",
+        "Converts audio signals into text or temporal representations.",
+        "ASR",
+        "ai-ml",
+        "ai-speech"
+      ]
+    },
+    {
+      "id": "ai-graph-rag",
+      "label": "Recuperação em grafo",
+      "category": "IA e machine learning",
+      "description": "Recupera entidades e relações relevantes para contextualizar o modelo.",
+      "libraryId": "ai-ml",
+      "icon": "domain:graph-db",
+      "tech": "GraphRAG",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Recuperação em grafo",
+        "Recupera entidades e relações relevantes para contextualizar o modelo.",
+        "Graph retrieval",
+        "Retrieves relevant entities and relationships to ground a model.",
+        "GraphRAG",
+        "ai-ml",
+        "ai-graph-rag"
+      ]
+    },
+    {
+      "id": "ai-batch",
+      "label": "Inferência em lote",
+      "category": "IA e machine learning",
+      "description": "Executa previsões sobre lotes com rastreabilidade de entradas e saídas.",
+      "libraryId": "ai-ml",
+      "icon": "domain:inference",
+      "tech": "Batch prediction",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Inferência em lote",
+        "Executa previsões sobre lotes com rastreabilidade de entradas e saídas.",
+        "Batch inference",
+        "Runs predictions over batches with traceable inputs and outputs.",
+        "Batch prediction",
+        "ai-ml",
+        "ai-batch"
+      ]
+    },
+    {
+      "id": "ai-cache",
+      "label": "Cache de respostas",
+      "category": "IA e machine learning",
+      "description": "Reutiliza respostas sob regras de validade, isolamento e equivalência.",
+      "libraryId": "ai-ml",
+      "icon": "domain:vector-index",
+      "tech": "Semantic cache",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cache de respostas",
+        "Reutiliza respostas sob regras de validade, isolamento e equivalência.",
+        "Response cache",
+        "Reuses responses under validity, isolation and equivalence rules.",
+        "Semantic cache",
+        "ai-ml",
+        "ai-cache"
+      ]
+    },
+    {
+      "id": "ai-dataset",
+      "label": "Dataset versionado",
+      "category": "IA e machine learning",
+      "description": "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+      "libraryId": "ai-ml",
+      "icon": "domain:feature-store",
+      "tech": "Dataset versioning",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Dataset versionado",
+        "Conjunto de dados com origem, versão e divisão de avaliação explícitas.",
+        "Versioned dataset",
+        "Dataset with explicit provenance, version and evaluation split.",
+        "Dataset versioning",
+        "ai-ml",
+        "ai-dataset"
+      ]
+    },
+    {
+      "id": "ai-experiment",
+      "label": "Rastreamento de experimentos",
+      "category": "IA e machine learning",
+      "description": "Relaciona parâmetros, métricas e artefatos de execuções.",
+      "libraryId": "ai-ml",
+      "icon": "domain:evaluation",
+      "tech": "Experiment tracking",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Rastreamento de experimentos",
+        "Relaciona parâmetros, métricas e artefatos de execuções.",
+        "Experiment tracking",
+        "Links parameters, metrics and run artifacts.",
+        "ai-ml",
+        "ai-experiment"
+      ]
+    },
+    {
+      "id": "ds-array",
+      "label": "Array",
+      "category": "Estruturas de dados",
+      "description": "Elementos endereçados por índice em uma organização sequencial.",
+      "libraryId": "data-structures",
+      "icon": "domain:array",
+      "tech": "Indexed sequence",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Array",
+        "Elementos endereçados por índice em uma organização sequencial.",
+        "Index-addressed elements in a sequential organization.",
+        "Indexed sequence",
+        "data-structures",
+        "ds-array"
+      ]
+    },
+    {
+      "id": "ds-linked-list",
+      "label": "Lista encadeada",
+      "category": "Estruturas de dados",
+      "description": "Elementos ligados por referências ao próximo nó.",
+      "libraryId": "data-structures",
+      "icon": "domain:linked-list",
+      "tech": "Linked nodes",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Lista encadeada",
+        "Elementos ligados por referências ao próximo nó.",
+        "Linked list",
+        "Elements linked by references to a successor.",
+        "Linked nodes",
+        "data-structures",
+        "ds-linked-list"
+      ]
+    },
+    {
+      "id": "ds-doubly-linked",
+      "label": "Lista duplamente encadeada",
+      "category": "Estruturas de dados",
+      "description": "Nós com referências ao antecessor e sucessor.",
+      "libraryId": "data-structures",
+      "icon": "domain:linked-list",
+      "tech": "Bidirectional links",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Lista duplamente encadeada",
+        "Nós com referências ao antecessor e sucessor.",
+        "Doubly linked list",
+        "Nodes referencing both predecessor and successor.",
+        "Bidirectional links",
+        "data-structures",
+        "ds-doubly-linked"
+      ]
+    },
+    {
+      "id": "ds-stack",
+      "label": "Pilha",
+      "category": "Estruturas de dados",
+      "description": "Inserção e remoção no topo seguindo LIFO.",
+      "libraryId": "data-structures",
+      "icon": "domain:stack",
+      "tech": "LIFO",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Pilha",
+        "Inserção e remoção no topo seguindo LIFO.",
+        "Stack",
+        "Top insertion and removal following LIFO.",
+        "LIFO",
+        "data-structures",
+        "ds-stack"
+      ]
+    },
+    {
+      "id": "ds-queue",
+      "label": "Fila FIFO",
+      "category": "Estruturas de dados",
+      "description": "Entradas são removidas na ordem de chegada.",
+      "libraryId": "data-structures",
+      "icon": "domain:queue",
+      "tech": "FIFO",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Fila FIFO",
+        "Entradas são removidas na ordem de chegada.",
+        "FIFO queue",
+        "Items are removed in arrival order.",
+        "FIFO",
+        "data-structures",
+        "ds-queue"
+      ]
+    },
+    {
+      "id": "ds-deque",
+      "label": "Deque",
+      "category": "Estruturas de dados",
+      "description": "Inserção e remoção nas duas extremidades.",
+      "libraryId": "data-structures",
+      "icon": "domain:queue",
+      "tech": "Double-ended queue",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Deque",
+        "Inserção e remoção nas duas extremidades.",
+        "Insertion and removal at both ends.",
+        "Double-ended queue",
+        "data-structures",
+        "ds-deque"
+      ]
+    },
+    {
+      "id": "ds-hash-table",
+      "label": "Tabela hash",
+      "category": "Estruturas de dados",
+      "description": "Mapeia chaves a buckets usando uma função hash e tratamento de colisões.",
+      "libraryId": "data-structures",
+      "icon": "domain:hash-table",
+      "tech": "Hash map",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Tabela hash",
+        "Mapeia chaves a buckets usando uma função hash e tratamento de colisões.",
+        "Hash table",
+        "Maps keys to buckets using a hash function and collision handling.",
+        "Hash map",
+        "data-structures",
+        "ds-hash-table"
+      ]
+    },
+    {
+      "id": "ds-hash-bucket",
+      "label": "Bucket de hash",
+      "category": "Estruturas de dados",
+      "description": "Posição ou grupo de entradas que compartilham um índice hash.",
+      "libraryId": "data-structures",
+      "icon": "domain:hash-table",
+      "tech": "Collision bucket",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Bucket de hash",
+        "Posição ou grupo de entradas que compartilham um índice hash.",
+        "Hash bucket",
+        "Slot or entry group sharing a hash index.",
+        "Collision bucket",
+        "data-structures",
+        "ds-hash-bucket"
+      ]
+    },
+    {
+      "id": "ds-binary-tree",
+      "label": "Árvore binária",
+      "category": "Estruturas de dados",
+      "description": "Cada nó possui no máximo dois filhos.",
+      "libraryId": "data-structures",
+      "icon": "domain:binary-tree",
+      "tech": "Binary tree",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore binária",
+        "Cada nó possui no máximo dois filhos.",
+        "Binary tree",
+        "Each node has at most two children.",
+        "data-structures",
+        "ds-binary-tree"
+      ]
+    },
+    {
+      "id": "ds-bst",
+      "label": "Árvore de busca binária",
+      "category": "Estruturas de dados",
+      "description": "Organiza chaves segundo uma relação de ordem entre subárvores.",
+      "libraryId": "data-structures",
+      "icon": "domain:binary-tree",
+      "tech": "BST",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore de busca binária",
+        "Organiza chaves segundo uma relação de ordem entre subárvores.",
+        "Binary search tree",
+        "Organizes keys by an ordering relation between subtrees.",
+        "BST",
+        "data-structures",
+        "ds-bst"
+      ]
+    },
+    {
+      "id": "ds-avl",
+      "label": "Árvore AVL",
+      "category": "Estruturas de dados",
+      "description": "Árvore de busca balanceada pelas alturas de suas subárvores.",
+      "libraryId": "data-structures",
+      "icon": "domain:binary-tree",
+      "tech": "AVL balance",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore AVL",
+        "Árvore de busca balanceada pelas alturas de suas subárvores.",
+        "AVL tree",
+        "Search tree balanced by subtree heights.",
+        "AVL balance",
+        "data-structures",
+        "ds-avl"
+      ]
+    },
+    {
+      "id": "ds-red-black",
+      "label": "Árvore rubro-negra",
+      "category": "Estruturas de dados",
+      "description": "Árvore de busca balanceada por invariantes de cor.",
+      "libraryId": "data-structures",
+      "icon": "domain:binary-tree",
+      "tech": "Red-black invariants",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore rubro-negra",
+        "Árvore de busca balanceada por invariantes de cor.",
+        "Red-black tree",
+        "Search tree balanced by color invariants.",
+        "Red-black invariants",
+        "data-structures",
+        "ds-red-black"
+      ]
+    },
+    {
+      "id": "ds-heap",
+      "label": "Heap binário",
+      "category": "Estruturas de dados",
+      "description": "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+      "libraryId": "data-structures",
+      "icon": "domain:heap",
+      "tech": "Priority queue",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Heap binário",
+        "Árvore quase completa que preserva a ordem de prioridade entre pais e filhos.",
+        "Binary heap",
+        "Nearly complete tree preserving parent–child priority ordering.",
+        "Priority queue",
+        "data-structures",
+        "ds-heap"
+      ]
+    },
+    {
+      "id": "ds-trie",
+      "label": "Trie",
+      "category": "Estruturas de dados",
+      "description": "Compartilha prefixos para indexar sequências de símbolos.",
+      "libraryId": "data-structures",
+      "icon": "domain:trie",
+      "tech": "Prefix tree",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Trie",
+        "Compartilha prefixos para indexar sequências de símbolos.",
+        "Shares prefixes to index symbol sequences.",
+        "Prefix tree",
+        "data-structures",
+        "ds-trie"
+      ]
+    },
+    {
+      "id": "ds-b-tree",
+      "label": "Árvore B",
+      "category": "Estruturas de dados",
+      "description": "Árvore de busca com múltiplas chaves e filhos por página.",
+      "libraryId": "data-structures",
+      "icon": "domain:b-tree",
+      "tech": "Paged index",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore B",
+        "Árvore de busca com múltiplas chaves e filhos por página.",
+        "B-tree",
+        "Search tree with multiple keys and children per page.",
+        "Paged index",
+        "data-structures",
+        "ds-b-tree"
+      ]
+    },
+    {
+      "id": "ds-bplus-tree",
+      "label": "Árvore B+",
+      "category": "Estruturas de dados",
+      "description": "Índice em que registros ficam nas folhas, normalmente encadeadas.",
+      "libraryId": "data-structures",
+      "icon": "domain:b-tree",
+      "tech": "Range scans",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore B+",
+        "Índice em que registros ficam nas folhas, normalmente encadeadas.",
+        "B+ tree",
+        "Index storing records in usually linked leaves.",
+        "Range scans",
+        "data-structures",
+        "ds-bplus-tree"
+      ]
+    },
+    {
+      "id": "ds-bloom",
+      "label": "Filtro de Bloom",
+      "category": "Estruturas de dados",
+      "description": "Teste probabilístico de pertencimento com possíveis falsos positivos.",
+      "libraryId": "data-structures",
+      "icon": "domain:bloom-filter",
+      "tech": "Probabilistic filter",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Filtro de Bloom",
+        "Teste probabilístico de pertencimento com possíveis falsos positivos.",
+        "Bloom filter",
+        "Probabilistic membership test with possible false positives.",
+        "Probabilistic filter",
+        "data-structures",
+        "ds-bloom"
+      ]
+    },
+    {
+      "id": "ds-skip-list",
+      "label": "Skip list",
+      "category": "Estruturas de dados",
+      "description": "Listas em níveis que aceleram a busca ordenada.",
+      "libraryId": "data-structures",
+      "icon": "domain:skip-list",
+      "tech": "Layered search",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Skip list",
+        "Listas em níveis que aceleram a busca ordenada.",
+        "Layered lists accelerating ordered search.",
+        "Layered search",
+        "data-structures",
+        "ds-skip-list"
+      ]
+    },
+    {
+      "id": "ds-ring-buffer",
+      "label": "Buffer circular",
+      "category": "Estruturas de dados",
+      "description": "Reutiliza posições de um array com índices de leitura e escrita.",
+      "libraryId": "data-structures",
+      "icon": "domain:ring-buffer",
+      "tech": "Circular buffer",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Buffer circular",
+        "Reutiliza posições de um array com índices de leitura e escrita.",
+        "Ring buffer",
+        "Reuses array slots with read and write indexes.",
+        "Circular buffer",
+        "data-structures",
+        "ds-ring-buffer"
+      ]
+    },
+    {
+      "id": "ds-disjoint-set",
+      "label": "Conjuntos disjuntos",
+      "category": "Estruturas de dados",
+      "description": "Mantém partições com operações find e union.",
+      "libraryId": "data-structures",
+      "icon": "domain:binary-tree",
+      "tech": "Union–find",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Conjuntos disjuntos",
+        "Mantém partições com operações find e union.",
+        "Disjoint set",
+        "Maintains partitions with find and union operations.",
+        "Union–find",
+        "data-structures",
+        "ds-disjoint-set"
+      ]
+    },
+    {
+      "id": "ds-segment-tree",
+      "label": "Árvore de segmentos",
+      "category": "Estruturas de dados",
+      "description": "Resume intervalos para consultas e atualizações de faixas.",
+      "libraryId": "data-structures",
+      "icon": "domain:segment-tree",
+      "tech": "Range queries",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore de segmentos",
+        "Resume intervalos para consultas e atualizações de faixas.",
+        "Segment tree",
+        "Summarizes intervals for range queries and updates.",
+        "Range queries",
+        "data-structures",
+        "ds-segment-tree"
+      ]
+    },
+    {
+      "id": "ds-fenwick",
+      "label": "Árvore de Fenwick",
+      "category": "Estruturas de dados",
+      "description": "Acumula somas parciais para consultas de prefixo e atualizações.",
+      "libraryId": "data-structures",
+      "icon": "domain:segment-tree",
+      "tech": "Binary indexed tree",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Árvore de Fenwick",
+        "Acumula somas parciais para consultas de prefixo e atualizações.",
+        "Fenwick tree",
+        "Accumulates partial sums for prefix queries and updates.",
+        "Binary indexed tree",
+        "data-structures",
+        "ds-fenwick"
+      ]
+    },
+    {
+      "id": "ds-lru",
+      "label": "Cache LRU",
+      "category": "Estruturas de dados",
+      "description": "Combina busca por chave e ordenação por uso recente.",
+      "libraryId": "data-structures",
+      "icon": "domain:linked-list",
+      "tech": "Hash map + linked list",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cache LRU",
+        "Combina busca por chave e ordenação por uso recente.",
+        "LRU cache",
+        "Combines keyed lookup with recency ordering.",
+        "Hash map + linked list",
+        "data-structures",
+        "ds-lru"
+      ]
+    },
+    {
+      "id": "graph-directed",
+      "label": "Grafo dirigido",
+      "category": "Grafos e algoritmos",
+      "description": "Arestas possuem orientação entre origem e destino.",
+      "libraryId": "graphs",
+      "icon": "domain:directed-graph",
+      "tech": "Directed graph",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo dirigido",
+        "Arestas possuem orientação entre origem e destino.",
+        "Directed graph",
+        "Edges have an orientation from source to destination.",
+        "graphs",
+        "graph-directed"
+      ]
+    },
+    {
+      "id": "graph-undirected",
+      "label": "Grafo não dirigido",
+      "category": "Grafos e algoritmos",
+      "description": "Arestas conectam pares sem orientação.",
+      "libraryId": "graphs",
+      "icon": "domain:undirected-graph",
+      "tech": "Undirected graph",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo não dirigido",
+        "Arestas conectam pares sem orientação.",
+        "Undirected graph",
+        "Edges connect pairs without orientation.",
+        "graphs",
+        "graph-undirected"
+      ]
+    },
+    {
+      "id": "graph-weighted",
+      "label": "Grafo ponderado",
+      "category": "Grafos e algoritmos",
+      "description": "Arestas carregam custos ou pesos com significado explícito.",
+      "libraryId": "graphs",
+      "icon": "domain:weighted-graph",
+      "tech": "Weighted graph",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo ponderado",
+        "Arestas carregam custos ou pesos com significado explícito.",
+        "Weighted graph",
+        "Edges carry explicitly defined costs or weights.",
+        "graphs",
+        "graph-weighted"
+      ]
+    },
+    {
+      "id": "graph-dag",
+      "label": "Grafo acíclico dirigido",
+      "category": "Grafos e algoritmos",
+      "description": "Dependências dirigidas sem ciclos.",
+      "libraryId": "graphs",
+      "icon": "domain:dag",
+      "tech": "DAG",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo acíclico dirigido",
+        "Dependências dirigidas sem ciclos.",
+        "Directed acyclic graph",
+        "Directed dependencies without cycles.",
+        "DAG",
+        "graphs",
+        "graph-dag"
+      ]
+    },
+    {
+      "id": "graph-bipartite",
+      "label": "Grafo bipartido",
+      "category": "Grafos e algoritmos",
+      "description": "Divide vértices em dois conjuntos com arestas entre conjuntos.",
+      "libraryId": "graphs",
+      "icon": "domain:bipartite",
+      "tech": "Bipartite graph",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo bipartido",
+        "Divide vértices em dois conjuntos com arestas entre conjuntos.",
+        "Bipartite graph",
+        "Partitions vertices into two sets with edges across sets.",
+        "graphs",
+        "graph-bipartite"
+      ]
+    },
+    {
+      "id": "graph-node",
+      "label": "Vértice",
+      "category": "Grafos e algoritmos",
+      "description": "Entidade identificável dentro de um grafo.",
+      "libraryId": "graphs",
+      "icon": "domain:directed-graph",
+      "tech": "Graph vertex",
+      "color": "gray",
+      "keywords": [
+        "Vértice",
+        "Entidade identificável dentro de um grafo.",
+        "Vertex",
+        "Identifiable entity within a graph.",
+        "Graph vertex",
+        "graphs",
+        "graph-node"
+      ],
+      "shape": "circle",
+      "width": 140,
+      "height": 140
+    },
+    {
+      "id": "graph-adjacency-list",
+      "label": "Lista de adjacência",
+      "category": "Grafos e algoritmos",
+      "description": "Relaciona cada vértice aos seus vizinhos.",
+      "libraryId": "graphs",
+      "icon": "domain:graph-db",
+      "tech": "Neighbor list",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Lista de adjacência",
+        "Relaciona cada vértice aos seus vizinhos.",
+        "Adjacency list",
+        "Maps each vertex to its neighbors.",
+        "Neighbor list",
+        "graphs",
+        "graph-adjacency-list"
+      ]
+    },
+    {
+      "id": "graph-adjacency-matrix",
+      "label": "Matriz de adjacência",
+      "category": "Grafos e algoritmos",
+      "description": "Matriz que registra relações ou pesos entre pares de vértices.",
+      "libraryId": "graphs",
+      "icon": "domain:adjacency-matrix",
+      "tech": "Adjacency matrix",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Matriz de adjacência",
+        "Matriz que registra relações ou pesos entre pares de vértices.",
+        "Adjacency matrix",
+        "Matrix recording relationships or weights between vertex pairs.",
+        "graphs",
+        "graph-adjacency-matrix"
+      ]
+    },
+    {
+      "id": "graph-bfs",
+      "label": "Busca em largura",
+      "category": "Grafos e algoritmos",
+      "description": "Explora primeiro os vértices à menor distância em número de arestas.",
+      "libraryId": "graphs",
+      "icon": "domain:graph-traversal",
+      "tech": "BFS",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Busca em largura",
+        "Explora primeiro os vértices à menor distância em número de arestas.",
+        "Breadth-first search",
+        "Explores vertices at the smallest edge-count distance first.",
+        "BFS",
+        "graphs",
+        "graph-bfs"
+      ]
+    },
+    {
+      "id": "graph-dfs",
+      "label": "Busca em profundidade",
+      "category": "Grafos e algoritmos",
+      "description": "Explora um ramo antes de retornar aos ramos restantes.",
+      "libraryId": "graphs",
+      "icon": "domain:graph-traversal",
+      "tech": "DFS",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Busca em profundidade",
+        "Explora um ramo antes de retornar aos ramos restantes.",
+        "Depth-first search",
+        "Explores a branch before backtracking to remaining branches.",
+        "DFS",
+        "graphs",
+        "graph-dfs"
+      ]
+    },
+    {
+      "id": "graph-dijkstra",
+      "label": "Caminho mínimo de Dijkstra",
+      "category": "Grafos e algoritmos",
+      "description": "Busca caminhos mínimos em grafos com pesos não negativos.",
+      "libraryId": "graphs",
+      "icon": "domain:shortest-path",
+      "tech": "Non-negative weights",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Caminho mínimo de Dijkstra",
+        "Busca caminhos mínimos em grafos com pesos não negativos.",
+        "Dijkstra shortest path",
+        "Finds shortest paths in graphs with non-negative edge weights.",
+        "Non-negative weights",
+        "graphs",
+        "graph-dijkstra"
+      ]
+    },
+    {
+      "id": "graph-astar",
+      "label": "Busca A*",
+      "category": "Grafos e algoritmos",
+      "description": "Combina custo acumulado e uma heurística; garantias dependem da heurística.",
+      "libraryId": "graphs",
+      "icon": "domain:shortest-path",
+      "tech": "Heuristic search",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Busca A*",
+        "Combina custo acumulado e uma heurística; garantias dependem da heurística.",
+        "A* search",
+        "Combines accumulated cost and a heuristic; guarantees depend on the heuristic.",
+        "Heuristic search",
+        "graphs",
+        "graph-astar"
+      ]
+    },
+    {
+      "id": "graph-topological",
+      "label": "Ordenação topológica",
+      "category": "Grafos e algoritmos",
+      "description": "Ordena vértices de um DAG respeitando suas dependências.",
+      "libraryId": "graphs",
+      "icon": "domain:dag",
+      "tech": "Dependency ordering",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ordenação topológica",
+        "Ordena vértices de um DAG respeitando suas dependências.",
+        "Topological ordering",
+        "Orders DAG vertices while respecting dependencies.",
+        "Dependency ordering",
+        "graphs",
+        "graph-topological"
+      ]
+    },
+    {
+      "id": "graph-pagerank",
+      "label": "PageRank",
+      "category": "Grafos e algoritmos",
+      "description": "Estima importância por relações de entrada e importância das origens.",
+      "libraryId": "graphs",
+      "icon": "domain:community",
+      "tech": "Centrality",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "PageRank",
+        "Estima importância por relações de entrada e importância das origens.",
+        "Estimates importance using incoming links and source importance.",
+        "Centrality",
+        "graphs",
+        "graph-pagerank"
+      ]
+    },
+    {
+      "id": "graph-community",
+      "label": "Detecção de comunidades",
+      "category": "Grafos e algoritmos",
+      "description": "Identifica grupos conforme a estrutura e o objetivo do algoritmo.",
+      "libraryId": "graphs",
+      "icon": "domain:community",
+      "tech": "Graph clustering",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Detecção de comunidades",
+        "Identifica grupos conforme a estrutura e o objetivo do algoritmo.",
+        "Community detection",
+        "Finds groups according to graph structure and algorithm objective.",
+        "Graph clustering",
+        "graphs",
+        "graph-community"
+      ]
+    },
+    {
+      "id": "graph-scc",
+      "label": "Componentes fortemente conexos",
+      "category": "Grafos e algoritmos",
+      "description": "Partições em que cada vértice alcança os demais por caminhos dirigidos.",
+      "libraryId": "graphs",
+      "icon": "domain:community",
+      "tech": "SCC",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Componentes fortemente conexos",
+        "Partições em que cada vértice alcança os demais por caminhos dirigidos.",
+        "Strongly connected components",
+        "Partitions where every vertex reaches the others through directed paths.",
+        "SCC",
+        "graphs",
+        "graph-scc"
+      ]
+    },
+    {
+      "id": "graph-db",
+      "label": "Banco de grafos",
+      "category": "Grafos e algoritmos",
+      "description": "Persiste e consulta entidades e relacionamentos.",
+      "libraryId": "graphs",
+      "icon": "domain:graph-db",
+      "tech": "Property graph · RDF",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Banco de grafos",
+        "Persiste e consulta entidades e relacionamentos.",
+        "Graph database",
+        "Persists and queries entities and relationships.",
+        "Property graph · RDF",
+        "graphs",
+        "graph-db"
+      ]
+    },
+    {
+      "id": "graph-knowledge",
+      "label": "Grafo de conhecimento",
+      "category": "Grafos e algoritmos",
+      "description": "Entidades e relações com semântica e proveniência definidas.",
+      "libraryId": "graphs",
+      "icon": "domain:graph-db",
+      "tech": "Entities · relations",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Grafo de conhecimento",
+        "Entidades e relações com semântica e proveniência definidas.",
+        "Knowledge graph",
+        "Entities and relationships with defined semantics and provenance.",
+        "Entities · relations",
+        "graphs",
+        "graph-knowledge"
+      ]
+    },
+    {
+      "id": "graph-gnn",
+      "label": "Rede neural em grafo",
+      "category": "Grafos e algoritmos",
+      "description": "Aprende representações usando atributos e estrutura de vizinhança.",
+      "libraryId": "graphs",
+      "icon": "domain:directed-graph",
+      "tech": "GNN · message passing",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Rede neural em grafo",
+        "Aprende representações usando atributos e estrutura de vizinhança.",
+        "Graph neural network",
+        "Learns representations from attributes and neighborhood structure.",
+        "GNN · message passing",
+        "graphs",
+        "graph-gnn"
+      ]
+    },
+    {
+      "id": "data-cdc",
+      "label": "Captura de mudanças",
+      "category": "Plataformas de dados",
+      "description": "Propaga mudanças de uma fonte preservando posição e ordem aplicáveis.",
+      "libraryId": "data-platforms",
+      "icon": "domain:cdc",
+      "tech": "CDC",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Captura de mudanças",
+        "Propaga mudanças de uma fonte preservando posição e ordem aplicáveis.",
+        "Change data capture",
+        "Propagates source changes with applicable position and ordering metadata.",
+        "CDC",
+        "data-platforms",
+        "data-cdc"
+      ]
+    },
+    {
+      "id": "data-stream",
+      "label": "Processador de streaming",
+      "category": "Plataformas de dados",
+      "description": "Transforma eventos com estado, janelas e regras de tempo.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-stream",
+      "tech": "Event time · windows",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Processador de streaming",
+        "Transforma eventos com estado, janelas e regras de tempo.",
+        "Stream processor",
+        "Transforms events with state, windows and event-time rules.",
+        "Event time · windows",
+        "data-platforms",
+        "data-stream"
+      ]
+    },
+    {
+      "id": "data-lake",
+      "label": "Data lake",
+      "category": "Plataformas de dados",
+      "description": "Armazena conjuntos de dados em arquivos e formatos definidos.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-lake",
+      "tech": "Object storage",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Data lake",
+        "Armazena conjuntos de dados em arquivos e formatos definidos.",
+        "Stores datasets in defined file formats.",
+        "Object storage",
+        "data-platforms",
+        "data-lake"
+      ]
+    },
+    {
+      "id": "data-warehouse",
+      "label": "Data warehouse",
+      "category": "Plataformas de dados",
+      "description": "Organiza dados analíticos para consultas e agregações.",
+      "libraryId": "data-platforms",
+      "icon": "domain:warehouse",
+      "tech": "Analytics",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Data warehouse",
+        "Organiza dados analíticos para consultas e agregações.",
+        "Organizes analytical data for queries and aggregations.",
+        "Analytics",
+        "data-platforms",
+        "data-warehouse"
+      ]
+    },
+    {
+      "id": "data-lakehouse",
+      "label": "Lakehouse",
+      "category": "Plataformas de dados",
+      "description": "Combina tabelas em arquivos com transações e metadados de catálogo.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-lake",
+      "tech": "Transactional tables",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Lakehouse",
+        "Combina tabelas em arquivos com transações e metadados de catálogo.",
+        "Combines file-based tables with transactions and catalog metadata.",
+        "Transactional tables",
+        "data-platforms",
+        "data-lakehouse"
+      ]
+    },
+    {
+      "id": "data-transform",
+      "label": "Transformação de dados",
+      "category": "Plataformas de dados",
+      "description": "Aplica regras de limpeza, junção e modelagem de dados.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-pipeline",
+      "tech": "ELT · transformations",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Transformação de dados",
+        "Aplica regras de limpeza, junção e modelagem de dados.",
+        "Data transformation",
+        "Applies data cleaning, joining and modeling rules.",
+        "ELT · transformations",
+        "data-platforms",
+        "data-transform"
+      ]
+    },
+    {
+      "id": "data-orchestrator",
+      "label": "Orquestrador de dados",
+      "category": "Plataformas de dados",
+      "description": "Coordena dependências, tentativas e agendamento de pipelines.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-pipeline",
+      "tech": "Pipeline orchestration",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Orquestrador de dados",
+        "Coordena dependências, tentativas e agendamento de pipelines.",
+        "Data orchestrator",
+        "Coordinates pipeline dependencies, retries and schedules.",
+        "Pipeline orchestration",
+        "data-platforms",
+        "data-orchestrator"
+      ]
+    },
+    {
+      "id": "data-quality",
+      "label": "Validação de qualidade",
+      "category": "Plataformas de dados",
+      "description": "Verifica contratos, distribuição, completude e consistência.",
+      "libraryId": "data-platforms",
+      "icon": "domain:evaluation",
+      "tech": "Data validation",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Validação de qualidade",
+        "Verifica contratos, distribuição, completude e consistência.",
+        "Data quality check",
+        "Checks contracts, distributions, completeness and consistency.",
+        "Data validation",
+        "data-platforms",
+        "data-quality"
+      ]
+    },
+    {
+      "id": "data-catalog",
+      "label": "Catálogo de dados",
+      "category": "Plataformas de dados",
+      "description": "Registra descoberta, propriedade, esquema e proveniência dos datasets.",
+      "libraryId": "data-platforms",
+      "icon": "domain:warehouse",
+      "tech": "Data governance",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Catálogo de dados",
+        "Registra descoberta, propriedade, esquema e proveniência dos datasets.",
+        "Data catalog",
+        "Records dataset discovery, ownership, schema and provenance.",
+        "Data governance",
+        "data-platforms",
+        "data-catalog"
+      ]
+    },
+    {
+      "id": "data-lineage",
+      "label": "Linhagem de dados",
+      "category": "Plataformas de dados",
+      "description": "Relaciona fontes, transformações e destinos de dados.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-pipeline",
+      "tech": "Lineage",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Linhagem de dados",
+        "Relaciona fontes, transformações e destinos de dados.",
+        "Data lineage",
+        "Links data sources, transformations and destinations.",
+        "Lineage",
+        "data-platforms",
+        "data-lineage"
+      ]
+    },
+    {
+      "id": "data-schema",
+      "label": "Registro de schemas",
+      "category": "Plataformas de dados",
+      "description": "Versiona contratos de eventos e regras de compatibilidade.",
+      "libraryId": "data-platforms",
+      "icon": "domain:warehouse",
+      "tech": "Schema evolution",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Registro de schemas",
+        "Versiona contratos de eventos e regras de compatibilidade.",
+        "Schema registry",
+        "Versions event contracts and compatibility rules.",
+        "Schema evolution",
+        "data-platforms",
+        "data-schema"
+      ]
+    },
+    {
+      "id": "data-dead-letter",
+      "label": "Fila de quarentena",
+      "category": "Plataformas de dados",
+      "description": "Isola eventos inválidos para inspeção e reprocessamento.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-stream",
+      "tech": "Dead-letter queue",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Fila de quarentena",
+        "Isola eventos inválidos para inspeção e reprocessamento.",
+        "Quarantine queue",
+        "Isolates invalid events for inspection and replay.",
+        "Dead-letter queue",
+        "data-platforms",
+        "data-dead-letter"
+      ]
+    },
+    {
+      "id": "data-bi",
+      "label": "Camada semântica BI",
+      "category": "Plataformas de dados",
+      "description": "Publica medidas e dimensões consistentes para análise.",
+      "libraryId": "data-platforms",
+      "icon": "domain:warehouse",
+      "tech": "Metrics · dimensions",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Camada semântica BI",
+        "Publica medidas e dimensões consistentes para análise.",
+        "BI semantic layer",
+        "Publishes consistent measures and dimensions for analytics.",
+        "Metrics · dimensions",
+        "data-platforms",
+        "data-bi"
+      ]
+    },
+    {
+      "id": "data-partition",
+      "label": "Partição de dados",
+      "category": "Plataformas de dados",
+      "description": "Divide dados por chave, faixa ou tempo segundo um esquema explícito.",
+      "libraryId": "data-platforms",
+      "icon": "domain:data-lake",
+      "tech": "Partitioning",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Partição de dados",
+        "Divide dados por chave, faixa ou tempo segundo um esquema explícito.",
+        "Data partition",
+        "Divides data by key, range or time under an explicit scheme.",
+        "Partitioning",
+        "data-platforms",
+        "data-partition"
+      ]
+    },
+    {
+      "id": "data-outbox",
+      "label": "Outbox transacional",
+      "category": "Plataformas de dados",
+      "description": "Grava eventos e estado de negócio na mesma transação local.",
+      "libraryId": "data-platforms",
+      "icon": "domain:cdc",
+      "tech": "Outbox pattern",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Outbox transacional",
+        "Grava eventos e estado de negócio na mesma transação local.",
+        "Transactional outbox",
+        "Stores events and business state in one local transaction.",
+        "Outbox pattern",
+        "data-platforms",
+        "data-outbox"
+      ]
+    },
+    {
+      "id": "security-idp",
+      "label": "Provedor de identidade",
+      "category": "Segurança e identidade",
+      "description": "Autentica sujeitos e emite afirmações verificáveis.",
+      "libraryId": "security",
+      "icon": "domain:identity",
+      "tech": "OIDC · SAML",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Provedor de identidade",
+        "Autentica sujeitos e emite afirmações verificáveis.",
+        "Identity provider",
+        "Authenticates subjects and issues verifiable assertions.",
+        "OIDC · SAML",
+        "security",
+        "security-idp"
+      ]
+    },
+    {
+      "id": "security-policy",
+      "label": "Motor de políticas",
+      "category": "Segurança e identidade",
+      "description": "Decide acesso a partir de identidade, recurso e contexto.",
+      "libraryId": "security",
+      "icon": "domain:policy",
+      "tech": "Authorization",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Motor de políticas",
+        "Decide acesso a partir de identidade, recurso e contexto.",
+        "Policy engine",
+        "Decides access from identity, resource and context.",
+        "Authorization",
+        "security",
+        "security-policy"
+      ]
+    },
+    {
+      "id": "security-kms",
+      "label": "Gerenciamento de chaves",
+      "category": "Segurança e identidade",
+      "description": "Controla geração, rotação e uso de chaves criptográficas.",
+      "libraryId": "security",
+      "icon": "domain:kms",
+      "tech": "KMS",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Gerenciamento de chaves",
+        "Controla geração, rotação e uso de chaves criptográficas.",
+        "Key management",
+        "Controls cryptographic key generation, rotation and use.",
+        "KMS",
+        "security",
+        "security-kms"
+      ]
+    },
+    {
+      "id": "security-vault",
+      "label": "Cofre de segredos",
+      "category": "Segurança e identidade",
+      "description": "Guarda segredos com autorização, auditoria e ciclo de vida.",
+      "libraryId": "security",
+      "icon": "domain:secret",
+      "tech": "Secret management",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cofre de segredos",
+        "Guarda segredos com autorização, auditoria e ciclo de vida.",
+        "Secrets vault",
+        "Stores secrets with authorization, auditing and lifecycle controls.",
+        "Secret management",
+        "security",
+        "security-vault"
+      ]
+    },
+    {
+      "id": "security-pki",
+      "label": "Autoridade certificadora",
+      "category": "Segurança e identidade",
+      "description": "Emite e revoga certificados conforme uma política de confiança.",
+      "libraryId": "security",
+      "icon": "domain:identity",
+      "tech": "PKI",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Autoridade certificadora",
+        "Emite e revoga certificados conforme uma política de confiança.",
+        "Certificate authority",
+        "Issues and revokes certificates under a trust policy.",
+        "PKI",
+        "security",
+        "security-pki"
+      ]
+    },
+    {
+      "id": "security-zero-trust",
+      "label": "Ponto de aplicação de políticas",
+      "category": "Segurança e identidade",
+      "description": "Aplica decisões de acesso na fronteira do recurso.",
+      "libraryId": "security",
+      "icon": "domain:zero-trust",
+      "tech": "Zero trust",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ponto de aplicação de políticas",
+        "Aplica decisões de acesso na fronteira do recurso.",
+        "Policy enforcement point",
+        "Enforces access decisions at the resource boundary.",
+        "Zero trust",
+        "security",
+        "security-zero-trust"
+      ]
+    },
+    {
+      "id": "security-threat",
+      "label": "Fronteira de confiança",
+      "category": "Segurança e identidade",
+      "description": "Marca uma mudança no domínio de confiança ou administração.",
+      "libraryId": "security",
+      "icon": "domain:threat-model",
+      "tech": "Threat modeling",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Fronteira de confiança",
+        "Marca uma mudança no domínio de confiança ou administração.",
+        "Trust boundary",
+        "Marks a change in trust or administrative domain.",
+        "Threat modeling",
+        "security",
+        "security-threat"
+      ]
+    },
+    {
+      "id": "security-siem",
+      "label": "Correlação de eventos",
+      "category": "Segurança e identidade",
+      "description": "Relaciona sinais para investigação e resposta a incidentes.",
+      "libraryId": "security",
+      "icon": "domain:threat-model",
+      "tech": "SIEM",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Correlação de eventos",
+        "Relaciona sinais para investigação e resposta a incidentes.",
+        "Security event correlation",
+        "Correlates signals for incident investigation and response.",
+        "SIEM",
+        "security",
+        "security-siem"
+      ]
+    },
+    {
+      "id": "security-attestation",
+      "label": "Verificação de atestação",
+      "category": "Segurança e identidade",
+      "description": "Confere evidências de estado ou identidade de um ambiente.",
+      "libraryId": "security",
+      "icon": "domain:policy",
+      "tech": "Attestation",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Verificação de atestação",
+        "Confere evidências de estado ou identidade de um ambiente.",
+        "Attestation verification",
+        "Verifies evidence about environment state or identity.",
+        "Attestation",
+        "security",
+        "security-attestation"
+      ]
+    },
+    {
+      "id": "security-audit",
+      "label": "Trilha de auditoria",
+      "category": "Segurança e identidade",
+      "description": "Registra ações com identidade, recurso, tempo e resultado.",
+      "libraryId": "security",
+      "icon": "domain:policy",
+      "tech": "Audit log",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Trilha de auditoria",
+        "Registra ações com identidade, recurso, tempo e resultado.",
+        "Audit trail",
+        "Records actions with identity, resource, time and outcome.",
+        "Audit log",
+        "security",
+        "security-audit"
+      ]
+    },
+    {
+      "id": "security-signer",
+      "label": "Serviço de assinatura",
+      "category": "Segurança e identidade",
+      "description": "Assina artefatos ou mensagens com controle de acesso à chave.",
+      "libraryId": "security",
+      "icon": "domain:kms",
+      "tech": "Digital signatures",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Serviço de assinatura",
+        "Assina artefatos ou mensagens com controle de acesso à chave.",
+        "Signing service",
+        "Signs artifacts or messages with controlled key access.",
+        "Digital signatures",
+        "security",
+        "security-signer"
+      ]
+    },
+    {
+      "id": "security-supply-chain",
+      "label": "Verificador de artefatos",
+      "category": "Segurança e identidade",
+      "description": "Confere integridade, assinatura e proveniência de artefatos.",
+      "libraryId": "security",
+      "icon": "domain:policy",
+      "tech": "Software supply chain",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Verificador de artefatos",
+        "Confere integridade, assinatura e proveniência de artefatos.",
+        "Artifact verifier",
+        "Checks artifact integrity, signatures and provenance.",
+        "Software supply chain",
+        "security",
+        "security-supply-chain"
+      ]
+    },
+    {
+      "id": "edge-sensor",
+      "label": "Sensor",
+      "category": "Edge, IoT e robótica",
+      "description": "Produz medições com unidade, tempo e identidade do dispositivo.",
+      "libraryId": "edge",
+      "icon": "domain:sensor",
+      "tech": "Telemetry",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Sensor",
+        "Produz medições com unidade, tempo e identidade do dispositivo.",
+        "Produces measurements with units, time and device identity.",
+        "Telemetry",
+        "edge",
+        "edge-sensor"
+      ]
+    },
+    {
+      "id": "edge-actuator",
+      "label": "Atuador",
+      "category": "Edge, IoT e robótica",
+      "description": "Aplica comandos ao ambiente físico sob limites de segurança.",
+      "libraryId": "edge",
+      "icon": "domain:robot",
+      "tech": "Actuation",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Atuador",
+        "Aplica comandos ao ambiente físico sob limites de segurança.",
+        "Actuator",
+        "Applies commands to a physical environment within safety limits.",
+        "Actuation",
+        "edge",
+        "edge-actuator"
+      ]
+    },
+    {
+      "id": "edge-gateway",
+      "label": "Gateway edge",
+      "category": "Edge, IoT e robótica",
+      "description": "Agrega dispositivos e adapta protocolos perto da origem.",
+      "libraryId": "edge",
+      "icon": "domain:edge-gateway",
+      "tech": "Protocol gateway",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Gateway edge",
+        "Agrega dispositivos e adapta protocolos perto da origem.",
+        "Edge gateway",
+        "Aggregates devices and adapts protocols near the source.",
+        "Protocol gateway",
+        "edge",
+        "edge-gateway"
+      ]
+    },
+    {
+      "id": "edge-broker",
+      "label": "Broker MQTT",
+      "category": "Edge, IoT e robótica",
+      "description": "Roteia publicações e assinaturas por tópicos e políticas de acesso.",
+      "libraryId": "edge",
+      "icon": "domain:edge-gateway",
+      "tech": "MQTT",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Broker MQTT",
+        "Roteia publicações e assinaturas por tópicos e políticas de acesso.",
+        "MQTT broker",
+        "Routes publications and subscriptions by topics and access policies.",
+        "MQTT",
+        "edge",
+        "edge-broker"
+      ]
+    },
+    {
+      "id": "edge-device",
+      "label": "Dispositivo edge",
+      "category": "Edge, IoT e robótica",
+      "description": "Executa lógica local sob limites de conectividade e recursos.",
+      "libraryId": "edge",
+      "icon": "domain:edge-gateway",
+      "tech": "Edge compute",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Dispositivo edge",
+        "Executa lógica local sob limites de conectividade e recursos.",
+        "Edge device",
+        "Runs local logic under connectivity and resource constraints.",
+        "Edge compute",
+        "edge",
+        "edge-device"
+      ]
+    },
+    {
+      "id": "edge-twin",
+      "label": "Gêmeo digital",
+      "category": "Edge, IoT e robótica",
+      "description": "Mantém uma representação de um ativo e seu estado observado.",
+      "libraryId": "edge",
+      "icon": "domain:digital-twin",
+      "tech": "Digital twin",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Gêmeo digital",
+        "Mantém uma representação de um ativo e seu estado observado.",
+        "Digital twin",
+        "Maintains a representation of an asset and its observed state.",
+        "edge",
+        "edge-twin"
+      ]
+    },
+    {
+      "id": "edge-inference",
+      "label": "Inferência no dispositivo",
+      "category": "Edge, IoT e robótica",
+      "description": "Executa um modelo perto do sensor com orçamento de recursos.",
+      "libraryId": "edge",
+      "icon": "domain:inference",
+      "tech": "Edge AI",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Inferência no dispositivo",
+        "Executa um modelo perto do sensor com orçamento de recursos.",
+        "On-device inference",
+        "Runs a model near a sensor under a resource budget.",
+        "Edge AI",
+        "edge",
+        "edge-inference"
+      ]
+    },
+    {
+      "id": "edge-ota",
+      "label": "Atualização OTA",
+      "category": "Edge, IoT e robótica",
+      "description": "Distribui e verifica versões de firmware com política de rollback.",
+      "libraryId": "edge",
+      "icon": "domain:edge-gateway",
+      "tech": "Firmware updates",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Atualização OTA",
+        "Distribui e verifica versões de firmware com política de rollback.",
+        "OTA update",
+        "Distributes and verifies firmware versions with a rollback policy.",
+        "Firmware updates",
+        "edge",
+        "edge-ota"
+      ]
+    },
+    {
+      "id": "edge-robot",
+      "label": "Controlador robótico",
+      "category": "Edge, IoT e robótica",
+      "description": "Coordena percepção e atuação; limites temporais dependem do sistema.",
+      "libraryId": "edge",
+      "icon": "domain:robot",
+      "tech": "Robotics",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Controlador robótico",
+        "Coordena percepção e atuação; limites temporais dependem do sistema.",
+        "Robot controller",
+        "Coordinates perception and actuation; timing constraints are system-specific.",
+        "Robotics",
+        "edge",
+        "edge-robot"
+      ]
+    },
+    {
+      "id": "edge-telemetry",
+      "label": "Coletor de telemetria",
+      "category": "Edge, IoT e robótica",
+      "description": "Recebe, valida e encaminha amostras e eventos de dispositivos.",
+      "libraryId": "edge",
+      "icon": "domain:sensor",
+      "tech": "Device telemetry",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Coletor de telemetria",
+        "Recebe, valida e encaminha amostras e eventos de dispositivos.",
+        "Telemetry collector",
+        "Receives, validates and forwards device samples and events.",
+        "Device telemetry",
+        "edge",
+        "edge-telemetry"
+      ]
+    },
+    {
+      "id": "edge-geospatial",
+      "label": "Índice geoespacial",
+      "category": "Edge, IoT e robótica",
+      "description": "Indexa posições e geometrias para consultas espaciais.",
+      "libraryId": "edge",
+      "icon": "domain:geo-index",
+      "tech": "Spatial queries",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Índice geoespacial",
+        "Indexa posições e geometrias para consultas espaciais.",
+        "Geospatial index",
+        "Indexes positions and geometries for spatial queries.",
+        "Spatial queries",
+        "edge",
+        "edge-geospatial"
+      ]
+    },
+    {
+      "id": "edge-fleet",
+      "label": "Gestão de dispositivos",
+      "category": "Edge, IoT e robótica",
+      "description": "Organiza inventário, credenciais e estado de uma frota.",
+      "libraryId": "edge",
+      "icon": "domain:digital-twin",
+      "tech": "Device fleet",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Gestão de dispositivos",
+        "Organiza inventário, credenciais e estado de uma frota.",
+        "Device fleet management",
+        "Manages fleet inventory, credentials and status.",
+        "Device fleet",
+        "edge",
+        "edge-fleet"
+      ]
+    },
+    {
+      "id": "tech-qiskit",
+      "label": "Qiskit",
+      "category": "Computação quântica",
+      "description": "Construção e transpilação de circuitos quânticos.",
+      "libraryId": "quantum",
+      "icon": "qiskit",
+      "tech": "Qiskit",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Qiskit",
+        "Construção e transpilação de circuitos quânticos.",
+        "Quantum circuit construction and transpilation.",
+        "quantum"
+      ]
+    },
+    {
+      "id": "tech-pennylane",
+      "label": "PennyLane",
+      "category": "Computação quântica",
+      "description": "Modelagem de fluxos diferenciáveis híbridos clássico-quânticos.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-circuit",
+      "tech": "PennyLane",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "PennyLane",
+        "Modelagem de fluxos diferenciáveis híbridos clássico-quânticos.",
+        "Modeling differentiable hybrid classical–quantum workflows.",
+        "quantum"
+      ]
+    },
+    {
+      "id": "tech-cirq",
+      "label": "Cirq",
+      "category": "Computação quântica",
+      "description": "Construção e transformação de circuitos quânticos.",
+      "libraryId": "quantum",
+      "icon": "domain:quantum-gate",
+      "tech": "Cirq",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cirq",
+        "Construção e transformação de circuitos quânticos.",
+        "Quantum circuit construction and transformation.",
+        "quantum"
+      ]
+    },
+    {
+      "id": "tech-ethereum",
+      "label": "Ethereum",
+      "category": "Blockchain e Web3",
+      "description": "Rede e ecossistema de contratos com clientes de execução e consenso.",
+      "libraryId": "blockchain",
+      "icon": "ethereum",
+      "tech": "Ethereum",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ethereum",
+        "Rede e ecossistema de contratos com clientes de execução e consenso.",
+        "Smart contract network and ecosystem with execution and consensus clients.",
+        "blockchain"
+      ]
+    },
+    {
+      "id": "tech-solana",
+      "label": "Solana",
+      "category": "Blockchain e Web3",
+      "description": "Componentes de aplicações e programas na rede Solana.",
+      "libraryId": "blockchain",
+      "icon": "solana",
+      "tech": "Solana",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Solana",
+        "Componentes de aplicações e programas na rede Solana.",
+        "Application and program components on the Solana network.",
+        "blockchain"
+      ]
+    },
+    {
+      "id": "tech-fabric",
+      "label": "Hyperledger Fabric",
+      "category": "Blockchain e Web3",
+      "description": "Rede permissionada com identidades, peers e ordenação.",
+      "libraryId": "blockchain",
+      "icon": "domain:ledger",
+      "tech": "Hyperledger Fabric",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Hyperledger Fabric",
+        "Rede permissionada com identidades, peers e ordenação.",
+        "Permissioned network with identities, peers and ordering.",
+        "blockchain"
+      ]
+    },
+    {
+      "id": "tech-pytorch",
+      "label": "PyTorch",
+      "category": "IA e machine learning",
+      "description": "Treinamento e inferência com tensores e diferenciação automática.",
+      "libraryId": "ai-ml",
+      "icon": "pytorch",
+      "tech": "PyTorch",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "PyTorch",
+        "Treinamento e inferência com tensores e diferenciação automática.",
+        "Tensor-based training and inference with automatic differentiation.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-tensorflow",
+      "label": "TensorFlow",
+      "category": "IA e machine learning",
+      "description": "Construção, treinamento e implantação de modelos de machine learning.",
+      "libraryId": "ai-ml",
+      "icon": "tensorflow",
+      "tech": "TensorFlow",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "TensorFlow",
+        "Construção, treinamento e implantação de modelos de machine learning.",
+        "Building, training and deploying machine learning models.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-huggingface",
+      "label": "Hugging Face",
+      "category": "IA e machine learning",
+      "description": "Modelos, datasets e ferramentas para aprendizado de máquina.",
+      "libraryId": "ai-ml",
+      "icon": "huggingface",
+      "tech": "Hugging Face",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Hugging Face",
+        "Modelos, datasets e ferramentas para aprendizado de máquina.",
+        "Models, datasets and tools for machine learning.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-langchain",
+      "label": "LangChain",
+      "category": "IA e machine learning",
+      "description": "Integração de modelos, ferramentas e recuperação de contexto.",
+      "libraryId": "ai-ml",
+      "icon": "langchain",
+      "tech": "LangChain",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "LangChain",
+        "Integração de modelos, ferramentas e recuperação de contexto.",
+        "Integrating models, tools and context retrieval.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-langgraph",
+      "label": "LangGraph",
+      "category": "IA e machine learning",
+      "description": "Orquestração de agentes por estados e transições.",
+      "libraryId": "ai-ml",
+      "icon": "langgraph",
+      "tech": "LangGraph",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "LangGraph",
+        "Orquestração de agentes por estados e transições.",
+        "Agent orchestration through states and transitions.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-llamaindex",
+      "label": "LlamaIndex",
+      "category": "IA e machine learning",
+      "description": "Ingestão e recuperação de dados para aplicações com modelos de linguagem.",
+      "libraryId": "ai-ml",
+      "icon": "domain:retriever",
+      "tech": "LlamaIndex",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "LlamaIndex",
+        "Ingestão e recuperação de dados para aplicações com modelos de linguagem.",
+        "Data ingestion and retrieval for language model applications.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-vllm",
+      "label": "vLLM",
+      "category": "IA e machine learning",
+      "description": "Serving de modelos de linguagem com agendamento de requisições.",
+      "libraryId": "ai-ml",
+      "icon": "vllm",
+      "tech": "vLLM",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "vLLM",
+        "Serving de modelos de linguagem com agendamento de requisições.",
+        "Language model serving with request scheduling.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-ollama",
+      "label": "Ollama",
+      "category": "IA e machine learning",
+      "description": "Execução e exposição local de modelos compatíveis.",
+      "libraryId": "ai-ml",
+      "icon": "ollama",
+      "tech": "Ollama",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ollama",
+        "Execução e exposição local de modelos compatíveis.",
+        "Local execution and serving of supported models.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-onnx",
+      "label": "ONNX Runtime",
+      "category": "IA e machine learning",
+      "description": "Inferência de modelos em runtimes compatíveis com ONNX.",
+      "libraryId": "ai-ml",
+      "icon": "onnx",
+      "tech": "ONNX Runtime",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "ONNX Runtime",
+        "Inferência de modelos em runtimes compatíveis com ONNX.",
+        "Model inference in ONNX-compatible runtimes.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-mlflow",
+      "label": "MLflow",
+      "category": "IA e machine learning",
+      "description": "Rastreamento e gestão de experimentos, modelos e avaliações.",
+      "libraryId": "ai-ml",
+      "icon": "mlflow",
+      "tech": "MLflow",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "MLflow",
+        "Rastreamento e gestão de experimentos, modelos e avaliações.",
+        "Tracking and management of experiments, models and evaluations.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-neo4j",
+      "label": "Neo4j",
+      "category": "Grafos e algoritmos",
+      "description": "Banco de grafos e consultas de relacionamentos.",
+      "libraryId": "graphs",
+      "icon": "neo4j",
+      "tech": "Neo4j",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Neo4j",
+        "Banco de grafos e consultas de relacionamentos.",
+        "Graph database and relationship queries.",
+        "graphs"
+      ]
+    },
+    {
+      "id": "tech-networkx",
+      "label": "NetworkX",
+      "category": "Grafos e algoritmos",
+      "description": "Estruturas e algoritmos para análise de grafos em Python.",
+      "libraryId": "graphs",
+      "icon": "domain:directed-graph",
+      "tech": "NetworkX",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "NetworkX",
+        "Estruturas e algoritmos para análise de grafos em Python.",
+        "Data structures and algorithms for graph analysis in Python.",
+        "graphs"
+      ]
+    },
+    {
+      "id": "tech-flink",
+      "label": "Apache Flink",
+      "category": "Plataformas de dados",
+      "description": "Processamento de streams com estado e tempo de evento.",
+      "libraryId": "data-platforms",
+      "icon": "apacheflink",
+      "tech": "Apache Flink",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Apache Flink",
+        "Processamento de streams com estado e tempo de evento.",
+        "Stateful stream processing with event-time semantics.",
+        "data-platforms"
+      ]
+    },
+    {
+      "id": "tech-spark",
+      "label": "Apache Spark",
+      "category": "Plataformas de dados",
+      "description": "Computação distribuída para transformação e análise de dados.",
+      "libraryId": "data-platforms",
+      "icon": "apachespark",
+      "tech": "Apache Spark",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Apache Spark",
+        "Computação distribuída para transformação e análise de dados.",
+        "Distributed computation for data transformation and analytics.",
+        "data-platforms"
+      ]
+    },
+    {
+      "id": "tech-duckdb",
+      "label": "DuckDB",
+      "category": "Plataformas de dados",
+      "description": "Motor SQL analítico embarcado para arquivos e dados tabulares.",
+      "libraryId": "data-platforms",
+      "icon": "duckdb",
+      "tech": "DuckDB",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "DuckDB",
+        "Motor SQL analítico embarcado para arquivos e dados tabulares.",
+        "Embedded analytical SQL engine for files and tabular data.",
+        "data-platforms"
+      ]
+    },
+    {
+      "id": "tech-qdrant",
+      "label": "Qdrant",
+      "category": "IA e machine learning",
+      "description": "Armazenamento e busca de vetores com filtros de metadados.",
+      "libraryId": "ai-ml",
+      "icon": "qdrant",
+      "tech": "Qdrant",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Qdrant",
+        "Armazenamento e busca de vetores com filtros de metadados.",
+        "Vector storage and search with metadata filters.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-milvus",
+      "label": "Milvus",
+      "category": "IA e machine learning",
+      "description": "Indexação e recuperação de vetores em coleções.",
+      "libraryId": "ai-ml",
+      "icon": "milvus",
+      "tech": "Milvus",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Milvus",
+        "Indexação e recuperação de vetores em coleções.",
+        "Vector indexing and retrieval in collections.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-ray",
+      "label": "Ray",
+      "category": "IA e machine learning",
+      "description": "Execução distribuída de tarefas e cargas de machine learning.",
+      "libraryId": "ai-ml",
+      "icon": "ray",
+      "tech": "Ray",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Ray",
+        "Execução distribuída de tarefas e cargas de machine learning.",
+        "Distributed task execution and machine learning workloads.",
+        "ai-ml"
+      ]
+    },
+    {
+      "id": "tech-otel",
+      "label": "OpenTelemetry",
+      "category": "Segurança e identidade",
+      "description": "Coleta de traces, métricas e logs com correlação.",
+      "libraryId": "security",
+      "icon": "opentelemetry",
+      "tech": "OpenTelemetry",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "OpenTelemetry",
+        "Coleta de traces, métricas e logs com correlação.",
+        "Correlated collection of traces, metrics and logs.",
+        "security"
+      ]
+    },
+    {
+      "id": "tech-ros",
+      "label": "ROS 2",
+      "category": "Edge, IoT e robótica",
+      "description": "Comunicação e composição de componentes robóticos.",
+      "libraryId": "edge",
+      "icon": "ros",
+      "tech": "ROS 2",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "ROS 2",
+        "Comunicação e composição de componentes robóticos.",
+        "Communication and composition of robotic components.",
+        "edge"
+      ]
+    },
+    {
+      "id": "tech-mosquitto",
+      "label": "Eclipse Mosquitto",
+      "category": "Edge, IoT e robótica",
+      "description": "Broker MQTT para publicação e assinatura de mensagens.",
+      "libraryId": "edge",
+      "icon": "eclipsemosquitto",
+      "tech": "Eclipse Mosquitto",
+      "color": "gray",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Eclipse Mosquitto",
+        "Broker MQTT para publicação e assinatura de mensagens.",
+        "MQTT broker for message publication and subscription.",
+        "edge"
+      ]
+    },
+    {
+      "id": "quantum-bloch-sphere",
+      "label": "Esfera de Bloch",
+      "description": "Representação do estado de um qubit puro na esfera unitária.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:bloch-sphere",
+      "color": "gray",
+      "tech": "Bloch sphere",
+      "keywords": [
+        "Esfera de Bloch",
+        "Bloch sphere",
+        "Representação do estado de um qubit puro na esfera unitária.",
+        "Pure single-qubit states on a unit sphere.",
+        "quantum"
+      ],
+      "shape": "circle",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "id": "quantum-ket-zero",
+      "label": "Estado |0⟩",
+      "description": "Estado de base computacional zero.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:ket-zero",
+      "color": "gray",
+      "tech": "State |0⟩",
+      "keywords": [
+        "Estado |0⟩",
+        "State |0⟩",
+        "Estado de base computacional zero.",
+        "Computational basis zero state.",
+        "quantum"
+      ],
+      "shape": "circle",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "id": "quantum-ket-one",
+      "label": "Estado |1⟩",
+      "description": "Estado de base computacional um.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:ket-one",
+      "color": "gray",
+      "tech": "State |1⟩",
+      "keywords": [
+        "Estado |1⟩",
+        "State |1⟩",
+        "Estado de base computacional um.",
+        "Computational basis one state.",
+        "quantum"
+      ],
+      "shape": "circle",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "id": "quantum-ket-plus",
+      "label": "Estado |+⟩",
+      "description": "Superposição (|0⟩ + |1⟩)/√2.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:ket-plus",
+      "color": "gray",
+      "tech": "State |+⟩",
+      "keywords": [
+        "Estado |+⟩",
+        "State |+⟩",
+        "Superposição (|0⟩ + |1⟩)/√2.",
+        "Superposition (|0⟩ + |1⟩)/√2.",
+        "quantum"
+      ],
+      "shape": "circle",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "id": "quantum-ket-minus",
+      "label": "Estado |−⟩",
+      "description": "Superposição (|0⟩ − |1⟩)/√2.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:ket-minus",
+      "color": "gray",
+      "tech": "State |−⟩",
+      "keywords": [
+        "Estado |−⟩",
+        "State |−⟩",
+        "Superposição (|0⟩ − |1⟩)/√2.",
+        "Superposition (|0⟩ − |1⟩)/√2.",
+        "quantum"
+      ],
+      "shape": "circle",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "id": "quantum-phase-gate",
+      "label": "Porta de fase",
+      "description": "Aplica uma fase relativa parametrizada ao estado |1⟩.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:phase-gate",
+      "color": "gray",
+      "tech": "Phase gate",
+      "keywords": [
+        "Porta de fase",
+        "Phase gate",
+        "Aplica uma fase relativa parametrizada ao estado |1⟩.",
+        "Applies a parameterized relative phase to the |1⟩ state.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-swap-gate",
+      "label": "Porta SWAP",
+      "description": "Troca os estados de dois qubits.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:swap-gate",
+      "color": "gray",
+      "tech": "SWAP gate",
+      "keywords": [
+        "Porta SWAP",
+        "SWAP gate",
+        "Troca os estados de dois qubits.",
+        "Exchanges the states of two qubits.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-toffoli-gate",
+      "label": "Porta Toffoli",
+      "description": "Porta X com dois qubits de controle.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:toffoli-gate",
+      "color": "gray",
+      "tech": "Toffoli gate",
+      "keywords": [
+        "Porta Toffoli",
+        "Toffoli gate",
+        "Porta X com dois qubits de controle.",
+        "X gate with two control qubits.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-qubit-reset",
+      "label": "Reset de qubit",
+      "description": "Reinicializa um qubit para o estado |0⟩.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:qubit-reset",
+      "color": "gray",
+      "tech": "Qubit reset",
+      "keywords": [
+        "Reset de qubit",
+        "Qubit reset",
+        "Reinicializa um qubit para o estado |0⟩.",
+        "Reinitializes a qubit to the |0⟩ state.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-circuit-barrier",
+      "label": "Barreira de circuito",
+      "description": "Marca uma fronteira de compilação no circuito, sem ser uma porta física.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:circuit-barrier",
+      "color": "gray",
+      "tech": "Circuit barrier",
+      "keywords": [
+        "Barreira de circuito",
+        "Circuit barrier",
+        "Marca uma fronteira de compilação no circuito, sem ser uma porta física.",
+        "Marks a circuit compilation boundary, rather than a physical gate.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-controlled-gate",
+      "label": "Porta controlada",
+      "description": "Aplica uma operação condicionada ao qubit de controle.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:controlled-gate",
+      "color": "gray",
+      "tech": "Controlled gate",
+      "keywords": [
+        "Porta controlada",
+        "Controlled gate",
+        "Aplica uma operação condicionada ao qubit de controle.",
+        "Applies an operation conditional on a control qubit.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-pauli-x",
+      "label": "Porta Pauli X",
+      "description": "Inverte os estados da base computacional.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:pauli-x",
+      "color": "gray",
+      "tech": "Pauli X gate",
+      "keywords": [
+        "Porta Pauli X",
+        "Pauli X gate",
+        "Inverte os estados da base computacional.",
+        "Flips computational basis states.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-pauli-y",
+      "label": "Porta Pauli Y",
+      "description": "Operação Pauli Y com inversão de estado e fase.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:pauli-y",
+      "color": "gray",
+      "tech": "Pauli Y gate",
+      "keywords": [
+        "Porta Pauli Y",
+        "Pauli Y gate",
+        "Operação Pauli Y com inversão de estado e fase.",
+        "Pauli Y operation with state and phase changes.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "quantum-pauli-z",
+      "label": "Porta Pauli Z",
+      "description": "Inverte a fase relativa do estado |1⟩.",
+      "libraryId": "quantum",
+      "category": "Computação quântica",
+      "icon": "domain:pauli-z",
+      "color": "gray",
+      "tech": "Pauli Z gate",
+      "keywords": [
+        "Porta Pauli Z",
+        "Pauli Z gate",
+        "Inverte a fase relativa do estado |1⟩.",
+        "Flips the relative phase of the |1⟩ state.",
+        "quantum"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-staking",
+      "label": "Staking",
+      "description": "Depósito de participação e validação em uma rede proof of stake.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:staking",
+      "color": "gray",
+      "tech": "Staking",
+      "keywords": [
+        "Staking",
+        "Staking",
+        "Depósito de participação e validação em uma rede proof of stake.",
+        "Stake deposits and validation in a proof-of-stake network.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-gas",
+      "label": "Gas de execução",
+      "description": "Unidade de contabilização do trabalho de execução de transações.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:gas",
+      "color": "gray",
+      "tech": "Execution gas",
+      "keywords": [
+        "Gas de execução",
+        "Execution gas",
+        "Unidade de contabilização do trabalho de execução de transações.",
+        "Accounting unit for transaction execution work.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-nonce",
+      "label": "Nonce de conta",
+      "description": "Contador usado para ordenar transações e evitar reutilização.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:nonce",
+      "color": "gray",
+      "tech": "Account nonce",
+      "keywords": [
+        "Nonce de conta",
+        "Account nonce",
+        "Contador usado para ordenar transações e evitar reutilização.",
+        "Counter used to order transactions and prevent replay.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-fungible-token",
+      "label": "Token fungível",
+      "description": "Unidades intercambiáveis de um token, como ERC-20.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:fungible-token",
+      "color": "gray",
+      "tech": "Fungible token",
+      "keywords": [
+        "Token fungível",
+        "Fungible token",
+        "Unidades intercambiáveis de um token, como ERC-20.",
+        "Interchangeable token units, such as ERC-20.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-nft-token",
+      "label": "Token não fungível",
+      "description": "Identidade individual de um token, como ERC-721.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:nft-token",
+      "color": "gray",
+      "tech": "Non-fungible token",
+      "keywords": [
+        "Token não fungível",
+        "Non-fungible token",
+        "Identidade individual de um token, como ERC-721.",
+        "Individual token identity, such as ERC-721.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-transaction",
+      "label": "Transação assinada",
+      "description": "Pedido assinado de mudança de estado, enviado à rede.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:transaction",
+      "color": "gray",
+      "tech": "Signed transaction",
+      "keywords": [
+        "Transação assinada",
+        "Signed transaction",
+        "Pedido assinado de mudança de estado, enviado à rede.",
+        "Signed state-transition request submitted to the network.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-digital-signature",
+      "label": "Assinatura digital",
+      "description": "Autenticidade verificável por uma chave pública.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:digital-signature",
+      "color": "gray",
+      "tech": "Digital signature",
+      "keywords": [
+        "Assinatura digital",
+        "Digital signature",
+        "Autenticidade verificável por uma chave pública.",
+        "Authenticity verifiable using a public key.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "chain-key-pair",
+      "label": "Par de chaves",
+      "description": "Chave privada para assinar e chave pública para verificar.",
+      "libraryId": "blockchain",
+      "category": "Blockchain e Web3",
+      "icon": "domain:key-pair",
+      "color": "gray",
+      "tech": "Key pair",
+      "keywords": [
+        "Par de chaves",
+        "Key pair",
+        "Chave privada para assinar e chave pública para verificar.",
+        "Private signing key and public verification key.",
+        "blockchain"
+      ],
+      "presentation": "card",
+      "layoutRole": "peer"
+    },
+    {
+      "id": "tech-bitcoin",
+      "label": "Bitcoin",
+      "description": "Tecnologia Bitcoin para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:bitcoin",
+      "color": "gray",
+      "tech": "Bitcoin",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Bitcoin",
+        "bitcoin",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-solidity",
+      "label": "Solidity",
+      "description": "Tecnologia Solidity para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:solidity",
+      "color": "gray",
+      "tech": "Solidity",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Solidity",
+        "solidity",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-cardano",
+      "label": "Cardano",
+      "description": "Tecnologia Cardano para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:cardano",
+      "color": "gray",
+      "tech": "Cardano",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Cardano",
+        "cardano",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-polygon",
+      "label": "Polygon",
+      "description": "Tecnologia Polygon para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:polygon",
+      "color": "gray",
+      "tech": "Polygon",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Polygon",
+        "polygon",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-walletconnect",
+      "label": "WalletConnect",
+      "description": "Tecnologia WalletConnect para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:walletconnect",
+      "color": "gray",
+      "tech": "WalletConnect",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "WalletConnect",
+        "walletconnect",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-polkadot",
+      "label": "Polkadot",
+      "description": "Tecnologia Polkadot para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:polkadot",
+      "color": "gray",
+      "tech": "Polkadot",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Polkadot",
+        "polkadot",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-chainlink",
+      "label": "Chainlink",
+      "description": "Tecnologia Chainlink para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:chainlink",
+      "color": "gray",
+      "tech": "Chainlink",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Chainlink",
+        "chainlink",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-ipfs",
+      "label": "IPFS",
+      "description": "Tecnologia IPFS para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:ipfs",
+      "color": "gray",
+      "tech": "IPFS",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "IPFS",
+        "ipfs",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-near",
+      "label": "NEAR",
+      "description": "Tecnologia NEAR para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:near",
+      "color": "gray",
+      "tech": "NEAR",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "NEAR",
+        "near",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    },
+    {
+      "id": "tech-stellar",
+      "label": "Stellar",
+      "description": "Tecnologia Stellar para modelagem de aplicações Web3.",
+      "category": "Blockchain e Web3",
+      "libraryId": "blockchain",
+      "icon": "si:stellar",
+      "color": "gray",
+      "tech": "Stellar",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "keywords": [
+        "Stellar",
+        "stellar",
+        "blockchain",
+        "web3",
+        "crypto",
+        "criptomoeda",
+        "contrato",
+        "smart contract"
+      ]
+    }
+  ]
+}

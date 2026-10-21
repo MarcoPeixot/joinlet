@@ -1,0 +1,11 @@
+{
+  email {$JOINLET_ACME_EMAIL}
+  # OAuth/invitation URLs carry secrets: do not enable request access logs.
+  admin off
+}
+{$JOINLET_DOMAIN:joinlet.co}, {$JOINLET_APP_DOMAIN:app.joinlet.co} {
+  encode zstd gzip
+  reverse_proxy joinlet:8788 {
+    flush_interval -1
+  }
+}

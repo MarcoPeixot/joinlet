@@ -1,0 +1,31 @@
+{
+  "name": "@strukt/mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "joinlet-mcp": "./src/main.ts",
+    "strukt-mcp": "./src/main.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "@strukt/core": "workspace:*",
+    "@strukt/git": "workspace:*",
+    "@strukt/json": "workspace:*",
+    "@strukt/layout": "workspace:*",
+    "@strukt/ops": "workspace:*",
+    "@strukt/workspace": "workspace:*",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4"
+  },
+  "license": "AGPL-3.0-only"
+}

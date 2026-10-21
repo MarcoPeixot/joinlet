@@ -1,0 +1,23 @@
+{
+  "name": "@strukt/layout",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./composition": "./src/composition.ts",
+    "./elk": "./src/elk.ts",
+    "./router": "./src/eraserRouter.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@eraserlabs/layout": "^0.1.1",
+    "@strukt/core": "workspace:*",
+    "elkjs": "^0.12.0"
+  },
+  "license": "AGPL-3.0-only"
+}

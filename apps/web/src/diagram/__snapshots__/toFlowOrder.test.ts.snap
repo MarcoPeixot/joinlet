@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`toFlow ordering on flat300 > keeps node order, parents and z-index 1`] = `"c87218f2b54e4bee:11270"`;
+
+exports[`toFlow ordering on mixed500 > keeps node order, parents and z-index 1`] = `"bbcd893012c8fbf4:19362"`;
+
+exports[`toFlow ordering on nested5 > keeps node order, parents and z-index 1`] = `"65edf5cb681d66fc:1770"`;

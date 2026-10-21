@@ -1,0 +1,28 @@
+{
+  "name": "@strukt/remote",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun src/main.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "@strukt/mcp": "workspace:*",
+    "@strukt/workspace": "workspace:*",
+    "express": "^5.1.0",
+    "ws": "^8.18.0",
+    "@strukt/core": "workspace:*",
+    "@anthropic-ai/sdk": "^0.128.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.20.4",
+    "@types/ws": "^8.18.0",
+    "yjs": "^13.6.32"
+  },
+  "license": "AGPL-3.0-only"
+}

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`printDiagramJson on flat300 > is byte-identical to the captured output 1`] = `"b48f7c492268a5e2:33017"`;
+
+exports[`printDiagramJson on mixed500 > is byte-identical to the captured output 1`] = `"4655390de219a8b1:63498"`;
+
+exports[`printDiagramJson on nested5 > is byte-identical to the captured output 1`] = `"5cb84f471f70241f:7714"`;

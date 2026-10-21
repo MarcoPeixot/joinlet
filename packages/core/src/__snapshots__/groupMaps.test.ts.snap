@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`group maps on flat300 > computeRects 1`] = `"b2a4ccb0a0ac7ee6:12770"`;
+
+exports[`group maps on flat300 > computeRects with a frozen group 1`] = `"b2a4ccb0a0ac7ee6:12770"`;
+
+exports[`group maps on flat300 > descendantsOf every element 1`] = `"f604e62115585d99:3515"`;
+
+exports[`group maps on flat300 > topLevel 1`] = `"fb4b7b57b53b3b04:2015"`;
+
+exports[`group maps on mixed500 > computeRects 1`] = `"e21b77b28ad226fd:21596"`;
+
+exports[`group maps on mixed500 > computeRects with a frozen group 1`] = `"dd3e4f075bb59e67:21587"`;
+
+exports[`group maps on mixed500 > descendantsOf every element 1`] = `"32de0110995e51f0:9418"`;
+
+exports[`group maps on mixed500 > topLevel 1`] = `"a49a86e7c3d1e0f6:585"`;
+
+exports[`group maps on nested5 > computeRects 1`] = `"248d109abca54d3:2024"`;
+
+exports[`group maps on nested5 > computeRects with a frozen group 1`] = `"8ae1ea08f75988d:2013"`;
+
+exports[`group maps on nested5 > descendantsOf every element 1`] = `"6f511dd4b90e9f71:1404"`;
+
+exports[`group maps on nested5 > topLevel 1`] = `"46c7fec3125f0281:6"`;

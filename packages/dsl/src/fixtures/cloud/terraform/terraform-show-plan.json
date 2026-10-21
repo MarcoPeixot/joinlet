@@ -1,0 +1,157 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.7.5",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_vpc.main",
+          "mode": "managed",
+          "type": "aws_vpc",
+          "name": "main",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "cidr_block": "10.1.0.0/16",
+            "tags": {
+              "Name": "plan-vpc",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_subnet.a",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "a",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "cidr_block": "10.1.1.0/24",
+            "availability_zone": "us-east-1a",
+            "tags": {
+              "Name": "plan-subnet-a",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_instance.app",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "app",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "ami": "ami-0123",
+            "instance_type": "t3.micro",
+            "availability_zone": "us-east-1a",
+            "user_data": "SENTINEL-PLAN-USERDATA",
+            "tags": {
+              "Name": "plan-app",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_db_instance.db",
+          "mode": "managed",
+          "type": "aws_db_instance",
+          "name": "db",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "engine": "mysql",
+            "instance_class": "db.t3.micro",
+            "password": "SENTINEL-PLAN-PASSWORD"
+          },
+          "sensitive_values": {
+            "password": true
+          }
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    {
+      "address": "aws_instance.app",
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "app",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "instance_type": "t3.micro"
+        },
+        "after_unknown": {
+          "id": true,
+          "arn": true
+        }
+      }
+    }
+  ],
+  "configuration": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_subnet.a",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "a",
+          "expressions": {
+            "vpc_id": {
+              "references": [
+                "aws_vpc.main.id",
+                "aws_vpc.main"
+              ]
+            },
+            "cidr_block": {
+              "constant_value": "10.1.1.0/24"
+            }
+          }
+        },
+        {
+          "address": "aws_instance.app",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "app",
+          "expressions": {
+            "subnet_id": {
+              "references": [
+                "aws_subnet.a.id",
+                "aws_subnet.a"
+              ]
+            },
+            "user_data": {
+              "references": [
+                "var.secret"
+              ]
+            }
+          },
+          "depends_on": [
+            "aws_db_instance.db"
+          ]
+        },
+        {
+          "address": "aws_db_instance.db",
+          "mode": "managed",
+          "type": "aws_db_instance",
+          "name": "db",
+          "expressions": {
+            "password": {
+              "references": [
+                "var.db_password"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

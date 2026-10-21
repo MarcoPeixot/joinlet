@@ -1,0 +1,739 @@
+{
+  "format_version": "1.0",
+  "terraform_version": "1.7.5",
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_vpc.main",
+          "mode": "managed",
+          "type": "aws_vpc",
+          "name": "main",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "vpc-0a1b2c3d4e5f60718",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0a1b2c3d4e5f60718",
+            "cidr_block": "10.0.0.0/16",
+            "tags": {
+              "Name": "shop-vpc",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_subnet.public_a",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "public_a",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "subnet-0a11aaaa1111aaaa1",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0a11aaaa1111aaaa1",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "cidr_block": "10.0.1.0/24",
+            "availability_zone": "us-east-1a",
+            "tags": {
+              "Name": "shop-public-a",
+              "env": "prod"
+            },
+            "map_public_ip_on_launch": true
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_subnet.public_b",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "public_b",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "subnet-0b22bbbb2222bbbb2",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0b22bbbb2222bbbb2",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "cidr_block": "10.0.2.0/24",
+            "availability_zone": "us-east-1b",
+            "tags": {
+              "Name": "shop-public-b",
+              "env": "prod"
+            },
+            "map_public_ip_on_launch": true
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_subnet.private_a",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "private_a",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "subnet-0c33cccc3333cccc3",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0c33cccc3333cccc3",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "cidr_block": "10.0.11.0/24",
+            "availability_zone": "us-east-1a",
+            "tags": {
+              "Name": "shop-private-a",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_subnet.private_b",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "private_b",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "subnet-0d44dddd4444dddd4",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0d44dddd4444dddd4",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "cidr_block": "10.0.12.0/24",
+            "availability_zone": "us-east-1b",
+            "tags": {
+              "Name": "shop-private-b",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_security_group.web",
+          "mode": "managed",
+          "type": "aws_security_group",
+          "name": "web",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "sg-0b2b2b2b2b2b2b2b2",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:security-group/sg-0b2b2b2b2b2b2b2b2",
+            "name": "shop-web-sg",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "ingress": [
+              {
+                "from_port": 8080
+              }
+            ]
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_internet_gateway.main",
+          "mode": "managed",
+          "type": "aws_internet_gateway",
+          "name": "main",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "igw-0123abcd4567ef890",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:internet-gateway/igw-0123abcd4567ef890",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718",
+            "tags": {
+              "Name": "shop-igw",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_nat_gateway.a",
+          "mode": "managed",
+          "type": "aws_nat_gateway",
+          "name": "a",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "nat-0123456789abcdef0",
+            "subnet_id": "subnet-0a11aaaa1111aaaa1",
+            "connectivity_type": "public",
+            "tags": {
+              "Name": "shop-nat-a",
+              "env": "prod"
+            }
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_instance.web1",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "web1",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "i-0123456789abcdef0",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:instance/i-0123456789abcdef0",
+            "ami": "ami-0123456789abcdef0",
+            "instance_type": "t3.medium",
+            "availability_zone": "us-east-1a",
+            "subnet_id": "subnet-0c33cccc3333cccc3",
+            "vpc_security_group_ids": [
+              "sg-0b2b2b2b2b2b2b2b2"
+            ],
+            "user_data": "#!/bin/bash\nexport DB_PASSWORD=SENTINEL-TF-USERDATA-PASSWORD\n",
+            "user_data_base64": null,
+            "tags": {
+              "Name": "shop-web-1",
+              "env": "prod"
+            },
+            "tags_all": {
+              "Name": "shop-web-1",
+              "env": "prod"
+            },
+            "root_block_device": [
+              {
+                "volume_size": 30
+              }
+            ]
+          },
+          "sensitive_values": {
+            "user_data": true,
+            "tags": {},
+            "tags_all": {},
+            "root_block_device": [
+              {}
+            ]
+          }
+        },
+        {
+          "address": "aws_instance.web2",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "web2",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "i-0fedcba9876543210",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:instance/i-0fedcba9876543210",
+            "ami": "ami-0123456789abcdef0",
+            "instance_type": "t3.large",
+            "availability_zone": "us-east-1b",
+            "subnet_id": "subnet-0d44dddd4444dddd4",
+            "vpc_security_group_ids": [
+              "sg-0b2b2b2b2b2b2b2b2"
+            ],
+            "user_data": "#!/bin/bash\nexport DB_PASSWORD=SENTINEL-TF-USERDATA-PASSWORD\n",
+            "user_data_base64": null,
+            "tags": {
+              "Name": "shop-web-2",
+              "env": "prod"
+            },
+            "tags_all": {
+              "Name": "shop-web-2",
+              "env": "prod"
+            },
+            "root_block_device": [
+              {
+                "volume_size": 30
+              }
+            ]
+          },
+          "sensitive_values": {
+            "user_data": true,
+            "tags": {},
+            "tags_all": {},
+            "root_block_device": [
+              {}
+            ]
+          }
+        },
+        {
+          "address": "aws_instance.batch",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "batch",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "i-0999999999999aaaa",
+            "arn": "arn:aws:ec2:us-east-1:123456789012:instance/i-0999999999999aaaa",
+            "ami": "ami-0123456789abcdef0",
+            "instance_type": "c5.xlarge",
+            "availability_zone": "us-east-1a",
+            "subnet_id": "subnet-0c33cccc3333cccc3",
+            "vpc_security_group_ids": [
+              "sg-0b2b2b2b2b2b2b2b2"
+            ],
+            "user_data": "#!/bin/bash\nexport DB_PASSWORD=SENTINEL-TF-USERDATA-PASSWORD\n",
+            "user_data_base64": null,
+            "tags": {
+              "Name": "shop-batch",
+              "env": "prod"
+            },
+            "tags_all": {
+              "Name": "shop-batch",
+              "env": "prod"
+            },
+            "root_block_device": [
+              {
+                "volume_size": 30
+              }
+            ]
+          },
+          "sensitive_values": {
+            "user_data": true,
+            "tags": {},
+            "tags_all": {},
+            "root_block_device": [
+              {}
+            ]
+          }
+        },
+        {
+          "address": "aws_lb.main",
+          "mode": "managed",
+          "type": "aws_lb",
+          "name": "main",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188",
+            "name": "shop-alb",
+            "internal": false,
+            "load_balancer_type": "application",
+            "subnets": [
+              "subnet-0a11aaaa1111aaaa1",
+              "subnet-0b22bbbb2222bbbb2"
+            ],
+            "security_groups": [
+              "sg-0a1a1a1a1a1a1a1a1"
+            ],
+            "vpc_id": "vpc-0a1b2c3d4e5f60718"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_lb_target_group.web",
+          "mode": "managed",
+          "type": "aws_lb_target_group",
+          "name": "web",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+            "name": "shop-web-tg",
+            "port": 8080,
+            "protocol": "HTTP",
+            "vpc_id": "vpc-0a1b2c3d4e5f60718"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_lb_listener.https",
+          "mode": "managed",
+          "type": "aws_lb_listener",
+          "name": "https",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188/f2f7dc8efc522ab2",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188/f2f7dc8efc522ab2",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/shop-alb/50dc6c495c0c9188",
+            "port": 443,
+            "default_action": [
+              {
+                "type": "forward",
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067"
+              }
+            ],
+            "certificate_arn": "arn:aws:acm:us-east-1:123456789012:certificate/abc"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_lb_target_group_attachment.web1",
+          "mode": "managed",
+          "type": "aws_lb_target_group_attachment",
+          "name": "web1",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:elasticloadbalancing:attach1",
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+            "target_id": "i-0123456789abcdef0",
+            "port": 8080
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_lb_target_group_attachment.web2",
+          "mode": "managed",
+          "type": "aws_lb_target_group_attachment",
+          "name": "web2",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:elasticloadbalancing:attach2",
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/shop-web-tg/73e2d6bc24d8a067",
+            "target_id": "i-0fedcba9876543210",
+            "port": 8080
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_db_instance.shop",
+          "mode": "managed",
+          "type": "aws_db_instance",
+          "name": "shop",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-db",
+            "arn": "arn:aws:rds:us-east-1:123456789012:db:shop-db",
+            "identifier": "shop-db",
+            "engine": "postgres",
+            "engine_version": "15.4",
+            "instance_class": "db.r6g.large",
+            "multi_az": true,
+            "username": "shopadmin",
+            "password": "SENTINEL-TF-RDS-PASSWORD",
+            "db_subnet_group_name": "shop-db-subnets"
+          },
+          "sensitive_values": {
+            "password": true
+          }
+        },
+        {
+          "address": "aws_lambda_function.api",
+          "mode": "managed",
+          "type": "aws_lambda_function",
+          "name": "api",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-api-handler",
+            "arn": "arn:aws:lambda:us-east-1:123456789012:function:shop-api-handler",
+            "function_name": "shop-api-handler",
+            "runtime": "nodejs20.x",
+            "memory_size": 512,
+            "environment": [
+              {
+                "variables": {
+                  "STRIPE_API_KEY": "sk_live_SENTINEL_TF_STRIPE",
+                  "TABLE_ARN": "arn:aws:dynamodb:us-east-1:123456789012:table/shop-carts"
+                }
+              }
+            ]
+          },
+          "sensitive_values": {
+            "environment": [
+              {
+                "variables": {
+                  "STRIPE_API_KEY": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_lambda_function.worker",
+          "mode": "managed",
+          "type": "aws_lambda_function",
+          "name": "worker",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-orders-worker",
+            "arn": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker",
+            "function_name": "shop-orders-worker",
+            "runtime": "python3.12",
+            "memory_size": 256
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_lambda_event_source_mapping.orders",
+          "mode": "managed",
+          "type": "aws_lambda_event_source_mapping",
+          "name": "orders",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "a1b2c3d4-0000-1111-2222-333344445555",
+            "event_source_arn": "arn:aws:sqs:us-east-1:123456789012:shop-orders",
+            "function_name": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker",
+            "function_arn": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_s3_bucket.assets",
+          "mode": "managed",
+          "type": "aws_s3_bucket",
+          "name": "assets",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-assets-prod",
+            "arn": "arn:aws:s3:::shop-assets-prod",
+            "bucket": "shop-assets-prod"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_sqs_queue.orders",
+          "mode": "managed",
+          "type": "aws_sqs_queue",
+          "name": "orders",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "https://sqs.us-east-1.amazonaws.com/123456789012/shop-orders",
+            "arn": "arn:aws:sqs:us-east-1:123456789012:shop-orders",
+            "name": "shop-orders",
+            "fifo_queue": false
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_sns_topic.alerts",
+          "mode": "managed",
+          "type": "aws_sns_topic",
+          "name": "alerts",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:sns:us-east-1:123456789012:shop-alerts",
+            "arn": "arn:aws:sns:us-east-1:123456789012:shop-alerts",
+            "name": "shop-alerts"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_sns_topic_subscription.worker",
+          "mode": "managed",
+          "type": "aws_sns_topic_subscription",
+          "name": "worker",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:sns:us-east-1:123456789012:shop-alerts:2222",
+            "topic_arn": "arn:aws:sns:us-east-1:123456789012:shop-alerts",
+            "protocol": "lambda",
+            "endpoint": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_sns_topic_subscription.email",
+          "mode": "managed",
+          "type": "aws_sns_topic_subscription",
+          "name": "email",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "arn:aws:sns:us-east-1:123456789012:shop-alerts:1111",
+            "topic_arn": "arn:aws:sns:us-east-1:123456789012:shop-alerts",
+            "protocol": "email",
+            "endpoint": "ops-oncall@example.com"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_dynamodb_table.carts",
+          "mode": "managed",
+          "type": "aws_dynamodb_table",
+          "name": "carts",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-carts",
+            "arn": "arn:aws:dynamodb:us-east-1:123456789012:table/shop-carts",
+            "name": "shop-carts",
+            "billing_mode": "PAY_PER_REQUEST"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_apigatewayv2_api.http",
+          "mode": "managed",
+          "type": "aws_apigatewayv2_api",
+          "name": "http",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "abc123xyz",
+            "arn": "arn:aws:apigateway:us-east-1::/apis/abc123xyz",
+            "name": "shop-http-api",
+            "protocol_type": "HTTP"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_apigatewayv2_integration.api",
+          "mode": "managed",
+          "type": "aws_apigatewayv2_integration",
+          "name": "api",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "i1j2k3",
+            "api_id": "abc123xyz",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:123456789012:function:shop-api-handler/invocations"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_iam_role.worker",
+          "mode": "managed",
+          "type": "aws_iam_role",
+          "name": "worker",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-orders-worker",
+            "arn": "arn:aws:iam::123456789012:role/shop-orders-worker",
+            "assume_role_policy": "{\"Version\":\"2012-10-17\"}"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "aws_secretsmanager_secret_version.db",
+          "mode": "managed",
+          "type": "aws_secretsmanager_secret_version",
+          "name": "db",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "id": "x",
+            "secret_string": "SENTINEL-TF-SECRETSMANAGER-VALUE"
+          },
+          "sensitive_values": {
+            "secret_string": true
+          }
+        },
+        {
+          "address": "tls_private_key.ca",
+          "mode": "managed",
+          "type": "tls_private_key",
+          "name": "ca",
+          "provider_name": "registry.terraform.io/hashicorp/tls",
+          "schema_version": 0,
+          "values": {
+            "id": "abc",
+            "private_key_pem": "-----BEGIN RSA PRIVATE KEY-----\nSENTINELTLSKEY\n-----END RSA PRIVATE KEY-----\n"
+          },
+          "sensitive_values": {
+            "private_key_pem": true
+          }
+        },
+        {
+          "address": "random_password.db",
+          "mode": "managed",
+          "type": "random_password",
+          "name": "db",
+          "provider_name": "registry.terraform.io/hashicorp/random",
+          "schema_version": 0,
+          "values": {
+            "id": "none",
+            "result": "SENTINEL-RANDOM-PASSWORD"
+          },
+          "sensitive_values": {
+            "result": true
+          }
+        },
+        {
+          "address": "data.aws_caller_identity.current",
+          "mode": "data",
+          "type": "aws_caller_identity",
+          "name": "current",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "schema_version": 0,
+          "values": {
+            "account_id": "123456789012"
+          }
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.web",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "web",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "id": "/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/rg-shop-prod/providers/Microsoft.Compute/virtualMachines/vm-web-01",
+            "name": "vm-web-01",
+            "size": "Standard_D2s_v5",
+            "location": "westeurope",
+            "resource_group_name": "rg-shop-prod",
+            "admin_password": "SENTINEL-TF-AZURE-ADMIN"
+          },
+          "sensitive_values": {
+            "admin_password": true
+          }
+        },
+        {
+          "address": "google_storage_bucket.assets",
+          "mode": "managed",
+          "type": "google_storage_bucket",
+          "name": "assets",
+          "provider_name": "registry.terraform.io/hashicorp/google",
+          "schema_version": 0,
+          "values": {
+            "id": "shop-prod-assets",
+            "name": "shop-prod-assets",
+            "location": "US",
+            "project": "shop-prod-123456",
+            "storage_class": "STANDARD"
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "google_compute_instance.web",
+          "mode": "managed",
+          "type": "google_compute_instance",
+          "name": "web",
+          "provider_name": "registry.terraform.io/hashicorp/google",
+          "schema_version": 0,
+          "values": {
+            "id": "projects/shop-prod-123456/zones/us-central1-a/instances/web-1",
+            "name": "web-1",
+            "machine_type": "https://www.googleapis.com/compute/v1/projects/shop-prod-123456/zones/us-central1-a/machineTypes/e2-medium",
+            "zone": "us-central1-a",
+            "project": "shop-prod-123456",
+            "metadata_startup_script": "echo SENTINEL-GCP-STARTUP"
+          },
+          "sensitive_values": {}
+        }
+      ],
+      "child_modules": [
+        {
+          "resources": [
+            {
+              "address": "module.net.aws_subnet.extra[0]",
+              "mode": "managed",
+              "type": "aws_subnet",
+              "name": "extra",
+              "provider_name": "registry.terraform.io/hashicorp/aws",
+              "schema_version": 0,
+              "values": {
+                "id": "subnet-0e55eeee5555eeee5",
+                "arn": "arn:aws:ec2:us-east-1:123456789012:subnet/subnet-0e55eeee5555eeee5",
+                "vpc_id": "vpc-0a1b2c3d4e5f60718",
+                "cidr_block": "10.0.13.0/24",
+                "availability_zone": "us-east-1c",
+                "tags": {
+                  "Name": "shop-private-c",
+                  "env": "prod"
+                }
+              },
+              "sensitive_values": {},
+              "index": 0
+            }
+          ],
+          "address": "module.net"
+        }
+      ]
+    }
+  }
+}

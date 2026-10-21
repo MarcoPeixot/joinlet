@@ -1,0 +1,29 @@
+{
+  "diagrams": [
+    {
+      "slug": "arquitetura-do-joinlet",
+      "title": "Arquitetura do Joinlet"
+    },
+    {
+      "slug": "distribuicao-do-codigo-joinlet",
+      "title": "Distribuição do código Joinlet"
+    }
+  ],
+  "docs": [
+    {
+      "slug": "funcionamento-do-joinlet",
+      "title": "Funcionamento do Joinlet"
+    },
+    {
+      "slug": "codigo-aberto-e-limites-de-publicacao",
+      "title": "Código aberto e limites de publicação"
+    },
+    {
+      "slug": "distribuicao-e-operacao",
+      "title": "Distribuição e operação"
+    }
+  ],
+  "name": "Joinlet",
+  "sketches": [],
+  "version": 1
+}

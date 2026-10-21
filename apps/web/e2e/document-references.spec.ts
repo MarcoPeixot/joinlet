@@ -1,0 +1,30 @@
+import {expect,test} from '@playwright/test';
+import {readFile} from './storage';
+const markdown='# Referências\n\nLeia [[exemplo#Pedidos]] e [[exemplo#Kafka]].\n\n| Componente | Papel |\n| --- | --- |\n| [[exemplo#Pedidos]] | Serviço |\n\n`[[exemplo#Kafka]]`\n\nFim do documento.';
+test('existing document references become real links and diagram previews without rewriting Markdown',async({page})=>{
+ await page.goto('/app/');await expect(page.locator('[data-id="Kafka"]')).toBeVisible();
+ await page.evaluate(async markdown=>{const{workspace}=await import('/src/workspace/appWorkspace.ts');await workspace.create('doc','Referências',markdown);await workspace.flush();},markdown);
+ const editor=page.getByLabel('Editor do documento');
+ await expect(editor.locator('a[href="#cite/exemplo/Pedidos"]')).toHaveCount(2);
+ await expect(editor.locator('a[href="#cite/exemplo/Kafka"]')).toHaveCount(1);
+ await expect(page.getByRole('img',{name:'Prévia de Exemplo'})).toBeVisible();
+ expect(await readFile(page,'docs/referencias.md')).toBe(markdown);
+ await page.screenshot({path:'/tmp/joinlet-document-references.png'});
+ await page.reload();
+ await expect(page.getByLabel('Editor do documento').locator('a[href="#cite/exemplo/Pedidos"]')).toHaveCount(2);
+ await page.getByLabel('Editor do documento').locator('a[href="#cite/exemplo/Pedidos"]').first().click();
+ await expect(page.locator('.react-flow__node[data-id="Pedidos"]')).toHaveClass(/selected/);
+ expect(page.url()).not.toContain('#cite');
+});
+test('chat resolves component labels and complete diagram references, and saves the same live document view',async({page})=>{
+ await page.goto('/app/');await expect(page.locator('[data-id="Kafka"]')).toBeVisible();
+ await page.evaluate(async()=>{const{diagramStore}=await import('/src/state/appStore.ts');diagramStore.getState().apply([{op:'update',id:'API Gateway',set:{label:'Gateway de API'}}]);});
+ await page.route('**/api/ai/chat',route=>route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({t:'Leia [[exemplo#Gateway de API]] em [[diagram:exemplo]].'})+'\n'+JSON.stringify({done:true})+'\n'}));
+ await page.getByRole('button',{name:'Chat com a IA',exact:true}).click();const chat=page.getByRole('complementary',{name:'Chat com a IA'});
+ await chat.getByRole('textbox',{name:'Mensagem para a IA'}).fill('Explique');await page.keyboard.press('Enter');
+ const answer=chat.locator('[data-role="assistant"]');
+ await expect(answer.locator('a[href="#cite/exemplo/API%20Gateway"]')).toHaveText('Gateway de API');
+ await expect(answer.locator('a[href="#diagram/exemplo"]')).toHaveText('Exemplo');
+ await expect(answer.getByRole('img',{name:'Prévia de Exemplo'})).toBeVisible();
+ await answer.locator('a[href="#cite/exemplo/API%20Gateway"]').click();await expect(page.locator('[data-id="API Gateway"]')).toHaveClass(/selected/);
+});

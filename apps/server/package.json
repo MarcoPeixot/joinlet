@@ -1,0 +1,31 @@
+{
+  "name": "@strukt/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/main.ts",
+    "start": "bun src/main.ts",
+    "start:collab": "bun src/collaborationMain.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@strukt/core": "workspace:*",
+    "@strukt/git": "workspace:*",
+    "@strukt/mcp": "workspace:*",
+    "@strukt/dsl": "workspace:*",
+    "@strukt/json": "workspace:*",
+    "@strukt/ops": "workspace:*",
+    "@strukt/workspace": "workspace:*",
+    "ajv": "^8.20.0",
+    "hono": "^4.13.8"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "@types/node": "^22.20.4"
+  },
+  "license": "AGPL-3.0-only"
+}

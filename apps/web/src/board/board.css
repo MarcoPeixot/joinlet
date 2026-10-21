@@ -1,0 +1,270 @@
+/* Quadro — card, note and section look adapted from Lacuna's board (same author). */
+.strukt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--sk-radius-panel);
+  background: var(--sk-panel);
+  border: 1px solid var(--sk-line);
+  box-shadow: var(--sk-shadow-panel);
+  transition: box-shadow var(--sk-motion) var(--sk-ease), border-color var(--sk-motion) var(--sk-ease);
+}
+
+.strukt-card:hover {
+  border-color: var(--sk-line-strong);
+  box-shadow: var(--sk-shadow-pop);
+  overflow: visible;
+}
+
+.strukt-card[data-selected] {
+  outline: 1.5px solid var(--sk-accent);
+  outline-offset: 3px;
+  box-shadow: var(--sk-shadow-pop), 0 0 0 7px var(--sk-accent-soft);
+}
+
+.strukt-card__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  flex: none;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sk-ink);
+  border-bottom: 1px solid var(--sk-line);
+}
+
+.strukt-card__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 10px 12px;
+}
+
+.strukt-card__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.strukt-card__empty {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  font-size: 12px;
+  color: var(--sk-muted);
+}
+
+.strukt-card__md {
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.strukt-card__md h1,
+.strukt-card__md h2,
+.strukt-card__md h3 {
+  font-size: 12px;
+  margin: 0 0 4px;
+}
+
+/* Post-it: dark text on colored paper in both themes. */
+.strukt-card--note {
+  border-color: transparent;
+  color: #2b2b2b;
+}
+
+.strukt-card__grip {
+  height: 18px;
+  flex: none;
+  cursor: grab;
+}
+
+.strukt-card__note {
+  flex: 1;
+  min-height: 0;
+  padding: 0 12px 12px;
+  border: 0;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: #2b2b2b;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.strukt-card__note::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.strukt-card__colors {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--sk-line);
+  border-radius: 999px;
+  background: var(--sk-panel);
+  box-shadow: var(--sk-shadow-panel);
+}
+
+.strukt-card__colors button {
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+
+.strukt-card__colors button[aria-pressed='true'] {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 1px;
+}
+
+/* Connection port: visible on hover/selection, like Lacuna's "pontinho". */
+.strukt-card .strukt-card__port {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--sk-accent);
+  border-radius: 999px;
+  background: var(--sk-panel);
+  opacity: 0;
+  transition: opacity var(--sk-motion-fast);
+}
+
+.strukt-card .strukt-card__port--in {
+  width: 8px;
+  height: 8px;
+  border-width: 1px;
+}
+
+.strukt-card:hover .strukt-card__port,
+.strukt-card[data-selected] .strukt-card__port,
+.react-flow.connecting .strukt-card__port {
+  opacity: 1;
+}
+
+/* A section only catches the pointer on its header and resize handles: its body lets the pane pan. */
+.react-flow__node-section {
+  pointer-events: none !important;
+}
+
+.react-flow__node-section .strukt-section__head,
+.react-flow__node-section .react-flow__resize-control {
+  pointer-events: auto;
+}
+
+.strukt-section {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--sk-line-strong);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--sk-panel) 55%, transparent);
+}
+
+.strukt-section[data-selected] {
+  border-color: var(--sk-accent);
+}
+
+.strukt-section__head {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--sk-muted);
+  cursor: grab;
+}
+
+/* Connections (FloatingEdge.tsx): IcePanel-like label pill mid-line and, when selected, a grip that drags the middle segment. */
+.strukt-link__mid,
+.strukt-link__dot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.strukt-link__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.strukt-link__label {
+  max-width: 240px;
+  padding: 2px 10px;
+  border: 1px solid var(--sk-line-strong);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  color: var(--sk-ink);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: all;
+  cursor: default;
+}
+
+.strukt-link__label--selected {
+  border-color: var(--sk-accent);
+}
+
+.strukt-link__input {
+  display: block;
+  min-width: 64px;
+  border-color: var(--sk-accent);
+  outline: none;
+  background: var(--sk-panel);
+  font: inherit;
+  font-size: 12px;
+  text-align: center;
+  text-overflow: clip;
+  cursor: text;
+}
+
+.strukt-link__grip {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--sk-accent);
+  border-radius: 999px;
+  background: var(--sk-panel);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  pointer-events: all;
+  touch-action: none;
+}
+
+.strukt-link__mid[data-axis='x'] .strukt-link__grip {
+  cursor: ew-resize;
+}
+
+.strukt-link__mid[data-axis='y'] .strukt-link__grip {
+  cursor: ns-resize;
+}
+
+/* With a label, the grip sits just past the pill, along the run under it. */
+.strukt-link__label + .strukt-link__grip {
+  position: absolute;
+}
+
+.strukt-link__mid[data-run='v'] .strukt-link__label + .strukt-link__grip {
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.strukt-link__mid[data-run='h'] .strukt-link__label + .strukt-link__grip {
+  top: 50%;
+  left: calc(100% + 6px);
+  transform: translateY(-50%);
+}
+
+/* Fit the available canvas, including docked chat and inspector. */
+.strukt-board { container-type: inline-size; container-name: overview; }
+@container overview (max-width: 650px) { .sk-overview-hint { display: none; } }
+@container overview (max-width: 420px) { .sk-overview-status.react-flow__panel { bottom: 56px; } }

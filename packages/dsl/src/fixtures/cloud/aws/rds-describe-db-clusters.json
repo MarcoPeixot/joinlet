@@ -1,0 +1,25 @@
+{
+    "DBClusters": [
+        {
+            "AllocatedStorage": 1,
+            "AvailabilityZones": [
+                "us-east-1a",
+                "us-east-1b"
+            ],
+            "DBClusterIdentifier": "shop-analytics",
+            "DatabaseName": "analytics",
+            "MasterUsername": "analytics_admin",
+            "Status": "available",
+            "Engine": "aurora-postgresql",
+            "EngineVersion": "15.4",
+            "Port": 5432,
+            "DBClusterArn": "arn:aws:rds:us-east-1:123456789012:cluster:shop-analytics",
+            "DBClusterMembers": [
+                {
+                    "DBInstanceIdentifier": "shop-analytics-1",
+                    "IsClusterWriter": true
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "Functions": [
+        {
+            "FunctionName": "shop-api-handler",
+            "FunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:shop-api-handler",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::123456789012:role/shop-api-handler",
+            "Handler": "index.handler",
+            "CodeSize": 1048576,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 512,
+            "LastModified": "2025-03-10T09:12:44.000+0000",
+            "CodeSha256": "abc123def456abc123def456abc123def456abc123d=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "TABLE_NAME": "shop-carts",
+                    "STRIPE_API_KEY": "joinlet-test-only",
+                    "DB_PASSWORD": "joinlet-test-only"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "11111111-2222-3333-4444-555555555555",
+            "PackageType": "Zip",
+            "Architectures": [
+                "arm64"
+            ]
+        },
+        {
+            "FunctionName": "shop-orders-worker",
+            "FunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:shop-orders-worker",
+            "Runtime": "python3.12",
+            "Role": "arn:aws:iam::123456789012:role/shop-orders-worker",
+            "Handler": "worker.handle",
+            "CodeSize": 20480,
+            "Timeout": 60,
+            "MemorySize": 256,
+            "LastModified": "2025-03-11T11:00:00.000+0000",
+            "Version": "$LATEST",
+            "VpcConfig": {
+                "SubnetIds": [
+                    "subnet-0c33cccc3333cccc3",
+                    "subnet-0d44dddd4444dddd4"
+                ],
+                "SecurityGroupIds": [
+                    "sg-0b2b2b2b2b2b2b2b2"
+                ],
+                "VpcId": "vpc-0a1b2c3d4e5f60718"
+            },
+            "Environment": {
+                "Variables": {
+                    "QUEUE_URL": "https://sqs.us-east-1.amazonaws.com/123456789012/shop-orders",
+                    "AWS_SECRET_ACCESS_KEY": "joinlet-test-only"
+                }
+            },
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ]
+        }
+    ]
+}

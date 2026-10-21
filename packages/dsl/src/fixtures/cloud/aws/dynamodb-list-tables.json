@@ -1,0 +1,6 @@
+{
+    "TableNames": [
+        "shop-carts",
+        "shop-sessions"
+    ]
+}

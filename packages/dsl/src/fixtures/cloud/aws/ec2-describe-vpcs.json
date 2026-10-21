@@ -1,0 +1,41 @@
+{
+    "Vpcs": [
+        {
+            "CidrBlock": "10.0.0.0/16",
+            "DhcpOptionsId": "dopt-0a1b2c3d",
+            "State": "available",
+            "VpcId": "vpc-0a1b2c3d4e5f60718",
+            "OwnerId": "123456789012",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-0123",
+                    "CidrBlock": "10.0.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "shop-vpc"
+                },
+                {
+                    "Key": "env",
+                    "Value": "prod"
+                }
+            ]
+        },
+        {
+            "CidrBlock": "172.31.0.0/16",
+            "DhcpOptionsId": "dopt-0a1b2c3d",
+            "State": "available",
+            "VpcId": "vpc-0default000000000",
+            "OwnerId": "123456789012",
+            "InstanceTenancy": "default",
+            "IsDefault": true
+        }
+    ]
+}

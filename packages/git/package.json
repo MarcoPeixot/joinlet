@@ -1,0 +1,22 @@
+{
+  "name": "@strukt/git",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@strukt/core": "workspace:*",
+    "@strukt/workspace": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4"
+  },
+  "license": "AGPL-3.0-only"
+}
