@@ -4,8 +4,8 @@ import { axeFindings } from './support/axe';
 
 test.use({ storageState: { cookies: [], origins: [] } });
 // A developer may enable local admin; these two browser-only tests explicitly exercise the regular plan.
-test.beforeEach(async ({ page }) => {
-  await page.route('**/api/plan', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } }) }));
+test.beforeEach(async ({ context }) => {
+  await context.route('**/api/plan', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } }) }));
 });
 
 test('beta usage is visible, the 21st diagram is refused, and existing data survives reload', async ({ page }) => {

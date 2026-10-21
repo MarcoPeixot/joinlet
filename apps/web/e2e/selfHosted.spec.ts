@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.use({ storageState: { cookies: [], origins: [] } });
 
 test('local use without an API exceeds Cloud quotas and identifies itself as self-hosted', async ({ page }) => {
-  await page.route('**/api/plan', route => route.abort());
+  await page.route('**/api/**', route => route.abort());
   await page.goto('/app/?lang=en');
   await expect(page.getByRole('navigation', { name: 'Workspace' })).toBeVisible();
   expect(await page.evaluate(async () => {
@@ -20,13 +20,20 @@ test('local use without an API exceeds Cloud quotas and identifies itself as sel
     const { workspace } = await import('/src/workspace/appWorkspace.ts');
     return workspace.store.getState().data!.manifest.diagrams.length;
   })).toBe(25);
-  expect(await page.evaluate(async () => {
-    const { createBrowserWorkspace } = await import('/src/workspace/projects.ts');
-    const { loadCatalog } = await import('/src/workspace/catalog.ts');
-    await createBrowserWorkspace('Second local project');
-    await createBrowserWorkspace('Third local project');
-    return (await loadCatalog())!.entries.length;
-  })).toBe(3);
+  // Navigation can render before the boot catalog transaction has finished.
+  // Wait for the same ready state that enables project actions in the UI.
+  for (const [index, name] of ['Second local project', 'Third local project'].entries()) {
+    await expect.poll(() => page.evaluate(async () => {
+      const { catalogStore } = await import('/src/workspace/catalog.ts');
+      const state = catalogStore.getState();
+      return !state.busy && state.catalog?.entries.length;
+    })).toBe(index + 1);
+    await page.evaluate(async name => {
+      const { createBrowserWorkspace } = await import('/src/workspace/projects.ts');
+      await createBrowserWorkspace(name);
+    }, name);
+  }
+  expect(await page.evaluate(async () => (await (await import('/src/workspace/catalog.ts')).loadCatalog())!.entries.length)).toBe(3);
   await page.getByRole('button', { name: 'Workspace menu' }).click();
   await page.getByRole('menuitem', { name: 'Workspace settings', exact: true }).click();
   const settings = page.getByRole('dialog', { name: 'Settings', exact: true });
