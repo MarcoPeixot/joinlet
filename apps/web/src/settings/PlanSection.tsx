@@ -37,5 +37,6 @@ export function PlanSection() {
     <div className="grid gap-3 border-t border-line pt-5 text-body">
       {['Editor e documentação liberados', 'Exportação e versões incluídas', 'IA com sua própria chave', plan.limits.participants === null ? 'Participantes sem limite de plano' : 'Até {0} pessoas, incluindo quem compartilhou'].map(text => <p key={text} className="flex items-center gap-2"><Check size={15} className="shrink-0 text-accent" />{uiText(text, [plan.limits.participants ?? '∞'])}</p>)}
     </div>
+    <a className="text-caption text-accent underline" href="https://github.com/MarcoPeixot/joinlet" target="_blank" rel="noopener noreferrer">{uiText('Código-fonte e licença AGPL-3.0')}</a>
   </section>;
 }

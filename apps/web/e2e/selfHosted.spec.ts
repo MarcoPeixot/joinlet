@@ -34,5 +34,6 @@ test('local use without an API exceeds Cloud quotas and identifies itself as sel
   await expect(settings.getByText('Self-hosted', { exact: true })).toBeVisible();
   await expect(settings.getByText(/No commercial workspace/)).toBeVisible();
   await expect(settings.getByRole('progressbar')).toHaveCount(0);
+  await expect(settings.getByRole('link', { name: 'Source code and AGPL-3.0 license' })).toHaveAttribute('href', 'https://github.com/MarcoPeixot/joinlet');
   await page.screenshot({ path: '/tmp/joinlet-self-hosted-policy.png', animations: 'disabled' });
 });
