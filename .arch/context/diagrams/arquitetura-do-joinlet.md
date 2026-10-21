@@ -30,7 +30,7 @@
       "layoutRole": "peer",
       "icon": "terminal",
       "tech": "Hono · Bun",
-      "description": "IA, Git, filesystem e integrações locais; executada pelo operador da instalação."
+      "description": "IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local."
     },
     {
       "id": "Remote",
@@ -39,7 +39,7 @@
       "layoutRole": "peer",
       "icon": "server",
       "tech": "Express · Bun",
-      "description": "OAuth, contas, Cloud, convites, MCP remoto e admissão de colaboração."
+      "description": "OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável."
     },
     {
       "id": "Agents",
@@ -71,7 +71,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "folder",
-      "description": "Manifesto, arquivos, versões, contexto, evidências, cotas Beta e colaboração Yjs."
+      "description": "Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição."
     },
     {
       "id": "Browser",
@@ -188,12 +188,12 @@
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
 | Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores de armazenamento. | — |
-| API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; executada pelo operador da instalação. | — |
-| Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, Cloud, convites, MCP remoto e admissão de colaboração. | — |
+| API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
+| Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. | — |
 | CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
 | Extensão VS Code (`Extension`) | nó | — | Comandos e diagnósticos de diagramas no editor. | — |
 | Modelo e operações (`Domain`) | nó | — | Core, formatos JSON/DSL, operações validadas, layout e Git. | — |
-| `Workspace` | nó | — | Manifesto, arquivos, versões, contexto, evidências, cotas Beta e colaboração Yjs. | — |
+| `Workspace` | nó | — | Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição. | — |
 | Armazenamento local (`Browser`) | nó | IndexedDB · File System Access | Dados no navegador ou pasta controlada pelo usuário. | — |
 | Persistência hospedada (`SQLite`) | nó | SQLite | Dados e segredos de runtime pertencem ao operador e ficam fora do Git. | — |
 | `GitHub` | nó | — | OAuth e workspace por branch/PR quando um repositório está conectado. | — |
@@ -209,9 +209,11 @@
 - `GitHub`: `apps/remote/src/githubWorkspace.ts#L54` — trecho esperado: `export async function openGithubWorkspace`
 - `Local`: `apps/server/src/app.ts#L163` — trecho esperado: `export function createApp`
 - `Remote`: `apps/remote/src/app.ts#L22` — trecho esperado: `export function createRemoteApp`
+- `Remote`: `apps/remote/src/config.ts#L35` — trecho esperado: `JOINLET_DEPLOYMENT_MODE`
 - `SQLite`: `apps/remote/src/hostedStore.ts#L51` — trecho esperado: `export function createHostedStore`
 - `Web`: `apps/web/src/workspace/workspace.ts#L27` — trecho esperado: `export interface Workspace`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
+- `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 
 ## Conexões
 

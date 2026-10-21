@@ -27,7 +27,7 @@ export interface StackStatus { active: boolean; invites: StackInvite[]; people: 
  * run with Bun): revocation, expiry (a clock the test moves) and roles run against the real thing. The tunnel is a fake
  * (cloudflared is not run). Needs the web build (see `collabHost.ts`). Always `dispose()` it in `afterAll`.
  */
-export async function startShareStack(options: { admin?: boolean } = {}): Promise<ShareStack> {
+export async function startShareStack(options: { admin?: boolean; cloud?: boolean } = {}): Promise<ShareStack> {
   await assertFreshDist();
   const dir = await mkdtemp(join(tmpdir(), 'strukt-share-e2e-'));
   const root = join(dir, 'repo');
@@ -42,7 +42,7 @@ export async function startShareStack(options: { admin?: boolean } = {}): Promis
   const child: ChildProcess = spawn('bun', ['src/shareStack.ts'], {
     cwd: resolve(import.meta.dirname, '../../../server'),
     env: {
-      ...process.env, STRUKT_STACK_ADMIN: options.admin ? '1' : '0', STRUKT_STACK_ROOT: root, STRUKT_STACK_OWNER_PORT: String(ownerPort), STRUKT_STACK_COLLAB_PORT: String(collabPort),
+      ...process.env, STRUKT_STACK_PLAN: options.cloud ? 'cloud' : 'self-hosted', STRUKT_STACK_ADMIN: options.admin ? '1' : '0', STRUKT_STACK_ROOT: root, STRUKT_STACK_OWNER_PORT: String(ownerPort), STRUKT_STACK_COLLAB_PORT: String(collabPort),
       STRUKT_STACK_CLOCK_PORT: String(clockPort), STRUKT_STACK_DIST: DIST, STRUKT_STACK_CONFIG: join(dir, 'config'),
     },
     stdio: ['ignore', 'pipe', 'inherit'],

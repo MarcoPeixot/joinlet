@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyModel } from '@strukt/core';
-import { ADMIN_PLAN, BETA_PLAN, type AccessPlan, printManifest, serializeDiagram } from '@strukt/workspace';
+import { ADMIN_PLAN, BETA_PLAN, SELF_HOSTED_PLAN, type AccessPlan, printManifest, serializeDiagram } from '@strukt/workspace';
 import type { StorageAdapter } from '@strukt/workspace';
 import { createFsAdapter } from '@strukt/workspace/fs';
 import type { AuditEvent, AuditLog } from './audit';
@@ -88,8 +88,8 @@ const wsHeaders = (token: string, origin = ORIGIN) => ({ ...as(token), upgrade: 
 const onDisk = (path: string) => readFile(join(arch, path), 'utf8').catch(() => null);
 
 describe('beta limits at the collaboration HTTP boundary', () => {
-  it('uses the host entitlement for guest writes and admission, while preserving roles', async () => {
-    current = handler(ADMIN_PLAN);
+  it.each([ADMIN_PLAN, SELF_HOSTED_PLAN])('$id: uses the host policy for guest writes and admission, while preserving roles', async plan => {
+    current = handler(plan);
     const invite = invites.create({ name: 'Team', role: 'edit', ttl: 'never' });
     for (let i = 0; i < 8; i++) {
       const response = await current(new Request(`${ORIGIN}/join?token=${invite.token}`), () => false);
@@ -102,7 +102,7 @@ describe('beta limits at the collaboration HTTP boundary', () => {
     const viewer = invites.create({ name: 'Viewer', role: 'view', ttl: 'never' });
     expect((await post(viewer.token, { path: 'strukt.json', expected: text, text }))!.status).toBe(403);
     const status = await call('/api/remote/plan', { headers: as(invite.token) });
-    expect(await status!.json()).toMatchObject({ plan: { id: 'administrator' }, accountPlan: { id: 'free-beta' } });
+    expect(await status!.json()).toMatchObject({ plan: { id: plan.id }, accountPlan: { id: 'self-hosted' } });
   });
 
   it('admits four guests plus the owner, reuses a browser slot and refuses a fifth guest', async () => {

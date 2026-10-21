@@ -1,7 +1,7 @@
 import { serializeWorkspaceWrite } from './workspaceWrite';
 import { chatEventStream } from './chatStream';
 import { refreshGeneratedContext } from '@strukt/workspace/context-storage';
-import { BETA_PLAN, type AccessPlan } from '@strukt/workspace';
+import { SELF_HOSTED_PLAN, type AccessPlan } from '@strukt/workspace';
 import { withAccessPlan } from '@strukt/workspace/access-context';
 import { BetaLimitError, assertBetaManifest, MANIFEST_PATH } from '@strukt/workspace';
 import { homedir } from 'node:os';
@@ -160,7 +160,7 @@ interface AppDeps {
   allowedOrigins?: readonly string[];
 }
 
-export function createApp({ accessPlan = BETA_PLAN, ai = null, settings, githubAuth, selectedRepo, share, sharedWorkspaceDir = join(process.env.STRUKT_CONFIG_DIR?.trim() || join(homedir(), ".config", "strukt"), "shared-workspaces"), integrations, allowedOrigins: origins = allowedOrigins(), deadlineMs = 240_000, webSearch = createWebSearch(), runner = createProcessRunner() }: AppDeps) {
+export function createApp({ accessPlan = SELF_HOSTED_PLAN, ai = null, settings, githubAuth, selectedRepo, share, sharedWorkspaceDir = join(process.env.STRUKT_CONFIG_DIR?.trim() || join(homedir(), ".config", "strukt"), "shared-workspaces"), integrations, allowedOrigins: origins = allowedOrigins(), deadlineMs = 240_000, webSearch = createWebSearch(), runner = createProcessRunner() }: AppDeps) {
   const app = new Hono();
   app.use("*", (_c, next) => withAccessPlan(accessPlan, next));
   const fixed: AiProvider | null = ai ? { id: 'anthropic', client: ai, models: MODELS } : null;

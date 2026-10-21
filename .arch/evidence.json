@@ -53,7 +53,7 @@
         "contains": "export function createApp",
         "line": 163,
         "path": "apps/server/src/app.ts",
-        "snippet": "e10d9d11"
+        "snippet": "e272ac4d"
       }
     ],
     "Remote": [
@@ -62,6 +62,12 @@
         "line": 22,
         "path": "apps/remote/src/app.ts",
         "snippet": "d237291e"
+      },
+      {
+        "contains": "JOINLET_DEPLOYMENT_MODE",
+        "line": 35,
+        "path": "apps/remote/src/config.ts",
+        "snippet": "71690490"
       }
     ],
     "SQLite": [
@@ -86,6 +92,12 @@
         "line": 32,
         "path": "packages/workspace/src/workspace.ts",
         "snippet": "5cd52aee"
+      },
+      {
+        "contains": "SELF_HOSTED_PLAN",
+        "line": 24,
+        "path": "packages/workspace/src/beta.ts",
+        "snippet": "35c75d2c"
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { ADMIN_PLAN, BETA_PLAN } from '@strukt/workspace';
+import { ADMIN_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { startCollaborationHost } from './collaborationHost';
 
 // Last line of defense: a failure nobody awaited (a guest's message, a room that did not open) is logged and the host
@@ -11,7 +11,7 @@ const root = process.env.STRUKT_COLLAB_ROOT;
 if (!root) throw new Error('Defina STRUKT_COLLAB_ROOT com a pasta do workspace.');
 const host = await startCollaborationHost({
   root,
-  accessPlan: process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : BETA_PLAN,
+  accessPlan: process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : SELF_HOSTED_PLAN,
   port: Number(process.env.STRUKT_COLLAB_PORT || 8790),
   publicUrl: process.env.STRUKT_COLLAB_PUBLIC_URL,
   token: process.env.STRUKT_COLLAB_TOKEN,

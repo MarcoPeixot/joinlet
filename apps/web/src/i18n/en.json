@@ -3045,5 +3045,10 @@
   "Tecnologia NEAR para modelagem de aplicações Web3.": "NEAR technology for modeling Web3 applications.",
   "Tecnologia Stellar para modelagem de aplicações Web3.": "Stellar technology for modeling Web3 applications.",
   "Diagramas referenciados": "Referenced diagrams",
-  "Abrir diagrama {0}": "Open diagram {0}"
+  "Abrir diagrama {0}": "Open diagram {0}",
+  "Instalação própria": "Self-hosted",
+  "Sem cotas comerciais de workspaces, diagramas ou participantes. A capacidade depende da sua infraestrutura; permissões e limites de segurança continuam ativos.": "No commercial workspace, diagram or participant quotas. Capacity depends on your infrastructure; permissions and safety limits still apply.",
+  "Política e uso desta instalação": "Policy and usage for this installation",
+  "Esta instalação usa infraestrutura própria. A capacidade e a manutenção dependem de quem hospeda.": "This installation uses its own infrastructure. Capacity and maintenance depend on its operator.",
+  "Código-fonte e licença AGPL-3.0": "Source code and AGPL-3.0 license"
 }

@@ -32,7 +32,10 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
     if (!Number.isInteger(value) || value < min || value > max) throw new Error(`${name} must be an integer between ${min} and ${max}.`);
     return value;
   };
+  const deploymentMode = env.JOINLET_DEPLOYMENT_MODE?.trim() || 'self-hosted';
+  if (deploymentMode !== 'self-hosted' && deploymentMode !== 'cloud') throw new Error('JOINLET_DEPLOYMENT_MODE must be self-hosted or cloud.');
   return {
+    deploymentMode,
     publicUrl, siteUrl, encryptionKey,
     githubClientId: required('STRUKT_GITHUB_APP_CLIENT_ID'),
     githubClientSecret: required('STRUKT_GITHUB_APP_CLIENT_SECRET'),

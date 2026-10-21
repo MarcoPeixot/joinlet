@@ -19,7 +19,7 @@
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "code",
-      "description": "Editor, servidores, CLI, MCP, extensão, testes e implantação genérica; candidato a publicação com história nova."
+      "description": "Produto completo AGPL-3.0-only: editor, servidores, CLI, MCP, extensão, testes e implantação genérica, sem edição proprietária reservada."
     },
     {
       "id": "Operations",
@@ -83,7 +83,7 @@
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Código do produto (`Product`) | nó | — | Editor, servidores, CLI, MCP, extensão, testes e implantação genérica; candidato a publicação com história nova. | — |
+| Código do produto (`Product`) | nó | — | Produto completo AGPL-3.0-only: editor, servidores, CLI, MCP, extensão, testes e implantação genérica, sem edição proprietária reservada. | — |
 | Operação privada (`Operations`) | nó | — | Runbooks, decisões comerciais e materiais internos. Não contém credenciais reais nem dados de clientes. | — |
 | Runtime do operador (`Deployment`) | nó | — | Executa a release revisada com domínios e credenciais próprios. O diagrama não comprova uma instalação publicada. | — |
 | Configuração e dados privados (`Configuration`) | nó | — | Variáveis de ambiente, SQLite, backups e logs; ficam fora dos dois repositórios. | — |

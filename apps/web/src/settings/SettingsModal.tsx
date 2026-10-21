@@ -35,7 +35,7 @@ function IntegrationsBody() {
 
 const SECTIONS: { id: SettingsSection; label: string; hint: string; icon: ComponentType<{ size?: number }>; body: ComponentType }[] = [
   { id: 'general', label: uiText("Geral"), hint: uiText("Tema, movimento e canvas"), icon: SlidersHorizontal, body: GeneralSection },
-  { id: 'plan', label: uiText('Plano e uso'), hint: uiText('Limites e recursos do Joinlet Beta'), icon: FlaskConical, body: PlanSection },
+  { id: 'plan', label: uiText('Plano e uso'), hint: uiText('Política e uso desta instalação'), icon: FlaskConical, body: PlanSection },
   { id: 'workspace', label: 'Workspace', hint: uiText('Nome, logo e descrição do seu workspace'), icon: Building2, body: WorkspaceSection },
   { id: 'ai', label: uiText("IA e providers"), hint: uiText("Gemini, DeepSeek, Groq, Mistral e outras conexões"), icon: Sparkles, body: AiSection },
   { id: 'integrations', label: uiText("Integrações"), hint: uiText("Slack, Teams, Discord, Notion, Confluence e Jira"), icon: Plug, body: IntegrationsBody },

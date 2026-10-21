@@ -6,6 +6,6 @@ Releases and container images must identify their source commit. Build a release
 
 If operating a modified version over a network, follow the AGPL source-offer requirements for that version. Operational credentials and customer data are not corresponding source and must not be included in a source release.
 
-The initial prepared repository is held privately for review and must become publicly accessible before distributing it as a public open-source release or publishing images relying on this source location. The old development repository is not the source-distribution endpoint.
+The product repository is the source-distribution endpoint. Releases and published images must use an accessible revision from it. The old development repository and private operations materials are not source-distribution endpoints.
 
 Third-party notices and asset terms are in `THIRD_PARTY_NOTICES.md` and `docs/third-party/`.

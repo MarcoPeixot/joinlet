@@ -1,5 +1,5 @@
 import { withAccessPlan, setRequestPlans } from '@strukt/workspace/access-context';
-import { BETA_PLAN, BetaLimitError } from '@strukt/workspace';
+import { BetaLimitError } from '@strukt/workspace';
 import express from 'express';
 import { access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -36,7 +36,7 @@ export function createRemoteApp(options: RemoteAuthOptions) {
     next();
   });
   app.use(hosting.gate);
-  app.use((_req, _res, next) => withAccessPlan(BETA_PLAN, next));
+  app.use((_req, _res, next) => withAccessPlan(auth.accessPlan, next));
   app.set('trust proxy', options.trustProxyHops ?? 1);
   app.use(express.json({ limit: '1mb' }));
   app.use(express.urlencoded({ extended: false, limit: '16kb' }));

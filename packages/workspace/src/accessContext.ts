@@ -1,11 +1,11 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { BETA_PLAN, setAccessPlanResolver } from './beta';
+import { SELF_HOSTED_PLAN, setAccessPlanResolver } from './beta';
 import type { AccessPlan } from './beta';
 
 const context = new AsyncLocalStorage<{ account: AccessPlan; workspace: AccessPlan }>();
 setAccessPlanResolver(resource => {
   const scope = context.getStore();
-  return (resource === 'workspaces' ? scope?.account : scope?.workspace) ?? BETA_PLAN;
+  return (resource === 'workspaces' ? scope?.account : scope?.workspace) ?? SELF_HOSTED_PLAN;
 });
 /** Each request owns a separate scope; async operations cannot promote another account. */
 export function withAccessPlan<T>(plan: AccessPlan, action: () => T): T {

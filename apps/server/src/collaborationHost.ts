@@ -1,4 +1,4 @@
-import { BETA_PLAN, type AccessPlan, createBetaPresence } from '@strukt/workspace';
+import { SELF_HOSTED_PLAN, type AccessPlan, createBetaPresence } from '@strukt/workspace';
 import { randomUUID } from 'node:crypto';
 import { chmod, mkdir, stat } from 'node:fs/promises';
 import { homedir, networkInterfaces } from 'node:os';
@@ -63,7 +63,7 @@ export async function startCollaborationHost(options: {
   const audit = options.audit ?? createAuditLog({ dir: defaultAuditDir(), root: opened.root, now });
   let publicOrigin: string | null = null;
   let ownerInviteId: string | undefined;
-  const presence = createBetaPresence({ now, reserved: 1, plan: () => options.accessPlan ?? BETA_PLAN });
+  const presence = createBetaPresence({ now, reserved: 1, plan: () => options.accessPlan ?? SELF_HOSTED_PLAN });
   /** Open sockets by invite: an invite that is revoked or expires takes its sockets with it. */
   const sockets = new Map<string, { invite: string; participant?: string; close(code: number, reason: string): void }>();
   const invites = createInviteRegistry({

@@ -12,6 +12,7 @@ await new Promise<void>((resolve) => probe.close(() => resolve()));
 const dir = await mkdtemp(join(tmpdir(), "joinlet-hosted-browser-"));
 const origin = `http://127.0.0.1:${port}`;
 const options = {
+  deploymentMode: 'cloud' as const,
   publicUrl: origin,
   githubClientId: "browser-test",
   githubClientSecret: "browser-test",

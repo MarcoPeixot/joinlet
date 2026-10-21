@@ -1,3 +1,5 @@
+import { withAccessPlan } from '@strukt/workspace/access-context';
+import { BETA_PLAN } from '@strukt/workspace';
 import { addItem, newWorkspace, workspaceFiles } from '@strukt/workspace';
 import { describe, expect, it } from 'vitest';
 import { openGithubWorkspace } from './githubWorkspace';
@@ -55,7 +57,7 @@ describe('shared remote branch', () => {
     const adapter = await openGithubWorkspace({ token: 'test', repo: 'org/repo', userId: 0, fetch: api.fetcher });
     const manifest = (count: number) => JSON.stringify({ version: 1, name: 'Beta', docs: [], sketches: [], diagrams: Array.from({ length: count }, (_, i) => ({ slug: `d-${i}`, title: `D ${i}` })) });
     await adapter.write('strukt.json', manifest(20));
-    await expect(adapter.write('strukt.json', manifest(21))).rejects.toMatchObject({ code: 'DIAGRAM_LIMIT_REACHED' });
+    await expect(withAccessPlan(BETA_PLAN, () => adapter.write('strukt.json', manifest(21)))).rejects.toMatchObject({ code: 'DIAGRAM_LIMIT_REACHED' });
     expect(await adapter.read('strukt.json')).toBe(manifest(20));
     await adapter.write('docs/notes.md', '# Notes remain available');
     expect(await adapter.read('docs/notes.md')).toContain('Notes remain available');

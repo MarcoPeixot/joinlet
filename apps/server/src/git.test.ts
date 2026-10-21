@@ -1,3 +1,5 @@
+import { withAccessPlan } from '@strukt/workspace/access-context';
+import { BETA_PLAN } from '@strukt/workspace';
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -15,7 +17,7 @@ it('refuses a 21-diagram browser import before creating any repository workspace
   dirs.push(root);
   const data = newWorkspace('Beta');
   data.manifest.diagrams = Array.from({ length: 21 }, (_, i) => ({ slug: `d-${i}`, title: `D ${i}` }));
-  expect(await initializeRepoWorkspace(root, workspaceFiles(data))).toMatchObject({ ok: false, code: 'DIAGRAM_LIMIT_REACHED' });
+  expect(await withAccessPlan(BETA_PLAN, () => initializeRepoWorkspace(root, workspaceFiles(data)))).toMatchObject({ ok: false, code: 'DIAGRAM_LIMIT_REACHED' });
   expect(await stat(join(root, '.arch')).catch(() => null)).toBeNull();
 });
 

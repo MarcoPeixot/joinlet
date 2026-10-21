@@ -10,7 +10,7 @@ num arquivo à parte), e gera o contexto que agentes de código leem (`ARCHITECT
 
 ## Código aberto e hospedagem
 
-O código original do Joinlet usa **AGPL-3.0-only**. Instale com suas próprias credenciais e infraestrutura, ou use o serviço gerenciado em [joinlet.co](https://joinlet.co). A implementação atual é Beta; assinaturas pagas ainda não estão implementadas. Veja [licença](LICENSE), [contribuições](CONTRIBUTING.md), [segurança](SECURITY.md), [marca](TRADEMARKS.md) e [limites de publicação](docs/open-source.md). Dados, segredos e materiais operacionais privados não fazem parte deste repositório.
+O código original do Joinlet usa **AGPL-3.0-only**. O produto completo é aberto: editor, servidores, CLI, MCP e extensão. Use suas próprias credenciais e infraestrutura, sem cotas comerciais de workspaces, diagramas ou participantes. O Joinlet Cloud será a opção de operação gerenciada; sua política atual é Beta e assinaturas pagas ainda não estão implementadas. Veja [licença](LICENSE), [contribuições](CONTRIBUTING.md), [segurança](SECURITY.md), [marca](TRADEMARKS.md) e [limites de publicação](docs/open-source.md). Dados, segredos e materiais operacionais privados não fazem parte deste repositório.
 
 ## Documentação
 

@@ -1,3 +1,4 @@
+import { SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { identifyNavigation, navigationPersistence } from './navigation';
 import { loadAccessPlan } from '../settings/accessPlan';
 import { assertBetaGrowth } from '@strukt/workspace';
@@ -205,7 +206,7 @@ export async function bootWorkspace(): Promise<void> {
     if (hosted) {
       throw new Error(uiText("O servidor remoto do Joinlet está indisponível. Tente novamente em instantes."));
     }
-    await loadAccessPlan('/api/plan');
+    await loadAccessPlan('/api/plan', false, SELF_HOSTED_PLAN);
     let catalog = null;
     try { catalog = await loadCatalog(); }
     catch (error) {

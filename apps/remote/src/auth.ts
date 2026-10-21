@@ -1,3 +1,4 @@
+import { BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { createBetaAccounts } from './betaAccounts';
 import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';
 import { chmodSync } from 'node:fs';
@@ -54,6 +55,8 @@ interface Grant {
 interface BrowserGrant extends Grant { csrf: string; }
 
 export interface RemoteAuthOptions {
+  /** Trusted operator setting, never read from request bodies or workspace files. */
+  deploymentMode?: 'self-hosted' | 'cloud';
   adminGithubIds?: ReadonlySet<number>;
   trustProxyHops?: number;
   publicUrl: string;
@@ -83,7 +86,8 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
   db.exec('CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL, id TEXT NOT NULL, value TEXT NOT NULL, expires INTEGER, PRIMARY KEY(kind, id))');
   const now = options.now ?? Date.now;
   const fetcher = options.fetch ?? fetch;
-  const beta = createBetaAccounts(db, now, options.adminGithubIds);
+  const accessPlan = options.deploymentMode === 'cloud' ? BETA_PLAN : SELF_HOSTED_PLAN;
+  const beta = createBetaAccounts(db, now, options.adminGithubIds, accessPlan);
   const put = (kind: string, id: string, value: unknown, expires?: number) => {
     db.query('INSERT OR REPLACE INTO records (kind, id, value, expires) VALUES (?, ?, ?, ?)').run(kind, id, JSON.stringify(value), expires ?? null);
   };
@@ -232,6 +236,7 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
 
   return {
     database: db,
+    accessPlan,
     provider,
     beta,
     publicUrl,

@@ -23,7 +23,7 @@
       "layoutRole": "peer",
       "icon": "terminal",
       "tech": "Hono · Bun",
-      "description": "IA, Git, filesystem e integrações locais; executada pelo operador da instalação."
+      "description": "IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local."
     },
     {
       "id": "Remote",
@@ -32,7 +32,7 @@
       "layoutRole": "peer",
       "icon": "server",
       "tech": "Express · Bun",
-      "description": "OAuth, contas, Cloud, convites, MCP remoto e admissão de colaboração."
+      "description": "OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável."
     },
     {
       "id": "Agents",
@@ -64,7 +64,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "folder",
-      "description": "Manifesto, arquivos, versões, contexto, evidências, cotas Beta e colaboração Yjs."
+      "description": "Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição."
     },
     {
       "id": "Browser",

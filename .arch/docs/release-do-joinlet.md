@@ -18,7 +18,7 @@ flowchart LR
 
 Pushes and pull requests run application and publication/security checks. These workflows do not deploy, publish a container, copy secrets, contact production or automatically merge contributions. A merge alone does not update the official service.
 
-The initial repositories were prepared privately for publication review. The product's code license is AGPL-3.0-only; publication and source distribution must make the corresponding source accessible. The private operations repository and the old development repository must remain private.
+The product is released as open source; operational materials remain private. The product's code license is AGPL-3.0-only; publication and source distribution must make the corresponding source accessible. The private operations repository and the old development repository must remain private.
 
 ## Accepting a contribution
 

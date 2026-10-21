@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { ADMIN_PLAN, BETA_PLAN } from '@strukt/workspace';
+import { ADMIN_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { withAccessPlan } from '@strukt/workspace/access-context';
 import { parseArgs, USAGE } from './args';
 import { runVerify } from './commands/verify';
@@ -73,4 +73,4 @@ export async function run(argv: readonly string[], io: CliIo = consoleIo): Promi
   }
 }
 
-if (import.meta.main) process.exit(await withAccessPlan(process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : BETA_PLAN, () => run(process.argv.slice(2))));
+if (import.meta.main) process.exit(await withAccessPlan(process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : SELF_HOSTED_PLAN, () => run(process.argv.slice(2))));
