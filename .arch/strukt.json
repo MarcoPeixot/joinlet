@@ -7,6 +7,10 @@
     {
       "slug": "distribuicao-do-codigo-joinlet",
       "title": "Distribuição do código Joinlet"
+    },
+    {
+      "slug": "fluxo-de-release-proposto",
+      "title": "Fluxo de release proposto"
     }
   ],
   "docs": [
@@ -21,6 +25,10 @@
     {
       "slug": "distribuicao-e-operacao",
       "title": "Distribuição e operação"
+    },
+    {
+      "slug": "release-do-joinlet",
+      "title": "Release do Joinlet"
     }
   ],
   "name": "Joinlet",

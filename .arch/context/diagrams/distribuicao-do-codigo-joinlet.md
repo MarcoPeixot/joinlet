@@ -92,6 +92,8 @@
 ## Evidências no código
 
 - `Checks`: `scripts/check-publication.py#L2` — trecho esperado: `Reject runtime/private files`
+- `Checks`: `scripts/check-secrets.py#L2` — trecho esperado: `without trusting repository-provided suppressions`
+- `Checks`: `scripts/test_secret_scanner.py#L1` — trecho esperado: `Integration regression`
 - `Deployment`: `deploy/compose.yml#L1` — trecho esperado: `name: joinlet`
 - `Product`: `package.json#L2` — trecho esperado: `joinlet`
 

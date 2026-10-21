@@ -7,22 +7,26 @@ import sys
 
 EXAMPLES = {'apps/server/.env.example', 'apps/remote/.env.example', 'deploy/.env.production.example'}
 PRIVATE_ROOTS = {'internal', 'operations', 'commercial', 'private', 'backups', 'runtime'}
-PRIVATE_PARTS = {'.vscode', '.claude', '.codex', '.cursor', 'node_modules', 'dist', '.vite', 'coverage', 'test-results', 'playwright-report', '__pycache__', 'secrets'}
-PRIVATE_NAMES = {'.mcp.json', 'JO-HOVER.md', 'JO-PROMPTS.md', 'JO-CORRECTIONS.md'}
-PRIVATE_SUFFIXES = {'.pem', '.key', '.p12', '.pfx', '.sqlite', '.db', '.log', '.tsbuildinfo'}
+PRIVATE_PARTS = {'.vscode', '.claude', '.codex', '.cursor', '.superpowers', '.ssh', '.aws', '.azure', '.gcloud', '.config', '.idea', 'node_modules', 'dist', '.vite', 'coverage', 'test-results', 'playwright-report', '__pycache__', 'secrets', 'backups', 'dumps', 'runtime'}
+PRIVATE_NAMES = {'.mcp.json', 'jo-hover.md', 'jo-prompts.md', 'jo-corrections.md', 'id_rsa', 'id_dsa', 'id_ecdsa', 'id_ed25519', 'authorized_keys', 'known_hosts', '.netrc', '.npmrc', '.pypirc', '.git-credentials', '.gitconfig', '.gitleaks.toml', '.gitleaksignore'}
+PRIVATE_SUFFIXES = {'.pem', '.key', '.p8', '.p12', '.pfx', '.jks', '.keystore', '.sqlite', '.sqlite3', '.db', '.db3', '.dump', '.bak', '.backup', '.zip', '.tar', '.tgz', '.gz', '.7z', '.log', '.tsbuildinfo'}
 
 
 def forbidden(path, mode='100644'):
     p = PurePosixPath(path)
+    # These are privacy boundaries, including on case-sensitive GitHub runners.
+    parts = tuple(part.casefold() for part in p.parts)
+    name = p.name.casefold()
     return (
         mode not in {'100644', '100755'} or p.is_absolute() or '..' in p.parts
-        or not p.parts or '\\' in path or p.parts[0] in PRIVATE_ROOTS
-        or any(part in PRIVATE_PARTS for part in p.parts)
-        or p.name in PRIVATE_NAMES or p.suffix.lower() in PRIVATE_SUFFIXES
-        or '.sqlite-' in p.name or p.name.endswith(('.db-wal', '.db-shm'))
-        or (p.name.startswith('.env') and path not in EXAMPLES)
-        or path.startswith(('docs/superpowers/', 'docs/research/', 'apps/remote/data/'))
-        or (path.startswith('apps/web/public/') and p.suffix.lower() in {'.md', '.txt', '.html'})
+        or not parts or '\\' in path or parts[0] in PRIVATE_ROOTS
+        or any(ord(c) < 32 for c in path)
+        or any(part in PRIVATE_PARTS for part in parts)
+        or name in PRIVATE_NAMES or p.suffix.casefold() in PRIVATE_SUFFIXES
+        or any(ext + '-' in name for ext in ('.sqlite', '.sqlite3', '.db', '.db3'))
+        or (name.startswith('.env') and path not in EXAMPLES)
+        or path.casefold().startswith(('docs/superpowers/', 'docs/research/', 'apps/remote/data/'))
+        or (path.casefold().startswith('apps/web/public/') and p.suffix.casefold() in {'.md', '.txt', '.html'})
     )
 
 
