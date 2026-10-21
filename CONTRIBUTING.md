@@ -30,6 +30,8 @@ python3 -m unittest discover -s scripts -p test_publication.py
 python3 scripts/check-publication.py
 ```
 
+The security workflow downloads and checksum-verifies Gitleaks and runs its suppression-regression suite. Locally, use `python3 scripts/test_secret_scanner.py /path/to/verified/gitleaks` and `python3 scripts/check-secrets.py /path/to/verified/gitleaks --mode staged` before committing. The default `both` mode is intended for a clean source checkout; compiled third-party assets can contain public client configuration that requires separate triage.
+
 Source synchronization covers configured import formats and anchored evidence; it does not prove arbitrary code semantics. This repository's initial public architecture uses source evidence rather than configured import mappings.
 
 ## Licensing and attribution

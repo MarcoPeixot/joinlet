@@ -2,9 +2,13 @@
 /.github/ @MarcoPeixot
 /scripts/check-publication.py @MarcoPeixot
 /scripts/test_publication.py @MarcoPeixot
+/scripts/check-secrets.py @MarcoPeixot
+/scripts/test_secret_scanner.py @MarcoPeixot
 /.gitleaks* @MarcoPeixot
 /.gitignore @MarcoPeixot
 /.dockerignore @MarcoPeixot
 /LICENSE @MarcoPeixot
 /TRADEMARKS.md @MarcoPeixot
 /SECURITY.md @MarcoPeixot
+/apps/remote/Dockerfile @MarcoPeixot
+/deploy/ @MarcoPeixot

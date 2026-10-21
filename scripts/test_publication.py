@@ -17,10 +17,20 @@ class PublicationBoundaryTests(unittest.TestCase):
         self.assertTrue(publication.forbidden('apps/web/src/linked.ts', '120000'))
         self.assertTrue(publication.forbidden('packages/submodule', '160000'))
 
+    def test_blocks_nested_backups_private_keys_and_case_variants(self):
+        for path in ['apps/remote/backups/customers.sql', 'apps/remote/Backups/customers.json',
+                     'deploy/private.dump', 'apps/web/id_ed25519', 'apps/server/.netrc',
+                     'Internal/financial.xlsx', 'apps/web/.ENV.production',
+                     'apps/web/customer.sqlite3', 'apps/web/customer.SQLITE3-wal',
+                     'deploy/customer.db3-journal', 'deploy/customer.tar.gz',
+                     'apps/remote/.aws/credentials', '.gitleaks.toml', '.gitleaksignore']:
+            with self.subTest(path=path): self.assertTrue(publication.forbidden(path))
+
     def test_allows_product_architecture_and_empty_environment_examples(self):
         for path in ['.arch/diagrams/arquitetura-do-joinlet.strukt.json', '.arch/evidence.json',
                      'apps/remote/src/secrets.ts', 'apps/server/.env.example',
-                     'deploy/.env.production.example', 'apps/web/public/brand/jo-curious.png']:
+                     'deploy/.env.production.example', 'apps/web/public/brand/jo-curious.png',
+                     'packages/workspace/src/migrations/001-schema.sql']:
             with self.subTest(path=path): self.assertFalse(publication.forbidden(path))
 
 

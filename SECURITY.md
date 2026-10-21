@@ -19,3 +19,7 @@ The public source code contains no operational credentials for Joinlet Cloud. Mo
 ## Automated checks
 
 The security workflow checks tracked-file boundaries and scans Git history and the working directory with Gitleaks. Secret-redaction fixtures use explicit example values; this initial release adds no scanner exceptions. A passing scan is not proof that all confidential or personal information has been identified.
+
+The scanner uses an explicit default-rules configuration outside the repository and a fresh ignore path. Repository-supplied Gitleaks configuration, ignore files and allow comments cannot suppress findings. The integration suite verifies this with generated synthetic test credentials and checks that deleting a credential does not remove it from history. Changes to the workflow and scanner still require maintainer review.
+
+The file gate rejects nested backups, common private-key/configuration filenames, archives, database sidecars and case variants of private paths. It does not classify the meaning of arbitrary JSON, source comments or images. See [release boundaries](docs/releases.md) for how reviewed source reaches a hosted installation.

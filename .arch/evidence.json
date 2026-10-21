@@ -96,6 +96,18 @@
         "line": 2,
         "path": "scripts/check-publication.py",
         "snippet": "0ce3f8d2"
+      },
+      {
+        "contains": "without trusting repository-provided suppressions",
+        "line": 2,
+        "path": "scripts/check-secrets.py",
+        "snippet": "1f6fe826"
+      },
+      {
+        "contains": "Integration regression",
+        "line": 1,
+        "path": "scripts/test_secret_scanner.py",
+        "snippet": "a959e518"
       }
     ],
     "Deployment": [

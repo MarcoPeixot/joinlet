@@ -1,9 +1,9 @@
-FROM oven/bun:1.4.3 AS build
+FROM oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 AS build
 WORKDIR /app
 COPY . .
 RUN bun install --frozen-lockfile && bun run build
 
-FROM oven/bun:1.4.3 AS runtime
+FROM oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 AS runtime
 WORKDIR /app
 ARG JOINLET_REVISION=unknown
 LABEL org.opencontainers.image.source="https://github.com/MarcoPeixot/joinlet"

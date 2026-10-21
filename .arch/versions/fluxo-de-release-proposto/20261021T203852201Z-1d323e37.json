@@ -1,0 +1,64 @@
+{
+  "author": "agent",
+  "createdAt": "2026-10-21T20:38:52.201Z",
+  "id": "1d323e37",
+  "json": "{\n  \"$schema\": \"./strukt.schema.json\",\n  \"version\": 1,\n  \"style\": {\n    \"direction\": \"down\",\n    \"styleMode\": \"plain\"\n  },\n  \"nodes\": [\n    {\n      \"id\": \"Contribution\",\n      \"label\": \"Contribuição\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"entry\",\n      \"icon\": \"users\",\n      \"description\": \"Pessoa propõe uma mudança no repositório do produto.\"\n    },\n    {\n      \"id\": \"PR\",\n      \"label\": \"Pull request\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"git-pull-request\",\n      \"description\": \"Mudança revisável; contribuidores não recebem credenciais de produção.\"\n    },\n    {\n      \"id\": \"CI\",\n      \"label\": \"CI e segurança\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"shield\",\n      \"description\": \"Implementado: tipos, build, testes, arquitetura, navegador, container e fronteiras de publicação.\"\n    },\n    {\n      \"id\": \"Main\",\n      \"label\": \"Commit revisado em main\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"git-branch\",\n      \"description\": \"Escolher revisão completa cujos checks obrigatórios passaram; proteção depende das regras habilitadas.\"\n    },\n    {\n      \"id\": \"Image\",\n      \"label\": \"Imagem de release\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"package\",\n      \"description\": \"Proposto: build uma vez a partir de git archive, atestar procedência e registrar digest imutável.\"\n    },\n    {\n      \"id\": \"Staging\",\n      \"label\": \"Homologação\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"flask-conical\",\n      \"description\": \"Proposto: testar o mesmo digest com credenciais e dados separados.\"\n    },\n    {\n      \"id\": \"Approval\",\n      \"label\": \"Aprovação do operador\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"peer\",\n      \"icon\": \"check\",\n      \"description\": \"Proposto: decisão explícita de promover o artefato validado.\"\n    },\n    {\n      \"id\": \"Official\",\n      \"label\": \"Joinlet oficial\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"shared\",\n      \"icon\": \"server\",\n      \"description\": \"Proposto: executar a release aprovada com volume e segredos privados. Este diagrama não comprova um deploy.\"\n    },\n    {\n      \"id\": \"Operations\",\n      \"label\": \"Registro privado de release\",\n      \"presentation\": \"card\",\n      \"layoutRole\": \"entry\",\n      \"icon\": \"lock\",\n      \"description\": \"Proposto: SHA, digest, evidências de validação e caminho de rollback, sem duplicar código.\"\n    }\n  ],\n  \"connections\": [\n    {\n      \"from\": \"Contribution\",\n      \"to\": \"PR\"\n    },\n    {\n      \"from\": \"PR\",\n      \"to\": \"CI\"\n    },\n    {\n      \"from\": \"CI\",\n      \"to\": \"Main\"\n    },\n    {\n      \"from\": \"Main\",\n      \"to\": \"Image\"\n    },\n    {\n      \"from\": \"Image\",\n      \"to\": \"Staging\"\n    },\n    {\n      \"from\": \"Staging\",\n      \"to\": \"Approval\"\n    },\n    {\n      \"from\": \"Approval\",\n      \"to\": \"Official\"\n    },\n    {\n      \"from\": \"Operations\",\n      \"to\": \"Approval\"\n    },\n    {\n      \"from\": \"Operations\",\n      \"to\": \"Official\"\n    }\n  ]\n}\n",
+  "layout": {
+    "Approval": {
+      "h": 84,
+      "w": 204,
+      "x": 1620,
+      "y": 239
+    },
+    "CI": {
+      "h": 84,
+      "w": 204,
+      "x": 324,
+      "y": 239
+    },
+    "Contribution": {
+      "h": 84,
+      "w": 236,
+      "x": 616,
+      "y": 5
+    },
+    "Image": {
+      "h": 84,
+      "w": 204,
+      "x": 972,
+      "y": 239
+    },
+    "Main": {
+      "h": 94,
+      "w": 204,
+      "x": 648,
+      "y": 234
+    },
+    "Official": {
+      "h": 84,
+      "w": 1824,
+      "x": 0,
+      "y": 468
+    },
+    "Operations": {
+      "h": 94,
+      "w": 236,
+      "x": 972,
+      "y": 0
+    },
+    "PR": {
+      "h": 84,
+      "w": 204,
+      "x": 0,
+      "y": 239
+    },
+    "Staging": {
+      "h": 84,
+      "w": 204,
+      "x": 1296,
+      "y": 239
+    }
+  },
+  "message": "Fluxo de promoção proposto; deploy não implementado",
+  "stage": "planejado"
+}

@@ -1,6 +1,6 @@
 # Joinlet
 
-> Arquitetura do workspace “Joinlet” no Joinlet: 2 diagramas e 3 documentos. Comece por ARCHITECTURE.md.
+> Arquitetura do workspace “Joinlet” no Joinlet: 3 diagramas e 4 documentos. Comece por ARCHITECTURE.md.
 
 Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group"` e `children` para grupos) e cada item de `connections` liga `from` a `to`. As posições do desenho ficam em `.arch/diagrams/*.layout.json` e não mudam o significado. Arquivos gerados a partir de `.arch/`: não edite à mão.
 
@@ -12,14 +12,17 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 
 - [Arquitetura do Joinlet](diagrams/arquitetura-do-joinlet.md): 11 componentes, 14 conexões
 - [Distribuição do código Joinlet](diagrams/distribuicao-do-codigo-joinlet.md): 5 componentes, 4 conexões
+- [Fluxo de release proposto](diagrams/fluxo-de-release-proposto.md): 9 componentes, 9 conexões
 
 ## Documentos
 
 - [Funcionamento do Joinlet](../docs/funcionamento-do-joinlet.md): documento do workspace
 - [Código aberto e limites de publicação](../docs/codigo-aberto-e-limites-de-publicacao.md): documento do workspace
 - [Distribuição e operação](../docs/distribuicao-e-operacao.md): documento do workspace
+- [Release do Joinlet](../docs/release-do-joinlet.md): documento do workspace
 
 ## Optional
 
 - [arquitetura-do-joinlet.strukt.json](../diagrams/arquitetura-do-joinlet.strukt.json): código-fonte de “Arquitetura do Joinlet”
 - [distribuicao-do-codigo-joinlet.strukt.json](../diagrams/distribuicao-do-codigo-joinlet.strukt.json): código-fonte de “Distribuição do código Joinlet”
+- [fluxo-de-release-proposto.strukt.json](../diagrams/fluxo-de-release-proposto.strukt.json): código-fonte de “Fluxo de release proposto”

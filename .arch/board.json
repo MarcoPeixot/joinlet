@@ -44,6 +44,24 @@
       "w": 280,
       "x": 40,
       "y": 280
+    },
+    {
+      "h": 200,
+      "id": "doc:release-do-joinlet",
+      "kind": "doc",
+      "slug": "release-do-joinlet",
+      "w": 280,
+      "x": 360,
+      "y": 280
+    },
+    {
+      "h": 200,
+      "id": "diagram:fluxo-de-release-proposto",
+      "kind": "diagram",
+      "slug": "fluxo-de-release-proposto",
+      "w": 280,
+      "x": 680,
+      "y": 280
     }
   ],
   "connections": [],
