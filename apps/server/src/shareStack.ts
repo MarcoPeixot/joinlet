@@ -1,5 +1,5 @@
 import { file } from 'bun';
-import { ADMIN_PLAN, BETA_PLAN } from '@strukt/workspace';
+import { ADMIN_PLAN, BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { allowedOrigins } from './origin';
 import { websocket } from 'hono/bun';
 /**
@@ -20,7 +20,7 @@ const env = (name: string) => {
   return value;
 };
 
-const accessPlan = process.env.STRUKT_STACK_ADMIN === '1' ? ADMIN_PLAN : BETA_PLAN;
+const accessPlan = process.env.STRUKT_STACK_ADMIN === '1' ? ADMIN_PLAN : process.env.STRUKT_STACK_PLAN === 'cloud' ? BETA_PLAN : SELF_HOSTED_PLAN;
 const root = env('STRUKT_STACK_ROOT');
 const ownerPort = Number(env('STRUKT_STACK_OWNER_PORT'));
 const collabPort = Number(env('STRUKT_STACK_COLLAB_PORT'));

@@ -1,4 +1,4 @@
-import { ADMIN_PLAN, BETA_PLAN } from '@strukt/workspace';
+import { ADMIN_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { websocket } from 'hono/bun';
 import Anthropic from '@anthropic-ai/sdk';
 import { chmod, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
@@ -75,7 +75,7 @@ const selectedRepo = {
 
 // "Compartilhar" starts a LAN collaboration host on request; it stops with this server (every open room writes its
 // pending projection first).
-const accessPlan = process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : BETA_PLAN;
+const accessPlan = process.env.JOINLET_LOCAL_ADMIN === '1' ? ADMIN_PLAN : SELF_HOSTED_PLAN;
 const share = createShare({
   start: ({ root, port, audit }) => startCollaborationHost({ root, port, audit, accessPlan }),
   audit: (root) => createAuditLog({ dir: join(configDir, 'audit'), root }),

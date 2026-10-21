@@ -36,8 +36,8 @@ Source synchronization covers configured import formats and anchored evidence; i
 
 ## Licensing and attribution
 
-Contributions to original Joinlet code are submitted under AGPL-3.0-only. Submit only work you have the right to contribute. Keep upstream notices and identify adapted/copied material. Third-party assets retain the terms documented in `THIRD_PARTY_NOTICES.md`; brand usage is described in `TRADEMARKS.md`. Do not submit an extra license agreement or assignment on another contributor's behalf.
+Contributions to original Joinlet code are submitted under AGPL-3.0-only. Submit only work you have the right to contribute. Keep upstream notices and identify adapted/copied material. Third-party assets retain the terms documented in `THIRD_PARTY_NOTICES.md`; brand usage is described in `TRADEMARKS.md`. Contributors retain copyright; the project requests no copyright assignment or blanket proprietary-relicensing grant. Do not submit an extra license agreement or assignment on another contributor's behalf.
 
 ## Release boundaries
 
-Only the application and generic self-hosting examples belong here. Production credentials, customer data, internal commercial materials and operator-specific infrastructure belong outside this public repository. Changes to publication checks, secret-scanning exceptions and workflows need maintainer review. Do not use `pull_request_target` to execute untrusted contributor code or expose deployment secrets to pull requests.
+The complete original product, including its hosted backend, and generic self-hosting examples belong here. Cloud operation funds the product; this release reserves no proprietary application edition. Production credentials, customer data, internal commercial materials and operator-specific infrastructure belong outside this public repository. Changes to publication checks, secret-scanning exceptions and workflows need maintainer review. Do not use `pull_request_target` to execute untrusted contributor code or expose deployment secrets to pull requests.

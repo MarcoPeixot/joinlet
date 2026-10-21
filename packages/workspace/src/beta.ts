@@ -1,6 +1,6 @@
 import { parseManifest } from './manifest';
 
-/** Product policy shared by the server, MCP and editor. No paid tiers during the beta. */
+/** Joinlet Cloud policy. Local/self-hosted use has no commercial quotas. */
 export const BETA_PLAN = Object.freeze({
   id: 'free-beta' as const,
   name: 'Joinlet Beta',
@@ -9,7 +9,7 @@ export const BETA_PLAN = Object.freeze({
 });
 export type BetaResource = keyof typeof BETA_PLAN.limits;
 export interface AccessPlan {
-  readonly id: 'free-beta' | 'administrator';
+  readonly id: 'free-beta' | 'administrator' | 'self-hosted';
   readonly name: string;
   readonly limits: Readonly<Record<BetaResource, number | null>>;
   readonly features: typeof BETA_PLAN.features;
@@ -20,7 +20,13 @@ export const ADMIN_PLAN: AccessPlan = Object.freeze({
   limits: Object.freeze({ workspaces: null, diagrams: null, participants: null }),
   features: BETA_PLAN.features,
 });
-let resolvePlan: (resource: BetaResource) => AccessPlan = () => BETA_PLAN;
+/** Product quotas only: authentication, roles and technical safety caps remain enforced. */
+export const SELF_HOSTED_PLAN: AccessPlan = Object.freeze({
+  id: 'self-hosted', name: 'Joinlet Self-hosted',
+  limits: Object.freeze({ workspaces: null, diagrams: null, participants: null }),
+  features: BETA_PLAN.features,
+});
+let resolvePlan: (resource: BetaResource) => AccessPlan = () => SELF_HOSTED_PLAN;
 /** Runtime wiring only: browser state or the server's request-local AsyncLocalStorage. */
 export function setAccessPlanResolver(resolve: (resource: BetaResource) => AccessPlan): void { resolvePlan = resolve; }
 export function getAccessPlan(resource: BetaResource = 'diagrams'): AccessPlan { return resolvePlan(resource); }
@@ -55,7 +61,7 @@ export function assertBetaManifest(before: string | null, after: string, plan = 
 }
 
 /** Workspace-wide occupancy, independent of diagram rooms. One browser/session occupies one slot. */
-export function createBetaPresence({ now = Date.now, reserved = 0, ttl = 45_000, plan = () => BETA_PLAN }: { now?: () => number; reserved?: number; ttl?: number; plan?: () => AccessPlan } = {}) {
+export function createBetaPresence({ now = Date.now, reserved = 0, ttl = 45_000, plan = () => SELF_HOSTED_PLAN }: { now?: () => number; reserved?: number; ttl?: number; plan?: () => AccessPlan } = {}) {
   const sessions = new Map<string, number>();
   const sweep = () => { for (const [id, expires] of sessions) if (expires <= now()) sessions.delete(id); };
   return {

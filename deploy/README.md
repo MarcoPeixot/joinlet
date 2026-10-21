@@ -1,6 +1,6 @@
 # Publicação do Joinlet
 
-A landing existente e os guias ficam em **joinlet.co**. O aplicativo abre em **app.joinlet.co**, com login, API, convites, colaboração WebSocket e MCP no mesmo host. Não é necessário comprar outro domínio. Os dois hosts compartilham inicialmente o serviço remoto e seu volume persistente; esta separação não oferece disponibilidade independente.
+A configuração de exemplo usa a landing e os guias em **joinlet.co**. e o aplicativo em **app.joinlet.co**, com login, API, convites, colaboração WebSocket e MCP no mesmo host. Não é necessário comprar outro domínio. Os dois hosts compartilham inicialmente o serviço remoto e seu volume persistente; esta separação não oferece disponibilidade independente.
 
 1. Copie `.env.production.example` para `.env.production` nesta pasta e preencha as credenciais, contato ACME e chave de criptografia estável.
 2. Configure DNS para `joinlet.co` e `app.joinlet.co` apontando para o servidor do Caddy. Publique AAAA somente se o host tiver IPv6 funcional. Libere portas 80/443.
@@ -31,3 +31,9 @@ Antes da troca, exporte em ZIP os projetos que vivem somente no navegador no end
 Links antigos `/app/?...` redirecionam para a raiz do app preservando parâmetros. Convites antigos `/join/...` e login web também seguem para o app. Atualize configurações de clientes MCP: requisições de API, registro OAuth e descoberta MCP não são redirecionadas pelo site público.
 
 Sem `JOINLET_SITE_URL`, o servidor conserva o modo combinado: landing `/`, editor `/app/`. A configuração local de desenvolvimento permanece igual. O servidor injeta os endereços nos HTMLs da landing, app e documentação, permitindo usar o mesmo build em homologação e produção. Uma hospedagem puramente estática precisa implementar essas rotas e links explicitamente.
+
+## Política de instalação
+
+O exemplo e o entrypoint remoto usam `JOINLET_DEPLOYMENT_MODE=self-hosted` por padrão, sem cotas comerciais de workspaces, diagramas ou participantes. Troque domínios e credenciais pelos seus. `cloud` seleciona a política Beta para uma operação gerenciada; não concede acesso à infraestrutura oficial. A operação oficial deve definir esse valor explicitamente no ambiente privado.
+
+Capacidade continua limitada pelo host, por uma réplica por workspace, pelo workspace pessoal persistente único por conta no backend atual e pelos limites técnicos de arquivos/requisições/armazenamento. Autenticação, papéis e isolamento continuam ativos. Este exemplo não comprova uma instalação oficial já publicada. Veja [o modelo aberto](../docs/open-source.md) e [a promoção de releases](../docs/releases.md).

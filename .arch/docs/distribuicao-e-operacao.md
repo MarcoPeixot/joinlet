@@ -12,4 +12,4 @@ A imagem fixa a base Bun por digest e inclui licença, avisos de terceiros e ref
 
 Os workflows atuais somente validam; não publicam imagens, não fazem deploy e não recebem credenciais de produção. O fluxo completo de homologação/promoção está proposto em Release do Joinlet. CODEOWNERS não substitui proteções habilitadas no GitHub; a disponibilidade em repositórios privados depende do plano.
 
-A licença original preparada é AGPL-3.0-only, com termos de assets e marca separados. Cobrança e planos pagos continuam fora do Beta/Admin implementado.
+O mantenedor confirmou AGPL-3.0-only para o produto completo, com termos de assets e marca separados e contribuições sob a mesma licença, sem cessão de copyright ou autorização geral para relicenciamento proprietário. Não existe edição proprietária reservada. Local/self-hosted não têm cotas comerciais; o operador da Cloud seleciona cloud explicitamente no ambiente confiável. Cobrança e planos pagos ainda não estão implementados.

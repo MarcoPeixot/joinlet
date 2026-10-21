@@ -81,6 +81,7 @@ const upstream = (async (input: string | URL | Request, init?: RequestInit) => {
   throw Error(`Unexpected upstream ${url.origin}${url.pathname}`);
 }) as typeof fetch;
 const options = {
+  deploymentMode: process.env.JOINLET_SMOKE_MODE === 'self-hosted' ? 'self-hosted' as const : 'cloud' as const,
   publicUrl: "http://localhost:8788",
   githubClientId: "smoke",
   githubClientSecret: "smoke",
@@ -202,7 +203,9 @@ try {
   );
   const again = await login(101);
   assert.equal(again.repo, owner.repo);
-  assert.throws(() => remote.auth.beta.claim(101, "org/second"), /workspace/);
+  assert.equal(remote.auth.beta.accountPlan(101).id, options.deploymentMode === 'cloud' ? 'free-beta' : 'self-hosted');
+  if (options.deploymentMode === 'cloud') assert.throws(() => remote.auth.beta.claim(101, "org/second"), /workspace/);
+  else assert.doesNotThrow(() => remote.auth.beta.claim(101, "org/second"));
   const write = (path: string, text: string | null, expected: string | null) =>
     request(
       "/api/remote/workspace",
@@ -247,6 +250,8 @@ try {
   );
   const tooMany = {
     ...next,
+    // A client-controlled field cannot promote a Cloud account.
+    deploymentMode: 'self-hosted',
     diagrams: Array.from({ length: 21 }, (_, i) => ({
       slug: `map-${i}`,
       title: `Map ${i}`,
@@ -255,8 +260,9 @@ try {
   assert.equal(
     (await write("strukt.json", JSON.stringify(tooMany), JSON.stringify(next)))
       .status,
-    403,
+    options.deploymentMode === 'cloud' ? 403 : 200,
   );
+  if (options.deploymentMode === 'self-hosted') assert.equal((await write('strukt.json', JSON.stringify(next), JSON.stringify(tooMany))).status, 200);
   const inviteResponse = await request(
     "/api/share/invites",
     post(owner.cookie, owner.csrf, {
@@ -423,7 +429,7 @@ try {
   const linkPath = new URL(viewStatus.invites[0]!.url).pathname;
   assert.equal((await request(linkPath)).status, 302);
   assert.equal((await request(linkPath)).status, 302);
-  assert.equal((await request(linkPath)).status, 403);
+  assert.equal((await request(linkPath)).status, options.deploymentMode === 'cloud' ? 403 : 302);
   const settings = (key: string) => ({
     provider: "openai",
     keys: { openai: key },

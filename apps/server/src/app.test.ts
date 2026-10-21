@@ -29,7 +29,7 @@ describe('HTTP API', () => {
   it('reports trusted local entitlement and ignores forged account fields', async () => {
     const regular = createApp({});
     const admin = createApp({ accessPlan: ADMIN_PLAN });
-    expect(await (await regular.request('/api/plan?admin=true', { headers: { 'x-joinlet-admin': '1' } })).json()).toMatchObject({ plan: { id: 'free-beta' } });
+    expect(await (await regular.request('/api/plan?admin=true', { headers: { 'x-joinlet-admin': '1' } })).json()).toMatchObject({ plan: { id: 'self-hosted', limits: { diagrams: null } } });
     expect(await (await admin.request('/api/plan')).json()).toMatchObject({ plan: { id: 'administrator', limits: { diagrams: null } } });
     expect((await admin.request('http://evil.example/api/plan')).status).toBe(403);
   });

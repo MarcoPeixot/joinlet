@@ -1,10 +1,12 @@
-import { describe, expect, it } from 'vitest';
-import { BETA_PLAN, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { BETA_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
 import { addItem, newWorkspace, removeItem } from './workspace';
 import { printManifest } from './manifest';
 import { restoreItem, snapshotItem } from './itemSnapshot';
 
 describe('Joinlet Beta business rules', () => {
+  beforeEach(() => setAccessPlanResolver(() => BETA_PLAN));
+  afterEach(() => setAccessPlanResolver(() => SELF_HOSTED_PLAN));
   it('allows 20 diagrams, refuses the 21st and frees capacity after deletion', () => {
     let data = newWorkspace('Beta');
     for (let i = 0; i < 20; i++) data = addItem(data, 'diagram', `Diagram ${i}`).data;
@@ -40,7 +42,7 @@ describe('Joinlet Beta business rules', () => {
 
   it('counts a session once across rooms, includes the host and expires abandoned sessions', () => {
     let now = 0;
-    const presence = createBetaPresence({ now: () => now, reserved: 1 });
+    const presence = createBetaPresence({ now: () => now, reserved: 1, plan: () => BETA_PLAN });
     for (let i = 0; i < 4; i++) presence.touch(`guest-${i}`);
     presence.touch('guest-0');
     expect(presence.used()).toBe(5);
@@ -53,4 +55,15 @@ describe('Joinlet Beta business rules', () => {
     presence.leave('guest-4');
     expect(presence.used()).toBe(2);
   });
+});
+
+
+it('local product operations exceed Cloud quotas without an administrator identity', () => {
+  let data = newWorkspace('Self-hosted');
+  for (let i = 0; i < 25; i++) data = addItem(data, 'diagram', `Diagram ${i}`).data;
+  expect(data.manifest.diagrams).toHaveLength(25);
+  expect(() => assertBetaGrowth('workspaces', 1, 10)).not.toThrow();
+  const presence = createBetaPresence({ reserved: 1 });
+  for (let i = 0; i < 9; i++) presence.touch(String(i));
+  expect(presence.used()).toBe(10);
 });

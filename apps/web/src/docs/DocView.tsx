@@ -367,7 +367,7 @@ export function DocView({ slug, active = true, heading, actions, activate }: { s
       <DiagramReferences markdown={text} resolve={resolveCitations} />
       <div className="sk-doc-body">
         <div className="sk-doc-editor">
-          <div ref={host} aria-label={uiText("Editor do documento")} className="sk-doc-editor-host" />
+          <div ref={host} role="group" aria-label={uiText("Editor do documento")} className="sk-doc-editor-host" />
           {isShared && (!ready || status !== 'connected') && <div className="absolute inset-0 flex items-center justify-center bg-panel/90 text-muted">{status === 'error' ? uiText("Falha na colaboração. Verifique a conexão.") : ready ? uiText("Reconectando…") : uiText("Sincronizando documento…")}</div>}
           {starter && <>{blank && <div className="sk-doc-blank-title">{title}</div>}{!readOnly && starters}</>}
         </div>

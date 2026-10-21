@@ -20,3 +20,9 @@ it('validates distinct app and marketing origins and keeps combined mode optiona
     expect(() => remoteConfig({ ...env, JOINLET_SITE_URL: site })).toThrow();
   }
 });
+
+it('defaults to self-hosted and accepts Cloud policy only from trusted startup configuration', () => {
+  expect(remoteConfig(env).deploymentMode).toBe('self-hosted');
+  expect(remoteConfig({ ...env, JOINLET_DEPLOYMENT_MODE: 'cloud' }).deploymentMode).toBe('cloud');
+  expect(() => remoteConfig({ ...env, JOINLET_DEPLOYMENT_MODE: 'administrator' })).toThrow('JOINLET_DEPLOYMENT_MODE');
+});

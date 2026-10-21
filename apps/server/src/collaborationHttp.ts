@@ -1,6 +1,6 @@
 import { serializeWorkspaceWrite } from './workspaceWrite';
 import { refreshGeneratedContext } from '@strukt/workspace/context-storage';
-import { BETA_PLAN, type AccessPlan, BetaLimitError, assertBetaManifest, createBetaPresence } from '@strukt/workspace';
+import { SELF_HOSTED_PLAN, type AccessPlan, BetaLimitError, assertBetaManifest, createBetaPresence } from '@strukt/workspace';
 import { createHash, createHmac, randomUUID, randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 import { basename, join, resolve, sep } from 'node:path';
@@ -212,7 +212,7 @@ export type CollaborationUpgrade = (request: Request, data: { room: string; id: 
  * named by its folder name only, and a failure is a plain JSON `{ error }` (400 for a malformed URL, 500 otherwise).
  */
 export function createCollaborationHandler(options: CollaborationHandlerOptions) {
-  const plan = options.accessPlan ?? BETA_PLAN;
+  const plan = options.accessPlan ?? SELF_HOSTED_PLAN;
   const name = basename(options.root) || 'workspace';
   const dist = resolve(options.dist);
   const audit = options.audit ?? noAudit;
@@ -392,7 +392,7 @@ export function createCollaborationHandler(options: CollaborationHandlerOptions)
     const enteredParticipant = participant(request, invite);
     admission.cookie = enteredParticipant.cookie;
     const role = invite.role;
-    if (url.pathname === '/api/remote/plan') return response({ plan, accountPlan: BETA_PLAN, scope: 'shared', participants: presence.used() });
+    if (url.pathname === '/api/remote/plan') return response({ plan, accountPlan: SELF_HOSTED_PLAN, scope: 'shared', participants: presence.used() });
     if (url.pathname === '/api/collaboration/invite') return role !== 'edit' ? response({ error: 'Este link é somente leitura.' }, 403) : response({ url: `${originFor(request)}/join?token=${encodeURIComponent(invite.token)}` });
     if (url.pathname === '/api/collaboration' && request.headers.get('upgrade')?.toLowerCase() === 'websocket') {
       if (!allowedOrigin(request, [options.origin, publicOrigin()], options.port) || url.searchParams.get('repo') !== name) {

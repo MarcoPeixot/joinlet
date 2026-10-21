@@ -1,12 +1,12 @@
 import { expect, it } from 'vitest';
 import { withAccessPlan, setRequestPlans, parseAdminGithubIds } from './accessContext';
-import { ADMIN_PLAN, BETA_PLAN, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
+import { ADMIN_PLAN, BETA_PLAN, SELF_HOSTED_PLAN, getAccessPlan, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
 import { addItem, newWorkspace } from './workspace';
 import { printManifest } from './manifest';
 import { writeWorkspace } from './fs';
 import { createMemoryAdapter } from './storage';
 
-it('isolates concurrent accounts, defaults to Beta and scopes workspace quotas to the owner', async () => {
+it('isolates concurrent accounts, defaults to self-hosted and scopes workspace quotas to the owner', async () => {
   await Promise.all([
     withAccessPlan(ADMIN_PLAN, async () => {
       await new Promise(resolve => setTimeout(resolve, 5));
@@ -26,7 +26,8 @@ it('isolates concurrent accounts, defaults to Beta and scopes workspace quotas t
       expect(() => assertBetaGrowth('diagrams', 20, 21)).toThrow(BetaLimitError);
     }),
   ]);
-  expect(() => assertBetaGrowth('workspaces', 1, 2)).toThrow(BetaLimitError);
+  expect(getAccessPlan().id).toBe(SELF_HOSTED_PLAN.id);
+  expect(() => assertBetaGrowth('workspaces', 1, 2)).not.toThrow();
 });
 
 it('allows larger administrator sessions and restores the cap after revocation', () => {

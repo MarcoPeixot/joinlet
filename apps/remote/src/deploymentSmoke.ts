@@ -27,7 +27,7 @@ const mockGithub = (async (input: string | URL | Request, init?: RequestInit) =>
   if (path.includes('/git/trees/')) return Response.json({ tree: [] });
   throw new Error(`Unexpected test request: ${path}`);
 }) as typeof fetch;
-const remote = createRemoteApp({ publicUrl: 'http://localhost:8788', githubClientId: 'test-client', githubClientSecret: 'test-secret', encryptionKey: 'a'.repeat(64), databasePath: join(dir, 'remote.sqlite'), fetch: mockGithub, trustProxyHops: 0 });
+const remote = createRemoteApp({ deploymentMode: 'cloud', publicUrl: 'http://localhost:8788', githubClientId: 'test-client', githubClientSecret: 'test-secret', encryptionKey: 'a'.repeat(64), databasePath: join(dir, 'remote.sqlite'), fetch: mockGithub, trustProxyHops: 0 });
 const server = remote.app.listen(0, '127.0.0.1');
 await new Promise<void>(resolve => server.once('listening', resolve));
 const address = server.address();

@@ -37,7 +37,7 @@ export * from './commentMentions';
 export * from './commentsStorage';
 export { organizeWorkspace } from './organize';
 
-export { ADMIN_PLAN, getAccessPlan, setAccessPlanResolver, BETA_PLAN, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
+export { SELF_HOSTED_PLAN, ADMIN_PLAN, getAccessPlan, setAccessPlanResolver, BETA_PLAN, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
 
 export type { AccessPlan } from './beta';
 

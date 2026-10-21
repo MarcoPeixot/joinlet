@@ -68,7 +68,7 @@ test('two tabs cannot reserve two owned workspaces', async ({ page, context }) =
 });
 
 test('one share link admits four distinct guest browsers and refuses a fifth without blocking the owner', async ({ browser }) => {
-  const stack = await startShareStack();
+  const stack = await startShareStack({ cloud: true });
   const contexts = [];
   try {
     const start = await stack.api<{ invites: Array<{ role: string; url: string }> }>('/api/share/start', { dir: stack.root });
