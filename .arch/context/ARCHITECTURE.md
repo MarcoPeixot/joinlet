@@ -31,7 +31,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação."
+      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis."
     },
     {
       "id": "Local",
@@ -197,7 +197,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. | — |
+| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. | — |
 | API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
 | Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. | — |
 | CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
@@ -226,6 +226,9 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Web`: `apps/web/src/landing/Nav.tsx#L23` — trecho esperado: `export function SiteNav`
 - `Web`: `apps/web/docs/site.mjs#L21` — trecho esperado: `export function renderPage`
 - `Web`: `apps/web/src/brand/project.json#L2` — trecho esperado: `https://github.com/MarcoPeixot/joinlet`
+- `Web`: `apps/web/src/ui/uiStore.ts#L121` — trecho esperado: `function initialThemePref`
+- `Web`: `apps/web/src/settings/store.ts#L41` — trecho esperado: `export async function refreshSettings`
+- `Web`: `apps/web/src/settings/AiSetupGuide.tsx#L9` — trecho esperado: `export function AiSetupGuide`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 

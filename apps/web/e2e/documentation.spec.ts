@@ -28,7 +28,7 @@ test('mobile documentation is navigable, readable and supports dark mode',async(
   await page.getByRole('navigation',{name:'Documentação',exact:true}).getByRole('link',{name:'Referência da CLI',exact:true}).click();
   await expect(page.getByRole('heading',{level:1})).toHaveText('Referência da CLI');
   await page.getByRole('button',{name:'Alternar tema de cores'}).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+  await expect(page.locator('html')).toHaveAttribute('data-theme','light');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect(await axeFindings(page)).toEqual([]);
   await page.screenshot({path:info.outputPath('documentation-mobile.png')});

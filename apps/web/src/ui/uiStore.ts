@@ -120,7 +120,7 @@ function systemDark(): boolean {
 
 function initialThemePref(): ThemePref {
   const saved = readPref(THEME_KEY);
-  return THEME_PREFS.find((pref) => pref === saved) ?? 'light';
+  return THEME_PREFS.find((pref) => pref === saved) ?? 'dark';
 }
 
 function initialFlowAnimation(): boolean {

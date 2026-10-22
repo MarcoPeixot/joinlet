@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/brand/joinlet-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joinlet — connect ideas, build systems</title>
     <meta name="description" content="Diagrams, documents and sketches in an AI-powered workspace. Design systems, capture decisions and connect your architecture to code. Try it without an account." />
-    <meta name="theme-color" content="#f7f9fc" />
+    <meta name="theme-color" content="#0e1417" />
     <meta property="og:image" content="https://joinlet.co/brand/joinlet-social.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -15,7 +15,7 @@
     <meta name="twitter:image" content="https://joinlet.co/brand/joinlet-social.png" />
     <style>
       .landing-fallback{background:#f7f9fc;color:#111827;font:17px/1.7 system-ui,sans-serif;min-height:100vh;padding:0 6%;box-sizing:border-box}.landing-fallback *{box-sizing:border-box}.landing-fallback header{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:24px 0}.landing-fallback a{color:inherit}.landing-fallback header>a:first-child{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:750;text-decoration:none}.landing-fallback section:first-child{display:flex;align-items:center;gap:40px;padding:60px 0}.landing-fallback section:first-child>div{flex:1}.landing-fallback section:first-child>img{width:44%;height:auto}.landing-fallback h1{font-size:clamp(34px,4vw,58px);line-height:1.08;letter-spacing:-.04em;margin:20px 0}.landing-fallback em{color:#356b16;font-style:normal}.landing-fallback .eyebrow,.landing-fallback .small{font-size:12px}.landing-fallback .start{display:inline-block;background:#a3ff3d;border-radius:30px;padding:12px 24px;font-weight:600;text-decoration:none;margin-top:12px}.fallback-features{max-width:780px;padding-bottom:48px}.landing-fallback h2{font-size:26px;line-height:1.25;margin-top:36px}.landing-fallback footer{padding:24px 0;border-top:1px solid #ddd}@media(max-width:640px){.landing-fallback section:first-child{flex-direction:column;padding:30px 0;gap:10px}.landing-fallback section:first-child>img{width:90%}.landing-fallback header>a:last-child{font-size:13px}}
-    </style>
+    :root:not([data-theme=light]) .landing-fallback{background:#0e1417;color:#f5f7f2}:root:not([data-theme=light]) .landing-fallback em{color:#b2ef7b}.landing-fallback .start{color:#16200d}</style>
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://joinlet.co/" />
     <meta property="og:url" content="https://joinlet.co/" />
@@ -24,13 +24,13 @@
     <meta property="og:description" content="Diagrams, documents, sketches and an AI agent. Your architecture in one workspace, from the first sketch to your repository." />
     <script>
       // Applies the saved theme before first paint, shared with the editor (mirrors themeAttribute in src/ui/theme.ts).
-      // Default landing theme is light; explicit preferences remain shared with the editor.
+      // Default landing theme is dark; explicit preferences remain shared with the editor.
       try {
         var p = localStorage.getItem('strukt:theme');
         var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.dataset.theme =
-          p === 'contrast' ? 'contrast' : p === 'dark' ? 'dark' : p === 'system' ? (d ? 'dark' : 'light') : 'light';
-      } catch (e) { document.documentElement.dataset.theme = document.documentElement.dataset.theme || 'light'; }
+          p === 'contrast' ? 'contrast' : p === 'light' ? 'light' : p === 'system' ? (d ? 'dark' : 'light') : 'dark';
+      } catch (e) { document.documentElement.dataset.theme = document.documentElement.dataset.theme || 'dark'; }
     </script>
 
   </head>

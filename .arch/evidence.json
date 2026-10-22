@@ -108,6 +108,24 @@
         "line": 2,
         "path": "apps/web/src/brand/project.json",
         "snippet": "a0835d98"
+      },
+      {
+        "contains": "function initialThemePref",
+        "line": 121,
+        "path": "apps/web/src/ui/uiStore.ts",
+        "snippet": "f88ea9ce"
+      },
+      {
+        "contains": "export async function refreshSettings",
+        "line": 41,
+        "path": "apps/web/src/settings/store.ts",
+        "snippet": "76ba404e"
+      },
+      {
+        "contains": "export function AiSetupGuide",
+        "line": 9,
+        "path": "apps/web/src/settings/AiSetupGuide.tsx",
+        "snippet": "09e7de25"
       }
     ],
     "Workspace": [

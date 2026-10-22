@@ -9,3 +9,13 @@ A introdução aponta para código, issues e contribuição. A instalação loca
 Validação: testes dos links internos e âncoras em ambos os idiomas; regressão da ordem dos guias; Playwright para landing, busca, idioma, temas, acessibilidade e layouts de 320 a 1440 pixels. O código fica no checkout do produto, sem publicar ou alterar a visibilidade dos repositórios.
 
 Não há fontes/importadores configurados neste workspace. As evidências ancoram arquivos reais; sync e verify não comprovam equivalência semântica de todo o frontend.
+
+## Padrões visuais e disponibilidade da IA
+
+Landing, editor, documentação e guia de instalação iniciam em tema escuro; o idioma padrão é inglês. Preferências explícitas de tema claro, contraste, sistema e português continuam válidas. O tema é aplicado antes da primeira pintura, inclusive quando o armazenamento está bloqueado. A documentação usa o idioma de sua URL.
+
+O modo browser-preview oferece edição e armazenamento no navegador, sem serviço de IA. Configurações informa esse limite diretamente, apresenta clone e instalação local com lockfile e mantém a exportação ZIP como caminho para transferir o workspace ao editor local. Não solicita /api/settings nem oferece tentativas de reconexão para um serviço deliberadamente desabilitado. A execução local mantém o formulário e o teste dos provedores; hosted autenticado continua separado e exige serviço e sessão autorizados.
+
+Diagnóstico da publicação em 22/10/2026: app.joinlet.co servia a meta browser-preview e respondia HTTP 503 em /api/settings com Online services are not available in this browser preview. A API local consultada respondeu HTTP 200; isso comprova disponibilidade de configuração, sem testar chaves ou gerar consumo em provedores. Iniciar a API local não conecta automaticamente a página hospedada a ela: é preciso abrir o editor local.
+
+Os testes de navegador verificam os padrões em um sistema operacional claro, preferências preservadas, a orientação de IA na prévia e os fluxos locais de conectar, trocar modelos e testar provedores com credenciais simuladas.

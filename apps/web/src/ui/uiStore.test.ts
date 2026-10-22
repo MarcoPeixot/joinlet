@@ -51,11 +51,11 @@ describe('"Animar fluxo" preference (per visitor, not diagram data)', () => {
 });
 
 describe('theme preference', () => {
-  it('defaults to light (paper) when nothing is saved, even if the OS is dark', async () => {
+  it('defaults to dark when nothing is saved, even if the OS is light', async () => {
     vi.stubGlobal('localStorage', fakeStorage().api);
-    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: () => {} }));
+    vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: () => {} }));
     const ui = await freshUi();
-    expect(ui.uiStore.getState()).toMatchObject({ themePref: 'light', theme: 'light' });
+    expect(ui.uiStore.getState()).toMatchObject({ themePref: 'dark', theme: 'dark' });
   });
 
   it('keeps an explicit "system" choice and follows the OS', async () => {
@@ -69,6 +69,12 @@ describe('theme preference', () => {
     vi.stubGlobal('localStorage', fakeStorage({ 'strukt:theme': 'dark' }).api);
     vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: () => {} }));
     expect((await freshUi()).uiStore.getState()).toMatchObject({ themePref: 'dark', theme: 'dark' });
+  });
+
+  it('preserves an explicit light choice despite the dark default', async () => {
+    vi.stubGlobal('localStorage', fakeStorage({ 'strukt:theme': 'light' }).api);
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: () => {} }));
+    expect((await freshUi()).uiStore.getState()).toMatchObject({ themePref: 'light', theme: 'light' });
   });
 
   it('saves the preference in localStorage["strukt:theme"]; contrast resolves to the dark base', async () => {
@@ -98,7 +104,7 @@ describe('theme preference', () => {
   it('ignores blocked storage and unknown saved values', async () => {
     vi.stubGlobal('localStorage', fakeStorage({}, true).api);
     const ui = await freshUi();
-    expect(ui.uiStore.getState().themePref).toBe('light');
+    expect(ui.uiStore.getState().themePref).toBe('dark');
     expect(() => ui.setTheme('dark')).not.toThrow();
   });
 });

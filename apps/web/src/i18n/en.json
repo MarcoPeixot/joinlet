@@ -3056,5 +3056,7 @@
   "Seu primeiro workspace está liberado sem conta e fica salvo neste navegador.": "Your first workspace is available without an account and is saved in this browser.",
   "Contas e workspaces adicionais serão liberados em breve. Seu workspace atual continua disponível para editar e exportar.": "Accounts and additional workspaces are coming soon. You can keep editing and exporting your current workspace.",
   "Continuar no meu workspace": "Continue in my workspace",
-  "Nesta prévia, seus dados ficam neste navegador. Contas, sincronização online, IA e colaboração ainda não estão disponíveis.": "In this preview, your data stays in this browser. Accounts, cloud sync, AI and collaboration are not available yet."
+  "Nesta prévia, seus dados ficam neste navegador. Contas, sincronização online, IA e colaboração ainda não estão disponíveis.": "In this preview, your data stays in this browser. Accounts, cloud sync, AI and collaboration are not available yet.",
+  "A IA não está habilitada nesta prévia": "AI is not enabled in this preview",
+  "Esta prévia salva seu trabalho no navegador e não oferece o serviço de IA. Para configurar um provedor com sua chave, execute o Joinlet localmente seguindo os passos abaixo.": "This preview saves your work in the browser and does not provide the AI service. To configure a provider with your API key, run Joinlet locally using the steps below."
 }
