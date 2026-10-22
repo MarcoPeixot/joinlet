@@ -122,6 +122,14 @@
       {
         "contains": ".site-header[aria-modal=",
         "path": "apps/web/src/landing/landing.css"
+      },
+      {
+        "contains": "export function renderMarkdown",
+        "path": "apps/web/src/docs/markdown.ts"
+      },
+      {
+        "contains": "\"dompurify\": \"^3.4.17\"",
+        "path": "apps/web/package.json"
       }
     ],
     "Workspace": [
