@@ -25,7 +25,7 @@ try {
   for (const path of ['/', '/app/', '/docs/en/deployment/', '/docs/en/cloud/', '/docs/pt-BR/cloud/', '/health']) assert.equal((await fetch(`${origin}${path}`)).status, 200, path);
   assert.equal((await fetch(`${origin}/api/remote/session`)).status, 401);
   assert.equal((await fetch(`${origin}/.env`)).status, 404);
-  assert.notEqual(docker('exec', name, 'id', '-u'), '0');
+  assert.notEqual(docker('exec', name, 'bun', '-e', 'console.log(process.getuid())'), '0');
   docker('exec', name, 'bun', '-e', `import {existsSync} from 'node:fs'; for(const p of ['/app/.env','/app/.arch','/app/.codex']) if(existsSync(p)) throw Error('Private build input shipped: '+p);`);
   const probe = `import {Database} from 'bun:sqlite'; const db=new Database('/data/remote.sqlite'); db.exec('CREATE TABLE deployment_probe (value TEXT)'); db.query('INSERT INTO deployment_probe VALUES (?)').run('persisted'); db.close();`;
   docker('exec', name, 'bun', '-e', probe);

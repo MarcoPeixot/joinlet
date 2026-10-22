@@ -13,7 +13,7 @@ JOINLET_SITE_URL=https://joinlet.co
 STRUKT_PUBLIC_URL=https://app.joinlet.co
 ```
 
-4. Na GitHub App, use `https://app.joinlet.co/github/callback` como callback OAuth e `https://joinlet.co` como homepage. Mantenha as permissões e instalações de repositórios. Em homologação, utilize uma GitHub App separada.
+4. O acesso por e-mail/senha funciona sem credenciais GitHub. Para habilitar GitHub e o fluxo repositório/MCP opcional, na GitHub App use `https://app.joinlet.co/github/callback` como callback OAuth e `https://joinlet.co` como homepage. Mantenha as permissões e instalações de repositórios. Em homologação, utilize uma GitHub App separada.
 5. Na raiz do repositório, execute:
 
 ```sh
@@ -24,9 +24,17 @@ O Caddy solicita certificados para ambos os hosts. O processo aceita apenas os h
 
 Confirme a landing em `https://joinlet.co/`, os guias em `https://joinlet.co/docs/en/`, o app em `https://app.joinlet.co/`, o login e um convite real com dois navegadores. O endpoint MCP remoto é `https://app.joinlet.co/mcp`. Teste também reconexão da colaboração e recuperação do banco conforme o guia de publicação do produto. Os testes automatizados usam GitHub simulado; credenciais reais precisam ser validadas em homologação.
 
+## Contas com senha
+
+O backend permite cadastro e entrada por e-mail/senha, com sessão exclusiva do host do aplicativo. Senhas usam Argon2id e têm de 15 a 128 caracteres; espaços são preservados. Trocar a senha nas configurações encerra todas as sessões da conta. Nesta primeira entrega, o e-mail é um identificador sem confirmação de titularidade; recuperação por e-mail e vínculo de métodos ficam para uma próxima etapa. O editor informa esse limite no cadastro. Não configure SMTP fictício.
+
+GitHub é opcional: preencha as duas variáveis da App para habilitá-lo, ou deixe ambas vazias. A ausência dessas credenciais não impede iniciar o backend com senha. IDs internos de conta e IDs GitHub são distintos; contas por senha não recebem administração por coincidência de números.
+
+Depois de restaurar um snapshot em ambiente isolado, antes de expô-lo, execute `bun apps/remote/src/recovery.ts /caminho/restaurado.sqlite --invalidate-access`. O comando invalida sessões, autorizações e convites que poderiam ter sido revogados depois do backup, preservando workspaces e configurações criptografadas. Mantenha a mesma chave de criptografia.
+
 ## Migração de uma instalação existente
 
-Antes da troca, exporte em ZIP os projetos que vivem somente no navegador no endereço antigo e importe-os no novo app. Armazenamento IndexedDB/localStorage e permissões de pastas pertencem à origem e não migram automaticamente. Preserve banco SQLite, volume `/data`, chave de criptografia e backups. Contas Cloud mantêm os dados no servidor, mas será necessário entrar novamente no novo host. Não execute `down -v`.
+Ao substituir a prévia pelo login na mesma origem, a tela de entrada oferece exportação ZIP dos rascunhos existentes em IndexedDB, sem apagá-los. Exporte antes de entrar e importe no workspace online após o login. Antes de mudar de origem, exporte em ZIP os projetos que vivem somente no navegador no endereço antigo e importe-os no novo app. Armazenamento IndexedDB/localStorage e permissões de pastas pertencem à origem e não migram automaticamente. Preserve banco SQLite, volume `/data`, chave de criptografia e backups. Contas Cloud mantêm os dados no servidor, mas será necessário entrar novamente no novo host. Não execute `down -v`.
 
 Links antigos `/app/?...` redirecionam para a raiz do app preservando parâmetros. Convites antigos `/join/...` e login web também seguem para o app. Atualize configurações de clientes MCP: requisições de API, registro OAuth e descoberta MCP não são redirecionadas pelo site público.
 

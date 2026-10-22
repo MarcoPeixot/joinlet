@@ -32,6 +32,6 @@ jobs:
       - run: bunx playwright install --with-deps chromium
         working-directory: apps/web
       - run: bun run --filter @strukt/web e2e chat.spec.ts --grep 'sends the diagram|while it is being written'
-      - run: bun run --filter @strukt/web e2e sketch-design.spec.ts hosted.spec.ts beta.spec.ts admin.spec.ts selfHosted.spec.ts publicPreview.spec.ts analytics.spec.ts defaults.spec.ts documentation.spec.ts landing.spec.ts
+      - run: bun run --filter @strukt/web e2e sketch-design.spec.ts password.spec.ts hosted.spec.ts beta.spec.ts admin.spec.ts selfHosted.spec.ts publicPreview.spec.ts analytics.spec.ts defaults.spec.ts documentation.spec.ts landing.spec.ts
       - run: docker build -f apps/remote/Dockerfile -t joinlet-remote:check .
       - run: bun scripts/smoke-container.ts joinlet-remote:check

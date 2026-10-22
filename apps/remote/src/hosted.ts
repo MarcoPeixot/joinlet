@@ -8,6 +8,7 @@ import {
   HostedError,
   type HostedAccess,
 } from "./hostedStore";
+import { createPasswordAuth } from './passwordAuth';
 import { createHostedAi } from "./hostedAi";
 
 export const heldCookie = (header: string | undefined, name: string) =>
@@ -95,13 +96,16 @@ export function createHostedBackend(
     tunnel: { active: false },
     startedAt: 0,
   });
+  const passwordAuth = createPasswordAuth(options, auth, guest => { if (guest) store.leave(guest); accessChanged(); });
   const middleware = async (
     req: Request,
     res: Response,
     next: NextFunction,
   ) => {
     try {
+      if (req.path.startsWith("/api/auth/")) return await passwordAuth(req, res, next);
       if (req.path === "/auth/login" && req.method === "GET") {
+        if (!options.githubClientId || !options.githubClientSecret) return res.status(503).json({ error: "GitHub sign-in is not enabled." });
         limit(req);
         const flow = auth.startWebLogin();
         res.cookie("joinlet_oauth", flow.verifier, {

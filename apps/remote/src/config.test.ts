@@ -26,3 +26,16 @@ it('defaults to self-hosted and accepts Cloud policy only from trusted startup c
   expect(remoteConfig({ ...env, JOINLET_DEPLOYMENT_MODE: 'cloud' }).deploymentMode).toBe('cloud');
   expect(() => remoteConfig({ ...env, JOINLET_DEPLOYMENT_MODE: 'administrator' })).toThrow('JOINLET_DEPLOYMENT_MODE');
 });
+
+it('starts password-only hosting without GitHub credentials and rejects a partially configured provider', () => {
+  const passwordOnly = { ...env, STRUKT_GITHUB_APP_CLIENT_ID: '', STRUKT_GITHUB_APP_CLIENT_SECRET: '' };
+  expect(remoteConfig(passwordOnly).githubClientId).toBeUndefined();
+  expect(remoteConfig(passwordOnly).githubClientSecret).toBeUndefined();
+  expect(() => remoteConfig({ ...passwordOnly, STRUKT_GITHUB_APP_CLIENT_ID: 'configured' })).toThrow('both GitHub');
+});
+
+it('keeps analytics opt-in and validates the local collector path', () => {
+  expect(remoteConfig(env).analyticsPath).toBeUndefined();
+  expect(remoteConfig({ ...env, JOINLET_ANALYTICS_PATH: '/telemetry' }).analyticsPath).toBe('/telemetry');
+  expect(() => remoteConfig({ ...env, JOINLET_ANALYTICS_PATH: 'https://unexpected.test' })).toThrow('JOINLET_ANALYTICS_PATH');
+});

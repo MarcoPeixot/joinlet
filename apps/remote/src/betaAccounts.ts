@@ -1,14 +1,14 @@
 import type { Database } from 'bun:sqlite';
 import { ADMIN_PLAN, BETA_PLAN, assertBetaGrowth, createBetaPresence, type AccessPlan } from '@strukt/workspace';
 
-/** Ownership survives OAuth session expiry, sign-out and process restarts. GitHub IDs never come from request bodies. */
-export function createBetaAccounts(db: Database, now = Date.now, adminIds: ReadonlySet<number> = new Set(), defaultPlan: AccessPlan = BETA_PLAN) {
+/** Ownership survives OAuth session expiry, sign-out and process restarts. Internal account IDs come from verified sessions, never from request bodies. */
+export function createBetaAccounts(db: Database, now = Date.now, adminIds: ReadonlySet<number> = new Set(), defaultPlan: AccessPlan = BETA_PLAN, isAdmin: (id: number) => boolean = id => adminIds.has(id)) {
   db.exec(`CREATE TABLE IF NOT EXISTS beta_workspaces (
     repo TEXT PRIMARY KEY COLLATE NOCASE, owner TEXT NOT NULL, created INTEGER NOT NULL
   )`);
   db.exec('CREATE INDEX IF NOT EXISTS beta_workspaces_owner ON beta_workspaces(owner)');
   const usage = (userId: number) => (db.query('SELECT COUNT(*) AS count FROM beta_workspaces WHERE owner = ?').get(String(userId)) as { count: number }).count;
-  const accountPlan = (userId: number) => adminIds.has(userId) ? ADMIN_PLAN : defaultPlan;
+  const accountPlan = (userId: number) => isAdmin(userId) ? ADMIN_PLAN : defaultPlan;
   const workspacePlan = (repo: string) => {
     const owner = db.query('SELECT owner FROM beta_workspaces WHERE repo = ?').get(repo) as { owner: string } | null;
     return owner ? accountPlan(Number(owner.owner)) : defaultPlan;

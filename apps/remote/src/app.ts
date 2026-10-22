@@ -20,7 +20,7 @@ const html = (text: string) => text.replace(/[&<>"']/g, (char) => ({ '&': '&amp;
 const cookie = (header: string | undefined, name: string) => header?.split(';').map((part) => part.trim()).find((part) => part.startsWith(`${name}=`))?.slice(name.length + 1) ?? null;
 
 export function createRemoteApp(options: RemoteAuthOptions) {
-  const hosting = webHosting(options.publicUrl, options.siteUrl);
+  const hosting = webHosting(options.publicUrl, options.siteUrl, options.analyticsPath);
   const auth = createRemoteAuth(options);
   const app = express();
   const dist = fileURLToPath(new URL('../../web/dist/', import.meta.url));

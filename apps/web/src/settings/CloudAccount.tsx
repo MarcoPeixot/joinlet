@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+import { lazyWithRetry } from '../ui/lazyWithRetry';
 import { appUrl } from '../ui/urls';
 import { useState } from "react";
 import { Cloud, LogOut } from "lucide-react";
@@ -5,6 +7,8 @@ import { Button } from "../ui/Button";
 import { uiText } from "../i18n";
 import { collaborationSession } from "../workspace/boot";
 import { workspace } from "../workspace/appWorkspace";
+
+const AccountPassword = lazyWithRetry(() => import('../auth/AccountPassword').then(module => ({ default: module.AccountPassword })));
 
 export function CloudAccount() {
   const session = collaborationSession();
@@ -53,6 +57,7 @@ export function CloudAccount() {
           {uiText(session.owner ? "Sair da conta" : "Sair do workspace")}
         </Button>
       </div>
+      {session.owner && <Suspense fallback={null}><AccountPassword csrf={session.csrf} /></Suspense>}
       {error && (
         <p role="alert" className="mt-3 text-caption text-danger">
           {error}

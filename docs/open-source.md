@@ -4,7 +4,7 @@ The original Joinlet application code is licensed under **AGPL-3.0-only**. You c
 
 Joinlet Cloud is the managed installation of the product. Hosting, persistent service availability, storage, backups, updates and support can be offered commercially. The complete original product is open source; no proprietary product edition is reserved by this release. Subscription billing and paid entitlements are not implemented yet. Local/browser use, CLI, MCP and self-hosted deployments have no commercial workspace, diagram or participant quotas. The official Cloud selects its own server-side policy (currently Free Beta).
 
-This repository includes the editor, local server, remote backend, CLI, MCP, VS Code extension, shared packages and generic Docker deployment examples. Self-hosting does not require the founder's credentials. An operator creates their own GitHub application, encryption key and provider connections.
+This repository includes the editor, local server, remote backend, CLI, MCP, VS Code extension, shared packages and generic Docker deployment examples. Self-hosting does not require the founder's credentials. An operator supplies their own encryption key and optional provider connections. Email/password hosting does not require a GitHub App; repository/MCP access and GitHub sign-in require an operator-configured GitHub App.
 
 ```sh
 bun install --frozen-lockfile
