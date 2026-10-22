@@ -5,7 +5,7 @@ import { resolve, sep } from 'node:path';
 const escape = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 
 /** Origins come from validated configuration, never from forwarded request headers. */
-export function webHosting(publicUrl: string, siteUrl?: string) {
+export function webHosting(publicUrl: string, siteUrl?: string, analyticsPath?: string) {
   const split = !!siteUrl;
   const appHost = new URL(publicUrl).host;
   const siteHost = siteUrl ? new URL(siteUrl).host : null;
@@ -33,11 +33,11 @@ export function webHosting(publicUrl: string, siteUrl?: string) {
   const robots: RequestHandler = (req, res) => res.type('text').send(split && isAppHost(req.headers.host)
     ? 'User-agent: *\nDisallow: /\n'
     : `User-agent: *\nAllow: /\nDisallow: /app/\nDisallow: /api/\nSitemap: ${siteUrl ?? publicUrl}/docs/sitemap.xml\n`);
-  const render = (source: string) => source
+  const render = (source: string, surface: string = 'site') => source
     .replaceAll('https://joinlet.co', escape(siteUrl ?? publicUrl))
     .replace(/href="\/app\/(\?[^"]*)?"/g, (_match, query = '') => `href="${escape(appBase)}${query}"`)
-    .replace('</head>', `<meta name="strukt-mode" content="remote"><meta name="joinlet-app-url" content="${escape(appBase)}"><meta name="joinlet-site-url" content="${escape(siteBase)}"></head>`);
-  const page = async (dist: string, file: string) => render(await readFile(resolve(dist, file), 'utf8'));
+    .replace('</head>', `<meta name="strukt-mode" content="remote"><meta name="joinlet-app-url" content="${escape(appBase)}"><meta name="joinlet-site-url" content="${escape(siteBase)}">${analyticsPath ? `<meta name="joinlet-analytics" content="${escape(analyticsPath)}"><meta name="joinlet-analytics-source" content="${surface}">` : ''}</head>`);
+  const page = async (dist: string, file: string) => render(await readFile(resolve(dist, file), 'utf8'), file === 'app/index.html' ? 'editor' : 'site');
   const docs = (dist: string): RequestHandler => async (req, res, next) => {
     if (!/^\/docs(?:\/|$)/.test(req.path)) return next();
     let path: string;

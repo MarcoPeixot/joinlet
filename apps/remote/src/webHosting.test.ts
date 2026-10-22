@@ -50,3 +50,11 @@ it('rewrites static landing and docs CTAs and supplies runtime links without reb
   expect(source).toContain('name="joinlet-site-url" content="https://example.test/"');
   expect(source).toContain('href="https://example.test/"');
 });
+
+it('adds hosted analytics only when explicitly configured and identifies the app surface', async () => {
+  const root = new URL('../../web/', import.meta.url).pathname;
+  expect(await webHosting('http://localhost:8788').page(root, 'app/index.html')).not.toContain('name="joinlet-analytics"');
+  const configured = await webHosting('http://localhost:8788', undefined, '/telemetry').page(root, 'app/index.html');
+  expect(configured).toContain('name="joinlet-analytics" content="/telemetry"');
+  expect(configured).toContain('name="joinlet-analytics-source" content="editor"');
+});

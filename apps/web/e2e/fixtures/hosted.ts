@@ -14,8 +14,9 @@ const origin = `http://127.0.0.1:${port}`;
 const options = {
   deploymentMode: 'cloud' as const,
   publicUrl: origin,
-  githubClientId: "browser-test",
-  githubClientSecret: "browser-test",
+  ...(process.env.JOINLET_BROWSER_PASSWORD_ONLY === '1' ? {} : {
+    githubClientId: "browser-test", githubClientSecret: "browser-test",
+  }),
   encryptionKey: "d".repeat(64),
   databasePath: join(dir, "remote.sqlite"),
   fetch: (async (input: RequestInfo | URL, init?: RequestInit) => {

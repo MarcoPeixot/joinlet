@@ -1,5 +1,6 @@
 import { BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { createBetaAccounts } from './betaAccounts';
+import { createAccounts, authToken, tokenHash } from './accounts';
 import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';
 import { chmodSync } from 'node:fs';
 import { Database } from 'bun:sqlite';
@@ -20,6 +21,7 @@ interface GithubCredentials {
   refreshExpiresAt: number | null;
   userId: number;
   login: string;
+  accountVersion?: number;
 }
 
 interface Flow {
@@ -62,8 +64,9 @@ export interface RemoteAuthOptions {
   publicUrl: string;
   /** Marketing origin; when present, the editor is served at publicUrl root. */
   siteUrl?: string;
-  githubClientId: string;
-  githubClientSecret: string;
+  analyticsPath?: string;
+  githubClientId?: string;
+  githubClientSecret?: string;
   githubAppSlug?: string;
   encryptionKey: string;
   databasePath: string;
@@ -87,7 +90,11 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
   const now = options.now ?? Date.now;
   const fetcher = options.fetch ?? fetch;
   const accessPlan = options.deploymentMode === 'cloud' ? BETA_PLAN : SELF_HOSTED_PLAN;
-  const beta = createBetaAccounts(db, now, options.adminGithubIds, accessPlan);
+  const accounts = createAccounts(db);
+  const beta = createBetaAccounts(db, now, options.adminGithubIds, accessPlan, id => {
+    const subject = accounts.get(id)?.github_id;
+    return subject !== null && subject !== undefined && !!options.adminGithubIds?.has(subject);
+  });
   const put = (kind: string, id: string, value: unknown, expires?: number) => {
     db.query('INSERT OR REPLACE INTO records (kind, id, value, expires) VALUES (?, ?, ?, ?)').run(kind, id, JSON.stringify(value), expires ?? null);
   };
@@ -152,6 +159,7 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
       if (params.resource && params.resource.href !== resource) throw new InvalidRequestError('Recurso MCP diferente do Joinlet.');
       const scopes = params.scopes?.length ? params.scopes : ['strukt'];
       if (scopes.some((scope) => scope !== 'strukt')) throw new InvalidRequestError('Escopo MCP desconhecido.');
+      if (!options.githubClientId || !options.githubClientSecret) throw new InvalidRequestError('GitHub sign-in is not enabled.');
       const state = secret();
       put('flow', hash(state), {
         clientId: client.client_id, redirectUri: params.redirectUri, state: params.state,
@@ -231,17 +239,35 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
       }
       credentials = await pending;
     }
-    return { token: credentials.accessToken, repo: grant.repo, userId: credentials.userId };
+    const account = accounts.github(credentials.userId, credentials.login);
+    if ((credentials.accountVersion ?? 0) !== account.session_version) throw new InvalidGrantError('Sign in again.');
+    return { token: credentials.accessToken, repo: grant.repo, userId: account.id };
   };
 
+  type WebSession = { userId: number; login: string; csrf: string; repo?: string; version?: number };
+  const webSession = (token: string): WebSession | null => {
+    const session = get<WebSession>('web-session', tokenHash(token));
+    const account = session ? accounts.get(session.userId) : null;
+    return session && account && (session.version ?? 0) === account.session_version ? session : null;
+  };
+  const createWebSession = (userId: number) => {
+    const account = accounts.get(userId);
+    if (!account) throw new InvalidGrantError('Invalid account.');
+    const token = authToken();
+    const session = { userId, login: account.name, csrf: authToken(), version: account.session_version };
+    put('web-session', tokenHash(token), session, now() + 30 * 24 * 60 * 60_000);
+    return { token, ...session };
+  };
   return {
     database: db,
+    accounts, createWebSession,
     accessPlan,
     provider,
     beta,
     publicUrl,
     resource,
     startWebLogin() {
+      if (!options.githubClientId || !options.githubClientSecret) throw new InvalidRequestError('GitHub sign-in is not enabled.');
       const state = secret();
       const verifier = secret();
       put('web-flow', hash(state), { verifier: hash(verifier) }, now() + 10 * 60_000);
@@ -263,20 +289,21 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
       if (!body.access_token) throw new InvalidGrantError('GitHub did not authorize sign-in.');
       const user = await githubJson<{ id: number; login: string }>('https://api.github.com/user', { headers: { authorization: `Bearer ${body.access_token}` } });
       if (!Number.isSafeInteger(user.id) || user.id <= 0 || typeof user.login !== 'string') throw new InvalidGrantError('Invalid GitHub identity.');
+      const account = accounts.github(user.id, user.login);
       const token = secret();
-      const existing = db.query("SELECT repo FROM beta_workspaces WHERE owner = ? AND repo NOT LIKE 'cloud:%' ORDER BY created LIMIT 1").get(String(user.id)) as { repo: string } | null;
-      const session = { userId: user.id, login: user.login, csrf: secret(), ...(existing ? { repo: existing.repo } : {}) };
+      const existing = db.query("SELECT repo FROM beta_workspaces WHERE owner = ? AND repo NOT LIKE 'cloud:%' ORDER BY created LIMIT 1").get(String(account.id)) as { repo: string } | null;
+      const session = { userId: account.id, login: user.login, csrf: secret(), version: account.session_version, ...(existing ? { repo: existing.repo } : {}) };
       put('web-session', hash(token), session, now() + 30 * 24 * 60 * 60_000);
       let browserToken: string | undefined;
       if (existing) {
         const githubSession = randomUUID();
-        put('github', githubSession, encrypt({ userId: user.id, login: user.login, accessToken: body.access_token, refreshToken: body.refresh_token ?? null, accessExpiresAt: body.expires_in ? now() + body.expires_in * 1000 : null, refreshExpiresAt: body.refresh_token_expires_in ? now() + body.refresh_token_expires_in * 1000 : null }), now() + 30 * 24 * 60 * 60_000);
+        put('github', githubSession, encrypt({ userId: user.id, accountVersion: account.session_version, login: user.login, accessToken: body.access_token, refreshToken: body.refresh_token ?? null, accessExpiresAt: body.expires_in ? now() + body.expires_in * 1000 : null, refreshExpiresAt: body.refresh_token_expires_in ? now() + body.refresh_token_expires_in * 1000 : null }), now() + 30 * 24 * 60 * 60_000);
         browserToken = secret();
         put('browser', hash(browserToken), {clientId:'joinlet-web',resource,scopes:['strukt'],repo:existing.repo,githubSession,csrf:session.csrf} satisfies BrowserGrant, now() + 30 * 24 * 60 * 60_000);
       }
       return { token, browserToken, ...session };
     },
-    webSession(token: string) { return get<{ userId: number; login: string; csrf: string; repo?: string }>('web-session', hash(token)); },
+    webSession,
     revokeWebSession(token: string) { drop('web-session', hash(token)); },
     async githubCallback(code: string, state: string): Promise<{ state: string; repos: string[]; client: string; redirectOrigin: string }> {
       const flow = get<Flow>('flow', hash(state));
@@ -292,7 +319,9 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
       );
       if (!body.access_token) throw new InvalidGrantError('GitHub não concedeu acesso.');
       const user = await githubJson<{ id: number; login: string }>('https://api.github.com/user', { headers: { authorization: `Bearer ${body.access_token}` } });
+      const account = accounts.github(user.id, user.login);
       const credentials: GithubCredentials = {
+        accountVersion: account.session_version,
         accessToken: body.access_token, refreshToken: body.refresh_token ?? null,
         accessExpiresAt: body.expires_in ? now() + body.expires_in * 1000 : null,
         refreshExpiresAt: body.refresh_token_expires_in ? now() + body.refresh_token_expires_in * 1000 : null,
@@ -314,7 +343,7 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
       const flow = get<Flow>('flow', hash(state));
       if (!flow?.github || !flow.repos?.includes(repo)) throw new InvalidGrantError('Repositório não autorizado ou sessão expirada.');
       const credentials = decrypt(flow.github);
-      return { token: credentials.accessToken, repo, userId: credentials.userId };
+      return { token: credentials.accessToken, repo, userId: accounts.github(credentials.userId, credentials.login).id };
     },
     selectRepo(state: string, repo: string): { redirect: string; browserToken: string } {
       const pending = get<Flow>('flow', hash(state));

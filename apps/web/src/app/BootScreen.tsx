@@ -1,3 +1,6 @@
+import { Suspense } from 'react';
+import { lazyWithRetry } from '../ui/lazyWithRetry';
+import { ChunkBoundary } from '../ui/ChunkBoundary';
 import { uiText } from '../i18n';
 import { FolderOpen } from 'lucide-react';
 import { m } from 'motion/react';
@@ -9,23 +12,18 @@ import { bootWorkspace, reopenFolder, switchToBrowserStorage } from '../workspac
 import type { BootPhase } from '../workspace/boot';
 import { showProjects } from '../workspace/catalog';
 
+const AuthForm = lazyWithRetry(() => import('../auth/AuthForm').then(module => ({ default: module.AuthForm })));
+
 /** Shown until the workspace is open: loading, the "Reabrir pasta" banner (spec §11) or a failure. */
 export function BootScreen({ phase }: { phase: Exclude<BootPhase, { kind: 'ready' }> }) {
   return (
-    <div className="relative flex h-full items-center justify-center bg-canvas">
-      <div className="flex max-w-md flex-col items-center gap-5 text-center">
+    <div className="relative flex h-full items-start justify-center overflow-y-auto bg-canvas px-5 py-10 sm:items-center">
+      <div className="my-auto flex w-full max-w-md flex-col items-center gap-5 text-center">
         <m.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
           <Logo size={40} />
         </m.div>
         {phase.kind === 'loading' && <p className="sk-shimmer font-medium">{uiText("Abrindo workspace…")}</p>}
-        {phase.kind === 'needs-remote-auth' && (
-          <div className="flex flex-col items-center gap-4 rounded-[18px] p-6">
-            <h1 className="text-heading font-semibold">{uiText("Seu workspace, sempre com você")}</h1>
-            <p className="leading-relaxed text-muted">{uiText("Entre com GitHub para criar seu workspace gratuito. Você não precisa conectar um repositório para começar.")}</p>
-            <Button variant="primary" onClick={() => { location.assign('/auth/login'); }}>{uiText("Continuar com GitHub")}</Button>
-            <details className="text-caption text-muted"><summary>{uiText("Conectar um agente MCP")}</summary><code className="mt-3 block break-all">{phase.mcpUrl}</code><Button onClick={() => void bootWorkspace()}>{uiText("Já autorizei, abrir workspace")}</Button></details>
-          </div>
-        )}
+        {phase.kind === 'needs-remote-auth' && <ChunkBoundary><Suspense fallback={<p>{uiText('Carregando…')}</p>}><AuthForm mcpUrl={phase.mcpUrl} /></Suspense></ChunkBoundary>}
         {phase.kind === 'failed' && (
           <m.div role="alert" className="sk-float flex flex-col items-center gap-4 rounded-[18px] p-6" {...POP}>
             <p className="text-danger">{phase.message}</p>

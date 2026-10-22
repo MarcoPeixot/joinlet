@@ -203,9 +203,10 @@ try {
   );
   const again = await login(101);
   assert.equal(again.repo, owner.repo);
-  assert.equal(remote.auth.beta.accountPlan(101).id, options.deploymentMode === 'cloud' ? 'free-beta' : 'self-hosted');
-  if (options.deploymentMode === 'cloud') assert.throws(() => remote.auth.beta.claim(101, "org/second"), /workspace/);
-  else assert.doesNotThrow(() => remote.auth.beta.claim(101, "org/second"));
+  const ownerId = remote.auth.accounts.github(101, 'user-101').id;
+  assert.equal(remote.auth.beta.accountPlan(ownerId).id, options.deploymentMode === 'cloud' ? 'free-beta' : 'self-hosted');
+  if (options.deploymentMode === 'cloud') assert.throws(() => remote.auth.beta.claim(ownerId, "org/second"), /workspace/);
+  else assert.doesNotThrow(() => remote.auth.beta.claim(ownerId, "org/second"));
   const write = (path: string, text: string | null, expected: string | null) =>
     request(
       "/api/remote/workspace",

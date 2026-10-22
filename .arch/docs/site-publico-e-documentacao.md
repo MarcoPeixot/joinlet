@@ -26,3 +26,9 @@ O menu mobile ocupa a altura disponível da viewport e mantém todos os links, i
 ## Métricas opcionais nos guias
 
 O build gera uma entrada enxuta para consentimento e eventos dos guias, além de CSS próprio. Sem a meta do operador, essa entrada não consulta o coletor nem exibe consentimento. Quando habilitada, usa a mesma preferência v2 da landing/editor e envia somente o identificador conhecido do guia e a posição fixa dos links para experimentar. Consultas de busca e texto dos guias não entram nos eventos. O protocolo e os limites de ativação estão em Analytics opcional do Joinlet.
+
+## Entrada por senha no backend hospedável
+
+Quando o operador ativa o modo remoto, o editor apresenta cadastro e entrada por e-mail/senha; GitHub aparece somente com suas duas credenciais configuradas. O cadastro informa que recuperação por e-mail ainda não está disponível. Troca de senha fica nas configurações da conta. Rascunhos válidos ou danificados da prévia podem ser exportados na tela de login, antes de entrar, sem alterar o IndexedDB original. A transferência ao workspace Cloud ocorre por importação ZIP confirmada. Os testes em navegador cobrem cadastro, erro de confirmação, entrada em outro perfil, persistência, troca de senha, invalidação de sessões, logout e exportação do rascunho.
+
+A configuração JOINLET_ANALYTICS_PATH=/telemetry injeta as metas de métricas consentidas no HTML remoto. Sem essa configuração, a coleta permanece desativada. O Caddy/serviço coletor é responsabilidade do operador.

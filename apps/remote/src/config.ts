@@ -24,6 +24,8 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
       throw new Error('JOINLET_SITE_URL must be a distinct HTTPS origin.');
     }
   }
+  const analyticsPath = env.JOINLET_ANALYTICS_PATH?.trim() || undefined;
+  if (analyticsPath && analyticsPath !== '/telemetry') throw new Error('JOINLET_ANALYTICS_PATH must be /telemetry or empty.');
   const encryptionKey = required('STRUKT_REMOTE_ENCRYPTION_KEY');
   if (!/^[0-9a-f]{64}$/i.test(encryptionKey)) throw new Error('STRUKT_REMOTE_ENCRYPTION_KEY must contain exactly 64 hexadecimal characters.');
   const integer = (name: string, fallback: number, min: number, max: number) => {
@@ -32,13 +34,14 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
     if (!Number.isInteger(value) || value < min || value > max) throw new Error(`${name} must be an integer between ${min} and ${max}.`);
     return value;
   };
+  if (!!env.STRUKT_GITHUB_APP_CLIENT_ID?.trim() !== !!env.STRUKT_GITHUB_APP_CLIENT_SECRET?.trim()) throw new Error('Configure both GitHub App client settings, or leave both empty for password-only access.');
   const deploymentMode = env.JOINLET_DEPLOYMENT_MODE?.trim() || 'self-hosted';
   if (deploymentMode !== 'self-hosted' && deploymentMode !== 'cloud') throw new Error('JOINLET_DEPLOYMENT_MODE must be self-hosted or cloud.');
   return {
     deploymentMode,
-    publicUrl, siteUrl, encryptionKey,
-    githubClientId: required('STRUKT_GITHUB_APP_CLIENT_ID'),
-    githubClientSecret: required('STRUKT_GITHUB_APP_CLIENT_SECRET'),
+    publicUrl, siteUrl, analyticsPath, encryptionKey,
+    githubClientId: env.STRUKT_GITHUB_APP_CLIENT_ID?.trim() || undefined,
+    githubClientSecret: env.STRUKT_GITHUB_APP_CLIENT_SECRET?.trim() || undefined,
     githubAppSlug: env.STRUKT_GITHUB_APP_SLUG?.trim() || undefined,
     databasePath: env.STRUKT_REMOTE_DB?.trim() || join(fileURLToPath(new URL('../data/', import.meta.url)), 'remote.sqlite'),
     adminGithubIds: parseAdminGithubIds(env.JOINLET_ADMIN_GITHUB_IDS),

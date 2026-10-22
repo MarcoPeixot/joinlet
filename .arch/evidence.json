@@ -69,13 +69,21 @@
         "contains": "export function createRemoteApp",
         "line": 22,
         "path": "apps/remote/src/app.ts",
-        "snippet": "d237291e"
+        "snippet": "7f9209e9"
       },
       {
         "contains": "JOINLET_DEPLOYMENT_MODE",
-        "line": 35,
+        "line": 38,
         "path": "apps/remote/src/config.ts",
-        "snippet": "71690490"
+        "snippet": "8c4623f6"
+      },
+      {
+        "contains": "export function createPasswordAuth",
+        "path": "apps/remote/src/passwordAuth.ts"
+      },
+      {
+        "contains": "Joinlet password smoke passed:",
+        "path": "apps/remote/src/passwordSmoke.ts"
       }
     ],
     "SQLite": [
@@ -84,6 +92,14 @@
         "line": 51,
         "path": "apps/remote/src/hostedStore.ts",
         "snippet": "d87adde2"
+      },
+      {
+        "contains": "export function createAccounts",
+        "path": "apps/remote/src/accounts.ts"
+      },
+      {
+        "contains": "export function invalidateRestoredAccess",
+        "path": "apps/remote/src/recovery.ts"
       }
     ],
     "Web": [
@@ -154,6 +170,18 @@
       {
         "contains": "export function AnalyticsConsent",
         "path": "apps/web/src/analytics/ConsentView.tsx"
+      },
+      {
+        "contains": "export function AuthForm",
+        "path": "apps/web/src/auth/AuthForm.tsx"
+      },
+      {
+        "contains": "export function BrowserDraftBackup",
+        "path": "apps/web/src/auth/BrowserDraftBackup.tsx"
+      },
+      {
+        "contains": "exports the existing preview draft",
+        "path": "apps/web/e2e/password.spec.ts"
       }
     ],
     "Workspace": [
