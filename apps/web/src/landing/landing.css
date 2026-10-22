@@ -1114,6 +1114,8 @@ em { font-style: normal; }
   .github-header { width: 32px; }
 }
 @media (max-width: 960px) {
+  /* A backdrop filter would contain the fixed menu inside the short header. */
+  .site-header[aria-modal='true'] { backdrop-filter: none; background: var(--lp-bg); }
   .github-header { display: none; }
   .github-menu-item { display: list-item; }
   .github-menu-item .nav-link { gap: 10px; }
