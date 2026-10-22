@@ -20,6 +20,6 @@ export function ProviderCarousel() {
       </ul>)}</div>
     </div>
     <p className="provider-caption">{uiText("Conecte sua chave nas configurações. Também funciona com Ollama, LM Studio e APIs compatíveis com OpenAI.")}</p>
-    <a className="text-link" href={appUrl(`?settings=ai&lang=${getLocale()}`)}>{uiText("Escolha sua conexão")} <Play size={13} aria-hidden /></a>
+    <a data-analytics-cta="demo" className="text-link" href={appUrl(`?settings=ai&lang=${getLocale()}`)}>{uiText("Escolha sua conexão")} <Play size={13} aria-hidden /></a>
   </section>;
 }

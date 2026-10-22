@@ -12,7 +12,7 @@ export default defineConfig({
   build: {
     modulePreload: { polyfill: false },
     rollupOptions: {
-      input: { landing: 'index.html', app: 'app/index.html', setup: 'setup/index.html' },
+      input: { landing: 'index.html', app: 'app/index.html', setup: 'setup/index.html', docsAnalytics: 'src/analytics/docs.ts' },
       output: {
         // Stable vendor chunks: better long-term caching and a lean entry. Yjs and DOMPurify are not listed
         // on purpose; they stay in the lazy chunks that import them.

@@ -22,3 +22,7 @@ Os testes de navegador verificam os padrões em um sistema operacional claro, pr
 
 
 O menu mobile ocupa a altura disponível da viewport e mantém todos os links, incluindo GitHub, acessíveis antes e depois de rolar a página. Enquanto o diálogo de navegação está aberto, o cabeçalho remove seu filtro de fundo para não limitar o elemento fixo à altura do cabeçalho. O teste de navegador confere a geometria, a interseção dos links e a possibilidade de clicar no GitHub.
+
+## Métricas opcionais nos guias
+
+O build gera uma entrada enxuta para consentimento e eventos dos guias, além de CSS próprio. Sem a meta do operador, essa entrada não consulta o coletor nem exibe consentimento. Quando habilitada, usa a mesma preferência v2 da landing/editor e envia somente o identificador conhecido do guia e a posição fixa dos links para experimentar. Consultas de busca e texto dos guias não entram nos eventos. O protocolo e os limites de ativação estão em Analytics opcional do Joinlet.

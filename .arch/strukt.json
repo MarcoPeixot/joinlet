@@ -33,6 +33,10 @@
     {
       "slug": "site-publico-e-documentacao",
       "title": "Site público e documentação"
+    },
+    {
+      "slug": "analytics-opcional-do-joinlet",
+      "title": "Analytics opcional do Joinlet"
     }
   ],
   "name": "Joinlet",

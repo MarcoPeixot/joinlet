@@ -71,6 +71,15 @@
       "w": 280,
       "x": 1000,
       "y": 280
+    },
+    {
+      "h": 200,
+      "id": "doc:analytics-opcional-do-joinlet",
+      "kind": "doc",
+      "slug": "analytics-opcional-do-joinlet",
+      "w": 280,
+      "x": 40,
+      "y": 520
     }
   ],
   "connections": [],

@@ -14,7 +14,7 @@
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos."
+      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres."
     },
     {
       "id": "Local",
@@ -73,7 +73,7 @@
       "layoutRole": "shared",
       "icon": "hard-drive",
       "tech": "IndexedDB · File System Access",
-      "description": "Dados no navegador ou pasta controlada pelo usuário."
+      "description": "Persistência em IndexedDB ou pasta do usuário. O salvador distingue gravação efetiva, erro terminal, cancelamento e dados já conhecidos; telemetria de conteúdo salvo só acompanha gravações reais após interação significativa. Memória volátil não é tratada como persistência."
     },
     {
       "id": "SQLite",

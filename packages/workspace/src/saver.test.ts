@@ -201,3 +201,19 @@ describe('createSaver', () => {
     expect(saver.status).toBe('saved');
   });
 });
+
+it('reports completed writes and terminal failures, never cancellation, seed or unchanged content', async () => {
+  const adapter=createMemoryAdapter();const settled=vi.fn();
+  const saver=createSaver(adapter,{onSettled:settled,retries:0});
+  saver.seed({a:'original'});saver.schedule('a','original');await saver.flush();expect(settled).not.toHaveBeenCalled();
+  saver.schedule('a','cancelled');saver.cancel();await saver.flush();expect(settled).not.toHaveBeenCalled();
+  saver.schedule('a','changed');await saver.flush();expect(settled).toHaveBeenLastCalledWith('saved');
+  const fail=createSaver({...adapter,write:async()=>{throw Error('fixture failure');}},{onSettled:settled,retries:0});
+  fail.schedule('a','new');await fail.flush();expect(settled).toHaveBeenLastCalledWith('error');expect(settled).toHaveBeenCalledTimes(2);
+});
+
+it('keeps persistence usable when a completion observer fails',async()=>{
+  const adapter=createMemoryAdapter();const saver=createSaver(adapter,{onSettled:()=>{throw Error('observer failure');}});
+  saver.schedule('a','first');await saver.flush();saver.schedule('a','second');await saver.flush();
+  expect(adapter.files.get('a')).toBe('second');expect(saver.status).toBe('saved');
+});

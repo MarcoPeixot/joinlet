@@ -21,7 +21,7 @@
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos."
+      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres."
     },
     {
       "id": "Local",
@@ -80,7 +80,7 @@
       "layoutRole": "shared",
       "icon": "hard-drive",
       "tech": "IndexedDB · File System Access",
-      "description": "Dados no navegador ou pasta controlada pelo usuário."
+      "description": "Persistência em IndexedDB ou pasta do usuário. O salvador distingue gravação efetiva, erro terminal, cancelamento e dados já conhecidos; telemetria de conteúdo salvo só acompanha gravações reais após interação significativa. Memória volátil não é tratada como persistência."
     },
     {
       "id": "SQLite",
@@ -187,14 +187,14 @@
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. | — |
+| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres. | — |
 | API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
 | Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. | — |
 | CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
 | Extensão VS Code (`Extension`) | nó | — | Comandos e diagnósticos de diagramas no editor. | — |
 | Modelo e operações (`Domain`) | nó | — | Core, formatos JSON/DSL, operações validadas, layout e Git. | — |
 | `Workspace` | nó | — | Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição. | — |
-| Armazenamento local (`Browser`) | nó | IndexedDB · File System Access | Dados no navegador ou pasta controlada pelo usuário. | — |
+| Armazenamento local (`Browser`) | nó | IndexedDB · File System Access | Persistência em IndexedDB ou pasta do usuário. O salvador distingue gravação efetiva, erro terminal, cancelamento e dados já conhecidos; telemetria de conteúdo salvo só acompanha gravações reais após interação significativa. Memória volátil não é tratada como persistência. | — |
 | Persistência hospedada (`SQLite`) | nó | SQLite | Dados e segredos de runtime pertencem ao operador e ficam fora do Git. | — |
 | `GitHub` | nó | — | OAuth e workspace por branch/PR quando um repositório está conectado. | — |
 | Providers de IA (`AI`) | nó | — | BYOK; hosted usa chaves pessoais cifradas e origens públicas permitidas. | — |
@@ -204,6 +204,8 @@
 - `AI`: `apps/remote/src/hostedAi.ts#L149` — trecho esperado: `export function createHostedAi`
 - `Agents`: `apps/mcp/src/server.ts#L39` — trecho esperado: `export function createStruktServer`
 - `Browser`: `apps/web/src/workspace/idb.ts#L56` — trecho esperado: `createIdbAdapter`
+- `Browser`: `packages/workspace/src/saver.ts` — trecho esperado: `onSettled`
+- `Browser`: `packages/workspace/src/saver.test.ts` — trecho esperado: `reports completed writes`
 - `Domain`: `packages/core/src/model.ts#L127` — trecho esperado: `export interface DiagramModel`
 - `Extension`: `apps/vscode/src/extension.ts#L22` — trecho esperado: `export function activate`
 - `GitHub`: `apps/remote/src/githubWorkspace.ts#L54` — trecho esperado: `export async function openGithubWorkspace`
@@ -223,6 +225,10 @@
 - `Web`: `apps/web/src/landing/landing.css` — trecho esperado: `.site-header[aria-modal=`
 - `Web`: `apps/web/src/docs/markdown.ts` — trecho esperado: `export function renderMarkdown`
 - `Web`: `apps/web/package.json` — trecho esperado: `"dompurify": "^3.4.17"`
+- `Web`: `apps/web/src/analytics/docs.ts` — trecho esperado: `void startAnalytics()`
+- `Web`: `apps/web/e2e/analytics.spec.ts` — trecho esperado: `content_saved`
+- `Web`: `apps/web/src/analytics/runtime.ts` — trecho esperado: `export function trackAnalytics`
+- `Web`: `apps/web/src/analytics/ConsentView.tsx` — trecho esperado: `export function AnalyticsConsent`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 

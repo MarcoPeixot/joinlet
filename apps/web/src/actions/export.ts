@@ -1,3 +1,4 @@
+import { trackAnalytics } from '../analytics/client';
 import { uiText } from '../i18n';
 import { downloadBlob, svgToPngBlob } from '../export/png';
 import { diagramStore } from '../state/appStore';
@@ -28,7 +29,9 @@ export async function exportDiagram(format: 'svg' | 'png'): Promise<void> {
     const svg = renderDiagramSvg(model, layout, { theme: uiStore.getState().theme, icons, fontCss: await embeddedFontCss(), router: await loadEraserRouter() });
     if (format === 'svg') downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), `${name}.svg`);
     else downloadBlob(await svgToPngBlob(svg, 2), `${name}.png`);
+    trackAnalytics('export_generated', false, { format });
   } catch (err) {
+    trackAnalytics('export_failed', false, { format });
     showToast(err instanceof Error ? err.message : uiText("Falha ao exportar."));
   }
 }
@@ -48,8 +51,10 @@ export async function copyDiagramAs(format: keyof typeof TEXT_FORMATS): Promise<
   try {
     const print = await TEXT_FORMATS[format].print();
     await navigator.clipboard.writeText(print(model));
+    trackAnalytics('export_generated', false, { format });
     showToast(TEXT_FORMATS[format].done);
   } catch {
+    trackAnalytics('export_failed', false, { format });
     showToast(uiText("Não foi possível copiar"));
   }
 }
@@ -76,5 +81,6 @@ export async function copySelectionImage(download = false): Promise<void> {
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': render() })]);
       showToast(uiText("Imagem copiada com fundo transparente."));
     }
-  } catch { showToast(download ? uiText("Não foi possível gerar a imagem. Tente novamente.") : uiText("Não foi possível copiar. Use Exportar → Baixar seleção PNG.")); }
+    trackAnalytics('export_generated', false, { format: 'png' });
+  } catch { trackAnalytics('export_failed', false, { format: 'png' }); showToast(download ? uiText("Não foi possível gerar a imagem. Tente novamente.") : uiText("Não foi possível copiar. Use Exportar → Baixar seleção PNG.")); }
 }

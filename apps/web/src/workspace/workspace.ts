@@ -1,5 +1,5 @@
 import { uiText } from '../i18n';
-import { analyticsEdit } from '../analytics/client';
+import { analyticsEdit, analyticsSave, analyticsWorkspaceChanged, analyticsEnabled } from '../analytics/client';
 import { isWorkspaceLogo, normalizeFolder, uniqueSlug } from '@strukt/workspace';
 import {
   SCHEMA_PATH, organizeWorkspace, BOARD_PATH, CONCERNS_PATH, parseManifest, reconcileBoard, EVIDENCE_PATH, ITEM_KINDS, ITEM_LIST, MANIFEST_PATH, SHARED_PATH, addItem, applyEntity, applyRelation, createFolder, createSaver, deleteFolder, diagramPath, docPath, emptyDiagram, emptyShared, followRelationIds, flowsPath, layoutPath, loadWorkspace, moveItem,
@@ -558,9 +558,10 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
           saveError: null,
           external: null,
         });
-        const next = createSaver(adapter, { delay: options.saveDelay });
+        const next = createSaver(adapter, { delay: options.saveDelay, onSettled: status => { if (saver === next && adapter.kind !== 'memory') analyticsSave(status); } });
         next.seed({ ...workspaceFiles(opened), [SCHEMA_PATH]: diskSchema ?? schema });
         saver = next;
+        analyticsWorkspaceChanged();
         stopSaver = next.subscribe(() => store.setState({ save: next.status, saveError: next.error }));
         if (diskSchema !== null && diskSchema !== schema) next.schedule(SCHEMA_PATH, schema);
         stopMirror = mirror();
@@ -675,7 +676,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       }
       if (kind === 'diagram') await openDiagram(slug);
       else await show({ kind, slug });
-      analyticsEdit();
+      // Creating an empty item alone is not activation.
       return slug;
     },
 
@@ -860,7 +861,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       if (existing === undefined || existing === text) return;
       setData({ ...current, docs: { ...current.docs, [slug]: text } });
       scheduleItem('doc', slug);
-      analyticsEdit();
+      analyticsEdit('doc', text.trim().length >= 20);
     },
     setLibrary(library) {
       const lock = diagram.getState().readOnly;
@@ -998,7 +999,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       if (existing === undefined || existing === text) return;
       setData({ ...current, sketches: { ...current.sketches, [slug]: text } });
       scheduleItem('sketch', slug);
-      analyticsEdit();
+      analyticsEdit('sketch', analyticsEnabled() && sketchHasContent(text));
     },
 
     setFlows(slug, flows) {
@@ -1196,3 +1197,5 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
   };
   return api;
 }
+
+function sketchHasContent(text: string): boolean { try { return JSON.parse(text).elements?.some((e: { isDeleted?: boolean }) => !e.isDeleted) === true; } catch { return false; } }
