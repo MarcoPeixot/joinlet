@@ -62,3 +62,21 @@ test('another visitor gets an isolated first workspace', async ({ page, context,
     expect(await guest.evaluate(async () => (await import('/src/workspace/appWorkspace.ts')).workspace.store.getState().data?.manifest.name)).not.toBe('Private visitor draft');
   } finally { await other.close(); }
 });
+
+test('public preview explains why AI providers cannot be configured and offers local setup', async ({ page, context }) => {
+  const requests: string[] = [];
+  await preview(context, requests);
+  await page.goto('/app/?lang=en');
+  await page.evaluate(async () => (await import('/src/settings/store.ts')).openSettings('ai'));
+  const dialog = page.getByRole('dialog', { name: 'Settings', exact: true });
+  await expect(dialog.getByRole('heading', { name: 'AI is not enabled in this preview' })).toBeVisible();
+  await expect(dialog.getByText(/does not provide the AI service/)).toBeVisible();
+  await expect(dialog.locator('pre')).toContainText('git clone https://github.com/MarcoPeixot/joinlet.git');
+  await expect(dialog.getByRole('link', { name: 'Installation guide' })).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Try again' })).toHaveCount(0);
+  await expect(dialog.locator('input[type=password]')).toHaveCount(0);
+  expect(requests).not.toContain('/api/settings');
+  await dialog.getByRole('button', { name: 'Continue editing' }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(page.locator('.react-flow')).toBeVisible();
+});

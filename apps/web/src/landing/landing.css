@@ -446,7 +446,7 @@ em { font-style: normal; }
 :root { --lp-mono: 'Geist Mono Variable', ui-monospace, monospace; }
 .wrap { max-width: 1280px; padding-inline: 48px; }
 .site-header { background: color-mix(in srgb, var(--lp-bg) 88%, transparent); backdrop-filter: blur(18px); }
-.header-inner { max-width: 1280px; padding-inline: 48px; height: 76px; gap: 52px; }
+.header-inner { max-width: 1280px; padding-inline: 48px; height: 76px; gap: 24px; }
 .brand { font-size: 23px; gap: 9px; }
 .brand-period { color: var(--lp-accent-ink); }
 .navigation { margin-left: auto; margin-right: auto; }
@@ -1101,3 +1101,20 @@ em { font-style: normal; }
 }
 
 .hero-illustration img.jo-illustration { width: 100%; max-width: 100%; margin-left: 0; }
+
+/* Public source access follows the desktop and mobile navigation layouts. */
+.github-header { display: inline-grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 10px; color: var(--lp-muted); }
+.github-header:hover { background: var(--lp-soft); color: var(--lp-ink); }
+.github-menu-item { display: none; }
+@media (min-width: 961px) and (max-width: 1150px) {
+  .header-inner { padding-inline: 24px; gap: 16px; }
+  .nav-list { gap: 0; }
+  .nav-link { padding-inline: 6px; font-size: 12px; white-space: nowrap; }
+  .header-actions { gap: 4px; }
+  .github-header { width: 32px; }
+}
+@media (max-width: 960px) {
+  .github-header { display: none; }
+  .github-menu-item { display: list-item; }
+  .github-menu-item .nav-link { gap: 10px; }
+}

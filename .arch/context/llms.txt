@@ -1,6 +1,6 @@
 # Joinlet
 
-> Arquitetura do workspace “Joinlet” no Joinlet: 3 diagramas e 4 documentos. Comece por ARCHITECTURE.md.
+> Arquitetura do workspace “Joinlet” no Joinlet: 3 diagramas e 5 documentos. Comece por ARCHITECTURE.md.
 
 Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group"` e `children` para grupos) e cada item de `connections` liga `from` a `to`. As posições do desenho ficam em `.arch/diagrams/*.layout.json` e não mudam o significado. Arquivos gerados a partir de `.arch/`: não edite à mão.
 
@@ -20,6 +20,7 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 - [Código aberto e limites de publicação](../docs/codigo-aberto-e-limites-de-publicacao.md): documento do workspace
 - [Distribuição e operação](../docs/distribuicao-e-operacao.md): documento do workspace
 - [Release do Joinlet](../docs/release-do-joinlet.md): documento do workspace
+- [Site público e documentação](../docs/site-publico-e-documentacao.md): documento do workspace
 
 ## Optional
 

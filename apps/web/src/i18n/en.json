@@ -1069,7 +1069,6 @@
   "Não há conexão entre {0} e {1}.": "No connection between {0} and {1}.",
   "Não salvo": "Not saved",
   "Não salvo · só nesta aba": "Not saved · this tab only",
-  "Não. Abra o editor e comece no navegador, sem conta. Seus itens ficam salvos localmente. Para usar o agente de IA, conecte um provedor nas configurações.": "No. Open the editor and start in your browser without an account. Your items are saved locally. To use the AI agent, connect a provider in settings.",
   "Níveis C4": "C4 levels",
   "Níveis C4 e tags": "C4 levels and tags",
   "Níveis sugeridos": "Suggested levels",
@@ -1455,7 +1454,6 @@
   "Seus outros diagramas aparecerão aqui.": "Your other diagrams will appear here.",
   "Seção": "Section",
   "Seções das configurações": "Settings sections",
-  "Sim. Conecte OpenCode Go, OpenCode Zen, OpenRouter, Anthropic, Gemini, DeepSeek, Groq, Mistral AI ou uma API compatível com OpenAI nas configurações. Use sua própria chave e escolha o provedor e o modelo no chat. A disponibilidade dos modelos e o custo dependem do provedor conectado.": "Yes. Connect OpenCode Go, OpenCode Zen, OpenRouter, Anthropic, Gemini, DeepSeek, Groq, Mistral AI, or an OpenAI-compatible API in settings. Use your own key and choose the provider and model in chat. Model availability and cost depend on the connected provider.",
   "Sim. Exporte diagramas como SVG, PNG, Mermaid ou PlantUML e documentos em PDF. A seleção de componentes também pode ser copiada como PNG transparente. Você pode baixar o workspace completo em .zip.": "Yes. Export diagrams as SVG, PNG, Mermaid, or PlantUML, and documents as PDF. Copy selected components as transparent PNGs. You can download the entire workspace as a .zip.",
   "Slack, Teams, Discord, Notion, Confluence e Jira": "Slack, Teams, Discord, Notion, Confluence, and Jira",
   "Somente leitura": "Read-only",
@@ -3063,5 +3061,7 @@
   "Você pode mudar sua escolha em Privacidade. Recusar mantém todos os recursos disponíveis.": "You can change your choice in Privacy. Declining keeps all features available.",
   "Recusar métricas": "Decline analytics",
   "Permitir métricas": "Allow analytics",
-  "Privacidade": "Privacy"
+  "Privacidade": "Privacy",
+  "A IA não está habilitada nesta prévia": "AI is not enabled in this preview",
+  "Esta prévia salva seu trabalho no navegador e não oferece o serviço de IA. Para configurar um provedor com sua chave, execute o Joinlet localmente seguindo os passos abaixo.": "This preview saves your work in the browser and does not provide the AI service. To configure a provider with your API key, run Joinlet locally using the steps below."
 }

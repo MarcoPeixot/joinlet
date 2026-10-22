@@ -3,16 +3,18 @@ import { Check, Copy, RefreshCw, ServerOff } from 'lucide-react';
 import { uiText, getLocale } from '../i18n';
 import { Button } from '../ui/Button';
 import { closeSettings, refreshSettings } from './store';
+import { isBrowserPreview } from './publicAccess';
 
 /** An unavailable API must explain how to get started, not leave users at a retry button. */
 export function AiSetupGuide({ error }: { error: string | null }) {
+  const preview = isBrowserPreview();
   const [copied, setCopied] = useState(false);
   const hosted = document.querySelector('meta[name="strukt-mode"]')?.getAttribute('content') === 'remote';
-  const command = 'bun install\nbun run dev';
+  const command = 'git clone https://github.com/MarcoPeixot/joinlet.git\ncd joinlet\nbun install --frozen-lockfile\nbun run dev';
   return <section className="sk-ai-setup" aria-labelledby="ai-setup-title">
     <ServerOff size={26} aria-hidden />
-    <h3 id="ai-setup-title">{uiText(hosted ? 'O serviço de IA está indisponível' : 'Prepare sua conexão de IA')}</h3>
-    <p>{uiText(hosted ? 'Tente reconectar. Se o serviço continuar indisponível, fale com quem administra este workspace.' : 'Você já pode desenhar e salvar no navegador. Para conversar com a IA, use o Joinlet com seu servidor local e um provedor conectado.')}</p>
+    <h3 id="ai-setup-title">{uiText(preview ? 'A IA não está habilitada nesta prévia' : hosted ? 'O serviço de IA está indisponível' : 'Prepare sua conexão de IA')}</h3>
+    <p>{uiText(preview ? 'Esta prévia salva seu trabalho no navegador e não oferece o serviço de IA. Para configurar um provedor com sua chave, execute o Joinlet localmente seguindo os passos abaixo.' : hosted ? 'Tente reconectar. Se o serviço continuar indisponível, fale com quem administra este workspace.' : 'Você já pode desenhar e salvar no navegador. Para conversar com a IA, use o Joinlet com seu servidor local e um provedor conectado.')}</p>
     {!hosted && <>
       <ol>
         <li><strong>{uiText('Inicie o Joinlet no computador')}</strong><p>{uiText('Na pasta do projeto Joinlet, execute os comandos abaixo. Precisa preparar o ambiente? Consulte o guia de instalação.')}</p>
@@ -23,7 +25,7 @@ export function AiSetupGuide({ error }: { error: string | null }) {
         <li><strong>{uiText('Conecte e teste seu provedor')}</strong><p>{uiText('Em Configurações → IA e providers, escolha o serviço, salve sua chave e teste a conexão. Ollama e LM Studio também são compatíveis.')}</p></li>
       </ol>
     </>}
-    <div className="flex flex-wrap gap-2"><Button icon={<RefreshCw size={14} />} onClick={() => void refreshSettings()}>{uiText('Tentar de novo')}</Button><Button variant="ghost" onClick={closeSettings}>{uiText('Continuar no editor')}</Button></div>
+    <div className="flex flex-wrap gap-2">{!preview && <Button icon={<RefreshCw size={14} />} onClick={() => void refreshSettings()}>{uiText('Tentar de novo')}</Button>}<Button variant="ghost" onClick={closeSettings}>{uiText('Continuar no editor')}</Button></div>
     {error && <details className="sk-setup-diagnostic"><summary>{uiText('Detalhes da conexão')}</summary><p>{error}</p></details>}
     <span className="sr-only" role="status">{copied ? uiText('Copiado') : ''}</span>
   </section>;

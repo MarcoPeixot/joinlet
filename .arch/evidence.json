@@ -94,6 +94,30 @@
       {
         "contains": "export function trackAnalytics",
         "path": "apps/web/src/analytics/client.ts"
+      },
+      {
+        "contains": "export function SiteNav",
+        "path": "apps/web/src/landing/Nav.tsx"
+      },
+      {
+        "contains": "export function renderPage",
+        "path": "apps/web/docs/site.mjs"
+      },
+      {
+        "contains": "https://github.com/MarcoPeixot/joinlet",
+        "path": "apps/web/src/brand/project.json"
+      },
+      {
+        "contains": "function initialThemePref",
+        "path": "apps/web/src/ui/uiStore.ts"
+      },
+      {
+        "contains": "export async function refreshSettings",
+        "path": "apps/web/src/settings/store.ts"
+      },
+      {
+        "contains": "export function AiSetupGuide",
+        "path": "apps/web/src/settings/AiSetupGuide.tsx"
       }
     ],
     "Workspace": [
