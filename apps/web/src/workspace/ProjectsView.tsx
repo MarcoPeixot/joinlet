@@ -2,7 +2,8 @@ import { useAccessPlan } from '../settings/accessPlan';
 import { isBrowserPreview } from '../settings/publicAccess';
 import { getLocale, systemMessage, uiText } from '../i18n';
 import { ArrowLeft, ArrowUpRight, Check, FolderOpen, GitPullRequest, HardDrive, LoaderCircle, Plus, Search } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { trackAnalytics } from '../analytics/client';
 import { Button } from '../ui/Button';
 import { inputClass } from '../ui/controls';
 import { Logo } from '../ui/Logo';
@@ -19,6 +20,7 @@ export function CreateWorkspaceDialog() {
   const count = useCatalog(state => state.catalog?.entries.length ?? 0);
   const full = plan.limits.workspaces !== null && count >= plan.limits.workspaces;
   const previewFull = isBrowserPreview() && full;
+  useEffect(() => { if (open && previewFull) trackAnalytics('workspace_limit_viewed'); }, [open, previewFull]);
   const busy = useCatalog((state) => state.busy);
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);

@@ -15,3 +15,11 @@ O produto completo é AGPL-3.0-only, sem edição proprietária reservada; opera
 O operador pode servir o editor com a meta strukt-mode=browser-preview. Esse modo abre IndexedDB sem solicitar uma sessão remota, aplica a política Beta no navegador e permite um workspace sem conta. A tentativa de criar outro abre uma explicação de que contas e workspaces adicionais ainda não estão disponíveis. Diagramas seguem a política Beta; dados acima de um limite continuam legíveis e exportáveis. Local/self-hosted sem essa meta continua sem cotas comerciais.
 
 A prévia informa que os dados ficam somente neste navegador/origem e recomenda exportação ZIP. Ela não cria conta anônima no servidor, sincronização online, credenciais compartilhadas ou sessão com acesso a dados hospedados. Login, IA remota, colaboração e métodos futuros de autenticação não são habilitados por essa meta. O modo remote existente continua exigindo sessão autenticada/autorizada.
+
+## Métricas opcionais da instalação
+
+O cliente aceita a configuração explícita joinlet-analytics=/telemetry e joinlet-analytics-source=site ou editor, inserida pelo operador no HTML. Sem essa configuração não há coleta. O visitante escolhe permitir ou recusar métricas; recusa não altera recursos. Do Not Track e Global Privacy Control bloqueiam envios. O identificador aleatório fica somente nesta origem, expira em até 90 dias e é removido ao recusar.
+
+Os eventos permitidos são page_view, editor_ready, editor_activity, editor_edited, export_generated e workspace_limit_viewed. O payload contém somente evento, identificador, origem lógica e referência de origem de uma lista restrita. Não contém modelos, documentos, nomes, prompts, URLs de projetos, queries ou credenciais. Abrir o exemplo não conta como edição. Atividade exige interação recente e aba visível; envios são limitados e falhas não bloqueiam a aplicação. Exportação significa geração e solicitação de download, não confirmação de gravação no disco do visitante.
+
+A instrumentação pública não dá acesso ao painel ou dados do operador. Coletor, autenticação administrativa, banco e relatórios pertencem à implantação separada do operador, fora deste repositório. Os números dependem da adesão à coleta e representam navegadores por origem, sem identificação garantida de pessoas ou união automática entre site e editor.

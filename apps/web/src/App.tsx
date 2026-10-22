@@ -2,6 +2,7 @@ import { LazyMotion, MotionConfig } from 'motion/react';
 import { Tooltip } from 'radix-ui';
 import { AppShell } from './app/AppShell';
 import { useUi } from './ui/uiStore';
+import { AnalyticsConsent } from './analytics/AnalyticsConsent';
 
 const loadFeatures = () => import('./ui/motionFeatures').then((mod) => mod.default);
 
@@ -13,6 +14,7 @@ export function App() {
       <LazyMotion features={loadFeatures} strict>
         <Tooltip.Provider delayDuration={500} skipDelayDuration={300}>
           <AppShell />
+          <AnalyticsConsent />
         </Tooltip.Provider>
       </LazyMotion>
     </MotionConfig>

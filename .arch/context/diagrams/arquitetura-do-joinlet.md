@@ -21,7 +21,7 @@
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado."
+      "description": "Canvas, documentos e sketches; browser-preview abre um workspace local sem conta. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante; sem conteúdo dos projetos."
     },
     {
       "id": "Local",
@@ -187,7 +187,7 @@
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. | — |
+| Editor web (`Web`) | nó | React · Vite | Canvas, documentos e sketches; browser-preview abre um workspace local sem conta. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante; sem conteúdo dos projetos. | — |
 | API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
 | Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. | — |
 | CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
@@ -211,8 +211,9 @@
 - `Remote`: `apps/remote/src/app.ts#L22` — trecho esperado: `export function createRemoteApp`
 - `Remote`: `apps/remote/src/config.ts#L35` — trecho esperado: `JOINLET_DEPLOYMENT_MODE`
 - `SQLite`: `apps/remote/src/hostedStore.ts#L51` — trecho esperado: `export function createHostedStore`
-- `Web`: `apps/web/src/workspace/workspace.ts#L27` — trecho esperado: `export interface Workspace`
+- `Web`: `apps/web/src/workspace/workspace.ts#L28` — trecho esperado: `export interface Workspace`
 - `Web`: `apps/web/src/settings/publicAccess.ts#L2` — trecho esperado: `export function isBrowserPreview`
+- `Web`: `apps/web/src/analytics/client.ts` — trecho esperado: `export function trackAnalytics`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 
