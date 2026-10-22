@@ -84,16 +84,16 @@ test.describe('Joinlet landing', () => {
     await expect(page.getByRole('button', { name: 'Notificações: mostrar no código' })).toHaveCount(0);
   });
 
-  test('starts in cream and shares an explicit theme choice with the editor', async ({ page }) => {
+  test('starts in dark and shares an explicit theme choice with the editor', async ({ page }) => {
     await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.getByRole('button', { name: 'Usar tema claro' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
-    await page.getByRole('button', { name: 'Usar tema escuro' }).click();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    expect(await page.evaluate(() => localStorage.getItem('strukt:theme'))).toBe('dark');
+    expect(await page.evaluate(() => localStorage.getItem('strukt:theme'))).toBe('light');
     await page.reload();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await page.goto('/app/');
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   });
 
   for (const theme of ['dark', 'light']) {

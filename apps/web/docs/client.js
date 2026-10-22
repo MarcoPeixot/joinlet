@@ -3,10 +3,9 @@
   const pt = lang === 'pt-BR';
   const t = (en,br) => pt ? br : en;
   const theme = document.querySelector('.theme');
-  try { const saved=localStorage.getItem('strukt:theme'); if(['dark','light','contrast'].includes(saved)) document.documentElement.dataset.theme=saved==='contrast'?'dark':saved; } catch {}
   theme.hidden=false;
   theme.addEventListener('click',()=>{
-    const dark=document.documentElement.dataset.theme ? document.documentElement.dataset.theme==='dark' : matchMedia('(prefers-color-scheme:dark)').matches;
+    const dark=document.documentElement.dataset.theme !== 'light';
     const next=dark?'light':'dark';document.documentElement.dataset.theme=next;
     try {localStorage.setItem('strukt:theme',next);} catch {}
   });

@@ -29,6 +29,10 @@
     {
       "slug": "release-do-joinlet",
       "title": "Release do Joinlet"
+    },
+    {
+      "slug": "site-publico-e-documentacao",
+      "title": "Site público e documentação"
     }
   ],
   "name": "Joinlet",

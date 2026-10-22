@@ -29,7 +29,7 @@ for (const theme of ['light','dark']) test(`offline AI setup offers a next step 
   const dialog=page.getByRole('dialog',{name:'Settings',exact:true});
   await expect(dialog.getByRole('heading',{name:'Set up your AI connection'})).toBeVisible();
   await expect(dialog.getByRole('link',{name:'Installation guide'})).toHaveAttribute('href','/setup/?lang=en');
-  await expect(dialog.locator('pre')).toHaveText('bun install\nbun run dev');
+  await expect(dialog.locator('pre')).toContainText('bun install --frozen-lockfile\nbun run dev');
   await expect(dialog.getByRole('button',{name:'Continue editing'})).toBeEnabled();
   await page.waitForTimeout(250);
   expect(await axeFindings(page)).toEqual([]);

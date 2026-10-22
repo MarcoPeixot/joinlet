@@ -24,14 +24,14 @@ describe('inline theme boot script of the landing (index.html)', () => {
       });
     }
   }
-  it('no saved preference defaults to light, whatever the system says', () => {
-    expect(boot(null, true)).toBe('light');
-    expect(boot(null, false)).toBe('light');
+  it('no saved preference defaults to dark, whatever the system says', () => {
+    expect(boot(null, true)).toBe('dark');
+    expect(boot(null, false)).toBe('dark');
   });
-  it('blocked storage still ends on light, matching the default', () => {
+  it('blocked storage still ends on dark, matching the default', () => {
     const root: { dataset: { theme?: string } } = { dataset: {} };
     new Function('localStorage', 'window', 'document', script)(undefined, {}, { documentElement: root });
-    expect(root.dataset.theme).toBe('light');
+    expect(root.dataset.theme).toBe('dark');
   });
   it('never throws when storage is unavailable', () => {
     expect(() => new Function('localStorage', 'window', 'document', script)(undefined, {}, { documentElement: { dataset: {} } })).not.toThrow();
