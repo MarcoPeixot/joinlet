@@ -31,7 +31,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores de armazenamento."
+      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado."
     },
     {
       "id": "Local",
@@ -197,7 +197,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores de armazenamento. | — |
+| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. | — |
 | API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
 | Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. | — |
 | CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
@@ -222,6 +222,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Remote`: `apps/remote/src/config.ts#L35` — trecho esperado: `JOINLET_DEPLOYMENT_MODE`
 - `SQLite`: `apps/remote/src/hostedStore.ts#L51` — trecho esperado: `export function createHostedStore`
 - `Web`: `apps/web/src/workspace/workspace.ts#L27` — trecho esperado: `export interface Workspace`
+- `Web`: `apps/web/src/settings/publicAccess.ts#L2` — trecho esperado: `export function isBrowserPreview`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 

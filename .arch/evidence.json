@@ -84,6 +84,12 @@
         "line": 27,
         "path": "apps/web/src/workspace/workspace.ts",
         "snippet": "14ff4c74"
+      },
+      {
+        "contains": "export function isBrowserPreview",
+        "line": 2,
+        "path": "apps/web/src/settings/publicAccess.ts",
+        "snippet": "1ff52ae7"
       }
     ],
     "Workspace": [

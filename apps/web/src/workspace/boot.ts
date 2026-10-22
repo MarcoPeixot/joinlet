@@ -1,6 +1,7 @@
 import { SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { identifyNavigation, navigationPersistence } from './navigation';
-import { loadAccessPlan } from '../settings/accessPlan';
+import { acceptAccessPlan, loadAccessPlan } from '../settings/accessPlan';
+import { isBrowserPreview } from '../settings/publicAccess';
 import { assertBetaGrowth } from '@strukt/workspace';
 import { systemMessage, uiText } from '../i18n';
 import {
@@ -139,7 +140,7 @@ async function openBrowser(): Promise<void> {
     announce([uiText("O navegador bloqueou o armazenamento local: as mudanças desta sessão não serão salvas.")], warnings);
     return;
   }
-  announce([], await openWith(idb, init));
+  announce(isBrowserPreview() ? [uiText("Este workspace fica salvo apenas neste navegador. Exporte um ZIP para manter uma cópia.")] : [], await openWith(idb, init));
   await rememberOpened({ kind: 'browser', namespace: null }, LEGACY_WORKSPACE);
   if (migrated) clearSnapshot();
 }
@@ -170,9 +171,10 @@ async function openFolder(handle: DirHandleLike, init: () => WorkspaceData, done
 
 /** Picks the storage remembered from the last session (spec §9: folder via File System Access, else IndexedDB). */
 export async function bootWorkspace(): Promise<void> {
+  const preview = isBrowserPreview();
   const hosted = globalThis.document?.querySelector('meta[name="strukt-mode"]')?.getAttribute('content') === 'remote';
   try {
-    const remote = await remoteSession();
+    const remote = preview ? null : await remoteSession();
     if (remote?.kind === 'login') {
       bootStore.setState({ phase: { kind: 'needs-remote-auth', mcpUrl: remote.mcpUrl } });
       return;
@@ -206,7 +208,8 @@ export async function bootWorkspace(): Promise<void> {
     if (hosted) {
       throw new Error(uiText("O servidor remoto do Joinlet está indisponível. Tente novamente em instantes."));
     }
-    await loadAccessPlan('/api/plan', false, SELF_HOSTED_PLAN);
+    if (preview) acceptAccessPlan({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } });
+    else await loadAccessPlan('/api/plan', false, SELF_HOSTED_PLAN);
     let catalog = null;
     try { catalog = await loadCatalog(); }
     catch (error) {
