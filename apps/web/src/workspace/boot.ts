@@ -1,4 +1,5 @@
 import { SELF_HOSTED_PLAN } from '@strukt/workspace';
+import { trackAnalytics } from '../analytics/client';
 import { identifyNavigation, navigationPersistence } from './navigation';
 import { acceptAccessPlan, loadAccessPlan } from '../settings/accessPlan';
 import { isBrowserPreview } from '../settings/publicAccess';
@@ -442,6 +443,7 @@ export async function exportZip(): Promise<void> {
     const extra = adapter ? await extraFiles(adapter) : {};
     const { zipFiles } = await import('@strukt/workspace/zip'); // fflate loads on the first zip
     downloadBlob(new Blob([zipFiles({ ...extra, ...workspace.files() })], { type: 'application/zip' }), `${slugify(data.manifest.name)}.zip`);
+    trackAnalytics('export_generated');
   } catch (err) {
     showToast(reason(err));
   }

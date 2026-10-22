@@ -1,4 +1,5 @@
 import { uiText } from '../i18n';
+import { analyticsEdit } from '../analytics/client';
 import { isWorkspaceLogo, normalizeFolder, uniqueSlug } from '@strukt/workspace';
 import {
   SCHEMA_PATH, organizeWorkspace, BOARD_PATH, CONCERNS_PATH, parseManifest, reconcileBoard, EVIDENCE_PATH, ITEM_KINDS, ITEM_LIST, MANIFEST_PATH, SHARED_PATH, addItem, applyEntity, applyRelation, createFolder, createSaver, deleteFolder, diagramPath, docPath, emptyDiagram, emptyShared, followRelationIds, flowsPath, layoutPath, loadWorkspace, moveItem,
@@ -674,6 +675,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       }
       if (kind === 'diagram') await openDiagram(slug);
       else await show({ kind, slug });
+      analyticsEdit();
       return slug;
     },
 
@@ -858,6 +860,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       if (existing === undefined || existing === text) return;
       setData({ ...current, docs: { ...current.docs, [slug]: text } });
       scheduleItem('doc', slug);
+      analyticsEdit();
     },
     setLibrary(library) {
       const lock = diagram.getState().readOnly;
@@ -995,6 +998,7 @@ export function createWorkspace(diagram: DiagramStore, options: { saveDelay?: nu
       if (existing === undefined || existing === text) return;
       setData({ ...current, sketches: { ...current.sketches, [slug]: text } });
       scheduleItem('sketch', slug);
+      analyticsEdit();
     },
 
     setFlows(slug, flows) {

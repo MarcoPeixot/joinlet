@@ -14,7 +14,7 @@
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado."
+      "description": "Canvas, documentos e sketches; browser-preview abre um workspace local sem conta. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante; sem conteúdo dos projetos."
     },
     {
       "id": "Local",

@@ -19,6 +19,8 @@ import { JoIllustration } from './JoIllustration';
 import { FeatureShowcase } from './FeatureShowcase';
 import { ProviderCarousel } from './ProviderCarousel';
 import './landing.css';
+import { AnalyticsConsent } from '../analytics/AnalyticsConsent';
+import { startAnalytics } from '../analytics/client';
 
 const THEME_KEY = 'strukt:theme';
 function useTheme(): [boolean, () => void] {
@@ -123,4 +125,5 @@ function Landing() {
     <footer className="site-footer"><div className="wrap footer-grid"><div className="footer-brand"><Brand /><p>{uiText("Conecte ideias. Construa sistemas.")}</p></div><div><h2>{"Explore"}</h2><a href="#canvas-demo">{uiText("O produto")}</a><a href="#recursos">{uiText("Seu workspace")}</a><a href="#inteligencia">{uiText("Agente de IA")}</a></div><div><h2>{uiText("Construa")}</h2><a href="#repositorio">{uiText("Arquitetura no Git")}</a><a href="#agentes">{uiText("MCP e agentes")}</a><a href="#importa">{uiText("Importadores")}</a></div><div><h2>{uiText("Comece")}</h2><a href={documentationUrl()}>{uiText("Documentação")}</a><a href="#perguntas">{uiText("Perguntas frequentes")}</a><a href={appUrl()}>{uiText("Abrir o editor")}<ArrowUpRight size={14} aria-hidden /></a></div></div><div className="wrap footer-bottom"><span>Joinlet · joinlet.co</span><span>{uiText("Feito para pensar e construir, juntos.")}</span></div></footer>
   </>;
 }
-createRoot(document.getElementById('root')!).render(<Landing />);
+startAnalytics();
+createRoot(document.getElementById('root')!).render(<><Landing /><AnalyticsConsent /></>);
