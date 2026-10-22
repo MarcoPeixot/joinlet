@@ -19,3 +19,6 @@ O modo browser-preview oferece edição e armazenamento no navegador, sem servi�
 Diagnóstico da publicação em 22/10/2026: app.joinlet.co servia a meta browser-preview e respondia HTTP 503 em /api/settings com Online services are not available in this browser preview. A API local consultada respondeu HTTP 200; isso comprova disponibilidade de configuração, sem testar chaves ou gerar consumo em provedores. Iniciar a API local não conecta automaticamente a página hospedada a ela: é preciso abrir o editor local.
 
 Os testes de navegador verificam os padrões em um sistema operacional claro, preferências preservadas, a orientação de IA na prévia e os fluxos locais de conectar, trocar modelos e testar provedores com credenciais simuladas.
+
+
+O menu mobile ocupa a altura disponível da viewport e mantém todos os links, incluindo GitHub, acessíveis antes e depois de rolar a página. Enquanto o diálogo de navegação está aberto, o cabeçalho remove seu filtro de fundo para não limitar o elemento fixo à altura do cabeçalho. O teste de navegador confere a geometria, a interseção dos links e a possibilidade de clicar no GitHub.

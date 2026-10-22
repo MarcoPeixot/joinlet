@@ -118,6 +118,10 @@
       {
         "contains": "export function AiSetupGuide",
         "path": "apps/web/src/settings/AiSetupGuide.tsx"
+      },
+      {
+        "contains": ".site-header[aria-modal=",
+        "path": "apps/web/src/landing/landing.css"
       }
     ],
     "Workspace": [

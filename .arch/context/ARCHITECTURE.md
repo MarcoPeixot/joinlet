@@ -230,6 +230,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Web`: `apps/web/src/ui/uiStore.ts` — trecho esperado: `function initialThemePref`
 - `Web`: `apps/web/src/settings/store.ts` — trecho esperado: `export async function refreshSettings`
 - `Web`: `apps/web/src/settings/AiSetupGuide.tsx` — trecho esperado: `export function AiSetupGuide`
+- `Web`: `apps/web/src/landing/landing.css` — trecho esperado: `.site-header[aria-modal=`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 

@@ -159,6 +159,22 @@ test.describe('Joinlet landing on a phone', () => {
     await expect(page.getByRole('button', { name: 'Abrir menu' })).toBeFocused();
     expect(await page.evaluate(() => document.body.style.overflow)).toBe('');
   });
+
+  test('mobile navigation fills the viewport and exposes the GitHub link before and after scrolling', async ({ page }) => {
+    await page.goto('/');
+    for (const top of [0, 500]) {
+      await page.evaluate(y => window.scrollTo(0, y), top);
+      await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
+      const navigation = page.getByRole('navigation');
+      const bounds = await navigation.boundingBox();
+      expect(Math.round(bounds!.y + bounds!.height)).toBe(page.viewportSize()!.height);
+      await expect(navigation.getByRole('link', { name: 'Produto', exact: true })).toBeInViewport({ ratio: 1 });
+      const github = navigation.getByRole('link', { name: 'GitHub', exact: true });
+      await expect(github).toBeInViewport({ ratio: 1 });
+      await github.click({ trial: true });
+      await page.keyboard.press('Escape');
+    }
+  });
 });
 
 for (const width of [320, 900]) {
