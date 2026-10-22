@@ -32,7 +32,7 @@
     "@strukt/layout": "workspace:*",
     "@strukt/workspace": "workspace:*",
     "@xyflow/react": "^12.11.6",
-    "dompurify": "^3.4.15",
+    "dompurify": "^3.4.17",
     "lucide": "^1.47.0",
     "lucide-react": "^1.47.0",
     "marked": "^18.0.14",

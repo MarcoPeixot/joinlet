@@ -231,6 +231,8 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Web`: `apps/web/src/settings/store.ts` — trecho esperado: `export async function refreshSettings`
 - `Web`: `apps/web/src/settings/AiSetupGuide.tsx` — trecho esperado: `export function AiSetupGuide`
 - `Web`: `apps/web/src/landing/landing.css` — trecho esperado: `.site-header[aria-modal=`
+- `Web`: `apps/web/src/docs/markdown.ts` — trecho esperado: `export function renderMarkdown`
+- `Web`: `apps/web/package.json` — trecho esperado: `"dompurify": "^3.4.17"`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
 - `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
 

@@ -23,3 +23,7 @@ O cliente aceita a configuração explícita joinlet-analytics=/telemetry e join
 Os eventos permitidos são page_view, editor_ready, editor_activity, editor_edited, export_generated e workspace_limit_viewed. O payload contém somente evento, identificador, origem lógica e referência de origem de uma lista restrita. Não contém modelos, documentos, nomes, prompts, URLs de projetos, queries ou credenciais. Abrir o exemplo não conta como edição. Atividade exige interação recente e aba visível; envios são limitados e falhas não bloqueiam a aplicação. Exportação significa geração e solicitação de download, não confirmação de gravação no disco do visitante.
 
 A instrumentação pública não dá acesso ao painel ou dados do operador. Coletor, autenticação administrativa, banco e relatórios pertencem à implantação separada do operador, fora deste repositório. Os números dependem da adesão à coleta e representam navegadores por origem, sem identificação garantida de pessoas ou união automática entre site e editor.
+
+## Dependências de segurança
+
+Markdown de workspaces e respostas de IA passa pela lista restrita de tags e atributos de apps/web/src/docs/markdown.ts. DOMPurify tem versão mínima 3.4.17 e o lockfile fixa essa correção. O backend hospedável usa ip-address 10.7.4 por override compatível, incluindo a dependência transitiva de express-rate-limit. Atualizar bibliotecas não habilita os serviços hospedados na prévia pública e não substitui a validação de permissões do servidor.
