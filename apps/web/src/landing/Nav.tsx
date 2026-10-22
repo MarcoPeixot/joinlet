@@ -62,7 +62,7 @@ export function SiteNav({ dark, toggleTheme, current }: { dark: boolean; toggleT
         <a className="github-header" href={githubUrl} aria-label="GitHub" title="GitHub"><GitHubIcon /></a>
         <LanguagePicker />
         <button type="button" className="theme-toggle" aria-label={dark ? uiText("Usar tema claro") : uiText("Usar tema escuro")} onClick={toggleTheme}>{dark ? <Sun size={17} aria-hidden /> : <Moon size={17} aria-hidden />}</button>
-        <a className="button header-cta" href={appUrl()}>{uiText("Abrir o editor")} <ArrowUpRight size={15} aria-hidden /></a>
+        <a data-analytics-cta="header" className="button header-cta" href={appUrl()}>{uiText("Abrir o editor")} <ArrowUpRight size={15} aria-hidden /></a>
         <button ref={toggle} type="button" className="menu-toggle" aria-label={drawer ? uiText("Fechar menu") : uiText("Abrir menu")} aria-expanded={drawer} aria-controls="site-nav" onClick={() => setDrawer(!drawer)}>{drawer ? <X size={21} aria-hidden /> : <Menu size={21} aria-hidden />}</button>
       </div>
     </div>

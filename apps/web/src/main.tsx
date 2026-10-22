@@ -12,7 +12,7 @@ import { createRouteRunner } from './state/routeRunner';
 import { startRouting } from './state/routing';
 import { bootWorkspace, guardUnsavedChanges, getBootPhase, collaborationSession, createBrowserWorkspace } from './workspace/boot';
 import { showToast } from './ui/uiStore';
-import { startAnalytics, analyticsEditorReady, analyticsEdit } from './analytics/client';
+import { startAnalytics, analyticsEditorReady, analyticsEdit, trackAnalytics } from './analytics/client';
 
 beforeLocaleChange(async () => {
   const { flushCodeEdits, hasUnappliedCodeEdits } = await import('./code/registry');
@@ -28,11 +28,12 @@ beforeLocaleChange(async () => {
 startRouting(diagramStore, createRouteRunner());
 startAnalytics();
 diagramStore.subscribe((next, previous) => {
-  if (next.model !== previous.model && next.past !== previous.past && next.past.length > 0) analyticsEdit();
+  if (next.model !== previous.model && next.past !== previous.past && next.past.length > 0) analyticsEdit('diagram', next.model.order.length > 0);
 });
 guardUnsavedChanges();
 void bootWorkspace().then(async () => {
   if (getBootPhase().kind === 'ready') analyticsEditorReady();
+  else if (getBootPhase().kind === 'failed') trackAnalytics('editor_failed', true);
   const url = new URL(location.href);
   if (url.searchParams.get('settings') === 'ai' && getBootPhase().kind === 'ready') {
     (await import('./settings/store')).openSettings('ai');

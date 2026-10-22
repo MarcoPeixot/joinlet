@@ -106,7 +106,8 @@ export async function createBrowserWorkspace(name: string): Promise<void> {
 }
 
 export async function openRegisteredWorkspace(id: string): Promise<void> {
-  return (await import('./projects')).openRegisteredWorkspace(id);
+  await (await import('./projects')).openRegisteredWorkspace(id);
+  trackAnalytics('workspace_reopened');
 }
 
 /** One toast for everything said after opening a workspace, so a later message never hides a load warning. */
@@ -443,8 +444,9 @@ export async function exportZip(): Promise<void> {
     const extra = adapter ? await extraFiles(adapter) : {};
     const { zipFiles } = await import('@strukt/workspace/zip'); // fflate loads on the first zip
     downloadBlob(new Blob([zipFiles({ ...extra, ...workspace.files() })], { type: 'application/zip' }), `${slugify(data.manifest.name)}.zip`);
-    trackAnalytics('export_generated');
+    trackAnalytics('export_generated', false, { format: 'zip' });
   } catch (err) {
+    trackAnalytics('export_failed', false, { format: 'zip' });
     showToast(reason(err));
   }
 }

@@ -22,6 +22,14 @@
         "line": 56,
         "path": "apps/web/src/workspace/idb.ts",
         "snippet": "791105a1"
+      },
+      {
+        "contains": "onSettled",
+        "path": "packages/workspace/src/saver.ts"
+      },
+      {
+        "contains": "reports completed writes",
+        "path": "packages/workspace/src/saver.test.ts"
       }
     ],
     "Domain": [
@@ -130,6 +138,22 @@
       {
         "contains": "\"dompurify\": \"^3.4.17\"",
         "path": "apps/web/package.json"
+      },
+      {
+        "contains": "void startAnalytics()",
+        "path": "apps/web/src/analytics/docs.ts"
+      },
+      {
+        "contains": "content_saved",
+        "path": "apps/web/e2e/analytics.spec.ts"
+      },
+      {
+        "contains": "export function trackAnalytics",
+        "path": "apps/web/src/analytics/runtime.ts"
+      },
+      {
+        "contains": "export function AnalyticsConsent",
+        "path": "apps/web/src/analytics/ConsentView.tsx"
       }
     ],
     "Workspace": [

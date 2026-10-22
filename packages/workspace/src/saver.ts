@@ -30,6 +30,8 @@ export interface Saver {
 }
 
 export interface SaverOptions {
+  /** Completion of actual writes; cancellation and unchanged files do not trigger this. */
+  onSettled?(status: 'saved' | 'error'): void;
   delay?: number;
   /** Automatic retries before giving up with status 'error'. */
   retries?: number;
@@ -59,6 +61,10 @@ export function createSaver(adapter: StorageAdapter, options: SaverOptions = {})
   let error: string | null = null;
   let disposed = false;
 
+  const settled = (value: 'saved' | 'error') => {
+    try { options.onSettled?.(value); } catch { /* Observers cannot break persistence or future flushes. */ }
+  };
+
   const setStatus = (next: SaveStatus, reason: string | null = null) => {
     if (next === status && reason === error) return;
     status = next;
@@ -77,6 +83,7 @@ export function createSaver(adapter: StorageAdapter, options: SaverOptions = {})
     const taken = [...queue];
     queue.clear();
     let failed: string | null = null;
+    let written = false;
     /** Lowest rank that failed: nothing ranked after it is attempted (the manifest never lists a file that isn't written). */
     let blocked = Infinity;
     const requeue = (path: string, content: FileContent) => {
@@ -103,9 +110,11 @@ export function createSaver(adapter: StorageAdapter, options: SaverOptions = {})
       try {
         if (text === null) {
           await adapter.remove(path);
+          written = true;
           known.delete(path);
         } else if (known.get(path) !== text) {
           await adapter.write(path, text);
+          written = true;
           known.set(path, text);
         }
       } catch (err) {
@@ -123,11 +132,13 @@ export function createSaver(adapter: StorageAdapter, options: SaverOptions = {})
       } else {
         clearTimeout(timer);
         setStatus('error', failed);
+        settled('error');
       }
       return;
     }
     failures = 0;
     setStatus(queue.size ? 'pending' : 'saved');
+    if (written && !queue.size) settled('saved');
   };
 
   const flush = () => {

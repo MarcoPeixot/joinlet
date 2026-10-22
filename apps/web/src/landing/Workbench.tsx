@@ -78,7 +78,7 @@ export function Workbench({ stage, setStage, dark }: { stage: Stage; setStage: (
       <div className="wb-bar">
         <span className="wb-title"><Logo size={18} /><strong>{uiText("Meu workspace")}</strong><span className="save-dot" aria-hidden /></span>
         <span className="wb-hint">{uiText("Explore o Joinlet")}</span>
-        <a href={appUrl(`?example=orders&stage=${stage === 'applied' ? 'applied' : 'base'}&lang=${getLocale()}`)} className="wb-open">{uiText("Abrir este exemplo")}<ArrowUpRight size={13} aria-hidden /></a>
+        <a data-analytics-cta="demo" href={appUrl(`?example=orders&stage=${stage === 'applied' ? 'applied' : 'base'}&lang=${getLocale()}`)} className="wb-open">{uiText("Abrir este exemplo")}<ArrowUpRight size={13} aria-hidden /></a>
       </div>
       <div className="wb-preview-tabs" role="group" aria-label={uiText("Explorar o workspace")}>
         {views.map(({ id, label, icon: Icon }) => <button key={id} aria-pressed={view === id} onClick={() => choose(id)}><Icon size={15} aria-hidden />{label}</button>)}
