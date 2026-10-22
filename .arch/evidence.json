@@ -90,6 +90,24 @@
         "line": 2,
         "path": "apps/web/src/settings/publicAccess.ts",
         "snippet": "1ff52ae7"
+      },
+      {
+        "contains": "export function SiteNav",
+        "line": 23,
+        "path": "apps/web/src/landing/Nav.tsx",
+        "snippet": "4089f7ec"
+      },
+      {
+        "contains": "export function renderPage",
+        "line": 21,
+        "path": "apps/web/docs/site.mjs",
+        "snippet": "860589fc"
+      },
+      {
+        "contains": "https://github.com/MarcoPeixot/joinlet",
+        "line": 2,
+        "path": "apps/web/src/brand/project.json",
+        "snippet": "a0835d98"
       }
     ],
     "Workspace": [

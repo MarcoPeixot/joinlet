@@ -1,3 +1,5 @@
+import { githubUrl } from '../brand/project.json';
+import { GitHubIcon } from '../brand/GitHubIcon';
 import { appUrl } from '../ui/urls';
 import { uiText } from '../i18n';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
@@ -54,9 +56,10 @@ export function SiteNav({ dark, toggleTheme, current }: { dark: boolean; toggleT
     <div className="header-inner">
       <Brand />
       <nav id="site-nav" className={drawer ? 'navigation is-open' : 'navigation'} aria-label={uiText("Navegação principal")}>
-        <ul className="nav-list">{LINKS.map((link) => <li key={link.id}><a className="nav-link" href={link.href} aria-current={current === link.id ? 'location' : undefined} onClick={() => { setDrawer(false); if(link.href.startsWith('#')) requestAnimationFrame(() => document.querySelector<HTMLElement>(link.href)?.focus({ preventScroll: true })); }}>{link.label}</a></li>)}</ul>
+        <ul className="nav-list">{LINKS.map((link) => <li key={link.id}><a className="nav-link" href={link.href} aria-current={current === link.id ? 'location' : undefined} onClick={() => { setDrawer(false); if(link.href.startsWith('#')) requestAnimationFrame(() => document.querySelector<HTMLElement>(link.href)?.focus({ preventScroll: true })); }}>{link.label}</a></li>)}<li className="github-menu-item"><a className="nav-link" href={githubUrl} onClick={() => setDrawer(false)}><GitHubIcon />GitHub<ArrowUpRight size={14} aria-hidden /></a></li></ul>
       </nav>
       <div className="header-actions">
+        <a className="github-header" href={githubUrl} aria-label="GitHub" title="GitHub"><GitHubIcon /></a>
         <LanguagePicker />
         <button type="button" className="theme-toggle" aria-label={dark ? uiText("Usar tema claro") : uiText("Usar tema escuro")} onClick={toggleTheme}>{dark ? <Sun size={17} aria-hidden /> : <Moon size={17} aria-hidden />}</button>
         <a className="button header-cta" href={appUrl()}>{uiText("Abrir o editor")} <ArrowUpRight size={15} aria-hidden /></a>

@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { Marked } from 'marked';
+import { siGithub } from 'simple-icons';
+import project from '../src/brand/project.json' with { type: 'json' };
 import pages from './content.json' with { type: 'json' };
 
 export const languages = ['en', 'pt-BR'];
@@ -8,6 +10,9 @@ export const groups = {
   team: ['Work with your team', 'Trabalhe em equipe'], agents: ['Agents and automation', 'Agentes e automação'],
   reference: ['Reference', 'Referência'],
 };
+const orderedPages = Object.keys(groups).flatMap(group => pages.filter(page => page.group === group));
+const githubIcon = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="${siGithub.path}"/></svg>`;
+const githubLink = `<a class="github-link" href="${project.githubUrl}">${githubIcon}<span>GitHub</span></a>`;
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const text = value => value.replace(/<[^>]*>/g, '').replace(/[`*_#]/g, '');
 export const pageUrl = (slug, lang) => `/docs/${lang}/${slug}/`;
@@ -28,14 +33,14 @@ export function renderPage(page, lang) {
   } } });
   const body = markdown.parse(current.body, { async:false });
   const nav = Object.entries(groups).map(([key,names])=>`<div class="nav-group"><p>${names[pt?1:0]}</p>${pages.filter(p=>p.group===key).map(p=>`<a href="${pageUrl(p.slug,lang)}" ${p.slug===page.slug?'aria-current="page"':''}>${esc(p[lang].title)}</a>`).join('')}</div>`).join('');
-  const index = pages.findIndex(p=>p.slug===page.slug);
-  const previous = pages[index-1], next = pages[index+1];
+  const index = orderedPages.findIndex(p=>p.slug===page.slug);
+  const previous = orderedPages[index-1], next = orderedPages[index+1];
   const alternate = pt ? 'en' : 'pt-BR';
   const canonical = `https://joinlet.co${pageUrl(page.slug,lang)}`;
   return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="${pageUrl(page.slug,lang)}"><title>${esc(current.title)} · Joinlet Docs</title><meta name="description" content="${esc(summary(page,lang))}"><meta name="color-scheme" content="light dark"><link rel="canonical" href="${canonical}"><link rel="alternate" hreflang="en" href="https://joinlet.co${pageUrl(page.slug,'en')}"><link rel="alternate" hreflang="pt-BR" href="https://joinlet.co${pageUrl(page.slug,'pt-BR')}"><link rel="icon" href="/brand/joinlet-icon.svg"><link rel="stylesheet" href="/docs/style.css"><script src="/docs/client.js" defer></script></head><body data-lang="${lang}">
 <a class="skip" href="#content">${t('Skip to content','Pular para o conteúdo')}</a>
-<header class="docs-header"><a class="brand" href="/?lang=${lang}" aria-label="${t('Joinlet home','Joinlet, início')}"><img src="/brand/joinlet-icon.svg" alt="" width="28" height="28">Joinlet <span>Docs</span></a><div class="search" hidden><label class="sr-only" for="docs-search">${t('Search documentation','Buscar na documentação')}</label><input id="docs-search" type="search" placeholder="${t('Search documentation…','Buscar na documentação…')}" autocomplete="off" aria-controls="search-results"><kbd>/</kbd><div class="search-results" id="search-results" hidden><p role="status"></p><ul></ul></div></div><div class="header-tools"><a class="language" href="${pageUrl(page.slug,alternate)}" lang="${alternate}" hreflang="${alternate}">${pt?'English':'PT-BR'}</a><button class="theme" type="button" hidden aria-label="${t('Switch color theme','Alternar tema de cores')}">◐</button><a class="open-app" href="/app/?lang=${lang}">${t('Open app','Abrir app')} ↗</a></div></header>
-<div class="docs-layout"><aside class="sidebar" aria-label="${t('Guide navigation','Navegação dos guias')}"><details class="docs-menu" open><summary>${t('Documentation menu','Menu da documentação')}</summary><nav aria-label="${t('Documentation','Documentação')}">${nav}</nav></details></aside><main id="content" tabindex="-1"><div class="breadcrumb">${t('Documentation','Documentação')} <span>/</span> ${groups[page.group][pt?1:0]}</div><article><h1>${esc(current.title)}</h1>${body}</article><nav class="page-navigation" aria-label="${t('Previous and next guides','Guias anterior e próximo')}">${previous?`<a href="${pageUrl(previous.slug,lang)}"><small>← ${t('Previous','Anterior')}</small>${esc(previous[lang].title)}</a>`:'<span></span>'}${next?`<a href="${pageUrl(next.slug,lang)}"><small>${t('Next','Próximo')} →</small>${esc(next[lang].title)}</a>`:''}</nav><footer>Joinlet · <a href="${pageUrl('references',lang)}">${t('Scope and sources','Escopo e fontes')}</a></footer></main><aside class="toc" aria-label="${t('Page outline','Estrutura da página')}"><nav aria-label="${t('On this page','Nesta página')}"><p>${t('On this page','Nesta página')}</p>${toc.map(h=>`<a href="#${h.id}">${esc(h.title)}</a>`).join('')}</nav></aside></div></body></html>`;
+<header class="docs-header"><a class="brand" href="/?lang=${lang}" aria-label="${t('Joinlet home','Joinlet, início')}"><img src="/brand/joinlet-icon.svg" alt="" width="28" height="28">Joinlet <span>Docs</span></a><div class="search" hidden><label class="sr-only" for="docs-search">${t('Search documentation','Buscar na documentação')}</label><input id="docs-search" type="search" placeholder="${t('Search documentation…','Buscar na documentação…')}" autocomplete="off" aria-controls="search-results"><kbd>/</kbd><div class="search-results" id="search-results" hidden><p role="status"></p><ul></ul></div></div><div class="header-tools">${githubLink}<a class="language" href="${pageUrl(page.slug,alternate)}" lang="${alternate}" hreflang="${alternate}">${pt?'English':'PT-BR'}</a><button class="theme" type="button" hidden aria-label="${t('Switch color theme','Alternar tema de cores')}">◐</button><a class="open-app" href="/app/?lang=${lang}">${t('Open app','Abrir app')} ↗</a></div></header>
+<div class="docs-layout"><aside class="sidebar" aria-label="${t('Guide navigation','Navegação dos guias')}"><details class="docs-menu" open><summary>${t('Documentation menu','Menu da documentação')}</summary><nav aria-label="${t('Documentation','Documentação')}">${nav}</nav></details></aside><main id="content" tabindex="-1"><div class="breadcrumb">${t('Documentation','Documentação')} <span>/</span> ${groups[page.group][pt?1:0]}</div><article><h1>${esc(current.title)}</h1>${body}</article><nav class="page-navigation" aria-label="${t('Previous and next guides','Guias anterior e próximo')}">${previous?`<a href="${pageUrl(previous.slug,lang)}"><small>← ${t('Previous','Anterior')}</small>${esc(previous[lang].title)}</a>`:'<span></span>'}${next?`<a href="${pageUrl(next.slug,lang)}"><small>${t('Next','Próximo')} →</small>${esc(next[lang].title)}</a>`:''}</nav><footer><span>Joinlet · <a href="${pageUrl('references',lang)}">${t('Scope and sources','Escopo e fontes')}</a></span>${githubLink}<a href="/app/?lang=${lang}">${t('Open app','Abrir app')} ↗</a></footer></main><aside class="toc" aria-label="${t('Page outline','Estrutura da página')}"><nav aria-label="${t('On this page','Nesta página')}"><p>${t('On this page','Nesta página')}</p>${toc.map(h=>`<a href="#${h.id}">${esc(h.title)}</a>`).join('')}</nav></aside></div></body></html>`;
 }
 
 export function documentationAssets() {
