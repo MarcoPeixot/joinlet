@@ -65,6 +65,8 @@ export interface RemoteAuthOptions {
   /** Marketing origin; when present, the editor is served at publicUrl root. */
   siteUrl?: string;
   analyticsPath?: string;
+  /** Scoped server-to-server read access; never a browser/admin session credential. */
+  accountDirectoryToken?: string;
   githubClientId?: string;
   githubClientSecret?: string;
   githubAppSlug?: string;
@@ -90,7 +92,7 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
   const now = options.now ?? Date.now;
   const fetcher = options.fetch ?? fetch;
   const accessPlan = options.deploymentMode === 'cloud' ? BETA_PLAN : SELF_HOSTED_PLAN;
-  const accounts = createAccounts(db);
+  const accounts = createAccounts(db, now);
   const beta = createBetaAccounts(db, now, options.adminGithubIds, accessPlan, id => {
     const subject = accounts.get(id)?.github_id;
     return subject !== null && subject !== undefined && !!options.adminGithubIds?.has(subject);
@@ -248,11 +250,12 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
   const webSession = (token: string): WebSession | null => {
     const session = get<WebSession>('web-session', tokenHash(token));
     const account = session ? accounts.get(session.userId) : null;
-    return session && account && (session.version ?? 0) === account.session_version ? session : null;
+    return session && account && (session.version ?? 0) === account.session_version ? { ...session, login: account.name } : null;
   };
   const createWebSession = (userId: number) => {
     const account = accounts.get(userId);
     if (!account) throw new InvalidGrantError('Invalid account.');
+    accounts.signedIn(userId);
     const token = authToken();
     const session = { userId, login: account.name, csrf: authToken(), version: account.session_version };
     put('web-session', tokenHash(token), session, now() + 30 * 24 * 60 * 60_000);

@@ -10,6 +10,9 @@ export interface Account {
   verified: number;
   password_hash: string | null;
   session_version: number;
+  avatar: string | null;
+  created_at: number | null;
+  last_login_at: number | null;
 }
 export class AccountError extends Error {
   constructor(public status: number, public code: string) { super(code); }
@@ -25,7 +28,7 @@ export function validatePassword(value: unknown): asserts value is string {
 }
 
 /** Internal IDs are independent of provider subjects. Legacy IDs are reserved once, never guessed at login. */
-export function createAccounts(db: Database) {
+export function createAccounts(db: Database, now = Date.now) {
   db.transaction(() => {
     db.exec(`CREATE TABLE IF NOT EXISTS account_migrations(version INTEGER PRIMARY KEY);
       CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL,
@@ -48,6 +51,12 @@ export function createAccounts(db: Database) {
     for (const id of ids) db.query('INSERT INTO accounts(id,name,github_id) VALUES (?,?,?)').run(id, 'Owner', id);
     db.query('INSERT INTO account_migrations(version) VALUES (1)').run();
   }).immediate();
+  db.transaction(() => {
+    if (db.query('SELECT 1 FROM account_migrations WHERE version=2').get()) return;
+    // Unknown historical dates stay unknown; deploying this migration is not a signup event.
+    db.exec('ALTER TABLE accounts ADD COLUMN avatar TEXT; ALTER TABLE accounts ADD COLUMN created_at INTEGER; ALTER TABLE accounts ADD COLUMN last_login_at INTEGER;');
+    db.query('INSERT INTO account_migrations(version) VALUES (2)').run();
+  }).immediate();
   const get = (id: number) => db.query('SELECT * FROM accounts WHERE id=?').get(id) as Account | null;
   const byEmail = (email: string) => db.query('SELECT * FROM accounts WHERE email=? COLLATE NOCASE').get(email) as Account | null;
   const github = db.transaction((subject: number, login: string) => {
@@ -57,14 +66,18 @@ export function createAccounts(db: Database) {
       db.query('UPDATE accounts SET github_login=?,name=CASE WHEN github_login IS NULL THEN ? ELSE name END WHERE id=?').run(login, login, existing.id);
       return get(existing.id)!;
     }
-    const row = db.query('INSERT INTO accounts(name,github_id,github_login) VALUES (?,?,?) RETURNING *').get(login, subject, login) as Account;
+    const row = db.query('INSERT INTO accounts(name,github_id,github_login,created_at) VALUES (?,?,?,?) RETURNING *').get(login, subject, login, now()) as Account;
     return row;
   }).immediate;
   return {
     get, byEmail, github,
     register(email: string, passwordHash: string) {
-      return db.query('INSERT INTO accounts(name,email,password_hash) VALUES (?,?,?) ON CONFLICT(email) DO NOTHING RETURNING *')
-        .get(email.split('@')[0]!, email, passwordHash) as Account | null;
+      return db.query('INSERT INTO accounts(name,email,password_hash,created_at) VALUES (?,?,?,?) ON CONFLICT(email) DO NOTHING RETURNING *')
+        .get(email.split('@')[0]!, email, passwordHash, now()) as Account | null;
+    },
+    signedIn(id: number) { db.query('UPDATE accounts SET last_login_at=? WHERE id=?').run(now(), id); },
+    profile(id: number, name: string, avatar: string | null) {
+      db.query('UPDATE accounts SET name=?,avatar=? WHERE id=?').run(name, avatar, id);
     },
     replacePassword(id: number, expectedVersion: number, passwordHash: string) {
       const result = db.query('UPDATE accounts SET password_hash=?,session_version=session_version+1 WHERE id=? AND session_version=? AND password_hash IS NOT NULL').run(passwordHash, id, expectedVersion);

@@ -9,6 +9,7 @@ import { collaborationSession } from "../workspace/boot";
 import { workspace } from "../workspace/appWorkspace";
 
 const AccountPassword = lazyWithRetry(() => import('../auth/AccountPassword').then(module => ({ default: module.AccountPassword })));
+const AccountProfile = lazyWithRetry(() => import('../auth/AccountProfile').then(module => ({ default: module.AccountProfile })));
 
 export function CloudAccount() {
   const session = collaborationSession();
@@ -57,7 +58,7 @@ export function CloudAccount() {
           {uiText(session.owner ? "Sair da conta" : "Sair do workspace")}
         </Button>
       </div>
-      {session.owner && <Suspense fallback={null}><AccountPassword csrf={session.csrf} /></Suspense>}
+      {session.owner && <Suspense fallback={null}><AccountProfile csrf={session.csrf} /><AccountPassword csrf={session.csrf} /></Suspense>}
       {error && (
         <p role="alert" className="mt-3 text-caption text-danger">
           {error}

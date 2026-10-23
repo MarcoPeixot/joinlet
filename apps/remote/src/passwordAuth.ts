@@ -1,6 +1,7 @@
 import type { RequestHandler } from 'express';
 import { AccountError, authToken, normalizeEmail, tokenHash, validatePassword } from './accounts';
 import type { RemoteAuth, RemoteAuthOptions } from './auth';
+import { publicProfile, validateProfile } from './profile';
 
 /** Password-only accounts deliberately do not claim verified ownership of an email address. */
 export function createPasswordAuth(options: RemoteAuthOptions, auth: RemoteAuth, onRevoked: (guest?: string) => void): RequestHandler {
@@ -35,13 +36,20 @@ export function createPasswordAuth(options: RemoteAuthOptions, auth: RemoteAuth,
       if (req.path === '/api/auth/me' && req.method === 'GET') {
         const account = session ? auth.accounts.get(session.userId) : null;
         if (!session || !account) throw new AccountError(401, 'sign_in_again');
-        return res.json({ email: account.email, password: !!account.password_hash, csrf: session.csrf });
+        return res.json({ ...publicProfile(account), password: !!account.password_hash, csrf: session.csrf });
       }
       if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
       if (req.header('origin') !== auth.publicUrl || req.header('sec-fetch-site') === 'cross-site') throw new AccountError(403, 'invalid_origin');
       if (!req.is('application/json')) throw new AccountError(415, 'send_json');
-      if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body) || Buffer.byteLength(JSON.stringify(req.body)) > 4096) throw new AccountError(400, 'invalid_request');
+      if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body) || Buffer.byteLength(JSON.stringify(req.body)) > (req.path === '/api/auth/profile' ? 104_000 : 4096)) throw new AccountError(400, 'invalid_request');
       limited('ip:' + (req.ip ?? 'unknown'), 30, 60_000);
+      if (req.path === '/api/auth/profile') {
+        if (!session || req.header('x-strukt-csrf') !== session.csrf) throw new AccountError(401, 'sign_in_again');
+        limited('profile:' + session.userId, 15, 60_000);
+        const profile = validateProfile(req.body);
+        auth.accounts.profile(session.userId, profile.name, profile.avatar);
+        return res.json(publicProfile(auth.accounts.get(session.userId)!));
+      }
       if (['/api/auth/logout', '/api/auth/change-password'].includes(req.path)) {
         if (!session || req.header('x-strukt-csrf') !== session.csrf) throw new AccountError(401, 'sign_in_again');
         if (req.path === '/api/auth/change-password') {

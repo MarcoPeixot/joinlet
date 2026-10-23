@@ -67,13 +67,13 @@
     "Remote": [
       {
         "contains": "export function createRemoteApp",
-        "line": 22,
+        "line": 23,
         "path": "apps/remote/src/app.ts",
         "snippet": "7f9209e9"
       },
       {
         "contains": "JOINLET_DEPLOYMENT_MODE",
-        "line": 38,
+        "line": 40,
         "path": "apps/remote/src/config.ts",
         "snippet": "8c4623f6"
       },
@@ -84,6 +84,14 @@
       {
         "contains": "Joinlet password smoke passed:",
         "path": "apps/remote/src/passwordSmoke.ts"
+      },
+      {
+        "contains": "export function accountDirectory",
+        "path": "apps/remote/src/accountDirectory.ts"
+      },
+      {
+        "contains": "Joinlet profile smoke passed:",
+        "path": "apps/remote/src/profileSmoke.ts"
       }
     ],
     "SQLite": [
@@ -100,6 +108,10 @@
       {
         "contains": "export function invalidateRestoredAccess",
         "path": "apps/remote/src/recovery.ts"
+      },
+      {
+        "contains": "export function validateProfile",
+        "path": "apps/remote/src/profile.ts"
       }
     ],
     "Web": [
@@ -182,6 +194,10 @@
       {
         "contains": "exports the existing preview draft",
         "path": "apps/web/e2e/password.spec.ts"
+      },
+      {
+        "contains": "export function AccountProfile",
+        "path": "apps/web/src/auth/AccountProfile.tsx"
       }
     ],
     "Workspace": [

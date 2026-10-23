@@ -2,6 +2,23 @@ import { getLocale, uiText } from '../i18n';
 
 // Loaded with the account screens, keeping their copy out of the initial editor bundle.
 const english: Readonly<Record<string, string>> = {
+  'Seu perfil': 'Your profile',
+  'Editar perfil': 'Edit profile',
+  'Fechar edição do perfil': 'Close profile editor',
+  'Foto do perfil': 'Profile photo',
+  'Escolher foto': 'Choose photo',
+  'Remover foto': 'Remove photo',
+  'Enviar foto do perfil': 'Upload profile photo',
+  'Seu nome e foto identificam você. PNG, JPG ou WebP, até 2 MB.': 'Your name and photo identify you. PNG, JPG or WebP, up to 2 MB.',
+  'Nome de exibição': 'Display name',
+  'Conta #{0}': 'Account #{0}',
+  'Salvar perfil': 'Save profile',
+  'Perfil atualizado.': 'Profile updated.',
+  'Escolha uma imagem PNG, JPG ou WebP de até 2 MB.': 'Choose a PNG, JPG or WebP image up to 2 MB.',
+  'Não foi possível abrir esta imagem. Escolha outro arquivo.': 'This image could not be opened. Choose another file.',
+  'Confira os dados do perfil.': 'Check the profile details.',
+  'Use um nome de 1 a 80 caracteres, sem caracteres de controle.': 'Use a name with 1 to 80 characters, without control characters.',
+  'Não foi possível salvar a foto. Escolha outra imagem.': 'The photo could not be saved. Choose another image.',
   "Informe um e-mail válido.": "Enter a valid email address.",
   "Use uma senha de 15 a 128 caracteres.": "Use a password with 15 to 128 characters.",
   "E-mail ou senha incorretos.": "Incorrect email or password.",

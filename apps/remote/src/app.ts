@@ -15,6 +15,7 @@ import type { RemoteAuthOptions } from './auth';
 import { GithubHttpError, githubApi, openAgentPull, openGithubWorkspace } from './githubWorkspace';
 import { createHostedBackend } from './hosted';
 import { webHosting } from './webHosting';
+import { accountDirectory } from './accountDirectory';
 
 const html = (text: string) => text.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 const cookie = (header: string | undefined, name: string) => header?.split(';').map((part) => part.trim()).find((part) => part.startsWith(`${name}=`))?.slice(name.length + 1) ?? null;
@@ -52,6 +53,7 @@ export function createRemoteApp(options: RemoteAuthOptions) {
   });
 
   const hosted = createHostedBackend(options, auth);
+  app.use(accountDirectory(auth, options.accountDirectoryToken));
   app.use(hosted.middleware);
 
   const issuerUrl = new URL(`${auth.publicUrl}/`);

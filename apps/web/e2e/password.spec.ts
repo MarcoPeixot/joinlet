@@ -46,6 +46,15 @@ test('signs up without GitHub, saves online, signs in from another browser and c
   await settings.getByLabel('Workspace name', { exact: true }).fill('Password workspace');
   await settings.getByRole('button', { name: 'Save changes' }).click();
   await expect(settings.getByText('Workspace updated.', { exact: true })).toBeVisible();
+  await settings.getByRole('button', { name: 'Edit profile', exact: true }).click();
+  await settings.getByLabel('Display name', { exact: true }).fill('Maria Profile');
+  const avatar = await page.evaluate(() => { const canvas = document.createElement('canvas'); canvas.width = canvas.height = 64; const ctx = canvas.getContext('2d')!; ctx.fillStyle = '#a3ff3d'; ctx.fillRect(0, 0, 64, 64); return canvas.toDataURL('image/png').split(',')[1]!; });
+  await settings.getByLabel('Upload profile photo', { exact: true }).setInputFiles({ name: 'avatar.png', mimeType: 'image/png', buffer: Buffer.from(avatar, 'base64') });
+  await expect(settings.getByRole('img', { name: 'Profile photo', exact: true })).toBeVisible();
+  await settings.getByRole('button', { name: 'Save profile', exact: true }).click();
+  await expect(settings.getByText('Profile updated.', { exact: true })).toBeVisible();
+  await expect(settings.getByRole('img', { name: 'Profile photo', exact: true })).toBeVisible();
+  await page.screenshot({ path: '/tmp/joinlet-account-profile.png', fullPage: true });
   const context = await browser.newContext();
   try {
     const other = await context.newPage();
@@ -54,6 +63,15 @@ test('signs up without GitHub, saves online, signs in from another browser and c
     await other.getByLabel('Password', { exact: true }).fill(password);
     await other.getByRole('button', { name: 'Sign in', exact: true }).click();
     await expect(other.getByText('Password workspace', { exact: true }).first()).toBeVisible();
+    await other.getByRole('button', { name: 'Settings (⌘,)' }).click();
+    const otherSettings = other.getByRole('dialog', { name: 'Settings', exact: true });
+    await otherSettings.getByRole('button', { name: 'Edit profile', exact: true }).click();
+    await expect(otherSettings.getByLabel('Display name', { exact: true })).toHaveValue('Maria Profile');
+    await expect(otherSettings.getByRole('img', { name: 'Profile photo', exact: true })).toBeVisible();
+    await otherSettings.getByRole('button', { name: 'Remove photo', exact: true }).click();
+    await otherSettings.getByRole('button', { name: 'Save profile', exact: true }).click();
+    await expect(otherSettings.getByText('Profile updated.', { exact: true })).toBeVisible();
+    await expect(otherSettings.getByRole('img', { name: 'Profile photo', exact: true })).toHaveCount(0);
     await settings.getByRole('button', { name: 'Change password', exact: true }).click();
     const change = settings.getByRole('form', { name: 'Change password' });
     await change.getByLabel('Current password', { exact: true }).fill(password);
