@@ -5,6 +5,8 @@
 }
 {$JOINLET_DOMAIN:joinlet.co}, {$JOINLET_APP_DOMAIN:app.joinlet.co} {
   encode zstd gzip
+  @internal path /api/internal /api/internal/*
+  respond @internal 404
   reverse_proxy joinlet:8788 {
     flush_interval -1
   }

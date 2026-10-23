@@ -26,6 +26,10 @@ Confirme a landing em `https://joinlet.co/`, os guias em `https://joinlet.co/doc
 
 ## Contas com senha
 
+Cada pessoa pode editar o nome de exibição e enviar/remover foto em Configurações → Seu perfil. O arquivo PNG/JPG/WebP de até 2 MB é recortado e convertido no navegador para PNG de 128 px; o servidor aceita apenas PNG limitado, sem URLs externas ou SVG. Nome e foto ficam na conta SQLite, preservados em reinícios e backups. Isso não altera o e-mail de login, os métodos de entrada, a propriedade dos workspaces ou privilégios.
+
+Uma implantação com painel administrativo separado pode configurar `JOINLET_ACCOUNT_DIRECTORY_TOKEN` com 32 bytes aleatórios codificados como 64 caracteres hexadecimais minúsculos, fora do Git. Essa credencial permite somente `GET /api/internal/accounts?page=1&q=...`, paginado em 25 contas: ID, perfil, e-mail, indicação de confirmação, métodos, datas conhecidas e quantidade de workspaces hospedados. Não concede sessões de usuário nem acesso a senhas, chaves ou projetos. Sem a configuração, a rota fica desabilitada. O proxy deve bloquear `/api/internal` e seus descendentes em todos os hosts públicos; o painel acessa o backend pela rede privada e revalida sua própria identidade administrativa. A credencial nunca vai ao navegador. Instalações antigas mantêm datas desconhecidas como `null`, sem inventar data de cadastro na migração.
+
 O backend permite cadastro e entrada por e-mail/senha, com sessão exclusiva do host do aplicativo. Senhas usam Argon2id e têm de 15 a 128 caracteres; espaços são preservados. Trocar a senha nas configurações encerra todas as sessões da conta. Nesta primeira entrega, o e-mail é um identificador sem confirmação de titularidade; recuperação por e-mail e vínculo de métodos ficam para uma próxima etapa. O editor informa esse limite no cadastro. Não configure SMTP fictício.
 
 GitHub é opcional: preencha as duas variáveis da App para habilitá-lo, ou deixe ambas vazias. A ausência dessas credenciais não impede iniciar o backend com senha. IDs internos de conta e IDs GitHub são distintos; contas por senha não recebem administração por coincidência de números.

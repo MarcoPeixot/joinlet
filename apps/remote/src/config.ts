@@ -25,6 +25,8 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
     }
   }
   const analyticsPath = env.JOINLET_ANALYTICS_PATH?.trim() || undefined;
+  const accountDirectoryToken = env.JOINLET_ACCOUNT_DIRECTORY_TOKEN?.trim() || undefined;
+  if (accountDirectoryToken && !/^[a-f0-9]{64}$/.test(accountDirectoryToken)) throw new Error('JOINLET_ACCOUNT_DIRECTORY_TOKEN must contain 64 lowercase hexadecimal characters.');
   if (analyticsPath && analyticsPath !== '/telemetry') throw new Error('JOINLET_ANALYTICS_PATH must be /telemetry or empty.');
   const encryptionKey = required('STRUKT_REMOTE_ENCRYPTION_KEY');
   if (!/^[0-9a-f]{64}$/i.test(encryptionKey)) throw new Error('STRUKT_REMOTE_ENCRYPTION_KEY must contain exactly 64 hexadecimal characters.');
@@ -39,7 +41,7 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
   if (deploymentMode !== 'self-hosted' && deploymentMode !== 'cloud') throw new Error('JOINLET_DEPLOYMENT_MODE must be self-hosted or cloud.');
   return {
     deploymentMode,
-    publicUrl, siteUrl, analyticsPath, encryptionKey,
+    publicUrl, siteUrl, analyticsPath, encryptionKey, accountDirectoryToken,
     githubClientId: env.STRUKT_GITHUB_APP_CLIENT_ID?.trim() || undefined,
     githubClientSecret: env.STRUKT_GITHUB_APP_CLIENT_SECRET?.trim() || undefined,
     githubAppSlug: env.STRUKT_GITHUB_APP_SLUG?.trim() || undefined,

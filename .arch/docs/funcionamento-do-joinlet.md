@@ -35,3 +35,11 @@ A primeira entrega hospedada permite cadastro, entrada, saída e troca de senha 
 IDs internos são independentes do GitHub. A migração versionada conserva IDs e propriedade dos dados legados, e privilégios administrativos dependem do subject GitHub verificado. A prévia antiga permanece em IndexedDB: a tela de login exporta ZIPs para importação manual no workspace online. Um snapshot restaurado deve passar pela ferramenta recovery antes de voltar à rede, invalidando sessões, autorizações e convites antigos.
 
 A implantação concreta pertence à operação. O produto suporta somente a configuração fornecida pelo operador; código e testes locais não comprovam ativação oficial. Não há importadores configurados; a verificação arquitetural mantém cobertura parcial.
+
+## Perfil e diretório de contas
+
+A pessoa autenticada pode editar o próprio nome (1 a 80 caracteres) e enviar/remover foto, mantendo o e-mail de login. A tela recorta PNG/JPG/WebP de até 2 MB para PNG de 128 px; o servidor limita tamanho, estrutura raster e dimensões, recusando SVG e URLs externas. A mutação exige origem e CSRF da sessão e não aceita ID de outra conta. Nome e foto persistem em SQLite e backups. Sessões válidas consultam o nome atualizado sem encerrar o acesso.
+
+A migração v2 adiciona avatar, data de cadastro e último login sem alterar proprietários, hashes ou configurações cifradas. Datas históricas desconhecidas ficam nulas. Novos cadastros e sessões por senha registram o relógio do servidor.
+
+O backend oferece um diretório somente leitura em /api/internal/accounts, desabilitado sem JOINLET_ACCOUNT_DIRECTORY_TOKEN. Um painel operacional separado pode consultar essa rota pela rede privada com uma credencial dedicada, mantendo sua própria autenticação administrativa. O proxy público deve bloquear toda a família /api/internal. A projeção tem ID, nome, e-mail e confirmação, foto, métodos de login, datas conhecidas e contagem de workspaces hospedados, com busca literal e páginas de 25 contas. Senhas, tokens, configurações de IA e conteúdo de projetos ficam excluídos. O painel privado não faz parte do produto público; a verificação neste checkout cobre a projeção e as evidências públicas, sem importadores ou comprovação de implantação.

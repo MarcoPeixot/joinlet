@@ -9,6 +9,7 @@ it.each([
   { STRUKT_PUBLIC_URL: 'http://localhost:8788' }, { STRUKT_PUBLIC_URL: 'https://joinlet.co/path' },
   { STRUKT_PUBLIC_URL: 'https://user:secret@joinlet.co' }, { PORT: 'NaN' }, { PORT: '0' },
   { JOINLET_TRUST_PROXY_HOPS: '-1' }, { STRUKT_REMOTE_ENCRYPTION_KEY: 'a'.repeat(64) + 'invalid' },
+  { JOINLET_ACCOUNT_DIRECTORY_TOKEN: 'short' },
   { STRUKT_REMOTE_ENCRYPTION_KEY: 'z'.repeat(64) }, { STRUKT_GITHUB_APP_CLIENT_SECRET: '' },
 ])('rejects incomplete or unsafe startup settings %j', override => {
   expect(() => remoteConfig({ ...env, ...override })).toThrow();
