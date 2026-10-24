@@ -19,6 +19,7 @@ test('public preview opens without accounts, preserves a draft and gates a secon
   await preview(context, requests);
   await page.goto('/app/?lang=en');
   await expect(page.getByRole('navigation', { name: 'Workspace' })).toBeVisible();
+  await expect(page.locator('input[type=password]')).toHaveCount(0);
   await expect.poll(() => page.evaluate(async () => (await import('/src/workspace/catalog.ts')).catalogStore.getState().catalog?.entries.length)).toBe(1);
   await page.evaluate(async () => {
     const { workspace } = await import('/src/workspace/appWorkspace.ts');
@@ -32,9 +33,10 @@ test('public preview opens without accounts, preserves a draft and gates a secon
   await expect.poll(() => page.evaluate(async () => (await import('/src/workspace/catalog.ts')).catalogStore.getState().catalog?.entries.length)).toBe(1);
   await page.getByRole('button', { name: 'Workspace menu' }).click();
   await page.getByRole('menuitem', { name: 'New workspace', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'Sign in for more workspaces' });
-  await expect(dialog.getByText(/Accounts and additional workspaces are coming soon/)).toBeVisible();
+  const dialog = page.getByRole('dialog', { name: 'One workspace for now' });
+  await expect(dialog.getByText(/Sign-in, registration and new workspaces are paused/)).toBeVisible();
   await expect(dialog.getByText(/saved in this browser/)).toBeVisible();
+  await expect(dialog.locator('a, input[type=password]')).toHaveCount(0);
   await dialog.getByRole('button', { name: 'Continue in my workspace' }).click();
   expect(await page.evaluate(async () => {
     try { await (await import('/src/workspace/projects.ts')).createBrowserWorkspace('Second'); return 'created'; }
@@ -42,6 +44,7 @@ test('public preview opens without accounts, preserves a draft and gates a secon
   })).toBe('WORKSPACE_LIMIT_REACHED');
   expect(requests).not.toContain('/api/remote/session');
   expect(requests).not.toContain('/api/plan');
+  expect(requests.filter(path=>/^\/api\/(auth|remote)\//.test(path))).toEqual([]);
 });
 
 test('another visitor gets an isolated first workspace', async ({ page, context, browser, baseURL }) => {
