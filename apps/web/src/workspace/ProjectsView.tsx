@@ -26,10 +26,10 @@ export function CreateWorkspaceDialog() {
   const [error, setError] = useState<string | null>(null);
   const close = () => { if (!busy) { catalogStore.setState({ creating: false }); setName(''); setError(null); } };
   return (
-    <Modal open={open} onClose={close} label={previewFull ? uiText("Entre para ter mais workspaces") : uiText("Novo workspace")} width={440} icon={<Plus size={17} />} closeLabel={busy ? null : uiText("Fechar")}>
+    <Modal open={open} onClose={close} label={previewFull ? uiText("Um workspace por enquanto") : uiText("Novo workspace")} width={440} icon={<Plus size={17} />} closeLabel={busy ? null : uiText("Fechar")}>
       {previewFull ? <div className="flex flex-col gap-5 p-5">
         <p className="text-body leading-relaxed text-muted">{uiText("Seu primeiro workspace está liberado sem conta e fica salvo neste navegador.")}</p>
-        <p className="text-body leading-relaxed text-muted">{uiText("Contas e workspaces adicionais serão liberados em breve. Seu workspace atual continua disponível para editar e exportar.")}</p>
+        <p className="text-body leading-relaxed text-muted">{uiText("Login, cadastro e novos workspaces estão pausados. Continue editando e exportando seu workspace.")}</p>
         <Button variant="primary" onClick={close}>{uiText("Continuar no meu workspace")}</Button>
       </div> : <form className="flex flex-col gap-5 p-5" onSubmit={(event) => {
         event.preventDefault();

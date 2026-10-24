@@ -34,7 +34,10 @@
     "katex": "0.18.2",
     "nanoid@3": "3.3.18",
     "nanoid@4": "5.1.16",
-    "ip-address": "10.7.4"
+    "ip-address": "10.7.4",
+    "body-parser": "2.4.0",
+    "fast-uri": "3.1.9",
+    "zod": "4.6.6"
   },
   "license": "AGPL-3.0-only"
 }

@@ -198,6 +198,14 @@
       {
         "contains": "export function AccountProfile",
         "path": "apps/web/src/auth/AccountProfile.tsx"
+      },
+      {
+        "contains": "Um workspace por enquanto",
+        "path": "apps/web/src/workspace/ProjectsView.tsx"
+      },
+      {
+        "contains": "name: 'One workspace for now'",
+        "path": "apps/web/e2e/publicPreview.spec.ts"
       }
     ],
     "Workspace": [
