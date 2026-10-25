@@ -669,6 +669,7 @@ export function registerTools(server: McpServer, ws: McpWorkspace): void {
       inputSchema: {
         diagram: z.string().min(1).max(LIMITS.title).describe('Slug do diagrama.'),
         id: z.string().min(1).max(LIMITS.title).describe('Id do componente (ou "edge:<id>" de uma conexão).'),
+        replace: z.boolean().optional().describe('Substitui as referências deste elemento após revisar a evidência atual; padrão: mesclar.'),
         refs: z.array(z.object({
           path: z.string().min(1).max(LIMITS.evidencePath).describe('Caminho relativo à raiz do repositório (sem "..", absoluto ou "C:").'),
           line: z.number().int().min(1).max(LIMITS.evidenceLine).optional().describe('Linha (1-based) do arquivo.'),
@@ -676,7 +677,7 @@ export function registerTools(server: McpServer, ws: McpWorkspace): void {
         })).min(1).max(LIMITS.evidenceRefs).describe('De 1 a 20 referências.'),
       },
     },
-    async ({ diagram, id, refs }) => {
+    async ({ diagram, id, refs, replace }) => {
       await refresh(ws);
       const model = own(ws.data.diagrams, diagram)?.model;
       if (!model) return fail(notFound(ws, diagram));
@@ -686,7 +687,7 @@ export function registerTools(server: McpServer, ws: McpWorkspace): void {
         return fail(`Elemento "${id}" não existe em "${diagram}".${near ? ` Você quis dizer "${near}"?` : ''}`);
       }
       const current = own(ws.data.evidence ?? {}, diagram) ?? {};
-      const list = [...(own(current, id) ?? [])];
+      const list = replace ? [] : [...(own(current, id) ?? [])];
       const added: string[] = [];
       const skipped: string[] = [];
       for (const ref of refs) {
@@ -696,7 +697,7 @@ export function registerTools(server: McpServer, ws: McpWorkspace): void {
         if (list.some((item) => item.path === ref.path && item.line === ref.line)) { skipped.push(`${label} (já registrada)`); continue; }
         let entry: Evidence = { path: ref.path, ...(ref.line ? { line: ref.line } : {}), ...(ref.contains ? { contains: ref.contains } : {}) };
         if (ref.line) {
-          const text = await readRepositoryFile(ws.root, ref.path);
+          const text = ws.repositoryReader ? await ws.repositoryReader.read(ref.path) : await readRepositoryFile(ws.root, ref.path);
           if (text !== null && !exceedsDriftBytes(text)) entry = withSnippet(entry, text);
         }
         list.push(entry);

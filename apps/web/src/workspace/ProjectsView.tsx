@@ -1,7 +1,7 @@
 import { useAccessPlan } from '../settings/accessPlan';
 import { isBrowserPreview } from '../settings/publicAccess';
 import { getLocale, systemMessage, uiText } from '../i18n';
-import { ArrowLeft, ArrowUpRight, Check, FolderOpen, GitPullRequest, HardDrive, LoaderCircle, Plus, Search } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, Cloud, FolderOpen, GitPullRequest, HardDrive, LoaderCircle, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { trackAnalytics } from '../analytics/client';
 import { Button } from '../ui/Button';
@@ -10,11 +10,13 @@ import { Logo } from '../ui/Logo';
 import { Modal } from '../ui/Modal';
 import { Toast } from '../ui/Toast';
 import { showToast } from '../ui/uiStore';
+import { openGithub } from '../github/session';
 import { workspace } from './appWorkspace';
 import { createBrowserWorkspace, openFolderPicker, openRegisteredWorkspace, connectRepository } from './boot';
 import { catalogStore, locationLabel, showCreateWorkspace, useCatalog } from './catalog';
 
 export function CreateWorkspaceDialog() {
+  const cloud = useCatalog(state=>state.cloud);
   const { accountPlan: plan } = useAccessPlan();
   const open = useCatalog((state) => state.creating);
   const count = useCatalog(state => state.catalog?.entries.length ?? 0);
@@ -45,8 +47,8 @@ export function CreateWorkspaceDialog() {
           {error && <p id="workspace-create-error" role="alert" className="text-caption text-danger">{error}</p>}
         </div>
         <div className="flex items-start gap-2 rounded-control border border-line bg-panel-2/40 p-3 text-caption text-muted">
-          <HardDrive size={15} className="mt-0.5 shrink-0" />
-          <p>{uiText("Salvo neste navegador. Você pode conectar uma pasta ou repositório depois.")}</p>
+          {cloud?<Cloud size={15} className="mt-0.5 shrink-0"/>:<HardDrive size={15} className="mt-0.5 shrink-0" />}
+          <p>{cloud?uiText('Salvo no Joinlet Cloud. Você pode conectar uma pasta ou repositório depois.'):uiText("Salvo neste navegador. Você pode conectar uma pasta ou repositório depois.")}</p>
         </div>
         <div className="flex justify-end gap-2">
           <Button onClick={close} disabled={busy}>{uiText("Cancelar")}</Button>
@@ -58,6 +60,7 @@ export function CreateWorkspaceDialog() {
 }
 
 export function ProjectsView() {
+  const cloud = useCatalog(state=>state.cloud);
   const { accountPlan: plan } = useAccessPlan();
   const catalog = useCatalog((state) => state.catalog);
   const activeId = useCatalog((state) => state.activeId);
@@ -92,7 +95,7 @@ export function ProjectsView() {
             <input aria-label={uiText("Buscar projetos")} className={`${inputClass} h-10 w-full pl-10`} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={uiText("Buscar projetos…")} />
           </div>
           <Button disabled={busy} icon={<FolderOpen size={15} />} onClick={() => void openFolderPicker()}>{uiText("Abrir pasta")}</Button>
-          <Button disabled={busy} icon={<GitPullRequest size={15} />} onClick={() => setRepoOpen(true)}>{uiText("Conectar repositório")}</Button>
+          <Button disabled={busy} icon={<GitPullRequest size={15} />} onClick={() => {if(cloud){catalogStore.setState({open:false});openGithub();}else setRepoOpen(true);}}>{uiText("Conectar repositório")}</Button>
         </div>
         {error && <p role="alert" className="rounded-control border border-line bg-panel-2 p-4 text-body text-danger">{error}</p>}
         <section aria-label={uiText("Projetos")} className="min-w-0">
@@ -103,7 +106,7 @@ export function ProjectsView() {
           <div className="divide-y divide-line border-y border-line">
             {filtered.map((entry) => {
               const active = entry.id === activeId;
-              const Icon = entry.location.kind === 'browser' ? HardDrive : entry.location.kind === 'folder' ? FolderOpen : GitPullRequest;
+              const Icon = entry.location.kind === 'cloud' ? Cloud : entry.location.kind === 'browser' ? HardDrive : entry.location.kind === 'folder' ? FolderOpen : GitPullRequest;
               return <button key={entry.id} type="button" disabled={busy} aria-label={uiText("Abrir workspace {0}", [entry.name])} onClick={() => void openRegisteredWorkspace(entry.id).catch(report)} className="group flex w-full items-center gap-4 px-3 py-5 text-left transition-colors hover:bg-panel-2 disabled:opacity-50">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-control border border-line bg-panel text-lg font-semibold text-accent">{entry.logo ? <img src={entry.logo} alt="" className="h-full w-full rounded-control object-contain" /> : entry.name.slice(0, 1).toLocaleUpperCase(getLocale())}</span>
                 <span className="min-w-0 flex-1">

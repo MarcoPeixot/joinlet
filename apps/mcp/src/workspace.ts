@@ -1,3 +1,5 @@
+import type { RepositoryReader, RepositoryAnalyzer } from '@strukt/workspace/repository-contracts';
+import { writeBatch } from '@strukt/workspace/repository-transaction';
 import { writeGeneratedContext } from '@strukt/workspace/context-storage';
 import { own } from '@strukt/core';
 import { loadWorkspace, workspaceFiles } from '@strukt/workspace';
@@ -14,6 +16,13 @@ export interface McpWorkspace {
   disk: Record<string, string | null>;
   /** Set by the HTTP server (never by stdio): reports events worth a webhook (a version saved by an agent, a PR opened). */
   notify?: (event: McpEvent) => void;
+  repositoryReader?: RepositoryReader;
+  listRepositoryFiles?: (options?:Parameters<typeof import('@strukt/workspace/repository-source-access').listRepositoryFiles>[1])=>ReturnType<typeof import('@strukt/workspace/repository-source-access').listRepositoryFiles>;
+  readRepositorySource?: (path:string,start?:number,count?:number,revision?:string)=>ReturnType<typeof import('@strukt/workspace/repository-source-access').readRepositorySource>;
+  inspectRepository?: () => Promise<unknown>;
+  repositoryAnalyzer?: RepositoryAnalyzer;
+  requestRepositorySync?: () => Promise<unknown>;
+  onSaved?: (paths: string[]) => Promise<void>;
 }
 
 export type McpEvent =
@@ -57,17 +66,14 @@ export async function writeContext(ws: McpWorkspace, before: WorkspaceData, comm
 export async function save(ws: McpWorkspace, before: WorkspaceData): Promise<string[]> {
   const previous = workspaceFiles(before);
   const current = workspaceFiles(ws.data);
-  for (const path of new Set([...Object.keys(previous), ...Object.keys(current)])) {
-    if (previous[path] === current[path]) continue;
-    if ((await ws.adapter.read(path)) !== (ws.disk[path] ?? null)) {
-      throw new Error(`O arquivo ${path} mudou no disco durante esta operação. Leia o workspace novamente antes de repetir.`);
-    }
-  }
+  const paths = [...new Set([...Object.keys(previous), ...Object.keys(current)])].filter(path => previous[path] !== current[path]);
   const hadContext = (await ws.adapter.read('context/ARCHITECTURE.md')) !== null;
-  const touched = await writeWorkspace(ws.adapter, ws.data, before);
+  await writeBatch(ws.adapter, paths.map(path => ({path, text:current[path] ?? null, expected:ws.disk[path] ?? null})));
+  const touched = [...paths];
   if (hadContext) touched.push(...(await writeContext(ws, before, false)));
   await flush(ws);
   ws.disk = await diskFiles(ws.adapter, ws.data);
+  await ws.onSaved?.(touched);
   return touched.sort();
 }
 

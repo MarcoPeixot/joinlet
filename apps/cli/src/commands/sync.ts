@@ -3,7 +3,7 @@ import { autoLayout } from '@strukt/layout';
 import { planSnapshot } from '@strukt/ops';
 import { writeGeneratedContext } from '@strukt/workspace/context-storage';
 import type { WorkspaceData } from '@strukt/workspace';
-import { openWorkspaceAt, writeWorkspace } from '@strukt/workspace/fs';
+import { openWorkspaceAt, writeWorkspace, findArchDir, createFsAdapter } from '@strukt/workspace/fs';
 import { SYNC_PATH, planSync, renderSyncReport } from '@strukt/workspace/sync';
 import type { DiagramSyncPlan, SyncPlan } from '@strukt/workspace/sync';
 import type { CliArgs } from '../args';
@@ -57,10 +57,21 @@ function jsonOf(plan: SyncPlan, written: string[]) {
  * nothing and exits 1 when something would change. Only `.arch/` is written (through the confined adapter).
  */
 export async function runSync(args: CliArgs, io: CliIo): Promise<number> {
+  if(!args.check){const location=await findArchDir(args.dir);if(location)await createFsAdapter(location.archDir).recover();}
   const opened = await openWorkspaceAt(args.dir);
   if (!opened) {
     io.err(`Nenhum workspace do Joinlet encontrado a partir de "${args.dir}" (procurei .arch/strukt.json).`);
     return 2;
+  }
+  if (await opened.adapter.read('repository.json')) {
+    const { RepositoryEngine } = await import('@strukt/workspace/repository');
+    const { localReader } = await import('@strukt/workspace/repository-reader');
+    const { localRepositoryAi } = await import('../../../server/src/localRepositoryAi');
+    const { analyzer } = await localRepositoryAi();
+    const result = await new RepositoryEngine(await localReader(opened.root), opened.adapter, analyzer).run({ check: args.check });
+    if (args.json) io.out(JSON.stringify({ ...result.status, changed: result.changed }));
+    else { io.out(`Joinlet repository: ${result.status.phase}; ${result.changed.length} architecture files changed.`); for (const pending of result.status.pending) io.out(pending); }
+    return args.check && (result.changed.length || result.status.pending.length || result.status.proposals.length) ? 1 : 0;
   }
   const plan = await planSync({ root: opened.root, adapter: opened.adapter, data: opened.data });
   const failed = plan.errors.length > 0 || plan.problems.length > 0;

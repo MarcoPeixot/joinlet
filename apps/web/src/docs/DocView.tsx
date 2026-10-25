@@ -31,6 +31,7 @@ import type { FormatKind } from './format';
 import { revealElement } from '../workspace/actions';
 import { useWorkspace, workspace } from '../workspace/appWorkspace';
 import { collaborationSession, isViewOnly } from '../workspace/boot';
+import { matchesRemoteSource } from '../workspace/remote';
 import type { CollaborationClient, CollaborationStatus } from '../workspace/collaboration';
 import { closeCollaborationClient, collaborationClient } from '../workspace/collaboration';
 import { showCollaborationClient, useCollaborationEpoch } from '../workspace/collaborationView';
@@ -145,8 +146,8 @@ export function DocView({ slug, active = true, heading, actions, activate }: { s
   const sharedRef = useRef<CollaborationClient | null>(null);
   const [status, setStatus] = useState<CollaborationStatus | null>(null);
   const epoch = useCollaborationEpoch();
-  const sharedSource = collaborationSession()?.repo;
-  const isShared = !!sharedSource && !!source?.includes(sharedSource);
+  const sharedSession = collaborationSession();
+  const isShared = !!sharedSession && matchesRemoteSource(sharedSession, source);
   const [ready, setReady] = useState(false);
   const live = useRef(new Compartment()).current;
   // `own()`, not `docs[slug]`: a doc named "constructor" (a valid slug, only `__proto__` is refused)
@@ -170,7 +171,7 @@ export function DocView({ slug, active = true, heading, actions, activate }: { s
 
   useEffect(() => {
     const session = collaborationSession();
-    const shared = session && source?.includes(session.repo) ? collaborationClient(session, `doc:${slug}`) : null;
+    const shared = session && matchesRemoteSource(session, source) ? collaborationClient(session, `doc:${slug}`) : null;
     sharedRef.current = shared;
     setReady(false);
     setStatus(shared?.status ?? null);

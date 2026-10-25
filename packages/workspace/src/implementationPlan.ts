@@ -4,7 +4,7 @@ import type { WorkspaceData } from './workspace';
 import type { SyncPlan } from './sync';
 
 /** Ignore layout, colors and explanatory annotations: these are not implementation requirements. */
-function contract(model: DiagramModel): DiagramModel {
+export function architectureContract(model: DiagramModel): DiagramModel {
   return {
     ...model, style: DEFAULT_STYLE, diagnostics: [],
     elements: Object.fromEntries(Object.values(model.elements).map(el => {
@@ -20,12 +20,12 @@ const changed = (changes: ReturnType<typeof compareModels>) => Object.values(cha
 export function implementationPlan(plan: SyncPlan, data: WorkspaceData) {
   const diagrams = plan.diagrams.map(diagram => {
     const source = diagram.sourceModel;
-    const differences = source ? compareModels(contract(source), contract(diagram.before)) : null;
+    const differences = source ? compareModels(architectureContract(source), architectureContract(diagram.before)) : null;
     return {
       diagram: diagram.slug, title: diagram.title, blocked: diagram.blocked,
       files: [...new Set(plan.sources.filter(s => s.diagram === diagram.slug).flatMap(s => s.files))].sort(),
-      sourceChangesSinceSync: source && diagram.baseline ? compareModels(contract(diagram.baseline), contract(source)) : null,
-      diagramChangesSinceSync: diagram.baseline ? compareModels(contract(diagram.baseline), contract(diagram.before)) : null,
+      sourceChangesSinceSync: source && diagram.baseline ? compareModels(architectureContract(diagram.baseline), architectureContract(source)) : null,
+      diagramChangesSinceSync: diagram.baseline ? compareModels(architectureContract(diagram.baseline), architectureContract(diagram.before)) : null,
       sourceToDiagramPending: diagram.ops.length > 0,
       reviewRequired: !!differences && changed(differences),
       // Direction is explicit: additions here exist in the diagram but not in the imported source.

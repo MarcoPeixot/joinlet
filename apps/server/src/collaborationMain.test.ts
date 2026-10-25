@@ -105,13 +105,19 @@ describe.skipIf(!hasBun)('the LAN host process', () => {
     // Not in the canonical print: the room rewrites it as soon as it opens, and the file is read-only.
     const { guest, log } = await startHost({ 'strukt.json': manifest(['mapa']), 'diagrams/mapa.strukt.json': '{"version":1,"nodes":[{"id":"Web"}],"connections":[]}' });
     await chmod(join(root, '.arch', 'diagrams', 'mapa.strukt.json'), 0o444);
-    const { errors } = await guest('diagram', 'mapa', (packet) => packet[0] === 3);
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain('Falha ao gravar');
-    expect(errors[0]).not.toContain(root);
-    expect(errors[0]).not.toMatch(/EACCES|\/|\.arch/);
-    await new Promise((r) => setTimeout(r, 100));
-    expect(log.join('')).toContain('EACCES');
+    // Atomic replacement can rename over a read-only file. Deny directory writes
+    // as well so both direct and atomic projection writes really fail.
+    const directory = join(root, '.arch', 'diagrams');
+    await chmod(directory, 0o555);
+    try {
+      const { errors } = await guest('diagram', 'mapa', (packet) => packet[0] === 3);
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain('Falha ao gravar');
+      expect(errors[0]).not.toContain(root);
+      expect(errors[0]).not.toMatch(/EACCES|\/|\.arch/);
+      await new Promise((r) => setTimeout(r, 100));
+      expect(log.join('')).toContain('EACCES');
+    } finally { await chmod(directory, 0o755); }
   }, 60_000);
 
   it('closes a room the manifest does not list with 4404, which a browser sees (a refused upgrade reads as 1006)', async () => {

@@ -4,7 +4,7 @@ import { center, connectorStyle, descendantsOf, innermostGroupAt, isAncestor, ow
 import type { DiagramModel, DiagramOp, ID, NodeBox, Rect, SnapGuide } from '@strukt/core';
 import { Background, BackgroundVariant, ConnectionMode, Panel, ReactFlow, useReactFlow } from '@xyflow/react';
 import type { Connection, EdgeChange, NodeChange, OnNodeDrag } from '@xyflow/react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { draftProjection } from '../ai/overlay';
 import { useAi } from '../ai/session';
@@ -31,15 +31,17 @@ import { useVersions } from '../versions/session';
 import { useBranchCompare } from '../github/compare';
 import { useWorkspace } from '../workspace/appWorkspace';
 import { HelperLines } from './HelperLines';
-import { NodeHoverCard } from './NodeHoverCard';
 import { snapDraggedRect } from './snapping';
 import { fitOptionsFor } from './fit';
-import { DiagramMiniMap } from './DiagramMiniMap';
+import { lazyWithRetry } from '../ui/lazyWithRetry';
+import { ChunkBoundary } from '../ui/ChunkBoundary';
 import { WatercolorDefs } from './WatercolorDefs';
 import { evidenceFor } from '../workspace/lookup';
 
 const nodeTypes = { shape: ShapeNode, icon: IconNode, card: CardNode, table: TableNode, participant: ParticipantNode, sgroup: GroupNode };
 const edgeTypes = { strukt: StruktEdgeView };
+const DiagramMiniMap = lazyWithRetry(() => import('./DiagramMiniMap').then(m => ({ default: m.DiagramMiniMap })));
+const NodeHoverCard = lazyWithRetry(() => import('./NodeHoverCard').then(m => ({ default: m.NodeHoverCard })));
 
 /** Above this many nodes React Flow only mounts the ones in view; the minimap is skipped past the second limit. */
 const VIRTUALIZE_ABOVE = 150;
@@ -350,7 +352,7 @@ export function DiagramCanvas() {
         {/* Minimap and zoom share the bottom-left corner; the right edge belongs to Propriedades/Versões. The minimap
             has no toggle here (it hides by itself while the diagram fits): Configurações › Geral and ⌘K switch it. */}
         {minimap && !presenting && projection.nodes.length <= MINIMAP_MAX_NODES && (
-          <DiagramMiniMap />
+          <ChunkBoundary><Suspense fallback={null}><DiagramMiniMap /></Suspense></ChunkBoundary>
         )}
         {!presenting && (
           <Panel position="bottom-left" className="sk-corner">
@@ -359,7 +361,7 @@ export function DiagramCanvas() {
         )}
         <HelperLines />
       </ReactFlow>
-      <NodeHoverCard />
+      <ChunkBoundary><Suspense fallback={null}><NodeHoverCard /></Suspense></ChunkBoundary>
     </div>
   );
 }

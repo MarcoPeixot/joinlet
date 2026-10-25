@@ -6,7 +6,7 @@ import { emptyManifest } from '@strukt/workspace';
 import { describe, expect, it } from 'vitest';
 import { createStore } from 'zustand/vanilla';
 import type { Schedule } from '../state/routing';
-import { boardRoutesStore, computeBoardRoutes, connectionView, linkLabelSize, startBoardRouting } from './boardRoutes';
+import { boardRoutesStore, computeBoardRoutes, connectionView, ENDPOINT_GAP, linkLabelSize, separateEndpoints, startBoardRouting } from './boardRoutes';
 import type { BoardRoute } from './boardRoutes';
 import { connectionRoute } from './connectionPath';
 
@@ -33,14 +33,14 @@ describe('computeBoardRoutes', () => {
     expect(route.key).toBe(routeKey(card(board, 'n0'), card(board, 'n2')));
   });
 
-  it('keeps its detour at least 12 px from the cards, still starting and ending on their borders', () => {
+  it('keeps detours clear of cards and detaches dots and arrow tips from their borders', () => {
     const board = row();
     const { points } = computeBoardRoutes(board).c!;
     const middle = card(board, 'n1');
-    const grown = { x: middle.x - 12, y: middle.y - 12, w: middle.w + 24, h: middle.h + 24 };
+    const grown = { x: middle.x - 28, y: middle.y - 28, w: middle.w + 56, h: middle.h + 56 };
     expect(points.slice(1).some((p, i) => crosses(points[i]!, p, grown))).toBe(false);
-    expect(points[0]![0]).toBe(200);
-    expect(points.at(-1)![0]).toBe(560);
+    expect(points[0]![0]).toBe(200 + ENDPOINT_GAP);
+    expect(points.at(-1)![0]).toBe(560 - ENDPOINT_GAP);
   });
 
   it('places the label on the route, clear of every card', () => {
@@ -48,7 +48,7 @@ describe('computeBoardRoutes', () => {
     const route = computeBoardRoutes(board).c!;
     const { w, h } = linkLabelSize('HTTP');
     const pill = { x: route.label![0] - w / 2, y: route.label![1] - h / 2, w, h };
-    expect(board.cards.filter((c) => overlaps(pill, c)).map((c) => c.id)).toEqual([]);
+    expect(board.cards.filter((c) => overlaps(pill, {x:c.x-12,y:c.y-12,w:c.w+24,h:c.h+24})).map((c) => c.id)).toEqual([]);
   });
 
   it('leaves out a connection with a manual bend: the user’s own elbow wins', () => {
@@ -79,7 +79,7 @@ describe('connectionView', () => {
     const plain = connectionRoute(a, b);
     for (const cached of [undefined, { ...routed, key: 'stale' }]) {
       const view = connectionView(connection, a, b, cached, null);
-      expect(view.points).toEqual(plain.points);
+      expect(view.points).toEqual(separateEndpoints(plain.points));
       expect(view.labelAt).toEqual(plain.handle);
       expect(allFinite(view.points)).toBe(true);
       expect(view.run).toBe('v');
@@ -87,8 +87,8 @@ describe('connectionView', () => {
   });
 
   it('a manual bend, or one being dragged, is the plain elbow at that bend, whatever was routed', () => {
-    expect(connectionView({ ...connection, bend: 0.2 }, a, b, routed, null).points).toEqual(connectionRoute(a, b, 0.2).points);
-    expect(connectionView(connection, a, b, routed, 0.8).points).toEqual(connectionRoute(a, b, 0.8).points);
+    expect(connectionView({ ...connection, bend: 0.2 }, a, b, routed, null).points).toEqual(separateEndpoints(connectionRoute(a, b, 0.2).points));
+    expect(connectionView(connection, a, b, routed, 0.8).points).toEqual(separateEndpoints(connectionRoute(a, b, 0.8).points));
   });
 
   it('flush cards get a visible route around them, with a grip', () => {
@@ -96,6 +96,12 @@ describe('connectionView', () => {
     expect(view.points).toHaveLength(4);
     expect(view.bendable).toBe(true);
   });
+});
+
+it('shortens tiny routes without crossing endpoints or producing duplicate corner points', () => {
+  expect(separateEndpoints([[0,0],[40,0]])).toEqual([[10,0],[30,0]]);
+  expect(separateEndpoints([[0,0],[0,0],[4,0],[4,100],[8,100]])).toEqual([[4,8],[4,92]]);
+  expect(linkLabelSize('x'.repeat(200)).w).toBe(240);
 });
 
 describe('startBoardRouting', () => {

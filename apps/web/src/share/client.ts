@@ -84,7 +84,7 @@ export function createShareClient(fetchFn: Fetch = (input, init) => globalThis.f
   async function request(path: string, init: RequestInit): Promise<Raw> {
     let res: Response;
     try {
-      res = await fetchFn(path, init);
+      res = await fetchFn(path, {...init,headers:{...requestAuthHeaders(),...init.headers}});
     } catch {
       return { kind: 'offline', reason: UNREACHABLE };
     }

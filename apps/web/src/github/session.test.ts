@@ -72,4 +72,13 @@ describe('openGithub from a non-diagram view', () => {
     const { catalogStore } = await import('../workspace/catalog');
     expect(catalogStore.getState()).toMatchObject({ open: true, repositoryOpen: true });
   });
+
+  it('opens the Cloud connection panel even before a diagram exists',async()=>{
+    const {ui,ws,session}=await fresh();
+    const {catalogStore}=await import('../workspace/catalog');catalogStore.setState({cloud:true});
+    ws.store.setState({diagram:null,view:{kind:'board'}});session.openGithub();
+    expect(ui.uiStore.getState().rightPanel).toBe('github');
+    expect(catalogStore.getState()).toMatchObject({open:false,repositoryOpen:false});
+    expect(ws.store.getState().view.kind).toBe('board');
+  });
 });

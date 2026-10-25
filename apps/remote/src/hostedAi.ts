@@ -351,3 +351,16 @@ export function createHostedAi(store: HostedStore, fetcher?: typeof fetch) {
     }
   };
 }
+
+/** Worker/connector analysis uses the owner's existing encrypted BYOK settings. */
+export async function hostedRepositoryAnalyzer(store: HostedStore, user: number, fetcher: typeof fetch = fetch) {
+  const safeFetch = hostedProviderFetch(fetcher);
+  const settings = createSettings({ file: String(user), env: {}, fs: { read: async () => store.settings(user), write: async () => { throw Error('Worker settings are read-only.'); } }, fetch: safeFetch,
+    anthropic: apiKey => new Anthropic({ apiKey, authToken: null, fetch: safeFetch, timeout: 240_000, maxRetries: 1 }),
+    openrouter: apiKey => createOpenRouterClient({ apiKey, fetch: safeFetch }),
+  });
+  await settings.load(); const provider = settings.current();
+  if (!provider) return undefined;
+  const { repositoryAnalyzer } = await import('../../server/src/repositoryAi');
+  return repositoryAnalyzer(provider.client, provider.models.edit);
+}

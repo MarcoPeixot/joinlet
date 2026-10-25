@@ -57,6 +57,7 @@ export function parseCatalog(value: unknown): WorkspaceCatalog | null {
     if (!location || (location.kind === 'browser' ? !(location.namespace === null || typeof location.namespace === 'string' && !!location.namespace)
       : location.kind === 'repository' ? typeof location.root !== 'string' || !location.root
       : location.kind === 'folder' ? location.handle?.kind !== 'directory'
+      : location.kind === 'cloud' ? typeof location.workspace !== 'string' || !location.workspace.startsWith('cloud:')
       : true)) throw invalid();
     if (location.kind === 'browser') {
       if (browserNamespaces.has(location.namespace)) throw invalid();

@@ -2,7 +2,6 @@ import { uiText } from '../i18n';
 import type { ItemKind } from '@strukt/workspace';
 import { COLOR_MODES, STYLE_MODES, TYPEFACES } from '@strukt/core';
 import { docSession, toggleAi } from '../ai/session';
-import { generateAgentContext } from '../context/session';
 import { openGithub } from '../github/session';
 import { openSettings } from '../settings/store';
 import { COLOR_MODE_LABELS, STYLE_MODE_LABELS, TYPEFACE_LABELS } from '../diagram/labels';
@@ -64,7 +63,6 @@ export function buildCommands(ctx: { center: () => { x: number; y: number }; flo
     action('export-zip', uiText("Exportar workspace (.zip)"), () => void exportZip()),
     action('save-version', uiText("Salvar versão"), openSaveVersion, '⌘S'),
     action('settings', uiText("Configurações"), () => openSettings(), '⌘,'),
-    action('agent-context', uiText("Gerar contexto para agentes"), () => void generateAgentContext()),
     action('tour', uiText("Refazer o tour"), startTour),
     action('present', uiText("Modo apresentação"), togglePresentation, 'P'),
     action('reload-disk', uiText("Recarregar do disco (mudanças de agente)"), () => void reloadWorkspace()),

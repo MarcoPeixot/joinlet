@@ -1,3 +1,4 @@
+import { journaledBatch, recoverJournal } from './repository/journal';
 import { assertBetaManifest } from './beta';
 import { mkdir, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
@@ -30,7 +31,7 @@ const isFile = async (path: string): Promise<boolean> => {
  * refused and the nearest existing ancestor must resolve (through symlinks) to a directory inside the
  * workspace. `list()` skips symlinks, so a link to outside can never be read back.
  */
-export function createFsAdapter(archDir: string): StorageAdapter {
+export function createFsAdapter(archDir: string): StorageAdapter & { recover():Promise<void> } {
   const root = resolve(archDir);
   const under = (path: string) => path === root || path.startsWith(root + sep);
   const full = (path: string) => join(root, checkPath(path));
@@ -76,7 +77,7 @@ export function createFsAdapter(archDir: string): StorageAdapter {
     }
   }
 
-  return {
+  const adapter: StorageAdapter = {
     kind: 'folder',
     label: archDir,
     async read(path) {
@@ -106,7 +107,7 @@ export function createFsAdapter(archDir: string): StorageAdapter {
         const entries = await readdir(dir, { withFileTypes: true });
         for (const entry of entries) {
           const abs = join(dir, entry.name);
-          if (entry.isSymbolicLink()) continue;
+          if (entry.isSymbolicLink() || entry.name.startsWith('.joinlet-')) continue;
           if (entry.isDirectory()) await walk(abs);
           else if (entry.isFile()) out.push(relative(root, abs).split(sep).join('/'));
         }
@@ -119,6 +120,9 @@ export function createFsAdapter(archDir: string): StorageAdapter {
       return out.sort();
     },
   };
+  adapter.stamps=async()=>{const files=await adapter.list();return Object.fromEntries(await Promise.all(files.map(async path=>[path,(await stat(full(path))).mtimeMs] as const)));};
+  adapter.batch = journaledBatch(adapter, root, guard);
+  return Object.assign(adapter,{recover:()=>recoverJournal(adapter,root,guard)});
 }
 
 /** Walks up from `start` (or the `.arch/` itself) until it finds `.arch/strukt.json`. */

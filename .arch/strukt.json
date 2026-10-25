@@ -11,6 +11,15 @@
     {
       "slug": "fluxo-de-release-proposto",
       "title": "Fluxo de release proposto"
+    },
+    {
+      "slug": "sincronizacao-de-repositorios",
+      "title": "Sincronização de repositórios"
+    },
+    {
+      "folder": "Arquitetura",
+      "slug": "repository",
+      "title": "Visão geral — Joinlet"
     }
   ],
   "docs": [
@@ -37,6 +46,135 @@
     {
       "slug": "analytics-opcional-do-joinlet",
       "title": "Analytics opcional do Joinlet"
+    },
+    {
+      "slug": "conexao-e-sincronizacao-de-repositorios",
+      "title": "Conexão e sincronização de repositórios"
+    },
+    {
+      "folder": "Arquitetura",
+      "slug": "repository-architecture",
+      "title": "Arquitetura — Joinlet"
+    },
+    {
+      "folder": "Repositório",
+      "slug": "contributing-to-joinlet",
+      "source": "CONTRIBUTING.md",
+      "title": "Contributing to Joinlet"
+    },
+    {
+      "folder": "Repositório",
+      "slug": "readme",
+      "source": "README.md",
+      "title": "README — ."
+    },
+    {
+      "folder": "Repositório",
+      "slug": "security-policy",
+      "source": "SECURITY.md",
+      "title": "Security policy"
+    },
+    {
+      "folder": "Repositório",
+      "slug": "corresponding-source",
+      "source": "SOURCE.md",
+      "title": "Corresponding source"
+    },
+    {
+      "folder": "Repositório",
+      "slug": "third-party-notices",
+      "source": "THIRD_PARTY_NOTICES.md",
+      "title": "Third-party notices"
+    },
+    {
+      "folder": "Repositório",
+      "slug": "joinlet-name-and-visual-identity",
+      "source": "TRADEMARKS.md",
+      "title": "Joinlet name and visual identity"
+    },
+    {
+      "folder": "Repositório/apps/vscode",
+      "slug": "joinlet-para-vs-code",
+      "source": "apps/vscode/README.md",
+      "title": "Joinlet para VS Code"
+    },
+    {
+      "folder": "Repositório/apps/web",
+      "slug": "joinlet-interface",
+      "source": "apps/web/DESIGN.md",
+      "title": "Joinlet interface"
+    },
+    {
+      "folder": "Repositório/apps/web",
+      "slug": "joinlet",
+      "source": "apps/web/PRODUCT.md",
+      "title": "Joinlet"
+    },
+    {
+      "folder": "Repositório/deploy",
+      "slug": "publicacao-do-joinlet",
+      "source": "deploy/README.md",
+      "title": "Publicação do Joinlet"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "agentes-mcp-cli",
+      "source": "docs/agents.md",
+      "title": "Agentes: MCP + CLI"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "idiomas-da-interface",
+      "source": "docs/idiomas.md",
+      "title": "Idiomas da interface"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "joinlet-demonstracoes-visuais",
+      "source": "docs/landing-visual-stories.md",
+      "title": "Joinlet — demonstrações visuais"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "open-source-and-hosted-service",
+      "source": "docs/open-source.md",
+      "title": "Open source and hosted service"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "provedores-de-ia-do-joinlet",
+      "source": "docs/provedores-de-ia.md",
+      "title": "Provedores de IA do Joinlet"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "contributions-releases-and-the-official-service",
+      "source": "docs/releases.md",
+      "title": "Contributions, releases and the official service"
+    },
+    {
+      "folder": "Repositório/docs/third-party",
+      "slug": "icones-oficiais-de-arquitetura-cloud",
+      "source": "docs/third-party/cloud-icons.md",
+      "title": "Ícones oficiais de arquitetura cloud"
+    },
+    {
+      "folder": "Repositório/docs/third-party",
+      "slug": "eraser-diagrams",
+      "source": "docs/third-party/eraser-diagrams.md",
+      "title": "Eraser Diagrams"
+    },
+    {
+      "folder": "Repositório/docs/third-party",
+      "slug": "ignore-md",
+      "source": "docs/third-party/ignore.md",
+      "title": "ignore.md"
+    },
+    {
+      "folder": "Repositório/docs",
+      "slug": "configuracoes-do-workspace",
+      "source": "docs/workspace-settings.md",
+      "title": "Configurações do workspace"
     }
   ],
   "name": "Joinlet",

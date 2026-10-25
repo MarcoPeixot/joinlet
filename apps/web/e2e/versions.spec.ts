@@ -63,22 +63,13 @@ test('accepting an AI proposal records a version by the AI', async ({ page }) =>
   expect(JSON.parse((await readFile(page, path!))!)).toMatchObject({ author: 'ai' });
 });
 
-test('"Gerar contexto para agentes" writes ARCHITECTURE.md with the diagram JSON and keeps it fresh', async ({ page }) => {
+test('automatically generates and updates agent context without a manual dialog', async ({ page }) => {
+  await expect.poll(() => readFile(page, 'context/ARCHITECTURE.md')).not.toBeNull();
   await page.getByRole('navigation', { name: 'Workspace' }).getByRole('button', { name: 'Menu do workspace' }).click();
-  await page.getByRole('menuitem', { name: /Gerar contexto para agentes/ }).click();
-  const modal = page.getByRole('dialog', { name: 'Contexto para agentes' });
-  await expect(modal.getByLabel('Prévia do ARCHITECTURE.md')).toContainText('```json');
-  await expect(modal.getByRole('list', { name: 'Arquivos gerados' })).toContainText('.arch/context/llms.txt');
-  await expect(modal.getByLabel('Trecho para AGENTS.md')).toContainText('.arch/context/ARCHITECTURE.md');
-
+  await expect(page.getByRole('menuitem', { name: /Gerar contexto para agentes/ })).toHaveCount(0);
+  await page.keyboard.press('Escape');
   const json = await readFile(page, 'diagrams/exemplo.strukt.json');
   expect(await readFile(page, 'context/ARCHITECTURE.md')).toContain(`\`\`\`json\n${json!.trimEnd()}\n\`\`\``);
-  expect(await readFile(page, 'context/llms.txt')).toMatch(/^# Meu workspace\n\n> /);
-
-  const download = page.waitForEvent('download');
-  await modal.getByRole('button', { name: 'Baixar .zip' }).click();
-  expect((await download).suggestedFilename()).toBe('meu-workspace-contexto.zip');
-  await modal.getByRole('button', { name: 'Fechar contexto' }).click();
 
   await page.getByRole('button', { name: 'Adicionar nó (N)' }).click();
   await page.keyboard.type('Stripe');

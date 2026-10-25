@@ -11,6 +11,7 @@ import { buildChatContext } from './context';
 import { createChatStore } from './store';
 import { chatBinding, isRemoteLabel } from './workspaceKey';
 import type { ChatState } from './store';
+import {repositoryAnalysisContext,repositoryAnalysisText,verifyRepositoryAnalysisContext,followRepositoryAnalysisConversation} from '../workspace/repositoryAnalysis';
 
 export interface ChatContextOptions {
   /** `diagram`: only the diagram of the workspace (an assistant scoped to it). */
@@ -44,7 +45,8 @@ function buildContext(options?: ChatContextOptions, extra?: string): string {
     : view.kind === 'diagram' ? ({ kind: 'diagram', slug: diagram ?? '' } as const)
     : view.kind === 'doc' ? ({ kind: 'doc', slug: view.slug } as const)
     : ({ kind: 'sketch', slug: view.slug, title: data.manifest.sketches.find((item) => item.slug === view.slug)?.title } as const);
-  return (getLocale() === 'en' ? 'Interface language: English. Respond in English unless the user requests another language. Preserve all existing workspace identifiers and user-authored content.\n\n' : '') + buildChatContext({ workspace: data.manifest.name, open, diagrams, docs, sketches, ...(options?.scope ? { scope: options.scope } : {}), ...(extra ? { extra } : {}) });
+  const sourceContext=repositoryAnalysisText();
+  return (getLocale() === 'en' ? 'Interface language: English. Respond in English unless the user requests another language. Preserve all existing workspace identifiers and user-authored content.\n\n' : '') + buildChatContext({ workspace: data.manifest.name, open, diagrams, docs, sketches, ...(options?.scope ? { scope: options.scope } : {}), ...((extra||sourceContext)?{extra:[extra,sourceContext].filter(Boolean).join('\n\n')}:{}) });
 }
 
 /** Conversations live in the browser (per workspace); a blocked storage (private window) just means they are not kept. */
@@ -56,15 +58,18 @@ const storage = {
 export const chatStore = createChatStore({
   request: async (turns, context, signal, onText, sessionId, selection, onSearch, onActivity) => {
     const captured = captureChatEdit();
+    const repositoryContext=repositoryAnalysisContext();
+    if(repositoryContext)try{await verifyRepositoryAnalysisContext(repositoryContext);}catch(error){return {kind:'error',message:error instanceof Error?error.message:String(error)};}
     const reply = await requestChat(turns, context, undefined, signal, onText, captured.target?.kind === 'sketch' ? { ...captured.target, content: sketchContext(captured.target.content) } : captured.target, sessionId, selection, onSearch);
     if (reply.kind !== 'ok' || !reply.edit || signal.aborted) return reply;
     onActivity?.('applying');
-    try { return { ...reply, change: await captured.apply(reply.edit, signal) }; }
+    try { await verifyRepositoryAnalysisContext(repositoryContext);return { ...reply, change: await captured.apply(reply.edit, signal) }; }
     catch (err) { return { kind: 'error', message: err instanceof Error ? err.message : String(err) }; }
   },
   getContext: async (options) => { await flushChatEdits(); return currentChatContext(options); },
   storage,
 });
+chatStore.subscribe((state,previous)=>{if(state.activeId!==previous.activeId)followRepositoryAnalysisConversation(state.activeId);});
 
 /**
  * Which conversations belong to the open workspace: its id in the project list (a rename or a re-opened folder keeps

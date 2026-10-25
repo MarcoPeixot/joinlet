@@ -5,7 +5,7 @@ import { showToast } from '../ui/uiStore';
 import { workspace } from '../workspace/appWorkspace';
 import { createContextSync } from './contextSync';
 
-/** Keeps `.arch/context/` of the open workspace fresh once it was generated. */
+/** Automatically creates and maintains `.arch/context/` for local workspaces. */
 export const contextSync = createContextSync(workspace);
 
 export interface AgentContextState {

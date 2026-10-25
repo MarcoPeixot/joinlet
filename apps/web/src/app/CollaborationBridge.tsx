@@ -7,6 +7,7 @@ import { diagramStore } from '../state/appStore';
 import { COLLAB_WAITING_LOCK } from '../state/locks';
 import { workspace, useWorkspace } from '../workspace/appWorkspace';
 import { collaborationSession } from '../workspace/boot';
+import { matchesRemoteSource } from '../workspace/remote';
 import { closeCollaborationClient, collaborationClient } from '../workspace/collaboration';
 import { createDeltaOutbox } from '../workspace/collabOutbox';
 import { setCollaborationHistory, showCollaborationClient, useCollaborationEpoch } from '../workspace/collaborationView';
@@ -23,7 +24,7 @@ export function CollaborationBridge() {
 
   useEffect(() => {
     const session = collaborationSession();
-    if (!session || !slug || !source?.includes(session.repo)) return;
+    if (!session || !slug || !matchesRemoteSource(session, source)) return;
     const client = collaborationClient(session, `diagram:${slug}`);
     const undo = new Y.UndoManager([
       client.doc.getMap('style'), client.doc.getMap('elements'), client.doc.getMap('edges'),

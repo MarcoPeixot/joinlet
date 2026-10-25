@@ -1,3 +1,4 @@
+import { RepositoryConnection } from './RepositoryConnection';
 import {collaborationSession} from '../workspace/boot';
 import { uiText } from '../i18n';
 import { Check, GitBranch, GitCompareArrows, GitPullRequest, LoaderCircle, RefreshCw } from 'lucide-react';
@@ -61,7 +62,7 @@ export function GithubPanel() {
       window.location.reload();
     } catch (error) { showToast(error instanceof Error ? error.message : uiText("Não foi possível desconectar.")); }
   };
-  if (collaborationSession()?.mode === 'cloud') return <SidePanel label="GitHub"><PanelHeader icon={<GitBranch size={14}/>} title="GitHub" onClose={closeGithub}/><section className="flex flex-col gap-4 p-4 text-body"><p className="font-medium">{uiText('Seu workspace está salvo no Joinlet Cloud.')}</p><p className="text-muted">{uiText('Para trabalhar com a arquitetura em um repositório, conecte o servidor MCP ao seu agente e autorize o repositório no GitHub. Esse fluxo abre o workspace do repositório.')}</p><code className="break-all rounded-control bg-panel p-3 text-caption">{collaborationSession()?.mcpUrl}</code><Button onClick={() => void disconnectRemote()}>{uiText('Sair da conta')}</Button></section></SidePanel>;
+  if (collaborationSession()?.mode === 'cloud') return <SidePanel label="GitHub"><PanelHeader icon={<GitBranch size={14}/>} title={uiText('Repositório e sincronização')} onClose={closeGithub}/><div className="overflow-y-auto p-3"><RepositoryConnection cloud/></div></SidePanel>;
   return source?.label.startsWith('GitHub: ') ? (
     <SidePanel label={"GitHub"}>
       <PanelHeader icon={<GitPullRequest size={14} />} title={"GitHub"} onClose={closeGithub} />
@@ -162,6 +163,7 @@ function GithubPanelBody() {
         )}
       />
       <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-3 text-body">
+        <RepositoryConnection />
         <Stepper authConnected={authConnected} repoReady={Boolean(repo)} />
         <GithubConnection onAuthChange={setAuthConnected} />
 

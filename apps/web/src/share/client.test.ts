@@ -1,9 +1,11 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { setRequestWorkspace } from '../workspace/requestAuth';
 import { createShareClient } from './client';
 
 const invite = { id: 'e', name: 'Link para editar', role: 'edit', createdAt: 1, expiresAt: null, url: 'http://192.168.0.5:8790/join?token=t', publicUrl: null };
 const active = { active: true, root: '/repo', people: [], invites: [invite], tunnel: { active: false }, startedAt: 1 };
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
+afterEach(()=>setRequestWorkspace(undefined));
 
 function setup(reply: Response | Error = json(active)) {
   const fetchFn = vi.fn(async (_url: string, _init?: RequestInit) => { if (reply instanceof Error) throw reply; return reply.clone(); });
@@ -11,10 +13,15 @@ function setup(reply: Response | Error = json(active)) {
 }
 
 describe('share client', () => {
+  it('scopes invitation lists and audit reads to the selected Cloud workspace',async()=>{
+    setRequestWorkspace('cloud:second');
+    const {client,fetchFn}=setup();await client.status();
+    expect(fetchFn).toHaveBeenCalledWith('/api/share',{method:'GET',headers:{'x-joinlet-workspace':'cloud:second'}});
+  });
   it('reads the status', async () => {
     const { client, fetchFn } = setup();
     expect(await client.status()).toEqual({ kind: 'ok', status: active });
-    expect(fetchFn).toHaveBeenCalledWith('/api/share', { method: 'GET' });
+    expect(fetchFn).toHaveBeenCalledWith('/api/share', { method: 'GET',headers:{} });
   });
 
   it('posts each action as JSON to its own route', async () => {
@@ -57,7 +64,7 @@ describe('share client', () => {
   it('reads the activity and drops entries it does not understand', async () => {
     const { client, fetchFn } = setup(json({ entries: [{ t: '2026-10-03T12:00:00.000Z', type: 'join', invite: 'Ana' }, { nope: 1 }, 'x'] }));
     expect(await client.activity()).toEqual({ kind: 'ok', entries: [{ t: '2026-10-03T12:00:00.000Z', type: 'join', invite: 'Ana' }] });
-    expect(fetchFn).toHaveBeenCalledWith('/api/share/audit', { method: 'GET' });
+    expect(fetchFn).toHaveBeenCalledWith('/api/share/audit', { method: 'GET',headers:{} });
     expect(await setup(json({ entries: 5 })).client.activity()).toEqual({ kind: 'error', message: 'Resposta inválida do servidor.' });
     expect(await setup(json({ error: 'Conecte' }, 409)).client.activity()).toEqual({ kind: 'error', message: 'Conecte' });
   });

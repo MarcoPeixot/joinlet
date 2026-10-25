@@ -1,6 +1,6 @@
 # Joinlet
 
-> Arquitetura do workspace “Joinlet” no Joinlet: 3 diagramas e 6 documentos. Comece por ARCHITECTURE.md.
+> Arquitetura do workspace “Joinlet” no Joinlet: 5 diagramas e 28 documentos. Comece por ARCHITECTURE.md.
 
 Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group"` e `children` para grupos) e cada item de `connections` liga `from` a `to`. As posições do desenho ficam em `.arch/diagrams/*.layout.json` e não mudam o significado. Arquivos gerados a partir de `.arch/`: não edite à mão.
 
@@ -13,6 +13,8 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 - [Arquitetura do Joinlet](diagrams/arquitetura-do-joinlet.md): 11 componentes, 14 conexões
 - [Distribuição do código Joinlet](diagrams/distribuicao-do-codigo-joinlet.md): 5 componentes, 4 conexões
 - [Fluxo de release proposto](diagrams/fluxo-de-release-proposto.md): 9 componentes, 9 conexões
+- [Sincronização de repositórios](diagrams/sincronizacao-de-repositorios.md): 13 componentes, 16 conexões
+- [Visão geral — Joinlet](diagrams/repository.md): 16 componentes, 40 conexões
 
 ## Documentos
 
@@ -22,9 +24,33 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 - [Release do Joinlet](../docs/release-do-joinlet.md): documento do workspace
 - [Site público e documentação](../docs/site-publico-e-documentacao.md): documento do workspace
 - [Analytics opcional do Joinlet](../docs/analytics-opcional-do-joinlet.md): documento do workspace
+- [Conexão e sincronização de repositórios](../docs/conexao-e-sincronizacao-de-repositorios.md): ligado a API local (Arquitetura do Joinlet), Backend hospedável (Arquitetura do Joinlet), CLI e MCP (Arquitetura do Joinlet), Workspace (Arquitetura do Joinlet), Editor web (Sincronização de repositórios), CLI e MCP (Sincronização de repositórios), Conector pareado (Sincronização de repositórios), Serviço local (Sincronização de repositórios), API hospedada (Sincronização de repositórios), Worker GitHub (Sincronização de repositórios), Análise e mesclagem (Sincronização de repositórios), Importadores (Sincronização de repositórios), IA BYOK (Sincronização de repositórios), .arch (Sincronização de repositórios), Estado de execução (Sincronização de repositórios), GitHub (Sincronização de repositórios), Documentação e Overview (Sincronização de repositórios)
+- [Arquitetura — Joinlet](../docs/repository-architecture.md): documento do workspace
+- [Contributing to Joinlet](../docs/contributing-to-joinlet.md): documento do workspace
+- [README — .](../docs/readme.md): documento do workspace
+- [Security policy](../docs/security-policy.md): documento do workspace
+- [Corresponding source](../docs/corresponding-source.md): documento do workspace
+- [Third-party notices](../docs/third-party-notices.md): documento do workspace
+- [Joinlet name and visual identity](../docs/joinlet-name-and-visual-identity.md): documento do workspace
+- [Joinlet para VS Code](../docs/joinlet-para-vs-code.md): ligado a vscode (Visão geral — Joinlet)
+- [Joinlet interface](../docs/joinlet-interface.md): documento do workspace
+- [Joinlet](../docs/joinlet.md): documento do workspace
+- [Publicação do Joinlet](../docs/publicacao-do-joinlet.md): documento do workspace
+- [Agentes: MCP + CLI](../docs/agentes-mcp-cli.md): documento do workspace
+- [Idiomas da interface](../docs/idiomas-da-interface.md): documento do workspace
+- [Joinlet — demonstrações visuais](../docs/joinlet-demonstracoes-visuais.md): documento do workspace
+- [Open source and hosted service](../docs/open-source-and-hosted-service.md): documento do workspace
+- [Provedores de IA do Joinlet](../docs/provedores-de-ia-do-joinlet.md): documento do workspace
+- [Contributions, releases and the official service](../docs/contributions-releases-and-the-official-service.md): documento do workspace
+- [Ícones oficiais de arquitetura cloud](../docs/icones-oficiais-de-arquitetura-cloud.md): documento do workspace
+- [Eraser Diagrams](../docs/eraser-diagrams.md): documento do workspace
+- [ignore.md](../docs/ignore-md.md): documento do workspace
+- [Configurações do workspace](../docs/configuracoes-do-workspace.md): documento do workspace
 
 ## Optional
 
 - [arquitetura-do-joinlet.strukt.json](../diagrams/arquitetura-do-joinlet.strukt.json): código-fonte de “Arquitetura do Joinlet”
 - [distribuicao-do-codigo-joinlet.strukt.json](../diagrams/distribuicao-do-codigo-joinlet.strukt.json): código-fonte de “Distribuição do código Joinlet”
 - [fluxo-de-release-proposto.strukt.json](../diagrams/fluxo-de-release-proposto.strukt.json): código-fonte de “Fluxo de release proposto”
+- [sincronizacao-de-repositorios.strukt.json](../diagrams/sincronizacao-de-repositorios.strukt.json): código-fonte de “Sincronização de repositórios”
+- [repository.strukt.json](../diagrams/repository.strukt.json): código-fonte de “Visão geral — Joinlet”

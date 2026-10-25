@@ -1,4 +1,5 @@
-import { BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
+import { configureRuntimeDatabase } from './database';
+import { CLOUD_BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { createBetaAccounts } from './betaAccounts';
 import { createAccounts, authToken, tokenHash } from './accounts';
 import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';
@@ -74,6 +75,8 @@ export interface RemoteAuthOptions {
   databasePath: string;
   fetch?: typeof fetch;
   now?: () => number;
+  repositoryWorker?: boolean;
+  repositoryWebhookSecret?: string;
 }
 
 /** GitHub handles sign-in; Joinlet issues distinct MCP tokens bound to one chosen repository. */
@@ -87,11 +90,11 @@ export function createRemoteAuth(options: RemoteAuthOptions) {
   }
   const db = new Database(options.databasePath, { create: true });
   if (options.databasePath !== ':memory:') chmodSync(options.databasePath, 0o600);
-  db.exec('PRAGMA journal_mode=WAL');
+  configureRuntimeDatabase(db);
   db.exec('CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL, id TEXT NOT NULL, value TEXT NOT NULL, expires INTEGER, PRIMARY KEY(kind, id))');
   const now = options.now ?? Date.now;
   const fetcher = options.fetch ?? fetch;
-  const accessPlan = options.deploymentMode === 'cloud' ? BETA_PLAN : SELF_HOSTED_PLAN;
+  const accessPlan = options.deploymentMode === 'cloud' ? CLOUD_BETA_PLAN : SELF_HOSTED_PLAN;
   const accounts = createAccounts(db, now);
   const beta = createBetaAccounts(db, now, options.adminGithubIds, accessPlan, id => {
     const subject = accounts.get(id)?.github_id;

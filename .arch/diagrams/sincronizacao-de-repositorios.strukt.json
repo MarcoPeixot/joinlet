@@ -1,0 +1,209 @@
+{
+  "$schema": "./strukt.schema.json",
+  "version": 1,
+  "style": {
+    "direction": "down",
+    "styleMode": "plain"
+  },
+  "nodes": [
+    {
+      "id": "Editor",
+      "label": "Editor web",
+      "presentation": "card",
+      "layoutRole": "entry",
+      "icon": "browser",
+      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "CLI",
+      "label": "CLI e MCP",
+      "presentation": "card",
+      "layoutRole": "entry",
+      "icon": "terminal",
+      "description": "init/connect/watch/sync/context/verify e MCP. Aprofundamento por inventário/leitura paginados, plano de análise, organização de pastas e vínculos no Overview, com revisão explícita e escrita coordenada.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Connector",
+      "label": "Conector pareado",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "plug",
+      "description": "Pasta confinada, Git, observação e conexão autenticada de saída com o Cloud. Encaminha snapshots de contexto, revisão/política e páginas de fontes ao editor e MCP sem endpoints privilegiados públicos em localhost.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Local",
+      "label": "Serviço local",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "server",
+      "description": "Conexões limitadas à pasta, diagnóstico Git, tarefas, eventos e acompanhamento incremental. Mantém blocos de referência ao contexto em AGENTS.md e CLAUDE.md, preservando conteúdo manual e sinalizando conflitos.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Hub",
+      "label": "API hospedada",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "server",
+      "description": "Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Worker",
+      "label": "Worker GitHub",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "workflow",
+      "description": "Tarefas com lease; snapshots SHA, revisão antes de publicação e um PR atualizado. Inclui as instruções de agentes no mesmo commit da arquitetura e do contexto.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Engine",
+      "label": "Análise e mesclagem",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "layers",
+      "description": "Inventário, fatos de módulos e bibliotecas, tecnologias e ícones por manifestos/imports/tipos de arquivo, IA com evidências, mesclagem e contexto. Visão compacta de módulos agrupados para repositórios grandes. README da raiz prioritário; diagnóstico sem IA. Conteúdo e ícones manuais preservados.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Importers",
+      "label": "Importadores",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "git-merge",
+      "description": "Detecta fontes reconhecidas e mantém mapeamentos e bases.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "AI",
+      "label": "IA BYOK",
+      "presentation": "card",
+      "layoutRole": "shared",
+      "icon": "sparkles",
+      "description": "Interpretação BYOK de responsabilidades com referências verificadas. A mesma chamada pode escolher a tecnologia principal entre sinais comprovados no próprio módulo. O motor valida o catálogo e as evidências; inferências de componentes e relações vão para revisão.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Architecture",
+      "label": ".arch",
+      "presentation": "card",
+      "layoutRole": "shared",
+      "icon": "file-json",
+      "description": "Modelo, layout, docs, evidências, fontes, base gerenciada e contexto. Gravações com versões esperadas.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Runtime",
+      "label": "Estado de execução",
+      "presentation": "card",
+      "layoutRole": "shared",
+      "icon": "database",
+      "description": "SQLite, tarefas, outbox e leases. API, worker e colaboração aguardam locks por até 5 segundos antes das migrações/WAL. Segredos e journals ficam fora do Git.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "GitHub",
+      "label": "GitHub",
+      "presentation": "card",
+      "layoutRole": "shared",
+      "icon": "github",
+      "description": "Árvores/blobs imutáveis, branch de trabalho e PR; sem execução de código do projeto.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Knowledge",
+      "label": "Documentação e Overview",
+      "presentation": "card",
+      "icon": "file-text",
+      "tech": "Markdown · pastas · vínculos",
+      "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    }
+  ],
+  "connections": [
+    {
+      "from": "Editor",
+      "to": "Local",
+      "label": "pasta local"
+    },
+    {
+      "from": "Editor",
+      "to": "Hub",
+      "label": "conta e repositório"
+    },
+    {
+      "from": "CLI",
+      "to": "Engine",
+      "label": "comandos"
+    },
+    {
+      "from": "Connector",
+      "to": "Hub",
+      "label": "saída HTTPS autenticada"
+    },
+    {
+      "from": "Connector",
+      "to": "Local",
+      "label": "pasta autorizada"
+    },
+    {
+      "from": "Local",
+      "to": "Engine",
+      "label": "eventos incrementais"
+    },
+    {
+      "from": "Hub",
+      "to": "Runtime",
+      "label": "fila e alterações pendentes"
+    },
+    {
+      "from": "Worker",
+      "to": "Runtime",
+      "label": "deduplicação e lease"
+    },
+    {
+      "from": "Worker",
+      "to": "Engine",
+      "label": "análise fixada por SHA"
+    },
+    {
+      "from": "Worker",
+      "to": "GitHub",
+      "label": "commit por lote e PR"
+    },
+    {
+      "from": "Engine",
+      "to": "Importers",
+      "label": "fontes reconhecidas"
+    },
+    {
+      "from": "Engine",
+      "to": "AI",
+      "label": "interpretação e propostas"
+    },
+    {
+      "from": "Engine",
+      "to": "Architecture",
+      "label": "mesclagem e evidências"
+    },
+    {
+      "from": "CLI",
+      "to": "Architecture",
+      "label": "MCP e revisão CAS"
+    },
+    {
+      "from": "Engine",
+      "to": "Knowledge",
+      "label": "Markdown e metadados"
+    },
+    {
+      "from": "Knowledge",
+      "to": "Architecture",
+      "label": "documentos, pastas e vínculos"
+    }
+  ]
+}

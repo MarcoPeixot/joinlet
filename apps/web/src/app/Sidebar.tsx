@@ -4,11 +4,10 @@ import { LanguagePicker } from '../i18n/LanguagePicker';
 import { uiText } from '../i18n';
 import { ITEM_LIST } from '@strukt/workspace';
 import type { ItemEntry, ItemKind } from '@strukt/workspace';
-import { Settings2, Bot, ChevronDown, ChevronsUpDown, Ellipsis, Download, FolderOpen, GitPullRequest, HardDrive, History, LayoutDashboard, MessageCircle, PanelLeft, Pencil, Plus, Trash2, TriangleAlert, Upload } from 'lucide-react';
+import { Settings2, ChevronDown, ChevronsUpDown, Ellipsis, Download, FolderOpen, GitPullRequest, HardDrive, History, LayoutDashboard, MessageCircle, PanelLeft, Pencil, Plus, Trash2, TriangleAlert, Upload } from 'lucide-react';
 import { m } from 'motion/react';
 import { useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
-import { generateAgentContext } from '../context/session';
 import { openGithub } from '../github/session';
 import { IconButton } from '../ui/IconButton';
 import { Logo } from '../ui/Logo';
@@ -46,7 +45,7 @@ function BoardLink() {
   );
 }
 
-/** The workspace's name opens its menu: rename, agent context, storage and .zip. */
+/** The workspace's name opens its project list, settings, storage and exports. */
 function WorkspaceHeader() {
   const name = useWorkspace((s) => s.data?.manifest.name ?? '');
   const logo = useWorkspace((s) => s.data?.manifest.logo);
@@ -90,7 +89,7 @@ function WorkspaceHeader() {
           </button>
         }
       >
-        {!collaborationSession() && <>
+        {(!collaborationSession() || (collaborationSession()?.mode==='cloud'&&collaborationSession()?.owner)) && <>
           <MenuItem icon={<LayoutDashboard size={15} />} disabled={busy} onSelect={showProjects}>{uiText("Meus projetos")}</MenuItem>
           <MenuItem icon={<Plus size={15} />} disabled={busy || !available} onSelect={showCreateWorkspace}>{uiText("Novo workspace")}</MenuItem>
           <MenuLabel>{uiText("Workspaces recentes")}</MenuLabel>
@@ -103,7 +102,6 @@ function WorkspaceHeader() {
         <MenuItem icon={<Settings2 size={15} />} onSelect={() => openSettings('workspace')}>{uiText("Configurações do workspace")}</MenuItem>
         {!isViewOnly() && <>
           <MenuItem icon={<Pencil size={14} />} onSelect={() => setEditing(true)}>{uiText("Renomear workspace")}</MenuItem>
-          <MenuItem icon={<Bot size={15} />} hint=".arch/context" onSelect={() => void generateAgentContext()}>{uiText("Gerar contexto para agentes")}</MenuItem>
         </>}
         <MenuSeparator />
         <MenuItem icon={<FolderOpen size={15} />} hint="<pasta>/.arch" onSelect={() => void openFolderPicker()}>{uiText("Abrir pasta…")}</MenuItem>

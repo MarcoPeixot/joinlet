@@ -14,6 +14,11 @@ export interface AccessPlan {
   readonly limits: Readonly<Record<BetaResource, number | null>>;
   readonly features: typeof BETA_PLAN.features;
 }
+/** Authenticated Cloud accounts can own multiple projects; the anonymous browser preview keeps BETA_PLAN. */
+export const CLOUD_BETA_PLAN: AccessPlan = Object.freeze({
+  ...BETA_PLAN,
+  limits: Object.freeze({ ...BETA_PLAN.limits, workspaces: null }),
+});
 /** null is unlimited, including in JSON responses. Never infer this from a workspace file. */
 export const ADMIN_PLAN: AccessPlan = Object.freeze({
   id: 'administrator', name: 'Joinlet Admin',

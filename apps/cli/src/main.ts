@@ -37,6 +37,10 @@ export async function run(argv: readonly string[], io: CliIo = consoleIo): Promi
   const args = parsed;
   try {
     switch (args.command) {
+      case 'init':
+      case 'watch':
+      case 'connect':
+        return await (await import('./commands/repository')).runRepository(args, io);
       case 'verify':
         return await runVerify(args, io);
       case 'check':

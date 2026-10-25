@@ -1,3 +1,4 @@
+import { writeBatch } from './repository/transaction';
 import { refreshGeneratedContext } from './contextStorage';
 import * as Y from 'yjs';
 import { COLLAB_EXTERNAL, COLLAB_REPAIR, checkCollaborativeDiagramBounds, inspectCollaborativeDiagram, repairCollaborativeDiagram } from './collaboration';
@@ -62,7 +63,7 @@ export function createCollaborationStore(options: {
   persistence: CollaborationPersistence;
   adapter(scope: string): Promise<ProjectableAdapter>;
   onError?(room: string, error: unknown): void;
-  onProjected?(room: string): void;
+  onProjected?(room: string, paths: string[]): void;
   /** The room's item was deleted: tell its peers (once); the room never writes its files again while they stay gone. */
   onGone?(room: string): void;
   /** Repairs the room's diagram needed (a merged parent cycle, a hostile peer): the first of each kind, once per room. */
@@ -169,13 +170,14 @@ export function createCollaborationStore(options: {
       const vector = Y.encodeStateVector(entry.doc);
       const files = projectedCollaborationFiles(entry.doc, item, report(name));
       const base = Y.encodeStateAsUpdate(entry.doc);
-      for (const [path, text] of Object.entries(files)) if (disk[path] !== text) await adapter.write(path, text);
+      const mutations=Object.entries(files).filter(([path,text])=>disk[path]!==text).map(([path,text])=>({path,text,expected:disk[path]??null}));
+      await writeBatch(adapter,mutations);
       await refreshGeneratedContext(adapter);
       await adapter.flush?.();
       entry.baseline = files;
       entry.base = base;
       await options.persistence.baseline(name, files);
-      options.onProjected?.(name);
+      options.onProjected?.(name,mutations.map(change=>change.path));
       const now = Y.encodeStateVector(entry.doc);
       if (now.length !== vector.length || now.some((byte, index) => byte !== vector[index])) schedule(name, 0);
     };

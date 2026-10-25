@@ -90,7 +90,7 @@ export async function initializeRepoWorkspace(root: string, raw: unknown): Promi
     const owned = new Set(Object.keys(workspaceFiles(loaded.data)));
     for (const path of Object.keys(files)) {
       const safe = path && !path.startsWith('/') && !path.includes('\\') && !path.includes('\0') && path.split('/').every((part) => part && part !== '.' && part !== '..');
-      if (!safe || (!owned.has(path) && !path.startsWith('versions/') && !path.startsWith('context/') && parseCommentsPath(path) === null)) {
+      if (!safe || (!owned.has(path) && !path.startsWith('versions/') && !path.startsWith('context/') && !['repository.json', 'repository-state.json', 'sources.json', 'sync.json'].includes(path) && parseCommentsPath(path) === null)) {
         return { ok: false, error: `Arquivo não permitido no workspace: ${path}.` };
       }
     }

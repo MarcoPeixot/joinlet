@@ -17,5 +17,6 @@ if ('error' in workspace) {
   console.error(workspace.error);
   process.exit(1);
 }
+if (await workspace.adapter.read('repository.json')) { const {localRepositoryAi}=await import('../../server/src/localRepositoryAi'); workspace.repositoryAnalyzer=(await localRepositoryAi()).analyzer; }
 for (const warning of workspace.warnings) console.error(`aviso: ${warning}`);
 await createStruktServer(workspace).connect(new StdioServerTransport());

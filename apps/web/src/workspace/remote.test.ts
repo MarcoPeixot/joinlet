@@ -2,12 +2,18 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ACCESS_ENDED, setAccessEndedHandler } from './accessEnded';
 import { StorageConflict, printManifest } from '@strukt/workspace';
 import type { Manifest } from '@strukt/workspace';
-import { createRemoteAdapter, remoteSession } from './remote';
+import { createRemoteAdapter, matchesRemoteSource, remoteSession } from './remote';
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 afterEach(() => { vi.unstubAllGlobals(); setAccessEndedHandler(null); });
 
 describe('opening a shared session', () => {
+  it('binds Cloud diagram and document collaboration without exposing its scope in the label', () => {
+    const session = { repo: 'cloud:workspace-id', csrf: 'c', mcpUrl: 'http://x', mode: 'cloud' as const };
+    expect(matchesRemoteSource(session, 'Joinlet Cloud')).toBe(true);
+    expect(matchesRemoteSource(session, 'IndexedDB')).toBe(false);
+    expect(matchesRemoteSource(session, 'GitHub: cloud:workspace-id')).toBe(false);
+  });
   it('reads the role the host gave this invite', async () => {
     vi.stubGlobal('fetch', async () => json({ repo: 'r', csrf: 'c', mcpUrl: 'http://x', mode: 'lan', role: 'comment', readOnly: true }));
     expect(await remoteSession()).toEqual({ kind: 'ready', session: { repo: 'r', csrf: 'c', mcpUrl: 'http://x', mode: 'lan', role: 'comment', readOnly: true } });
@@ -26,6 +32,14 @@ describe('opening a shared session', () => {
 
 describe('the remote adapter', () => {
   const session = { repo: 'r', csrf: 'c', mcpUrl: 'http://x', mode: 'lan' as const };
+
+  it('keeps each Cloud adapter pinned to its workspace when another tab is opened',async()=>{
+    const scopes:string[]=[];
+    vi.stubGlobal('fetch',async(_url:string,init?:RequestInit)=>{scopes.push(new Headers(init?.headers).get('x-joinlet-workspace')!);return json({text:null});});
+    const first=createRemoteAdapter({...session,mode:'cloud',repo:'cloud:first'}),second=createRemoteAdapter({...session,mode:'cloud',repo:'cloud:second'});
+    await first.read('docs/note.md');await second.read('docs/note.md');await first.write('docs/note.md','First project');
+    expect(scopes).toEqual(['cloud:first','cloud:second','cloud:first']);
+  });
 
   it('a request refused because the invite ended tells the app once and fails with the host\'s words', async () => {
     const ended = vi.fn();

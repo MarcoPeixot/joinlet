@@ -1,6 +1,6 @@
 import { parseStage } from '@strukt/workspace';
 
-export const COMMANDS = ['verify', 'context', 'check', 'evidence', 'diff', 'list', 'export', 'site', 'publish', 'pr-comment', 'sync', 'sources', 'import'] as const;
+export const COMMANDS = ['init', 'connect', 'watch', 'verify', 'context', 'check', 'evidence', 'diff', 'list', 'export', 'site', 'publish', 'pr-comment', 'sync', 'sources', 'import'] as const;
 export type Command = (typeof COMMANDS)[number] | 'help';
 
 export interface CliArgs {
@@ -55,6 +55,9 @@ export interface CliArgs {
   pr?: string;
   head?: string;
   help: boolean;
+  cloudUrl?: string;
+  dirExplicit?: boolean;
+  pair?: string;
 }
 
 export const USAGE = `joinlet — arquitetura do Joinlet para agentes e CI
@@ -63,6 +66,9 @@ Uso:
   joinlet <comando> [opções]
 
 Comandos:
+  init [--check] [--json]                  Inicializa .arch a partir do repositório e documentos
+  connect [--cloud-url <url> --pair <code>] Abre o editor local ou conecta este computador à Cloud
+  watch                                   Acompanha mudanças do código e atualiza .arch
   verify [--json] [--strict]                Verifica código vinculado, fontes, diagramas e contexto; strict exige cobertura e revisão das divergências
   context [--out .arch/context] [--check]   Gera o contexto para agentes (.arch/context/)
   check [--json] [--drift] [--strict]       Valida o manifesto e todos os diagramas; --drift compara as evidências
@@ -106,7 +112,7 @@ Opções:
 
 Saída: 0 sucesso · 1 validação falhou · 2 uso ou ambiente inválido.`;
 
-const VALUE_FLAGS = ['--dir', '--out', '--format', '--title', '--body-file', '--branch', '--base', '--pr', '--head', '--svg', '--artifact-url', '--stage', '--kind', '--include', '--diagram', '--mode', '--provider', '--profile', '--region', '--subscription', '--resource-group', '--project', '--file', '--cloud'] as const;
+const VALUE_FLAGS = ['--cloud-url', '--pair', '--dir', '--out', '--format', '--title', '--body-file', '--branch', '--base', '--pr', '--head', '--svg', '--artifact-url', '--stage', '--kind', '--include', '--diagram', '--mode', '--provider', '--profile', '--region', '--subscription', '--resource-group', '--project', '--file', '--cloud'] as const;
 type ValueFlag = (typeof VALUE_FLAGS)[number];
 
 /** Parses the command line; unknown flags and missing values come back as a pt-BR error. */
@@ -155,6 +161,10 @@ export function parseArgs(argv: readonly string[]): CliArgs | { error: string } 
     else args.refs.push(arg);
   }
 
+  if (['init','connect','watch'].includes(args.command) && args.refs.length) {
+    if(args.refs.length!==1 || args.dirExplicit)return {error:'Choose one repository folder, with a positional path or --dir.'};
+    args.dir=args.refs[0]!;args.dirExplicit=true;args.refs=[];
+  }
   if (args.command !== 'diff' && args.command !== 'export' && args.command !== 'evidence' && args.command !== 'sources' && args.command !== 'import' && args.refs.length) return { error: `O comando "${args.command}" não aceita argumentos posicionais.` };
   if (args.command === 'diff' && args.refs.length > 2) return { error: 'O diff compara no máximo dois refs.' };
   if (args.command === 'export' && args.refs.length !== 1) return { error: 'O export precisa de exatamente um <slug> de diagrama.' };
@@ -177,6 +187,8 @@ export function parseArgs(argv: readonly string[]): CliArgs | { error: string } 
     if (args.provider !== undefined && !['aws', 'azure', 'gcp'].includes(args.provider)) return { error: `Provedor inválido: "${args.provider}". Use aws, azure ou gcp.` };
     if (args.file !== undefined && cloudFlags) return { error: 'Com --file não há consulta ao CLI da nuvem: as opções --profile, --region, --subscription, --resource-group e --project não se aplicam.' };
   }
+  if ((args.cloudUrl || args.pair) && args.command !== 'connect') return { error: '--cloud-url and --pair require connect.' };
+  if (args.pair && !args.cloudUrl) return { error: 'Use --cloud-url and --pair together.' };
   if (args.stage !== undefined) {
     if (args.command !== 'diff') return { error: 'A opção --stage só vale para o comando diff.' };
     if (args.refs.length) return { error: 'A opção --stage compara o diagrama atual com um estágio: não combine com refs do git.' };
@@ -191,7 +203,9 @@ export function parseArgs(argv: readonly string[]): CliArgs | { error: string } 
 }
 
 function setValue(args: CliArgs, flag: ValueFlag, value: string): void {
-  if (flag === '--dir') args.dir = value;
+  if (flag === '--cloud-url') args.cloudUrl = value;
+  else if (flag === '--pair') args.pair = value;
+  else if (flag === '--dir') { args.dir = value; args.dirExplicit = true; }
   else if (flag === '--out') args.out = value;
   else if (flag === '--format') args.format = value;
   else if (flag === '--title') args.title = value;

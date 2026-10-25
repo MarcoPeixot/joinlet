@@ -2,7 +2,12 @@ import english from './en.json';
 
 export type Locale = 'pt-BR' | 'en';
 export const LOCALE_KEY = 'joinlet:locale';
-const catalog: Readonly<Record<string, string>> = english;
+const catalog: Record<string, string> = { ...english };
+/** Feature catalogs can register when their interface is loaded. */
+export function registerTranslations(messages: Readonly<Record<string, string>>): void {
+  Object.assign(catalog, messages);
+  errorPatterns = undefined;
+}
 function readLocale(): Locale {
   try {
     const query = new URLSearchParams(location.search).get('lang');

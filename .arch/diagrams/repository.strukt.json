@@ -1,0 +1,303 @@
+{
+  "$schema": "./strukt.schema.json",
+  "version": 1,
+  "style": {
+    "styleMode": "plain"
+  },
+  "nodes": [
+    {
+      "id": "repo_8c5967fd8486f3",
+      "label": "scripts",
+      "presentation": "card",
+      "layoutRole": "peer",
+      "icon": "si:python",
+      "tech": "Python · TypeScript",
+      "description": "scripts · scripts · Python · TypeScript · Node.js"
+    },
+    {
+      "id": "repo_group_d56f6359d240f6",
+      "type": "group",
+      "label": "Aplicações · apps",
+      "layoutRole": "entry",
+      "icon": "folder",
+      "children": [
+        {
+          "id": "repo_09e11a52066c67",
+          "label": "vscode",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript · Node.js",
+          "description": "strukt-vscode · apps/vscode · TypeScript · Node.js",
+          "link": "doc:joinlet-para-vs-code"
+        },
+        {
+          "id": "repo_3b4e3efd29cd13",
+          "label": "web",
+          "presentation": "card",
+          "icon": "si:react",
+          "tech": "React · TypeScript",
+          "description": "@strukt/web · apps/web · React · TypeScript · JavaScript · Python · Node.js · Tailwind CSS · Vite"
+        },
+        {
+          "id": "repo_484fb1e9cea553",
+          "label": "server",
+          "presentation": "card",
+          "icon": "si:hono",
+          "tech": "Hono · TypeScript",
+          "description": "@strukt/server · apps/server · Hono · TypeScript · MCP · Bun · Node.js · SQLite"
+        },
+        {
+          "id": "repo_4c5a34d0f0b789",
+          "label": "mcp",
+          "presentation": "card",
+          "icon": "si:modelcontextprotocol",
+          "tech": "MCP · TypeScript",
+          "description": "@strukt/mcp · apps/mcp · MCP · TypeScript · Node.js"
+        },
+        {
+          "id": "repo_86104d06094ed0",
+          "label": "remote",
+          "presentation": "card",
+          "icon": "si:express",
+          "tech": "Express · TypeScript",
+          "description": "@strukt/remote · apps/remote · Express · TypeScript · MCP · Bun · Node.js · Docker · SQLite"
+        },
+        {
+          "id": "repo_bde7b76204809a",
+          "label": "cli",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript · Node.js",
+          "description": "@strukt/cli · apps/cli · TypeScript · Node.js"
+        }
+      ]
+    },
+    {
+      "id": "repo_group_b28b1ed9821f38",
+      "type": "group",
+      "label": "Pacotes compartilhados · packages",
+      "layoutRole": "shared",
+      "icon": "folder",
+      "children": [
+        {
+          "id": "repo_41ba823706ed42",
+          "label": "layout",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript",
+          "description": "@strukt/layout · packages/layout · TypeScript"
+        },
+        {
+          "id": "repo_5c1ab4b7e80ad1",
+          "label": "dsl",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript",
+          "description": "@strukt/dsl · packages/dsl · TypeScript"
+        },
+        {
+          "id": "repo_71391bfad4e6b4",
+          "label": "git",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript · Node.js",
+          "description": "@strukt/git · packages/git · TypeScript · Node.js"
+        },
+        {
+          "id": "repo_d4ff4b28356bed",
+          "label": "workspace",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript · Bun",
+          "description": "@strukt/workspace · packages/workspace · TypeScript · Bun · Node.js · SQLite"
+        },
+        {
+          "id": "repo_d5a16586640c40",
+          "label": "ops",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript",
+          "description": "@strukt/ops · packages/ops · TypeScript"
+        },
+        {
+          "id": "repo_e27f3faa9152db",
+          "label": "core",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript",
+          "description": "@strukt/core · packages/core · TypeScript"
+        },
+        {
+          "id": "repo_e86a0d465b5caa",
+          "label": "json",
+          "presentation": "card",
+          "icon": "si:typescript",
+          "tech": "TypeScript",
+          "description": "@strukt/json · packages/json · TypeScript"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_41ba823706ed42"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_5c1ab4b7e80ad1"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_71391bfad4e6b4"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_d5a16586640c40"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_41ba823706ed42"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_71391bfad4e6b4"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_d5a16586640c40"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_86104d06094ed0",
+      "to": "repo_484fb1e9cea553"
+    },
+    {
+      "from": "repo_86104d06094ed0",
+      "to": "repo_4c5a34d0f0b789"
+    },
+    {
+      "from": "repo_86104d06094ed0",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_4c5a34d0f0b789"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_71391bfad4e6b4"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_d5a16586640c40"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_484fb1e9cea553",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_09e11a52066c67",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_3b4e3efd29cd13",
+      "to": "repo_41ba823706ed42"
+    },
+    {
+      "from": "repo_3b4e3efd29cd13",
+      "to": "repo_5c1ab4b7e80ad1"
+    },
+    {
+      "from": "repo_3b4e3efd29cd13",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_3b4e3efd29cd13",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_3b4e3efd29cd13",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_5c1ab4b7e80ad1",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_5c1ab4b7e80ad1",
+      "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_71391bfad4e6b4",
+      "to": "repo_d4ff4b28356bed"
+    },
+    {
+      "from": "repo_71391bfad4e6b4",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_e86a0d465b5caa",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_41ba823706ed42",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_d5a16586640c40",
+      "to": "repo_41ba823706ed42"
+    },
+    {
+      "from": "repo_d5a16586640c40",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_d4ff4b28356bed",
+      "to": "repo_41ba823706ed42"
+    },
+    {
+      "from": "repo_d4ff4b28356bed",
+      "to": "repo_5c1ab4b7e80ad1"
+    },
+    {
+      "from": "repo_d4ff4b28356bed",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_d4ff4b28356bed",
+      "to": "repo_e86a0d465b5caa"
+    }
+  ]
+}

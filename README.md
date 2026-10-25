@@ -31,6 +31,7 @@ Start in your browser without an account, or save a workspace to a local folder.
 ## Features
 
 - **Visual system design.** Build diagrams with nested groups, cloud and technology icons, architecture perspectives and animated flows. Export to SVG, PNG, Mermaid or PlantUML.
+- **System simulation.** Model traffic, finite queues, caching, retries, circuit breakers and autoscaling on an existing diagram. Run reproducible scenarios in a browser worker or through CLI/MCP, compare saved reports and start from illustrative Playground examples. See the [simulation model and reference](.arch/docs/simulacao-de-sistemas-no-joinlet.md).
 - **Diagrams, decisions and sketches together.** Keep Markdown documentation and Excalidraw sketches in the same workspace. Use presentation mode to walk others through your design.
 - **Made for Git.** Store diagram structure and layout separately, inspect semantic differences and keep version history. Moving a node does not rewrite its architecture definition.
 - **Context for coding agents.** Read and update architecture through MCP, generate repository context with the CLI, and connect diagrams to source evidence. Synchronize supported source formats such as Terraform, OpenAPI and Kubernetes.
@@ -120,3 +121,9 @@ The monorepo contains applications in `apps/` and shared libraries in `packages/
 ## License
 
 Original Joinlet code is licensed under [AGPL-3.0-only](LICENSE). Third-party code and assets retain their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). The Joinlet name and visual identity are covered by the [brand policy](TRADEMARKS.md). For corresponding source information, see [SOURCE.md](SOURCE.md).
+
+### Conectar código e arquitetura
+
+`joinlet init --dir /projeto` prepara `.arch` pelo código e documentos; `joinlet connect [pasta]` abre o editor local sem conta; `joinlet watch --dir /projeto` acompanha alterações. O painel de repositório oferece pasta nativa, pareamento de computador e seleção GitHub/branch na Cloud autenticada. Sem IA, as importações determinísticas terminam com análise semântica pendente. Diagramas continuam representando arquitetura desejada: implementar suas alterações na aplicação é tarefa do agente.
+
+Veja [sincronização, cobertura e conflitos](.arch/docs/conexao-e-sincronizacao-de-repositorios.md) e [configuração do worker](deploy/README.md#sincronização-de-repositórios). `bun run build:connector` prepara um pacote instalável para a plataforma atual; mantenha binário, `elk-worker.js` e pasta `web` juntos. A distribuição não implica ativação da infraestrutura oficial.

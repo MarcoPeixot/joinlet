@@ -1,5 +1,5 @@
 import { contextFiles } from './context';
-import { isContextFile, ARCHITECTURE_PATH } from './contextPaths';
+import { isContextFile } from './contextPaths';
 import { diagramPath, docPath } from './manifest';
 import { loadWorkspace } from './workspace';
 import type { WorkspaceData } from './workspace';
@@ -32,12 +32,12 @@ export async function writeGeneratedContext(adapter: StorageAdapter, data: Works
 
 const pending = new Map<string, Promise<unknown>>();
 /** Server-owned refresh: serializes projections and loads their latest persisted model, never a guest's generated text. */
-export async function refreshGeneratedContext(adapter: StorageAdapter, force = false): Promise<string[]> {
+export async function refreshGeneratedContext(adapter: StorageAdapter, _force = true): Promise<string[]> {
   const key = adapter.label;
   const task = (pending.get(key) ?? Promise.resolve()).catch(() => {}).then(async () => {
-    if (!force && await adapter.read(ARCHITECTURE_PATH) === null) return [];
     const loaded = await loadWorkspace(adapter);
-    if (!loaded) throw new Error('Workspace unavailable while refreshing architecture context.');
+    // A room or commit may contain standalone files before a workspace manifest exists.
+    if (!loaded) return [];
     // A transient manifest-before-file save must not publish an incomplete architecture as fresh knowledge.
     if (loaded.warnings.length) return []; // Keep the previous context until the remaining files arrive; verify reports the stale state.
     if ((await inspectContext(adapter, loaded.data)).missingInputs.length) return [];

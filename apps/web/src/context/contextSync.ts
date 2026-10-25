@@ -1,13 +1,13 @@
 import { uiText } from '../i18n';
 import { own } from '@strukt/core';
-import { ARCHITECTURE_PATH, contextPaths, isContextFile } from '@strukt/workspace';
+import { contextPaths, isContextFile } from '@strukt/workspace';
 import type { WorkspaceData } from '@strukt/workspace';
 import type { Workspace } from '../workspace/workspace';
 
 type ContextFiles = (data: WorkspaceData) => Record<string, string>;
 let generator: Promise<ContextFiles> | undefined;
 
-/** The generator (~16 KB) is a separate chunk: it only loads once the workspace has, or is asked for, agent context. */
+/** Load the context generator after opening the workspace. */
 const loadGenerator = (): Promise<ContextFiles> => {
   generator ??= import('@strukt/workspace/context').then((m) => m.contextFiles);
   generator.catch(() => {
@@ -27,7 +27,7 @@ export interface ContextSync {
 }
 
 /**
- * Keeps `.arch/context/` in step with the workspace once it was generated (spec: "agents with stale context").
+ * Creates `.arch/context/` and keeps it in step with the workspace automatically.
  * Cheap enough to run on every save: the generator is pure string work over data already in memory, runs only
  * when the debounced autosave writes (once per data version, however many files ask), and the saver skips text
  * that did not change — context has no positions, so dragging nodes rewrites nothing.
@@ -68,18 +68,17 @@ export function createContextSync(workspace: Workspace): ContextSync {
     written = new Set();
     const storage = workspace.storage();
     // LAN guests may not write `context/` (403): only the host generates it.
-    if (!storage || storage.label.startsWith(uiText("Rede local:"))) return;
+    if (!storage || storage.label.startsWith(uiText("Rede local:")) || storage.label === 'Joinlet Cloud') return;
     try {
       const existing = (await storage.list()).filter(isContextFile);
       if (disposed || workspace.storage() !== storage) return;
       written = new Set(existing);
-      if (!existing.includes(ARCHITECTURE_PATH)) return;
       contextFiles = await loadGenerator();
       if (disposed || workspace.storage() !== storage) return;
       enabled = true;
       schedule();
     } catch {
-      // unreadable storage: context stays off until "Gerar contexto para agentes"
+      // Unreadable storage: try again when a workspace is opened.
     }
   };
 

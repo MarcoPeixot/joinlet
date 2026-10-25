@@ -30,6 +30,11 @@ export function createRepositoryAdapter(root: string): StorageAdapter {
       await update({ path, remove: true, ...(!path.startsWith('context/') ? { expected: baseline.get(path) ?? null } : {}) });
       baseline.set(path, null);
     },
+    async batch(changes) {
+      const mutations = changes.filter(change => !change.path.startsWith('context/')).map(change => ({ ...change, expected: baseline.get(change.path) ?? change.expected }));
+      await response('/api/workspace/batch', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ dir: root, changes: mutations }) });
+      for (const change of mutations) baseline.set(change.path, change.text);
+    },
     async list() { return (await response(endpoint)).files as string[]; },
     async stamps() { return (await response(endpoint)).stamps as Record<string, number>; },
   }, `repository:${root}`);

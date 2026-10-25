@@ -1,0 +1,67 @@
+import * as Y from 'yjs';
+import {WebSocket} from 'ws';
+import {COLLAB_UPDATE,collaborationPacket} from '@strukt/workspace/collaboration';
+import {createRemoteCollaboration} from './collaboration';
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { mkdtemp,mkdir,writeFile,readFile,rm } from 'node:fs/promises';
+import { basename, join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { createRemoteApp } from './app';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {StreamableHTTPClientTransport} from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+
+const root=await mkdtemp(join(tmpdir(),'joinlet-connector-smoke-')),config=await mkdtemp(join(tmpdir(),'joinlet-connector-config-'));
+await mkdir(join(root,'src'));await writeFile(join(root,'package.json'),'{"name":"connector-project"}');await writeFile(join(root,'src','api.ts'),'export const api=true;\n');await writeFile(join(root,'.env'),'SYNTHETIC_PRIVATE=value');
+const options={publicUrl:'http://127.0.0.1',databasePath:join(config,'remote.sqlite'),encryptionKey:'2'.repeat(64)};
+const remote=createRemoteApp(options),collaboration=createRemoteCollaboration(options,remote.auth,remote.hosted);
+let socket:WebSocket|undefined;
+const owner=remote.auth.accounts.register('connector@example.test','synthetic')!,session=remote.auth.createWebSession(owner.id),workspace=remote.hosted.store.workspaceFor(owner.id);
+const server=remote.app.listen(0,'127.0.0.1');server.on('upgrade',(request,stream,head)=>void collaboration.upgrade(request,stream,head));await new Promise<void>(done=>server.once('listening',done));const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`;
+const request=(path:string,body?:unknown)=>fetch(origin+path,{method:body===undefined?'GET':'POST',headers:{cookie:`joinlet_session=${session.token}`,'x-strukt-csrf':session.csrf,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});
+let child:ReturnType<typeof spawn>|undefined;
+const wait=async(check:()=>Promise<boolean>)=>{const end=Date.now()+15000;while(Date.now()<end){if(await check())return;await new Promise(done=>setTimeout(done,150));}throw Error('Connector smoke timed out.');};
+const start=(pair?:string)=>{child=spawn(process.env.JOINLET_CONNECTOR_EXECUTABLE??'bun',[...(process.env.JOINLET_CONNECTOR_EXECUTABLE?[]:['apps/cli/src/main.ts']),'connect','--dir',root,'--cloud-url',origin,...(pair?['--pair',pair]:[])],{cwd:new URL('../../../',import.meta.url).pathname,env:{...process.env,NODE_ENV:'test',STRUKT_CONFIG_DIR:config},stdio:['ignore','pipe','pipe']});};
+const stop=async()=>{if(!child||child.exitCode!==null)return;child.kill('SIGTERM');await new Promise<void>(done=>{const timer=setTimeout(()=>{child?.kill('SIGKILL');done();},3000);child!.once('exit',()=>{clearTimeout(timer);done();});});};
+try{
+ const pairing=await(await request('/api/connectors/pairing',{locale:'pt-BR'})).json() as {code:string};start(pairing.code);
+ await wait(async()=>!!(await remote.hosted.store.adapter(workspace).read('diagrams/repository.strukt.json'))?.includes('connector-project'));
+ const initial=await(await request('/api/repositories')).json() as {connections:{id:string;phase:string;pending:string[]}[]};
+ assert.equal(initial.connections[0]!.phase,'paused');
+ assert.deepEqual(initial.connections[0]!.pending,['AI provider is not configured; semantic code analysis is pending.']);
+ const connectionId=initial.connections[0]!.id;
+ const context=await(await request(`/api/repositories/${connectionId}/context`)).json() as {files:{path:string;text:string}[];revision:string};
+ assert(context.files.some(file=>file.path==='src/api.ts'&&file.text.includes('api=true')));assert(!context.files.some(file=>file.path==='.env'));
+ assert.equal((await(await request(`/api/repositories/${connectionId}/revision`)).json() as {revision:string}).revision,context.revision);
+ const access=await(await request(`/api/repositories/${connectionId}/mcp`,{})).json() as {token:string};
+ const client=new Client({name:'paired-source-smoke',version:'1'});await client.connect(new StreamableHTTPClientTransport(new URL(origin+`/mcp/repositories/${connectionId}`),{requestInit:{headers:{authorization:'Bearer '+access.token}}}));
+ try{
+  const inventory=await client.callTool({name:'list_repository_files',arguments:{prefix:'src/',limit:1}});assert(!inventory.isError);const page=JSON.parse((inventory.content as {text:string}[])[0]!.text);assert.equal(page.files[0].path,'src/api.ts');
+  const source=await client.callTool({name:'read_repository_file',arguments:{path:'src/api.ts',revision:page.revision}});assert(!source.isError);assert(JSON.parse((source.content as {text:string}[])[0]!.text).lines[0].includes('api=true'));
+  const privateSource=await client.callTool({name:'read_repository_file',arguments:{path:'.env'}});assert(privateSource.isError);
+ }finally{await client.close();}
+ const generated=remote.hosted.store.adapter(workspace),manifest=JSON.parse((await generated.read('strukt.json'))!);
+ assert.equal(manifest.diagrams.find((d:{slug:string})=>d.slug==='repository').title,`Visão geral — ${basename(root)}`);
+ assert.equal(manifest.docs.find((d:{slug:string})=>d.slug==='repository-architecture').title,`Arquitetura — ${basename(root)}`);
+ assert.match((await generated.read('docs/repository-architecture.md'))!,/Gerado automaticamente pelo Joinlet/);
+ for(const path of ['AGENTS.md','CLAUDE.md'])assert.match(await readFile(join(root,path),'utf8'),/\.arch\/context\/ARCHITECTURE\.md/);
+ await writeFile(join(root,'src','api.ts'),'import redis from "redis";\nexport const api=redis;\n');
+ await wait(async()=>!!(await remote.hosted.store.adapter(workspace).read('diagrams/repository.strukt.json'))?.includes('redis'));
+ const storage=remote.hosted.store.adapter(workspace),path='docs/repository-architecture.md',before=await storage.read(path);
+ assert.equal((await request('/api/remote/workspace',{repo:workspace,path,text:'# Cloud edit\n',expected:before})).status,200);
+ await wait(async()=>await readFile(join(root,'.arch',path),'utf8').catch(()=>'')==='# Cloud edit\n');
+ const doc=new Y.Doc();socket=new WebSocket(origin.replace('http:','ws:')+`/api/collaboration?repo=${encodeURIComponent(workspace)}&kind=doc&slug=repository-architecture`,{headers:{cookie:`joinlet_session=${session.token}`,origin:options.publicUrl}});
+ socket.on('message',data=>{const packet=new Uint8Array(data as Buffer);if(packet[0]===COLLAB_UPDATE)Y.applyUpdate(doc,packet.slice(1));});
+ await wait(async()=>doc.getText('content').toString()==='# Cloud edit\n');
+ const update=await new Promise<Uint8Array>(resolve=>{doc.once('update',resolve);doc.getText('content').insert(doc.getText('content').length,'Collaboration edit\n');});socket.send(collaborationPacket(COLLAB_UPDATE,update));
+ await wait(async()=>await readFile(join(root,'.arch',path),'utf8').catch(()=>'')==='# Cloud edit\nCollaboration edit\n');
+ await stop();start();
+ await writeFile(join(root,'src','api.ts'),'import redis from "redis";\nimport pg from "pg";\nexport const api={redis,pg};\n');
+ await wait(async()=>!!(await remote.hosted.store.adapter(workspace).read('diagrams/repository.strukt.json'))?.includes('pg'));
+ const list=await(await request('/api/repositories')).json() as {connections:{id:string}[]};await request(`/api/repositories/${list.connections[0]!.id}/disconnect`,{});
+ await wait(async()=>child!.exitCode!==null);
+ assert.equal(await readFile(join(root,'.arch',path),'utf8'),'# Cloud edit\nCollaboration edit\n');
+ await storage.write(path,'# Projection from another process\n');
+ await wait(async()=>doc.getText('content').toString()==='# Projection from another process\n');
+ console.log('Joinlet connector process smoke passed: code to Cloud, Cloud to filesystem, restart without a new pairing and revocation.');
+}finally{await stop();socket?.terminate();remote.drain();await collaboration.shutdown();server.closeAllConnections();await new Promise<void>(done=>server.close(()=>done()));remote.auth.close();await rm(root,{recursive:true,force:true});await rm(config,{recursive:true,force:true});}

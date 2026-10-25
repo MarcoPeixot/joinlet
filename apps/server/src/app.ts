@@ -1,3 +1,8 @@
+import { streamSSE } from 'hono/streaming';
+import { writeBatch } from '@strukt/workspace/repository-transaction';
+import { createRepositoryService, chooseRepositoryFolder } from './repositories';
+import { repositoryLocale } from '@strukt/workspace/repository-contracts';
+import { repositoryAnalyzer } from './repositoryAi';
 import { serializeWorkspaceWrite } from './workspaceWrite';
 import { chatEventStream } from './chatStream';
 import { refreshGeneratedContext } from '@strukt/workspace/context-storage';
@@ -20,7 +25,7 @@ import type { CommandRunner } from '@strukt/git';
 import { Hono } from 'hono';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { createStruktServer, openMcpWorkspace, writeContext } from '@strukt/mcp';
-import { createFsAdapter } from '@strukt/workspace/fs';
+import { createFsAdapter, findArchDir } from '@strukt/workspace/fs';
 import { lstat, stat, mkdir, mkdtemp, rm, realpath } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { Context } from 'hono';
@@ -220,6 +225,7 @@ export function createApp({ accessPlan = SELF_HOSTED_PLAN, ai = null, settings, 
     }
     const token = await githubAuth?.token() ?? null;
     const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
+    const repositoryAi=provider(); if(repositoryAi) ws.repositoryAnalyzer=repositoryAnalyzer(repositoryAi.client,repositoryAi.models.edit);
     if (integrations) ws.notify = (event) => void integrations.notify(event);
     const server = createStruktServer(ws, { runner: withGithubToken(runner, token, !!githubAuth) });
     await server.connect(transport);
@@ -413,6 +419,57 @@ export function createApp({ accessPlan = SELF_HOSTED_PLAN, ai = null, settings, 
   // Local git/gh for the GitHub panel: the browser cannot run commands, and the File System Access API
   // never reveals the absolute path of the folder, so the panel sends the repo path explicitly. The
   // server is loopback-only (middleware above) and refuses any directory without `.arch/strukt.json`.
+  const repositories = createRepositoryService(() => { const ai = provider(); return ai ? repositoryAnalyzer(ai.client, ai.models.edit) : undefined; });
+  app.get('/api/repositories', c => c.json({ connections: repositories.list() }));
+  app.post('/api/repositories/open', async c => {
+    const body = await readJson(c) as {dir?: unknown};
+    if(typeof body?.dir !== 'string' || !selectedRepo) return c.json({error:'Choose a repository.'},400);
+    const ws=await findArchDir(body.dir);
+    if(!ws || await createFsAdapter(ws.archDir).read('repository.json') === null) return c.json({error:'This workspace uses the legacy repository connection.'},404);
+    await selectedRepo.set(ws.root);
+    const job=await repositories.connect(ws.root);
+    return c.json({root:ws.root,id:job.id});
+  });
+  app.post('/api/repositories/pick', async c => {
+    try { return c.json({ path: await chooseRepositoryFolder() }); }
+    catch (error) { return c.json({ error: String(error) }, 400); }
+  });
+  app.post('/api/repositories/diagnose', async c => {
+    const body = await readJson(c) as { dir?: unknown };
+    if (typeof body?.dir !== 'string') return c.json({ error: 'Choose a directory.' }, 400);
+    try { return c.json(await repositories.diagnose(body.dir)); }
+    catch (error) { return c.json({ error: String(error) }, 400); }
+  });
+  app.post('/api/repositories', async c => {
+    const body = await readJson(c) as { dir?: unknown; locale?: unknown };
+    if (typeof body?.dir !== 'string') return c.json({ error: 'Choose a directory.' }, 400);
+    try { return c.json(await repositories.connect(body.dir, repositoryLocale(body.locale)), 202); }
+    catch (error) { return c.json({ error: String(error) }, 400); }
+  });
+  app.get('/api/repositories/:id/events', c => streamSSE(c, async stream => {
+    const id=c.req.param('id'); const current=repositories.get(id); if(!current) { await stream.writeSSE({event:'error',data:JSON.stringify({error:'Connection not found.'})}); return; }
+    await stream.writeSSE({event:'status',data:JSON.stringify(current)});
+    const stop=repositories.subscribe(id,job=>{void stream.writeSSE({event:'status',data:JSON.stringify(job)}).catch(()=>{});});
+    stream.onAbort(stop);
+    try { while(!stream.aborted) { await stream.sleep(10_000); if(!stream.aborted) await stream.writeSSE({event:'heartbeat',data:'{}'}); } } finally {stop();}
+  }));
+  app.get('/api/repositories/:id', c => { const job = repositories.get(c.req.param('id')); return job ? c.json(job) : c.json({ error: 'Connection not found.' }, 404); });
+  app.get('/api/repositories/:id/context',async c=>{try{return c.json(await repositories.sourceContext(c.req.param('id')));}catch(error){return c.json({error:String(error)},409);}});
+  app.get('/api/repositories/:id/revision',async c=>{try{return c.json(await repositories.sourceRevision(c.req.param('id')));}catch(error){return c.json({error:String(error)},409);}});
+  app.post('/api/repositories/:id/sync', c => { try { return c.json(repositories.sync(c.req.param('id')), 202); } catch (error) { return c.json({ error: String(error) }, 404); } });
+  app.post('/api/repositories/:id/disconnect', c => { repositories.disconnect(c.req.param('id')); return c.json({ ok: true }); });
+  app.post('/api/repositories/:id/proposals/:proposal', async c => {
+    const body=await readJson(c) as {action?:string};
+    try{return c.json(await repositories.review(c.req.param('id'),c.req.param('proposal'),body?.action??''));}catch(error){return c.json({error:String(error)},409);}
+  });
+  app.post('/api/repositories/:id/open', async c => {
+    const root = repositories.root(c.req.param('id')), status = repositories.get(c.req.param('id'));
+    if (!root || !status?.persistedRevision) return c.json({ error: 'Repository initialization is pending.' }, 409);
+    if (!selectedRepo) return c.json({ error: 'Repository selection is unavailable.' }, 503);
+    await selectedRepo.set(root);
+    return c.json({ root });
+  });
+
   app.get('/api/git/auth', async (c) => {
     await githubAuth?.token();
     return c.json(githubAuth?.view() ?? { configured: false, connected: false, login: null });
@@ -508,8 +565,8 @@ export function createApp({ accessPlan = SELF_HOSTED_PLAN, ai = null, settings, 
     const dir = selectedRepo?.get();
     if (!dir) return c.json({ error: 'Conecte um repositório primeiro.' }, 409);
     if (c.req.query('dir') !== dir) return c.json({ error: 'Outro repositório está conectado.' }, 409);
-    const ws = await openMcpWorkspace(dir);
-    if ('error' in ws) return c.json({ error: ws.error }, 409);
+    const ws = await findArchDir(dir);
+    if (!ws) return c.json({ error: 'Workspace not found.' }, 409);
     const path = c.req.query('path');
     try {
       const storage = createFsAdapter(ws.archDir);
@@ -518,6 +575,19 @@ export function createApp({ accessPlan = SELF_HOSTED_PLAN, ai = null, settings, 
       const stamps = Object.fromEntries(await Promise.all(files.filter((file) => !file.startsWith('versions/') && !file.startsWith('context/') && !file.startsWith('comments/')).map(async (file) => [file, (await stat(join(ws.archDir, file))).mtimeMs] as const)));
       return c.json({ files, stamps, root: ws.root });
     } catch (error) { if (error instanceof BetaLimitError) return c.json(error.toJSON(), 403); return c.json({ error: error instanceof Error ? error.message : 'Caminho inválido.' }, 400); }
+  });
+
+  app.post('/api/workspace/batch', async c => {
+    const body = await readJson(c) as {dir?: string; changes?: {path: string; text: string | null; expected: string | null}[]};
+    const dir = selectedRepo?.get();
+    if (!dir || body?.dir !== dir) return c.json({error:'Another repository is selected.'},409);
+    if (!Array.isArray(body.changes) || body.changes.length > 2000 || body.changes.some(change => !change || typeof change.path !== 'string' || (change.text !== null && typeof change.text !== 'string') || (change.expected !== null && typeof change.expected !== 'string'))) return c.json({error:'Invalid batch.'},400);
+    const ws = await findArchDir(dir); if(!ws) return c.json({error:'Workspace not found.'},409);
+    try {
+      for(const change of body.changes) if(change.path === MANIFEST_PATH && change.text !== null) assertBetaManifest(change.expected,change.text);
+      const storage=createFsAdapter(ws.archDir); await writeBatch(storage,body.changes); await refreshGeneratedContext(storage);
+      return c.json({ok:true});
+    } catch(error) { return c.json({error:String(error)},409); }
   });
 
   app.post('/api/workspace', async (c) => {

@@ -1,0 +1,3306 @@
+{
+  "analysisFiles": {},
+  "analysisIdentity": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855:technologies-v1",
+  "base": {
+    "$schema": "./strukt.schema.json",
+    "connections": [
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_5c1ab4b7e80ad1"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_71391bfad4e6b4"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_d5a16586640c40"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_bde7b76204809a",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_71391bfad4e6b4"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_d5a16586640c40"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_86104d06094ed0",
+        "to": "repo_484fb1e9cea553"
+      },
+      {
+        "from": "repo_86104d06094ed0",
+        "to": "repo_4c5a34d0f0b789"
+      },
+      {
+        "from": "repo_86104d06094ed0",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_4c5a34d0f0b789"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_71391bfad4e6b4"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_d5a16586640c40"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_484fb1e9cea553",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_09e11a52066c67",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_3b4e3efd29cd13",
+        "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_3b4e3efd29cd13",
+        "to": "repo_5c1ab4b7e80ad1"
+      },
+      {
+        "from": "repo_3b4e3efd29cd13",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_3b4e3efd29cd13",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_3b4e3efd29cd13",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_5c1ab4b7e80ad1",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_5c1ab4b7e80ad1",
+        "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_71391bfad4e6b4",
+        "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_71391bfad4e6b4",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_e86a0d465b5caa",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_41ba823706ed42",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_d5a16586640c40",
+        "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_d5a16586640c40",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_d4ff4b28356bed",
+        "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_d4ff4b28356bed",
+        "to": "repo_5c1ab4b7e80ad1"
+      },
+      {
+        "from": "repo_d4ff4b28356bed",
+        "to": "repo_e27f3faa9152db"
+      },
+      {
+        "from": "repo_d4ff4b28356bed",
+        "to": "repo_e86a0d465b5caa"
+      }
+    ],
+    "nodes": [
+      {
+        "children": [
+          {
+            "description": "@strukt/cli · apps/cli · TypeScript · Node.js",
+            "icon": "si:typescript",
+            "id": "repo_bde7b76204809a",
+            "label": "cli",
+            "presentation": "card",
+            "tech": "TypeScript · Node.js"
+          },
+          {
+            "description": "@strukt/mcp · apps/mcp · MCP · TypeScript · Node.js",
+            "icon": "si:modelcontextprotocol",
+            "id": "repo_4c5a34d0f0b789",
+            "label": "mcp",
+            "presentation": "card",
+            "tech": "MCP · TypeScript"
+          },
+          {
+            "description": "@strukt/remote · apps/remote · Express · TypeScript · MCP · Bun · Node.js · Docker · SQLite",
+            "icon": "si:express",
+            "id": "repo_86104d06094ed0",
+            "label": "remote",
+            "presentation": "card",
+            "tech": "Express · TypeScript"
+          },
+          {
+            "description": "@strukt/server · apps/server · Hono · TypeScript · MCP · Bun · Node.js · SQLite",
+            "icon": "si:hono",
+            "id": "repo_484fb1e9cea553",
+            "label": "server",
+            "presentation": "card",
+            "tech": "Hono · TypeScript"
+          },
+          {
+            "description": "strukt-vscode · apps/vscode · TypeScript · Node.js",
+            "icon": "si:typescript",
+            "id": "repo_09e11a52066c67",
+            "label": "vscode",
+            "link": "doc:joinlet-para-vs-code",
+            "presentation": "card",
+            "tech": "TypeScript · Node.js"
+          },
+          {
+            "description": "@strukt/web · apps/web · React · TypeScript · JavaScript · Python · Node.js · Tailwind CSS · Vite",
+            "icon": "si:react",
+            "id": "repo_3b4e3efd29cd13",
+            "label": "web",
+            "presentation": "card",
+            "tech": "React · TypeScript"
+          }
+        ],
+        "icon": "folder",
+        "id": "repo_group_d56f6359d240f6",
+        "label": "Aplicações · apps",
+        "type": "group"
+      },
+      {
+        "children": [
+          {
+            "description": "@strukt/core · packages/core · TypeScript",
+            "icon": "si:typescript",
+            "id": "repo_e27f3faa9152db",
+            "label": "core",
+            "presentation": "card",
+            "tech": "TypeScript"
+          },
+          {
+            "description": "@strukt/dsl · packages/dsl · TypeScript",
+            "icon": "si:typescript",
+            "id": "repo_5c1ab4b7e80ad1",
+            "label": "dsl",
+            "presentation": "card",
+            "tech": "TypeScript"
+          },
+          {
+            "description": "@strukt/git · packages/git · TypeScript · Node.js",
+            "icon": "si:typescript",
+            "id": "repo_71391bfad4e6b4",
+            "label": "git",
+            "presentation": "card",
+            "tech": "TypeScript · Node.js"
+          },
+          {
+            "description": "@strukt/json · packages/json · TypeScript",
+            "icon": "si:typescript",
+            "id": "repo_e86a0d465b5caa",
+            "label": "json",
+            "presentation": "card",
+            "tech": "TypeScript"
+          },
+          {
+            "description": "@strukt/layout · packages/layout · TypeScript",
+            "icon": "si:typescript",
+            "id": "repo_41ba823706ed42",
+            "label": "layout",
+            "presentation": "card",
+            "tech": "TypeScript"
+          },
+          {
+            "description": "@strukt/ops · packages/ops · TypeScript",
+            "icon": "si:typescript",
+            "id": "repo_d5a16586640c40",
+            "label": "ops",
+            "presentation": "card",
+            "tech": "TypeScript"
+          },
+          {
+            "description": "@strukt/workspace · packages/workspace · TypeScript · Bun · Node.js · SQLite",
+            "icon": "si:typescript",
+            "id": "repo_d4ff4b28356bed",
+            "label": "workspace",
+            "presentation": "card",
+            "tech": "TypeScript · Bun"
+          }
+        ],
+        "icon": "folder",
+        "id": "repo_group_b28b1ed9821f38",
+        "label": "Pacotes compartilhados · packages",
+        "type": "group"
+      },
+      {
+        "description": "scripts · scripts · Python · TypeScript · Node.js",
+        "icon": "si:python",
+        "id": "repo_8c5967fd8486f3",
+        "label": "scripts",
+        "presentation": "card",
+        "tech": "Python · TypeScript"
+      }
+    ],
+    "style": {
+      "direction": "down",
+      "styleMode": "plain"
+    },
+    "version": 1
+  },
+  "diagram": "repository",
+  "document": {
+    "slug": "repository-architecture",
+    "text": "# Arquitetura — Joinlet\n\nGerado automaticamente pelo Joinlet a partir dos manifestos, imports e documentos encontrados no repositório. A cobertura semântica é parcial; revise comportamentos inferidos.\n\n## Contexto do projeto\n\nJoinlet is an open-source workspace for software architecture. Draw how your system fits together, write down the decisions behind it, and give your coding agents that same context through MCP and the CLI.\n\nStart in your browser without an account, or save a workspace to a local folder. Repository workspaces live in `.arch/` as JSON and Markdown, so architecture changes can be reviewed alongside code in Git.\n\nFonte: `README.md`\n\n## Módulos\n\n- strukt-vscode — `apps/vscode`\n- @strukt/web — `apps/web`\n- @strukt/layout — `packages/layout`\n- @strukt/server — `apps/server`\n- @strukt/mcp — `apps/mcp`\n- @strukt/dsl — `packages/dsl`\n- @strukt/git — `packages/git`\n- @strukt/remote — `apps/remote`\n- scripts — `scripts`\n- @strukt/cli — `apps/cli`\n- @strukt/workspace — `packages/workspace`\n- @strukt/ops — `packages/ops`\n- @strukt/core — `packages/core`\n- @strukt/json — `packages/json`\n\nA visão geral mostra os módulos do projeto; o detalhe das bibliotecas está listado abaixo.\n\n## Tecnologias identificadas\n\nIdentificadas por manifestos, imports e tipos de arquivo no próprio módulo. O ícone destaca a tecnologia principal; dependências de dados não comprovam a existência de serviços em execução.\n\n### @strukt/cli — `apps/cli`\n\n- **TypeScript** (ícone): `apps/cli/src/args.ts:1`, `apps/cli/src/cloudAllowlist.ts:1`, `apps/cli/src/cloudCollect.ts:1`, `apps/cli/src/cloudDrift.ts:1`, `apps/cli/src/cloudTesting.ts:1`\n- **Node.js**: `apps/cli/src/commands/context.ts:1`, `apps/cli/src/commands/diff.ts:1`, `apps/cli/src/commands/export.ts:1`, `apps/cli/src/commands/importCloud.ts:1`, `apps/cli/src/commands/importCloud.ts:2`\n\n### @strukt/mcp — `apps/mcp`\n\n- **MCP** (ícone): `apps/mcp/package.json:18`, `apps/mcp/src/comments.ts:4`\n- **TypeScript**: `apps/mcp/src/args.ts:1`, `apps/mcp/src/comments.ts:1`, `apps/mcp/src/github.ts:1`, `apps/mcp/src/index.ts:1`, `apps/mcp/src/main.ts:1`\n- **Node.js**: `apps/mcp/src/repositoryKnowledge.ts:2`, `apps/mcp/src/sync.ts:4`, `apps/mcp/src/testing.ts:1`, `apps/mcp/src/testing.ts:2`, `apps/mcp/src/testing.ts:3`\n\n### @strukt/remote — `apps/remote`\n\n- **Express** (ícone): `apps/remote/package.json:16`, `apps/remote/src/accountDirectory.ts:1`\n- **MCP**: `apps/remote/package.json:13`, `apps/remote/src/app.ts:7`\n- **TypeScript**: `apps/remote/src/accountDirectory.ts:1`, `apps/remote/src/accounts.ts:1`, `apps/remote/src/app.ts:1`, `apps/remote/src/auth.ts:1`, `apps/remote/src/backup.ts:1`\n- **Bun**: `apps/remote/src/accounts.ts:1`, `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/betaAccounts.ts:1`, `apps/remote/src/collaboration.ts:6`\n- **Node.js**: `apps/remote/src/accountDirectory.ts:2`, `apps/remote/src/accounts.ts:2`, `apps/remote/src/app.ts:5`, `apps/remote/src/app.ts:6`, `apps/remote/src/auth.ts:5`\n- **Docker**: `apps/remote/Dockerfile:1`\n- **SQLite**: `apps/remote/src/accounts.ts:1`, `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/betaAccounts.ts:1`, `apps/remote/src/collaboration.ts:6`\n\n### @strukt/server — `apps/server`\n\n- **Hono** (ícone): `apps/server/package.json:24`, `apps/server/src/app.ts:1`\n- **MCP**: `apps/server/package.json:14`, `apps/server/src/app.ts:26`\n- **TypeScript**: `apps/server/src/agentSetup.ts:1`, `apps/server/src/anthropic.ts:1`, `apps/server/src/app.ts:1`, `apps/server/src/audit.ts:1`, `apps/server/src/chat.ts:1`\n- **Bun**: `apps/server/src/collaborationHost.ts:7`, `apps/server/src/collaborationHost.ts:8`, `apps/server/src/connector.ts:1`, `apps/server/src/shareStack.ts:1`, `apps/server/src/shareStack.ts:11`\n- **Node.js**: `apps/server/src/agentSetup.ts:2`, `apps/server/src/agentSetup.ts:3`, `apps/server/src/agentSetup.ts:4`, `apps/server/src/app.ts:12`, `apps/server/src/app.ts:29`\n- **SQLite**: `apps/server/src/collaborationHost.ts:7`\n\n### strukt-vscode — `apps/vscode`\n\n- **TypeScript** (ícone): `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/appUrl.ts:1`, `apps/vscode/src/checkReport.ts:1`, `apps/vscode/src/cli.ts:1`, `apps/vscode/src/commands.ts:1`\n- **Node.js**: `apps/vscode/package.json:13`, `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/commands.ts:1`, `apps/vscode/src/nodeExec.ts:1`\n\n### @strukt/web — `apps/web`\n\n- **React** (ícone): `apps/web/package.json:42`, `apps/web/package.json:43`, `apps/web/src/analytics/AnalyticsConsent.tsx:1`, `apps/web/src/comments/CommentsHost.tsx:6`\n- **TypeScript**: `apps/web/scripts/build-icon-subset.ts:1`, `apps/web/scripts/build-logos-subset.ts:1`, `apps/web/scripts/build-lucide-categories.ts:1`, `apps/web/src/actions/canvasDiagrams.ts:1`, `apps/web/src/actions/clipboard.ts:1`\n- **JavaScript**: `apps/web/docs/client.js:1`, `apps/web/docs/site.mjs:1`\n- **Python**: `apps/web/scripts/build-cloud-icons.py:1`\n- **Node.js**: `apps/web/docs/site.mjs:1`, `apps/web/scripts/build-icon-subset.ts:15`, `apps/web/scripts/build-icon-subset.ts:16`, `apps/web/scripts/build-logos-subset.ts:8`, `apps/web/scripts/build-lucide-categories.ts:11`\n- **Tailwind CSS**: `apps/web/package.json:56`\n- **Vite**: `apps/web/package.json:6`\n\n### @strukt/core — `packages/core`\n\n- **TypeScript** (ícone): `packages/core/src/aiProviders.ts:1`, `packages/core/src/applyOps.ts:1`, `packages/core/src/canvasDiagrams.ts:1`, `packages/core/src/catalogSearch.ts:1`, `packages/core/src/chatEdit.ts:1`\n\n### @strukt/dsl — `packages/dsl`\n\n- **TypeScript** (ícone): `packages/dsl/src/detect.ts:1`, `packages/dsl/src/diagramTree.ts:1`, `packages/dsl/src/export.ts:1`, `packages/dsl/src/import.ts:1`, `packages/dsl/src/import/cloud/aws.ts:1`\n\n### @strukt/git — `packages/git`\n\n- **TypeScript** (ícone): `packages/git/src/diff.ts:1`, `packages/git/src/diffSvg.ts:1`, `packages/git/src/index.ts:1`, `packages/git/src/publish.ts:1`, `packages/git/src/run.ts:1`\n- **Node.js**: `packages/git/src/run.ts:1`\n\n### @strukt/json — `packages/json`\n\n- **TypeScript** (ícone): `packages/json/src/index.ts:1`, `packages/json/src/parse.ts:1`, `packages/json/src/parseJson.ts:1`, `packages/json/src/print.ts:1`, `packages/json/src/schema.ts:1`\n\n### @strukt/layout — `packages/layout`\n\n- **TypeScript** (ícone): `packages/layout/src/canvasFrames.ts:1`, `packages/layout/src/composition.ts:1`, `packages/layout/src/compositionRoutes.ts:1`, `packages/layout/src/elk.ts:1`, `packages/layout/src/eraserRouter.ts:1`\n\n### @strukt/ops — `packages/ops`\n\n- **TypeScript** (ícone): `packages/ops/src/check.ts:1`, `packages/ops/src/index.ts:1`, `packages/ops/src/plan.ts:1`, `packages/ops/src/schema.ts:1`, `packages/ops/tsconfig.json:1`\n\n### @strukt/workspace — `packages/workspace`\n\n- **TypeScript** (ícone): `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/agentHarness.ts:1`, `packages/workspace/src/assistants.ts:1`, `packages/workspace/src/assistantsBuiltin.ts:1`, `packages/workspace/src/assistantsParse.ts:1`\n- **Bun**: `packages/workspace/src/collaborationSqlite.ts:1`\n- **Node.js**: `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/fs.ts:3`, `packages/workspace/src/fs.ts:4`, `packages/workspace/src/health.ts:1`, `packages/workspace/src/health.ts:2`\n- **SQLite**: `packages/workspace/src/collaborationSqlite.ts:1`\n\n### scripts — `scripts`\n\n- **Python** (ícone): `scripts/check-publication.py:1`, `scripts/check-secrets.py:1`, `scripts/test_publication.py:1`, `scripts/test_secret_scanner.py:1`\n- **TypeScript**: `scripts/build-connector.ts:1`, `scripts/smoke-container.ts:1`\n- **Node.js**: `scripts/build-connector.ts:2`, `scripts/build-connector.ts:3`, `scripts/smoke-container.ts:1`, `scripts/smoke-container.ts:2`, `scripts/smoke-container.ts:3`\n\n## Dependências por módulo\n\nRelações estáticas de imports do código. Bibliotecas não são, por si só, serviços da arquitetura. Imports exclusivos de testes, fixtures e configuração de build ficam fora deste mapa.\n\n### @strukt/cli\n\n`apps/cli`\n\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n\n### @strukt/mcp\n\n`apps/mcp`\n\n- @modelcontextprotocol/sdk\n- @strukt/core — `packages/core`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n- zod\n\n### @strukt/remote\n\n`apps/remote`\n\n- @anthropic-ai/sdk\n- @modelcontextprotocol/sdk\n- @strukt/mcp — `apps/mcp`\n- @strukt/server — `apps/server`\n- @strukt/workspace — `packages/workspace`\n- express\n- ws\n- yjs\n\n### @strukt/server\n\n`apps/server`\n\n- @anthropic-ai/sdk\n- @modelcontextprotocol/sdk\n- @strukt/core — `packages/core`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/mcp — `apps/mcp`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n- hono\n\n### strukt-vscode\n\n`apps/vscode`\n\n- @strukt/json — `packages/json`\n- vscode\n\n### @strukt/web\n\n`apps/web`\n\n- @codemirror/autocomplete\n- @codemirror/commands\n- @codemirror/lang-json\n- @codemirror/lang-markdown\n- @codemirror/language\n- @codemirror/lint\n- @codemirror/search\n- @codemirror/state\n- @codemirror/view\n- @excalidraw/excalidraw\n- @fontsource-variable/geist-mono\n- @fontsource-variable/shantell-sans\n- @fontsource-variable/sora\n- @iconify-json/logos\n- @lezer/highlight\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/workspace — `packages/workspace`\n- @xyflow/react\n- dompurify\n- lucide\n- lucide-react\n- marked\n- motion\n- pdfmake\n- radix-ui\n- react\n- react-dom\n- simple-icons\n- vitest\n- yjs\n- zustand\n\n### @strukt/core\n\n`packages/core`\n\n- fast-check\n\n### @strukt/dsl\n\n`packages/dsl`\n\n- @strukt/core — `packages/core`\n- @strukt/json — `packages/json`\n- vitest\n- yaml\n\n### @strukt/git\n\n`packages/git`\n\n- @strukt/core — `packages/core`\n- @strukt/workspace — `packages/workspace`\n\n### @strukt/json\n\n`packages/json`\n\n- @strukt/core — `packages/core`\n\n### @strukt/layout\n\n`packages/layout`\n\n- @eraserlabs/layout\n- @strukt/core — `packages/core`\n- elkjs\n\n### @strukt/ops\n\n`packages/ops`\n\n- @strukt/core — `packages/core`\n- @strukt/layout — `packages/layout`\n- ajv\n\n### @strukt/workspace\n\n`packages/workspace`\n\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- fflate\n- ignore\n- yjs\n\n### scripts\n\n`scripts`\n\nSem imports externos ao módulo reconhecidos.\n\n## Documentação encontrada\n\n- apps/vscode/README.md\n- apps/web/DESIGN.md\n- apps/web/PRODUCT.md\n- CONTRIBUTING.md\n- deploy/README.md\n- docs/agents.md\n- docs/idiomas.md\n- docs/landing-visual-stories.md\n- docs/open-source.md\n- docs/provedores-de-ia.md\n- docs/releases.md\n- docs/third-party/cloud-icons.md\n- docs/third-party/eraser-diagrams.md\n- docs/third-party/ignore.md\n- docs/workspace-settings.md\n- README.md\n- SECURITY.md\n- SOURCE.md\n- THIRD_PARTY_NOTICES.md\n- TRADEMARKS.md\n"
+  },
+  "evidence": {
+    "repository": {
+      "edge:repo_09e11a52066c67→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/vscode/scripts/write-schema.ts",
+          "snippet": "73af2f15"
+        }
+      ],
+      "edge:repo_3b4e3efd29cd13→repo_41ba823706ed42": [
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 4,
+          "path": "apps/web/src/actions/canvasDiagrams.ts",
+          "snippet": "38f9c857"
+        }
+      ],
+      "edge:repo_3b4e3efd29cd13→repo_5c1ab4b7e80ad1": [
+        {
+          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+          "line": 2,
+          "path": "apps/web/src/code/importFormats.ts",
+          "snippet": "2336042f"
+        }
+      ],
+      "edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed": [
+        {
+          "contains": "import type { ItemKind } from '@strukt/workspace';",
+          "line": 2,
+          "path": "apps/web/src/actions/commands.ts",
+          "snippet": "8319b8ce"
+        }
+      ],
+      "edge:repo_3b4e3efd29cd13→repo_e27f3faa9152db": [
+        {
+          "contains": "import { addCanvasDiagram, canvasFrameModel, canvasFrames, computeRects, emptyLayout, emptyModel, unionRect } from '@strukt/core';",
+          "line": 2,
+          "path": "apps/web/src/actions/canvasDiagrams.ts",
+          "snippet": "978597c8"
+        }
+      ],
+      "edge:repo_3b4e3efd29cd13→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/web/src/ai/aiStore.ts",
+          "snippet": "08bb11bf"
+        }
+      ],
+      "edge:repo_41ba823706ed42→repo_e27f3faa9152db": [
+        {
+          "contains": "import { canvasFrameModel, canvasFrames, computeRects, copyElements, unionRect, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/canvasFrames.ts",
+          "snippet": "d9233034"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_4c5a34d0f0b789": [
+        {
+          "contains": "import { createStruktServer, openMcpWorkspace, writeContext } from '@strukt/mcp';",
+          "line": 27,
+          "path": "apps/server/src/app.ts",
+          "snippet": "f813dc3e"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_71391bfad4e6b4": [
+        {
+          "contains": "import { createProcessRunner } from '@strukt/git';",
+          "line": 23,
+          "path": "apps/server/src/app.ts",
+          "snippet": "ed654773"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_d4ff4b28356bed": [
+        {
+          "contains": "import { withKnowledgeHarness } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/server/src/agentSetup.ts",
+          "snippet": "e5684ff8"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_d5a16586640c40": [
+        {
+          "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
+          "line": 6,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "4f6d00ed"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_e27f3faa9152db": [
+        {
+          "contains": "import { isAiProvider, isCompatibleProvider, readChatModel } from '@strukt/core';",
+          "line": 17,
+          "path": "apps/server/src/app.ts",
+          "snippet": "ca5bd477"
+        }
+      ],
+      "edge:repo_484fb1e9cea553→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 5,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "e9df8490"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_41ba823706ed42": [
+        {
+          "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
+          "line": 8,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "93c130d6"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_71391bfad4e6b4": [
+        {
+          "contains": "import { publish, prStatus } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/mcp/src/github.ts",
+          "snippet": "c3616889"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_d4ff4b28356bed": [
+        {
+          "contains": "import { isMentioned, listCommentFiles, liveMessages, liveThreads, parseComments, resolveTextAnchor } from '@strukt/workspace';",
+          "line": 2,
+          "path": "apps/mcp/src/comments.ts",
+          "snippet": "27c52cee"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_d5a16586640c40": [
+        {
+          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+          "line": 9,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "f6df6743"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_e27f3faa9152db": [
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/comments.ts",
+          "snippet": "fd421b26"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/mcp/src/resources.ts",
+          "snippet": "31f5cc5f"
+        }
+      ],
+      "edge:repo_5c1ab4b7e80ad1→repo_e27f3faa9152db": [
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/diagramTree.ts",
+          "snippet": "58f1ea78"
+        }
+      ],
+      "edge:repo_5c1ab4b7e80ad1→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "packages/dsl/src/import/testkit.ts",
+          "snippet": "59af61c7"
+        }
+      ],
+      "edge:repo_71391bfad4e6b4→repo_d4ff4b28356bed": [
+        {
+          "contains": "import { createMemoryAdapter, loadWorkspace, openConcerns, stableStringify } from '@strukt/workspace';",
+          "line": 3,
+          "path": "packages/git/src/diff.ts",
+          "snippet": "954d4337"
+        }
+      ],
+      "edge:repo_71391bfad4e6b4→repo_e27f3faa9152db": [
+        {
+          "contains": "import { compareModels, emptyModel, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/git/src/diff.ts",
+          "snippet": "c55217d1"
+        }
+      ],
+      "edge:repo_86104d06094ed0→repo_484fb1e9cea553": [
+        {
+          "contains": "import { serializeWorkspaceWrite } from \"../../server/src/workspaceWrite\";",
+          "line": 5,
+          "path": "apps/remote/src/hosted.ts",
+          "snippet": "faeda951"
+        }
+      ],
+      "edge:repo_86104d06094ed0→repo_4c5a34d0f0b789": [
+        {
+          "contains": "import { createStruktServer } from '@strukt/mcp';",
+          "line": 10,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "afefa2d9"
+        }
+      ],
+      "edge:repo_86104d06094ed0→repo_d4ff4b28356bed": [
+        {
+          "contains": "import { withAccessPlan, setRequestPlans } from '@strukt/workspace/access-context';",
+          "line": 2,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "64a8deb8"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_41ba823706ed42": [
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 8,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "a27b8b02"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_5c1ab4b7e80ad1": [
+        {
+          "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+          "line": 1,
+          "path": "apps/cli/src/cloudCollect.ts",
+          "snippet": "6743fe48"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_71391bfad4e6b4": [
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/cli/src/cloudAllowlist.ts",
+          "snippet": "1ded471c"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_d4ff4b28356bed": [
+        {
+          "contains": "import { parseStage } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/args.ts",
+          "snippet": "3509beb1"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_d5a16586640c40": [
+        {
+          "contains": "import { planSnapshot } from '@strukt/ops';",
+          "line": 3,
+          "path": "apps/cli/src/commands/sync.ts",
+          "snippet": "16e5030b"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_e27f3faa9152db": [
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "eeb426e3"
+        }
+      ],
+      "edge:repo_bde7b76204809a→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 5,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "f731a6a7"
+        }
+      ],
+      "edge:repo_d4ff4b28356bed→repo_41ba823706ed42": [
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 1,
+          "path": "packages/workspace/src/repository/importers.ts",
+          "snippet": "9d2b13a1"
+        }
+      ],
+      "edge:repo_d4ff4b28356bed→repo_5c1ab4b7e80ad1": [
+        {
+          "contains": "import { parseDsl } from '@strukt/dsl/lite';",
+          "line": 3,
+          "path": "packages/workspace/src/diagram.ts",
+          "snippet": "cda7f69a"
+        }
+      ],
+      "edge:repo_d4ff4b28356bed→repo_e27f3faa9152db": [
+        {
+          "contains": "import { RESERVED_NAME, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/workspace/src/board.ts",
+          "snippet": "d37368b1"
+        }
+      ],
+      "edge:repo_d4ff4b28356bed→repo_e86a0d465b5caa": [
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "packages/workspace/src/collaborationFiles.ts",
+          "snippet": "46fa7cac"
+        }
+      ],
+      "edge:repo_d5a16586640c40→repo_41ba823706ed42": [
+        {
+          "contains": "import { placeBatch } from '@strukt/layout';",
+          "line": 3,
+          "path": "packages/ops/src/plan.ts",
+          "snippet": "6b2bc1e8"
+        }
+      ],
+      "edge:repo_d5a16586640c40→repo_e27f3faa9152db": [
+        {
+          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/ops/src/check.ts",
+          "snippet": "2f9f9eaf"
+        }
+      ],
+      "edge:repo_e86a0d465b5caa→repo_e27f3faa9152db": [
+        {
+          "contains": "import type { Connector, DiagramElement, DiagramModel, EdgeEl, ID, Shape, Span } from '@strukt/core';",
+          "line": 4,
+          "path": "packages/json/src/parse.ts",
+          "snippet": "76a7c95f"
+        }
+      ],
+      "repo_09e11a52066c67": [
+        {
+          "contains": "\"name\": \"strukt-vscode\",",
+          "line": 2,
+          "path": "apps/vscode/package.json",
+          "snippet": "4eace2eb"
+        },
+        {
+          "contains": "\"node\": \">=22.4\"",
+          "line": 13,
+          "path": "apps/vscode/package.json",
+          "snippet": "83259d7f"
+        },
+        {
+          "contains": "import { writeFile } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/vscode/scripts/write-schema.ts",
+          "snippet": "a80dd405"
+        },
+        {
+          "contains": "export const DEFAULT_APP_URL = 'http://localhost:5178';",
+          "line": 1,
+          "path": "apps/vscode/src/appUrl.ts",
+          "snippet": "8ede0e25"
+        },
+        {
+          "contains": "import type { EditorDiagnostic } from './diagnostics';",
+          "line": 1,
+          "path": "apps/vscode/src/checkReport.ts",
+          "snippet": "794ea933"
+        },
+        {
+          "contains": "/** How to launch the Joinlet CLI: a binary plus arguments placed before the command (e.g. `bun` + `main.ts`). */",
+          "line": 1,
+          "path": "apps/vscode/src/cli.ts",
+          "snippet": "58035c97"
+        },
+        {
+          "contains": "export interface CliSettings {",
+          "line": 2,
+          "path": "apps/vscode/src/cli.ts",
+          "snippet": "01711360"
+        },
+        {
+          "contains": "import { join } from 'node:path';",
+          "line": 1,
+          "path": "apps/vscode/src/commands.ts",
+          "snippet": "a73c4cef"
+        },
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 1,
+          "path": "apps/vscode/src/diagnostics.ts",
+          "snippet": "f88e2ddc"
+        },
+        {
+          "contains": "export function diffMarkdown(ref: string, stdout: string): string {",
+          "line": 2,
+          "path": "apps/vscode/src/diffView.ts",
+          "snippet": "970c0849"
+        },
+        {
+          "contains": "import * as vscode from 'vscode';",
+          "line": 1,
+          "path": "apps/vscode/src/extension.ts",
+          "snippet": "63d712b0"
+        },
+        {
+          "contains": "import { execFile } from 'node:child_process';",
+          "line": 1,
+          "path": "apps/vscode/src/nodeExec.ts",
+          "snippet": "7bdfdf3f"
+        },
+        {
+          "contains": "import type { CliInvocation, CliSettings } from './cli';",
+          "line": 1,
+          "path": "apps/vscode/src/run.ts",
+          "snippet": "ef1bd4a9"
+        },
+        {
+          "contains": "export const DIAGRAM_FILE_MATCH = ['*.strukt.json'];",
+          "line": 2,
+          "path": "apps/vscode/src/schema.ts",
+          "snippet": "9aaf6a03"
+        },
+        {
+          "contains": "declare module 'vscode' {",
+          "line": 5,
+          "path": "apps/vscode/src/vscode.d.ts",
+          "snippet": "beda3385"
+        },
+        {
+          "contains": "export function rootOfManifest(manifestPath: string): string | null {",
+          "line": 2,
+          "path": "apps/vscode/src/workspaceRoots.ts",
+          "snippet": "e88da156"
+        }
+      ],
+      "repo_3b4e3efd29cd13": [
+        {
+          "contains": "(() => {",
+          "line": 1,
+          "path": "apps/web/docs/client.js",
+          "snippet": "91c4805a"
+        },
+        {
+          "contains": "import { readFileSync } from 'node:fs';",
+          "line": 1,
+          "path": "apps/web/docs/site.mjs",
+          "snippet": "910cb5f7"
+        },
+        {
+          "contains": "\"name\": \"@strukt/web\",",
+          "line": 2,
+          "path": "apps/web/package.json",
+          "snippet": "4790cef6"
+        },
+        {
+          "contains": "\"dev\": \"vite\",",
+          "line": 6,
+          "path": "apps/web/package.json",
+          "snippet": "87994331"
+        },
+        {
+          "contains": "\"react\": \"^19.3.0\",",
+          "line": 42,
+          "path": "apps/web/package.json",
+          "snippet": "09526953"
+        },
+        {
+          "contains": "\"react-dom\": \"^19.3.0\",",
+          "line": 43,
+          "path": "apps/web/package.json",
+          "snippet": "b6c5e60d"
+        },
+        {
+          "contains": "\"tailwindcss\": \"^4.3.3\",",
+          "line": 56,
+          "path": "apps/web/package.json",
+          "snippet": "6cd7782a"
+        },
+        {
+          "contains": "\"\"\"Import official cloud SVG packs from an extracted directory (see docs/third-party/cloud-icons.md).\"\"\"",
+          "line": 1,
+          "path": "apps/web/scripts/build-cloud-icons.py",
+          "snippet": "f17faed5"
+        },
+        {
+          "contains": "/**",
+          "line": 1,
+          "path": "apps/web/scripts/build-icon-subset.ts",
+          "snippet": "7727f016"
+        },
+        {
+          "contains": "import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';",
+          "line": 15,
+          "path": "apps/web/scripts/build-icon-subset.ts",
+          "snippet": "2cbc1e50"
+        },
+        {
+          "contains": "import { join } from 'node:path';",
+          "line": 16,
+          "path": "apps/web/scripts/build-icon-subset.ts",
+          "snippet": "8805b5d8"
+        },
+        {
+          "contains": "/**",
+          "line": 1,
+          "path": "apps/web/scripts/build-logos-subset.ts",
+          "snippet": "eaba0b5a"
+        },
+        {
+          "contains": "import { writeFileSync } from 'node:fs';",
+          "line": 8,
+          "path": "apps/web/scripts/build-logos-subset.ts",
+          "snippet": "31fddfe1"
+        },
+        {
+          "contains": "/**",
+          "line": 1,
+          "path": "apps/web/scripts/build-lucide-categories.ts",
+          "snippet": "652cd845"
+        },
+        {
+          "contains": "import { readdirSync, writeFileSync } from 'node:fs';",
+          "line": 11,
+          "path": "apps/web/scripts/build-lucide-categories.ts",
+          "snippet": "4102b53f"
+        },
+        {
+          "contains": "import { uiText } from '../i18n';",
+          "line": 1,
+          "path": "apps/web/src/actions/canvasDiagrams.ts",
+          "snippet": "3678bd34"
+        },
+        {
+          "contains": "import { copyElements, pasteOps, topLevel } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/web/src/actions/clipboard.ts",
+          "snippet": "96b3954d"
+        },
+        {
+          "contains": "import { uiText } from '../i18n';",
+          "line": 1,
+          "path": "apps/web/src/actions/commands.ts",
+          "snippet": "28c261b7"
+        },
+        {
+          "contains": "import {lazy,Suspense} from 'react';",
+          "line": 1,
+          "path": "apps/web/src/analytics/AnalyticsConsent.tsx",
+          "snippet": "e3c3f2b3"
+        },
+        {
+          "contains": "import { createPortal } from 'react-dom';",
+          "line": 6,
+          "path": "apps/web/src/comments/CommentsHost.tsx",
+          "snippet": "1f8b1495"
+        }
+      ],
+      "repo_41ba823706ed42": [
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 8,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "a27b8b02"
+        },
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 2,
+          "path": "apps/cli/src/commands/sync.ts",
+          "snippet": "1b7752ab"
+        },
+        {
+          "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
+          "line": 8,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "93c130d6"
+        },
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 4,
+          "path": "apps/web/src/actions/canvasDiagrams.ts",
+          "snippet": "38f9c857"
+        },
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 4,
+          "path": "apps/web/src/actions/layout.ts",
+          "snippet": "acb5b01b"
+        },
+        {
+          "contains": "import { autoLayout } from '@strukt/layout';",
+          "line": 3,
+          "path": "apps/web/src/actions/templates.ts",
+          "snippet": "6b3a1474"
+        },
+        {
+          "contains": "import type { EdgeRouter } from '@strukt/layout';",
+          "line": 3,
+          "path": "apps/web/src/ai/aiStore.ts",
+          "snippet": "95695a33"
+        },
+        {
+          "contains": "import { autoLayout, placeBatch } from '@strukt/layout';",
+          "line": 4,
+          "path": "apps/web/src/ai/draft.ts",
+          "snippet": "d3a51715"
+        },
+        {
+          "contains": "import type { EdgeRouter } from '@strukt/layout';",
+          "line": 5,
+          "path": "apps/web/src/ai/draft.ts",
+          "snippet": "c260640e"
+        },
+        {
+          "contains": "import { cachedLabel, cachedRoute } from '@strukt/layout';",
+          "line": 3,
+          "path": "apps/web/src/ai/overlay.ts",
+          "snippet": "cb466cf7"
+        },
+        {
+          "contains": "import { nudgeParallels, placeLabels, pointAtHalf, routeCorridors, routeKey, textWidth } from '@strukt/layout';",
+          "line": 1,
+          "path": "apps/web/src/board/boardRoutes.ts",
+          "snippet": "861e5de3"
+        },
+        {
+          "contains": "import type { Point } from '@strukt/layout';",
+          "line": 2,
+          "path": "apps/web/src/board/boardRoutes.ts",
+          "snippet": "1d617307"
+        },
+        {
+          "contains": "import type { Point } from '@strukt/layout';",
+          "line": 1,
+          "path": "apps/web/src/board/connectionPath.ts",
+          "snippet": "5534686a"
+        },
+        {
+          "contains": "import { arrowHead, roundedPath, trimEnd } from '@strukt/layout';",
+          "line": 2,
+          "path": "apps/web/src/board/FloatingEdge.tsx",
+          "snippet": "7d62c403"
+        },
+        {
+          "contains": "\"name\": \"@strukt/layout\",",
+          "line": 2,
+          "path": "packages/layout/package.json",
+          "snippet": "ae0c120d"
+        },
+        {
+          "contains": "import { canvasFrameModel, canvasFrames, computeRects, copyElements, unionRect, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/canvasFrames.ts",
+          "snippet": "d9233034"
+        },
+        {
+          "contains": "import { cardSize, defaultSize, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/composition.ts",
+          "snippet": "0c4ce1ed"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/compositionRoutes.ts",
+          "snippet": "a539dcf1"
+        },
+        {
+          "contains": "import { GROUP_PADDING, defaultSize, own, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/elk.ts",
+          "snippet": "5fdf2b79"
+        },
+        {
+          "contains": "import { LayoutManager, routeCorridorConnectionBatch } from '@eraserlabs/layout';",
+          "line": 1,
+          "path": "packages/layout/src/eraserRouter.ts",
+          "snippet": "cad86e08"
+        }
+      ],
+      "repo_484fb1e9cea553": [
+        {
+          "contains": "\"name\": \"@strukt/server\",",
+          "line": 2,
+          "path": "apps/server/package.json",
+          "snippet": "ca1cfff4"
+        },
+        {
+          "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+          "line": 14,
+          "path": "apps/server/package.json",
+          "snippet": "85452e00"
+        },
+        {
+          "contains": "\"hono\": \"^4.13.8\"",
+          "line": 24,
+          "path": "apps/server/package.json",
+          "snippet": "aed8b4db"
+        },
+        {
+          "contains": "import { withKnowledgeHarness } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/server/src/agentSetup.ts",
+          "snippet": "e5684ff8"
+        },
+        {
+          "contains": "import { mkdir, readFile, writeFile } from 'node:fs/promises';",
+          "line": 2,
+          "path": "apps/server/src/agentSetup.ts",
+          "snippet": "ae73ddf3"
+        },
+        {
+          "contains": "import { randomUUID } from 'node:crypto';",
+          "line": 3,
+          "path": "apps/server/src/agentSetup.ts",
+          "snippet": "797b047f"
+        },
+        {
+          "contains": "import { dirname, join } from 'node:path';",
+          "line": 4,
+          "path": "apps/server/src/agentSetup.ts",
+          "snippet": "262bc43b"
+        },
+        {
+          "contains": "import type Anthropic from '@anthropic-ai/sdk';",
+          "line": 1,
+          "path": "apps/server/src/anthropic.ts",
+          "snippet": "776bd9c3"
+        },
+        {
+          "contains": "import { streamSSE } from 'hono/streaming';",
+          "line": 1,
+          "path": "apps/server/src/app.ts",
+          "snippet": "8bf9dfe7"
+        },
+        {
+          "contains": "import { homedir } from 'node:os';",
+          "line": 12,
+          "path": "apps/server/src/app.ts",
+          "snippet": "93e8c3cd"
+        },
+        {
+          "contains": "import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';",
+          "line": 26,
+          "path": "apps/server/src/app.ts",
+          "snippet": "f6b21515"
+        },
+        {
+          "contains": "import { lstat, stat, mkdir, mkdtemp, rm, realpath } from 'node:fs/promises';",
+          "line": 29,
+          "path": "apps/server/src/app.ts",
+          "snippet": "c1eebae6"
+        },
+        {
+          "contains": "import { createHash, randomBytes } from 'node:crypto';",
+          "line": 1,
+          "path": "apps/server/src/audit.ts",
+          "snippet": "015d31a5"
+        },
+        {
+          "contains": "import { MODELS } from './anthropic';",
+          "line": 1,
+          "path": "apps/server/src/chat.ts",
+          "snippet": "5077b60c"
+        },
+        {
+          "contains": "import { Database } from 'bun:sqlite';",
+          "line": 7,
+          "path": "apps/server/src/collaborationHost.ts",
+          "snippet": "c79e0e90"
+        },
+        {
+          "contains": "import { file as bunFile, serve } from 'bun';",
+          "line": 8,
+          "path": "apps/server/src/collaborationHost.ts",
+          "snippet": "a7b3bc3c"
+        },
+        {
+          "contains": "import { serve, file } from 'bun';",
+          "line": 1,
+          "path": "apps/server/src/connector.ts",
+          "snippet": "fb65ca87"
+        },
+        {
+          "contains": "import { file } from 'bun';",
+          "line": 1,
+          "path": "apps/server/src/shareStack.ts",
+          "snippet": "0c670cb6"
+        },
+        {
+          "contains": "import { serve } from 'bun';",
+          "line": 11,
+          "path": "apps/server/src/shareStack.ts",
+          "snippet": "ca98b18b"
+        },
+        {
+          "contains": "export { coordinateWrite as serializeWorkspaceWrite } from '@strukt/workspace/repository-transaction';",
+          "line": 1,
+          "path": "apps/server/src/workspaceWrite.ts",
+          "snippet": "b30ef814"
+        }
+      ],
+      "repo_4c5a34d0f0b789": [
+        {
+          "contains": "\"name\": \"@strukt/mcp\",",
+          "line": 2,
+          "path": "apps/mcp/package.json",
+          "snippet": "a10dfa91"
+        },
+        {
+          "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+          "line": 18,
+          "path": "apps/mcp/package.json",
+          "snippet": "1a8702e3"
+        },
+        {
+          "contains": "export const USAGE = `joinlet-mcp — servidor MCP do Joinlet (stdio)",
+          "line": 1,
+          "path": "apps/mcp/src/args.ts",
+          "snippet": "3cd1fa1a"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/comments.ts",
+          "snippet": "fd421b26"
+        },
+        {
+          "contains": "import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';",
+          "line": 4,
+          "path": "apps/mcp/src/comments.ts",
+          "snippet": "84431ca6"
+        },
+        {
+          "contains": "import { publish, prStatus } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/mcp/src/github.ts",
+          "snippet": "c3616889"
+        },
+        {
+          "contains": "export { createStruktServer, SERVER_INFO } from './server';",
+          "line": 1,
+          "path": "apps/mcp/src/index.ts",
+          "snippet": "cca6297b"
+        },
+        {
+          "contains": "#!/usr/bin/env bun",
+          "line": 1,
+          "path": "apps/mcp/src/main.ts",
+          "snippet": "ce2091ae"
+        },
+        {
+          "contains": "import { ADMIN_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver } from '@strukt/workspace';",
+          "line": 2,
+          "path": "apps/mcp/src/main.ts",
+          "snippet": "e96f3f03"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/perspectives.ts",
+          "snippet": "746eed27"
+        },
+        {
+          "contains": "import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';",
+          "line": 1,
+          "path": "apps/mcp/src/prompts.ts",
+          "snippet": "76e45bd4"
+        },
+        {
+          "contains": "import {z} from 'zod';",
+          "line": 1,
+          "path": "apps/mcp/src/repositoryKnowledge.ts",
+          "snippet": "05848396"
+        },
+        {
+          "contains": "import {isAbsolute} from 'node:path';",
+          "line": 2,
+          "path": "apps/mcp/src/repositoryKnowledge.ts",
+          "snippet": "9a5d3698"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/resources.ts",
+          "snippet": "c299497a"
+        },
+        {
+          "contains": "import { KNOWLEDGE_HARNESS } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/mcp/src/server.ts",
+          "snippet": "c2608568"
+        },
+        {
+          "contains": "import { RepositoryEngine, inspectRepository } from '@strukt/workspace/repository';",
+          "line": 1,
+          "path": "apps/mcp/src/sync.ts",
+          "snippet": "a6066a95"
+        },
+        {
+          "contains": "import { isAbsolute } from 'node:path';",
+          "line": 4,
+          "path": "apps/mcp/src/sync.ts",
+          "snippet": "66c2bf88"
+        },
+        {
+          "contains": "import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/mcp/src/testing.ts",
+          "snippet": "0f53c358"
+        },
+        {
+          "contains": "import { tmpdir } from 'node:os';",
+          "line": 2,
+          "path": "apps/mcp/src/testing.ts",
+          "snippet": "d7f12089"
+        },
+        {
+          "contains": "import { dirname, join } from 'node:path';",
+          "line": 3,
+          "path": "apps/mcp/src/testing.ts",
+          "snippet": "eb1516cb"
+        }
+      ],
+      "repo_5c1ab4b7e80ad1": [
+        {
+          "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+          "line": 1,
+          "path": "apps/cli/src/cloudCollect.ts",
+          "snippet": "6743fe48"
+        },
+        {
+          "contains": "import type { AwsInputs, CloudGraph, CloudProvider, CloudScope } from '@strukt/dsl/import';",
+          "line": 2,
+          "path": "apps/cli/src/cloudCollect.ts",
+          "snippet": "263e1c7b"
+        },
+        {
+          "contains": "import { CLOUD_STATE_PATH, compareCloud, parseCloudState } from '@strukt/dsl/import';",
+          "line": 2,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "df3e1fae"
+        },
+        {
+          "contains": "import type { CloudDriftFinding, CloudGraph, CloudProvider, CloudSource } from '@strukt/dsl/import';",
+          "line": 3,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "321723d6"
+        },
+        {
+          "contains": "import { awsOutputs, azureListingJson, gcpListingJson } from '@strukt/dsl/cloud-fixtures';",
+          "line": 1,
+          "path": "apps/cli/src/cloudTesting.ts",
+          "snippet": "2df4b0a8"
+        },
+        {
+          "contains": "import { printMermaid, printPlantUml } from '@strukt/dsl';",
+          "line": 3,
+          "path": "apps/cli/src/commands/export.ts",
+          "snippet": "6a7f501e"
+        },
+        {
+          "contains": "import { CLOUD_STATE_PATH, graphToModel, parseCloudState, parseTerraformShow, printCloudState, trackResources, withSource } from '@strukt/dsl/import';",
+          "line": 4,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "74138260"
+        },
+        {
+          "contains": "import type { CloudGraph, CloudOrigin, CloudProvider } from '@strukt/dsl/import';",
+          "line": 5,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "76ff0782"
+        },
+        {
+          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+          "line": 2,
+          "path": "apps/web/src/code/importFormats.ts",
+          "snippet": "2336042f"
+        },
+        {
+          "contains": "import { detectImportFormat, parseDsl, printDsl } from '@strukt/dsl/lite';",
+          "line": 10,
+          "path": "apps/web/src/panels/CodePanel.tsx",
+          "snippet": "dc1badce"
+        },
+        {
+          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+          "line": 11,
+          "path": "apps/web/src/panels/CodePanel.tsx",
+          "snippet": "64c16b09"
+        },
+        {
+          "contains": "\"name\": \"@strukt/dsl\",",
+          "line": 2,
+          "path": "packages/dsl/package.json",
+          "snippet": "8cd60776"
+        },
+        {
+          "contains": "// Format sniffing, kept apart from the importers so the app can offer a conversion without loading them (or `yaml`).",
+          "line": 1,
+          "path": "packages/dsl/src/detect.ts",
+          "snippet": "ef289a14"
+        },
+        {
+          "contains": "export type ImportFormat = 'mermaid' | 'likec4' | 'structurizr' | 'd2' | 'terraform' | 'openapi' | 'kubernetes';",
+          "line": 2,
+          "path": "packages/dsl/src/detect.ts",
+          "snippet": "3ef6fc72"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/diagramTree.ts",
+          "snippet": "58f1ea78"
+        },
+        {
+          "contains": "export { printMermaid } from './mermaid';",
+          "line": 1,
+          "path": "packages/dsl/src/export.ts",
+          "snippet": "8ad53fe1"
+        },
+        {
+          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/import.ts",
+          "snippet": "9b475dd6"
+        },
+        {
+          "contains": "import { asArray, asString, pick, pickPath } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/aws.ts",
+          "snippet": "507c7499"
+        },
+        {
+          "contains": "import { asArray, asString, pick } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/azure.ts",
+          "snippet": "d9ac3107"
+        },
+        {
+          "contains": "import { cleanText } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/collector.ts",
+          "snippet": "d1336f37"
+        }
+      ],
+      "repo_71391bfad4e6b4": [
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/cli/src/cloudAllowlist.ts",
+          "snippet": "1ded471c"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 3,
+          "path": "apps/cli/src/cloudCollect.ts",
+          "snippet": "0c47c30e"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 4,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "7a010636"
+        },
+        {
+          "contains": "import type { CommandResult, CommandRunner } from '@strukt/git';",
+          "line": 2,
+          "path": "apps/cli/src/cloudTesting.ts",
+          "snippet": "ccb31bfe"
+        },
+        {
+          "contains": "import { createProcessRunner } from '@strukt/git';",
+          "line": 9,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "fe155c1e"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 10,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "ac0a3da4"
+        },
+        {
+          "contains": "import { assignDiffSvgNames, diffSides, diffWorkspaces, renderDiffMarkdown, renderDiffSvgs, renderDiffText } from '@strukt/git';",
+          "line": 3,
+          "path": "apps/cli/src/commands/diff.ts",
+          "snippet": "d73ff074"
+        },
+        {
+          "contains": "import type { CommandRunner, DiagramSvg } from '@strukt/git';",
+          "line": 4,
+          "path": "apps/cli/src/commands/diff.ts",
+          "snippet": "7c4f2ead"
+        },
+        {
+          "contains": "import { createProcessRunner } from '@strukt/git';",
+          "line": 6,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "59c98df8"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 7,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "ef7cd70c"
+        },
+        {
+          "contains": "import { prComment } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/cli/src/commands/pr-comment.ts",
+          "snippet": "1b33a1c1"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 2,
+          "path": "apps/cli/src/commands/pr-comment.ts",
+          "snippet": "d04c9a9c"
+        },
+        {
+          "contains": "import { publish } from '@strukt/git';",
+          "line": 2,
+          "path": "apps/cli/src/commands/publish.ts",
+          "snippet": "e8d3a519"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 3,
+          "path": "apps/cli/src/commands/publish.ts",
+          "snippet": "dab6b91c"
+        },
+        {
+          "contains": "\"name\": \"@strukt/git\",",
+          "line": 2,
+          "path": "packages/git/package.json",
+          "snippet": "df4465e9"
+        },
+        {
+          "contains": "import { compareModels, emptyModel, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/git/src/diff.ts",
+          "snippet": "c55217d1"
+        },
+        {
+          "contains": "import { compareModels, computeRects, defaultSize, emptyModel, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/git/src/diffSvg.ts",
+          "snippet": "2ce9d8d3"
+        },
+        {
+          "contains": "export { createProcessRunner, readArchAtRef } from './run';",
+          "line": 1,
+          "path": "packages/git/src/index.ts",
+          "snippet": "55b590d7"
+        },
+        {
+          "contains": "import { anyChange, diffRefs, diffWorktree, renderDiffMarkdown } from './diff';",
+          "line": 1,
+          "path": "packages/git/src/publish.ts",
+          "snippet": "1b818389"
+        },
+        {
+          "contains": "import { execFile } from 'node:child_process';",
+          "line": 1,
+          "path": "packages/git/src/run.ts",
+          "snippet": "21428736"
+        }
+      ],
+      "repo_86104d06094ed0": [
+        {
+          "contains": "FROM oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 AS build",
+          "line": 1,
+          "path": "apps/remote/Dockerfile",
+          "snippet": "7d4ca376"
+        },
+        {
+          "contains": "\"name\": \"@strukt/remote\",",
+          "line": 2,
+          "path": "apps/remote/package.json",
+          "snippet": "4692a641"
+        },
+        {
+          "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+          "line": 13,
+          "path": "apps/remote/package.json",
+          "snippet": "266fa85c"
+        },
+        {
+          "contains": "\"express\": \"^5.1.0\",",
+          "line": 16,
+          "path": "apps/remote/package.json",
+          "snippet": "88e0db3e"
+        },
+        {
+          "contains": "import type { RequestHandler } from 'express';",
+          "line": 1,
+          "path": "apps/remote/src/accountDirectory.ts",
+          "snippet": "55cf799c"
+        },
+        {
+          "contains": "import { timingSafeEqual } from 'node:crypto';",
+          "line": 2,
+          "path": "apps/remote/src/accountDirectory.ts",
+          "snippet": "da51c840"
+        },
+        {
+          "contains": "import type { Database } from 'bun:sqlite';",
+          "line": 1,
+          "path": "apps/remote/src/accounts.ts",
+          "snippet": "e9ed8c7a"
+        },
+        {
+          "contains": "import { createHash, randomBytes } from 'node:crypto';",
+          "line": 2,
+          "path": "apps/remote/src/accounts.ts",
+          "snippet": "8c140a18"
+        },
+        {
+          "contains": "import { createRepositoryHub } from './repositoryHub';",
+          "line": 1,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "53091f46"
+        },
+        {
+          "contains": "import { access } from 'node:fs/promises';",
+          "line": 5,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "e037f9a1"
+        },
+        {
+          "contains": "import { fileURLToPath } from 'node:url';",
+          "line": 6,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "422dcf9a"
+        },
+        {
+          "contains": "import { getOAuthProtectedResourceMetadataUrl, mcpAuthRouter } from '@modelcontextprotocol/sdk/server/auth/router.js';",
+          "line": 7,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "582863ca"
+        },
+        {
+          "contains": "import { configureRuntimeDatabase } from './database';",
+          "line": 1,
+          "path": "apps/remote/src/auth.ts",
+          "snippet": "14e8030d"
+        },
+        {
+          "contains": "import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';",
+          "line": 5,
+          "path": "apps/remote/src/auth.ts",
+          "snippet": "2f1e7663"
+        },
+        {
+          "contains": "import { Database } from 'bun:sqlite';",
+          "line": 7,
+          "path": "apps/remote/src/auth.ts",
+          "snippet": "c3a0e62f"
+        },
+        {
+          "contains": "import { Database } from 'bun:sqlite';",
+          "line": 1,
+          "path": "apps/remote/src/backup.ts",
+          "snippet": "87215990"
+        },
+        {
+          "contains": "import type { Database } from 'bun:sqlite';",
+          "line": 1,
+          "path": "apps/remote/src/betaAccounts.ts",
+          "snippet": "b0df6a8c"
+        },
+        {
+          "contains": "import { configureRuntimeDatabase } from './database';",
+          "line": 1,
+          "path": "apps/remote/src/collaboration.ts",
+          "snippet": "e3d06c04"
+        },
+        {
+          "contains": "import { Database } from 'bun:sqlite';",
+          "line": 6,
+          "path": "apps/remote/src/collaboration.ts",
+          "snippet": "881940b6"
+        },
+        {
+          "contains": "import { parseAdminGithubIds } from '@strukt/workspace/access-context';",
+          "line": 1,
+          "path": "apps/remote/src/config.ts",
+          "snippet": "69ee6f37"
+        }
+      ],
+      "repo_8c5967fd8486f3": [
+        {
+          "contains": "#!/usr/bin/env bun",
+          "line": 1,
+          "path": "scripts/build-connector.ts",
+          "snippet": "c21cb2cb"
+        },
+        {
+          "contains": "import { mkdir, cp, writeFile, readFile, rm } from 'node:fs/promises';",
+          "line": 2,
+          "path": "scripts/build-connector.ts",
+          "snippet": "a304ace4"
+        },
+        {
+          "contains": "import { resolve, join, dirname, basename } from 'node:path';",
+          "line": 3,
+          "path": "scripts/build-connector.ts",
+          "snippet": "b76f8a88"
+        },
+        {
+          "contains": "#!/usr/bin/env python3",
+          "line": 1,
+          "path": "scripts/check-publication.py",
+          "snippet": "2ca3ea61"
+        },
+        {
+          "contains": "\"\"\"Reject runtime/private files from the public Git index. Does not inspect secret contents.\"\"\"",
+          "line": 2,
+          "path": "scripts/check-publication.py",
+          "snippet": "0ce3f8d2"
+        },
+        {
+          "contains": "#!/usr/bin/env python3",
+          "line": 1,
+          "path": "scripts/check-secrets.py",
+          "snippet": "15ce1090"
+        },
+        {
+          "contains": "\"\"\"Run the verified Gitleaks binary without trusting repository-provided suppressions.\"\"\"",
+          "line": 2,
+          "path": "scripts/check-secrets.py",
+          "snippet": "1f6fe826"
+        },
+        {
+          "contains": "import assert from 'node:assert/strict';",
+          "line": 1,
+          "path": "scripts/smoke-container.ts",
+          "snippet": "32bfdd15"
+        },
+        {
+          "contains": "import { execFileSync } from 'node:child_process';",
+          "line": 2,
+          "path": "scripts/smoke-container.ts",
+          "snippet": "99d9c44e"
+        },
+        {
+          "contains": "import { randomUUID } from 'node:crypto';",
+          "line": 3,
+          "path": "scripts/smoke-container.ts",
+          "snippet": "73bd35e4"
+        },
+        {
+          "contains": "import importlib.util",
+          "line": 1,
+          "path": "scripts/test_publication.py",
+          "snippet": "774ea1ba"
+        },
+        {
+          "contains": "\"\"\"Integration regression: repository config, ignore files and comments cannot hide a fake token.\"\"\"",
+          "line": 1,
+          "path": "scripts/test_secret_scanner.py",
+          "snippet": "a959e518"
+        }
+      ],
+      "repo_bde7b76204809a": [
+        {
+          "contains": "\"name\": \"@strukt/cli\",",
+          "line": 2,
+          "path": "apps/cli/package.json",
+          "snippet": "c4e7bb07"
+        },
+        {
+          "contains": "import { parseStage } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/args.ts",
+          "snippet": "3509beb1"
+        },
+        {
+          "contains": "import type { CommandRunner } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/cli/src/cloudAllowlist.ts",
+          "snippet": "1ded471c"
+        },
+        {
+          "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+          "line": 1,
+          "path": "apps/cli/src/cloudCollect.ts",
+          "snippet": "6743fe48"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "eeb426e3"
+        },
+        {
+          "contains": "import { awsOutputs, azureListingJson, gcpListingJson } from '@strukt/dsl/cloud-fixtures';",
+          "line": 1,
+          "path": "apps/cli/src/cloudTesting.ts",
+          "snippet": "2df4b0a8"
+        },
+        {
+          "contains": "import { SOURCES_PATH, diagramPath, openConcerns, parseSources, validateSourceTargets } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "d233100c"
+        },
+        {
+          "contains": "import { relative, resolve, sep } from 'node:path';",
+          "line": 1,
+          "path": "apps/cli/src/commands/context.ts",
+          "snippet": "59950f65"
+        },
+        {
+          "contains": "import { dirname, join, resolve } from 'node:path';",
+          "line": 1,
+          "path": "apps/cli/src/commands/diff.ts",
+          "snippet": "b14c885f"
+        },
+        {
+          "contains": "import { EVIDENCE_PATH, printEvidence } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/commands/evidence.ts",
+          "snippet": "50368b81"
+        },
+        {
+          "contains": "import { basename, dirname, join, resolve } from 'node:path';",
+          "line": 1,
+          "path": "apps/cli/src/commands/export.ts",
+          "snippet": "2686827f"
+        },
+        {
+          "contains": "import { readFile, stat } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "ff1dbf58"
+        },
+        {
+          "contains": "import { resolve } from 'node:path';",
+          "line": 2,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "d2d3ecbf"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/commands/list.ts",
+          "snippet": "c2a0c1ba"
+        },
+        {
+          "contains": "import { prComment } from '@strukt/git';",
+          "line": 1,
+          "path": "apps/cli/src/commands/pr-comment.ts",
+          "snippet": "1b33a1c1"
+        },
+        {
+          "contains": "import { readFile } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/cli/src/commands/publish.ts",
+          "snippet": "b1ef218e"
+        },
+        {
+          "contains": "import { mkdir, stat } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/cli/src/commands/repository.ts",
+          "snippet": "182ccb11"
+        },
+        {
+          "contains": "import { lstat, readFile, readdir, rmdir, unlink } from 'node:fs/promises';",
+          "line": 1,
+          "path": "apps/cli/src/commands/site.ts",
+          "snippet": "0a8455ee"
+        },
+        {
+          "contains": "import { addItem, slugify } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/commands/sources.ts",
+          "snippet": "724e21af"
+        },
+        {
+          "contains": "import { own, syncLayout } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/commands/sync.ts",
+          "snippet": "179271c6"
+        }
+      ],
+      "repo_d4ff4b28356bed": [
+        {
+          "contains": "import { parseStage } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/args.ts",
+          "snippet": "3509beb1"
+        },
+        {
+          "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
+          "line": 5,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "1981f21e"
+        },
+        {
+          "contains": "import { SOURCES_PATH, diagramPath, openConcerns, parseSources, validateSourceTargets } from '@strukt/workspace';",
+          "line": 1,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "d233100c"
+        },
+        {
+          "contains": "import { checkEvidence, checkWorkspaceDrift } from '@strukt/workspace/health';",
+          "line": 2,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "22f467a0"
+        },
+        {
+          "contains": "import type { EvidenceIssue } from '@strukt/workspace/health';",
+          "line": 3,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "a2042fdf"
+        },
+        {
+          "contains": "import type { DriftFinding, SourceDiagnostic } from '@strukt/workspace';",
+          "line": 4,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "9ef917b8"
+        },
+        {
+          "contains": "import { openWorkspaceAt } from '@strukt/workspace/fs';",
+          "line": 7,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "611a71ce"
+        },
+        {
+          "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
+          "line": 8,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "84f79a6a"
+        },
+        {
+          "contains": "import { inspectContext, writeGeneratedContext } from '@strukt/workspace/context-storage';",
+          "line": 2,
+          "path": "apps/cli/src/commands/context.ts",
+          "snippet": "d80e1a5e"
+        },
+        {
+          "contains": "\"name\": \"@strukt/workspace\",",
+          "line": 2,
+          "path": "packages/workspace/package.json",
+          "snippet": "40258c68"
+        },
+        {
+          "contains": "import { AsyncLocalStorage } from 'node:async_hooks';",
+          "line": 1,
+          "path": "packages/workspace/src/accessContext.ts",
+          "snippet": "d9b1c21a"
+        },
+        {
+          "contains": "const START = '<!-- joinlet:knowledge-harness:start -->';",
+          "line": 1,
+          "path": "packages/workspace/src/agentHarness.ts",
+          "snippet": "1d3837dd"
+        },
+        {
+          "contains": "import { stableStringify } from './json';",
+          "line": 1,
+          "path": "packages/workspace/src/assistants.ts",
+          "snippet": "87f019b2"
+        },
+        {
+          "contains": "import type { Assistant } from './assistants';",
+          "line": 1,
+          "path": "packages/workspace/src/assistantsBuiltin.ts",
+          "snippet": "40b45d67"
+        },
+        {
+          "contains": "import { slugify } from './slug';",
+          "line": 1,
+          "path": "packages/workspace/src/assistantsParse.ts",
+          "snippet": "4952f8df"
+        },
+        {
+          "contains": "import type { Database } from 'bun:sqlite';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationSqlite.ts",
+          "snippet": "1b6d2440"
+        },
+        {
+          "contains": "import { mkdir, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';",
+          "line": 3,
+          "path": "packages/workspace/src/fs.ts",
+          "snippet": "ee45d521"
+        },
+        {
+          "contains": "import { basename, dirname, join, relative, resolve, sep } from 'node:path';",
+          "line": 4,
+          "path": "packages/workspace/src/fs.ts",
+          "snippet": "92934ec9"
+        },
+        {
+          "contains": "import { open, readFile, realpath, stat } from 'node:fs/promises';",
+          "line": 1,
+          "path": "packages/workspace/src/health.ts",
+          "snippet": "59f35e8f"
+        },
+        {
+          "contains": "import { join, sep } from 'node:path';",
+          "line": 2,
+          "path": "packages/workspace/src/health.ts",
+          "snippet": "4030ff0e"
+        }
+      ],
+      "repo_d5a16586640c40": [
+        {
+          "contains": "import { planSnapshot } from '@strukt/ops';",
+          "line": 3,
+          "path": "apps/cli/src/commands/sync.ts",
+          "snippet": "16e5030b"
+        },
+        {
+          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+          "line": 9,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "f6df6743"
+        },
+        {
+          "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
+          "line": 6,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "4f6d00ed"
+        },
+        {
+          "contains": "import { TOOL_INPUT_SCHEMA, TOOL_NAME, checkProposal } from '@strukt/ops';",
+          "line": 3,
+          "path": "apps/server/src/diagram.ts",
+          "snippet": "46bcc5ad"
+        },
+        {
+          "contains": "import { TOOL_NAME } from '@strukt/ops';",
+          "line": 4,
+          "path": "apps/server/src/prompt.ts",
+          "snippet": "4d45fb7b"
+        },
+        {
+          "contains": "import type { AiOp } from '@strukt/ops';",
+          "line": 5,
+          "path": "apps/server/src/prompt.ts",
+          "snippet": "7f085284"
+        },
+        {
+          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+          "line": 2,
+          "path": "apps/server/src/repositoryReview.ts",
+          "snippet": "5b067fde"
+        },
+        {
+          "contains": "\"name\": \"@strukt/ops\",",
+          "line": 2,
+          "path": "packages/ops/package.json",
+          "snippet": "5c65f039"
+        },
+        {
+          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/ops/src/check.ts",
+          "snippet": "2f9f9eaf"
+        },
+        {
+          "contains": "export {",
+          "line": 1,
+          "path": "packages/ops/src/index.ts",
+          "snippet": "d7b63798"
+        },
+        {
+          "contains": "import { applyOps, syncLayout } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/ops/src/plan.ts",
+          "snippet": "7c76c3f7"
+        },
+        {
+          "contains": "import { CARDINALITIES, LAYOUT_ROLES, PRESENTATIONS, PORTS, COLOR_MODES, CONNECTORS, DIRECTIONS, SHAPES, STYLE_MODES, TYPEFACES } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/ops/src/schema.ts",
+          "snippet": "fc825b21"
+        },
+        {
+          "contains": "{ \"extends\": \"../../tsconfig.base.json\", \"include\": [\"src\"] }",
+          "line": 1,
+          "path": "packages/ops/tsconfig.json",
+          "snippet": "06dcc4a0"
+        }
+      ],
+      "repo_e27f3faa9152db": [
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "eeb426e3"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 2,
+          "path": "apps/cli/src/commands/export.ts",
+          "snippet": "c15101ac"
+        },
+        {
+          "contains": "import { CLOUD_ICONS } from '@strukt/core/cloud';",
+          "line": 3,
+          "path": "apps/cli/src/commands/importCloud.ts",
+          "snippet": "eb8ec3d6"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/commands/list.ts",
+          "snippet": "c2a0c1ba"
+        },
+        {
+          "contains": "import { own, syncLayout } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/cli/src/commands/sync.ts",
+          "snippet": "179271c6"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/comments.ts",
+          "snippet": "fd421b26"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/perspectives.ts",
+          "snippet": "746eed27"
+        },
+        {
+          "contains": "import {readWorkspaceOps} from '@strukt/core';",
+          "line": 3,
+          "path": "apps/mcp/src/repositoryKnowledge.ts",
+          "snippet": "5d8ad01f"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/resources.ts",
+          "snippet": "c299497a"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/timelineTool.ts",
+          "snippet": "7013aec4"
+        },
+        {
+          "contains": "import { COMPONENT_LIBRARIES, COMPONENT_PRESETS } from '@strukt/core/catalog';",
+          "line": 1,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "b79be95a"
+        },
+        {
+          "contains": "import { catalogMatches } from '@strukt/core';",
+          "line": 2,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "0ac2c4e9"
+        },
+        {
+          "contains": "import { BASIC_SHAPES, applyOps, computeRects, defaultSize, emptyModel, labelBox, labelLines, nodeVariant, own, shapeGeometry, syncLayout, visualBox, tableSize, participantSize } from '@strukt/core';",
+          "line": 4,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "6616bea8"
+        },
+        {
+          "contains": "import { CLOUD_COMPONENT_PRESETS } from '@strukt/core/cloud';",
+          "line": 5,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "d334fe20"
+        },
+        {
+          "contains": "\"name\": \"@strukt/core\",",
+          "line": 2,
+          "path": "packages/core/package.json",
+          "snippet": "24d5ad60"
+        },
+        {
+          "contains": "/** Named connections use fixed endpoints; keys never cross between providers. */",
+          "line": 1,
+          "path": "packages/core/src/aiProviders.ts",
+          "snippet": "7e14fb93"
+        },
+        {
+          "contains": "import { RESERVED_NAME, edgeId, own } from './ids';",
+          "line": 1,
+          "path": "packages/core/src/applyOps.ts",
+          "snippet": "d0e44d6c"
+        },
+        {
+          "contains": "import { applyOps } from './applyOps';",
+          "line": 1,
+          "path": "packages/core/src/canvasDiagrams.ts",
+          "snippet": "f35576fe"
+        },
+        {
+          "contains": "/** Search metadata is bilingual and remains independent of the labels painted on the canvas. */",
+          "line": 1,
+          "path": "packages/core/src/catalogSearch.ts",
+          "snippet": "08a790c1"
+        },
+        {
+          "contains": "import { readWorkspaceOps } from './workspaceEdit';",
+          "line": 1,
+          "path": "packages/core/src/chatEdit.ts",
+          "snippet": "8d7366e6"
+        }
+      ],
+      "repo_e86a0d465b5caa": [
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 5,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "f731a6a7"
+        },
+        {
+          "contains": "import type { JsonDiagnostic } from '@strukt/json';",
+          "line": 6,
+          "path": "apps/cli/src/commands/check.ts",
+          "snippet": "77076d23"
+        },
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/mcp/src/resources.ts",
+          "snippet": "31f5cc5f"
+        },
+        {
+          "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
+          "line": 7,
+          "path": "apps/mcp/src/tools.ts",
+          "snippet": "ebdf4da0"
+        },
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 5,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "e9df8490"
+        },
+        {
+          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+          "line": 7,
+          "path": "apps/server/src/collaborationHttp.ts",
+          "snippet": "3d348b5d"
+        },
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/server/src/diagram.ts",
+          "snippet": "4af0ce29"
+        },
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 1,
+          "path": "apps/server/src/doc.ts",
+          "snippet": "ea01783e"
+        },
+        {
+          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/vscode/scripts/write-schema.ts",
+          "snippet": "73af2f15"
+        },
+        {
+          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "line": 1,
+          "path": "apps/vscode/src/diagnostics.ts",
+          "snippet": "f88e2ddc"
+        },
+        {
+          "contains": "import type { JsonDiagnostic } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/vscode/src/diagnostics.ts",
+          "snippet": "9955268a"
+        },
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/web/src/ai/aiStore.ts",
+          "snippet": "08bb11bf"
+        },
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 2,
+          "path": "apps/web/src/ai/doc.ts",
+          "snippet": "9d0a9bc9"
+        },
+        {
+          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "line": 5,
+          "path": "apps/web/src/chat/edit.ts",
+          "snippet": "2c288d6c"
+        },
+        {
+          "contains": "\"name\": \"@strukt/json\",",
+          "line": 2,
+          "path": "packages/json/package.json",
+          "snippet": "bc15a3a1"
+        },
+        {
+          "contains": "export { printDiagramJson, DIAGRAM_JSON_VERSION, SCHEMA_REF } from './print';",
+          "line": 1,
+          "path": "packages/json/src/index.ts",
+          "snippet": "aa870540"
+        },
+        {
+          "contains": "import {",
+          "line": 1,
+          "path": "packages/json/src/parse.ts",
+          "snippet": "a73d9b3e"
+        },
+        {
+          "contains": "import type { Span } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/json/src/parseJson.ts",
+          "snippet": "a628cfe4"
+        },
+        {
+          "contains": "import { DEFAULT_STYLE, own, validParents } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/json/src/print.ts",
+          "snippet": "b1053040"
+        },
+        {
+          "contains": "import { CARDINALITIES, LAYOUT_ROLES, PRESENTATIONS, PORTS, COLOR_MODES, CONNECTORS, DIRECTIONS, SHAPES, STYLE_MODES, TYPEFACES } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/json/src/schema.ts",
+          "snippet": "e1e73765"
+        }
+      ]
+    }
+  },
+  "generatedLayouts": {
+    "dependencies": {
+      "edges": {},
+      "nodes": {
+        "repo_0461a65509f9b9": {
+          "x": 10401,
+          "y": 2672
+        },
+        "repo_046ab0386bf67d": {
+          "x": 1769,
+          "y": 408
+        },
+        "repo_09e11a52066c67": {
+          "x": 6741,
+          "y": 1748
+        },
+        "repo_0cf9503b1fd232": {
+          "x": 10749,
+          "y": 408
+        },
+        "repo_10b0f86dd82efd": {
+          "x": 11001,
+          "y": 408
+        },
+        "repo_11eaccb1592f3a": {
+          "x": 2398,
+          "y": 408
+        },
+        "repo_1eaad0baed4750": {
+          "x": 5438,
+          "y": 408
+        },
+        "repo_21c42f64c2fbfe": {
+          "x": 10149,
+          "y": 2672
+        },
+        "repo_23af5b5699c1a2": {
+          "x": 11289,
+          "y": 408
+        },
+        "repo_24a77a7893027a": {
+          "x": 10422,
+          "y": 408
+        },
+        "repo_2537290015818a": {
+          "x": 4234,
+          "y": 408
+        },
+        "repo_2b5de01fd6f042": {
+          "x": 5980,
+          "y": 408
+        },
+        "repo_2b6eb111d7567c": {
+          "x": 9559,
+          "y": 408
+        },
+        "repo_2e1ea497ec81e2": {
+          "x": 8092,
+          "y": 2016
+        },
+        "repo_324a3d6580c3df": {
+          "x": 8485,
+          "y": 944
+        },
+        "repo_3574d03c8027d7": {
+          "x": 6489,
+          "y": 1748
+        },
+        "repo_35968c1cad3daa": {
+          "x": 3946,
+          "y": 408
+        },
+        "repo_35c299d20169d0": {
+          "x": 7250,
+          "y": 1212
+        },
+        "repo_3b4e3efd29cd13": {
+          "x": 5755,
+          "y": 0
+        },
+        "repo_41ba823706ed42": {
+          "x": 8062,
+          "y": 1748
+        },
+        "repo_45904bd58762b0": {
+          "x": 7784,
+          "y": 2016
+        },
+        "repo_484fb1e9cea553": {
+          "x": 7820,
+          "y": 676
+        },
+        "repo_4c5a34d0f0b789": {
+          "x": 6771,
+          "y": 944
+        },
+        "repo_4fd46f6b7c8ce6": {
+          "x": 11660,
+          "y": 408
+        },
+        "repo_523a2ed60c44ce": {
+          "x": 9190,
+          "y": 944
+        },
+        "repo_57e47bff163776": {
+          "x": 11912,
+          "y": 408
+        },
+        "repo_5c1ab4b7e80ad1": {
+          "x": 9322,
+          "y": 1748
+        },
+        "repo_60ad17849ef425": {
+          "x": 1519,
+          "y": 676
+        },
+        "repo_66f5b9541a8970": {
+          "x": 9936,
+          "y": 408
+        },
+        "repo_68eda5522213e4": {
+          "x": 8892,
+          "y": 1480
+        },
+        "repo_6ccd209c3439f9": {
+          "x": 1267,
+          "y": 676
+        },
+        "repo_6eb6a593145a8a": {
+          "x": 8330,
+          "y": 1748
+        },
+        "repo_71391bfad4e6b4": {
+          "x": 6998,
+          "y": 1212
+        },
+        "repo_86104d06094ed0": {
+          "x": 1501,
+          "y": 408
+        },
+        "repo_8661c935b81923": {
+          "x": 3442,
+          "y": 408
+        },
+        "repo_8749826de7bff8": {
+          "x": 997,
+          "y": 408
+        },
+        "repo_8c5967fd8486f3": {
+          "x": 11694,
+          "y": 4
+        },
+        "repo_90da7cc929ad46": {
+          "x": 5755,
+          "y": 408
+        },
+        "repo_996d8c76f1effb": {
+          "x": 540,
+          "y": 408
+        },
+        "repo_a15a3342a9d04a": {
+          "x": 7672,
+          "y": 408
+        },
+        "repo_a1bbd806b392be": {
+          "x": 3694,
+          "y": 408
+        },
+        "repo_a815c5175d75d0": {
+          "x": 7810,
+          "y": 1748
+        },
+        "repo_a96b0b1a448cb5": {
+          "x": 3132,
+          "y": 408
+        },
+        "repo_abcd8990e0cd9a": {
+          "x": 5111,
+          "y": 408
+        },
+        "repo_ad9f261e20093d": {
+          "x": 9873,
+          "y": 2016
+        },
+        "repo_adbf7b1d320547": {
+          "x": 2021,
+          "y": 408
+        },
+        "repo_b3234122088729": {
+          "x": 2834,
+          "y": 408
+        },
+        "repo_bde7b76204809a": {
+          "x": 9754,
+          "y": 676
+        },
+        "repo_c20355254f8935": {
+          "x": 1249,
+          "y": 408
+        },
+        "repo_c4867bba3a1c87": {
+          "x": 3072,
+          "y": 944
+        },
+        "repo_cc4c3b901ef9a1": {
+          "x": 8034,
+          "y": 408
+        },
+        "repo_cdb4ee2aea69cc": {
+          "x": 11946,
+          "y": 0
+        },
+        "repo_cdcf301698c8d5": {
+          "x": 288,
+          "y": 408
+        },
+        "repo_cf73f0512311cc": {
+          "x": 8584,
+          "y": 408
+        },
+        "repo_cfa007f180cfd6": {
+          "x": 4486,
+          "y": 408
+        },
+        "repo_d240db9c9d77f6": {
+          "x": 7558,
+          "y": 1748
+        },
+        "repo_d4ff4b28356bed": {
+          "x": 7787,
+          "y": 1480
+        },
+        "repo_d5a16586640c40": {
+          "x": 8872,
+          "y": 1212
+        },
+        "repo_d7143f4f062ff5": {
+          "x": 6742,
+          "y": 2016
+        },
+        "repo_e27f3faa9152db": {
+          "x": 9920,
+          "y": 2334
+        },
+        "repo_e86a0d465b5caa": {
+          "x": 8892,
+          "y": 2016
+        },
+        "repo_f2dea9d4cb3be1": {
+          "x": 8286,
+          "y": 408
+        },
+        "repo_f67e61755f494b": {
+          "x": 4744,
+          "y": 408
+        },
+        "repo_f71cc4d7fe389e": {
+          "x": 5991,
+          "y": 1212
+        },
+        "repo_febb4e65d49258": {
+          "x": 0,
+          "y": 408
+        }
+      }
+    }
+  },
+  "knowledge": {
+    "connections": {
+      "repo_link_11e417eb6b2a3693": {
+        "from": "diagram:repository",
+        "id": "repo_link_11e417eb6b2a3693",
+        "label": "Contexto do projeto",
+        "to": "doc:readme"
+      },
+      "repo_link_25ce40c94ec54977": {
+        "from": "doc:readme",
+        "id": "repo_link_25ce40c94ec54977",
+        "label": "Referência",
+        "to": "doc:conexao-e-sincronizacao-de-repositorios"
+      },
+      "repo_link_28877d53273c5dfc": {
+        "from": "diagram:repository",
+        "id": "repo_link_28877d53273c5dfc",
+        "label": "Referência",
+        "to": "doc:joinlet-para-vs-code"
+      },
+      "repo_link_36d1cd35cad2a407": {
+        "from": "doc:open-source-and-hosted-service",
+        "id": "repo_link_36d1cd35cad2a407",
+        "label": "Referência",
+        "to": "doc:contributions-releases-and-the-official-service"
+      },
+      "repo_link_4ad519b582195d59": {
+        "from": "doc:contributing-to-joinlet",
+        "id": "repo_link_4ad519b582195d59",
+        "label": "Referência",
+        "to": "doc:security-policy"
+      },
+      "repo_link_53c5ecfd408bf6df": {
+        "from": "doc:readme",
+        "id": "repo_link_53c5ecfd408bf6df",
+        "label": "Referência",
+        "to": "doc:contributions-releases-and-the-official-service"
+      },
+      "repo_link_59035d2ec69e9f11": {
+        "from": "doc:third-party-notices",
+        "id": "repo_link_59035d2ec69e9f11",
+        "label": "Referência",
+        "to": "doc:ignore-md"
+      },
+      "repo_link_649696e18a22de0b": {
+        "from": "doc:readme",
+        "id": "repo_link_649696e18a22de0b",
+        "label": "Referência",
+        "to": "doc:security-policy"
+      },
+      "repo_link_6f5d4172b3bacfb2": {
+        "from": "doc:readme",
+        "id": "repo_link_6f5d4172b3bacfb2",
+        "label": "Referência",
+        "to": "doc:joinlet-name-and-visual-identity"
+      },
+      "repo_link_72b34e83521b6492": {
+        "from": "doc:publicacao-do-joinlet",
+        "id": "repo_link_72b34e83521b6492",
+        "label": "Referência",
+        "to": "doc:conexao-e-sincronizacao-de-repositorios"
+      },
+      "repo_link_73e97fa7e0ce84c2": {
+        "from": "doc:readme",
+        "id": "repo_link_73e97fa7e0ce84c2",
+        "label": "Referência",
+        "to": "doc:publicacao-do-joinlet"
+      },
+      "repo_link_7986b2c4b0fe61dc": {
+        "from": "diagram:sincronizacao-de-repositorios",
+        "id": "repo_link_7986b2c4b0fe61dc",
+        "label": "Referência",
+        "to": "doc:conexao-e-sincronizacao-de-repositorios"
+      },
+      "repo_link_7de7226af72097f8": {
+        "from": "doc:security-policy",
+        "id": "repo_link_7de7226af72097f8",
+        "label": "Referência",
+        "to": "doc:contributions-releases-and-the-official-service"
+      },
+      "repo_link_9569b6653c44c472": {
+        "from": "doc:third-party-notices",
+        "id": "repo_link_9569b6653c44c472",
+        "label": "Referência",
+        "to": "doc:icones-oficiais-de-arquitetura-cloud"
+      },
+      "repo_link_acb8c9d84e0ff32e": {
+        "from": "doc:readme",
+        "id": "repo_link_acb8c9d84e0ff32e",
+        "label": "Referência",
+        "to": "doc:corresponding-source"
+      },
+      "repo_link_c2725ea7f73945ba": {
+        "from": "doc:publicacao-do-joinlet",
+        "id": "repo_link_c2725ea7f73945ba",
+        "label": "Referência",
+        "to": "doc:contributions-releases-and-the-official-service"
+      },
+      "repo_link_ca9de4a9fafaaee2": {
+        "from": "doc:open-source-and-hosted-service",
+        "id": "repo_link_ca9de4a9fafaaee2",
+        "label": "Referência",
+        "to": "doc:joinlet-name-and-visual-identity"
+      },
+      "repo_link_d44f4f7296f7922b": {
+        "from": "doc:readme",
+        "id": "repo_link_d44f4f7296f7922b",
+        "label": "Referência",
+        "to": "doc:agentes-mcp-cli"
+      },
+      "repo_link_d7131f17111cf5a8": {
+        "from": "diagram:repository",
+        "id": "repo_link_d7131f17111cf5a8",
+        "label": "Documentação",
+        "to": "doc:repository-architecture"
+      },
+      "repo_link_d74ad36d50f67e35": {
+        "from": "doc:publicacao-do-joinlet",
+        "id": "repo_link_d74ad36d50f67e35",
+        "label": "Referência",
+        "to": "doc:open-source-and-hosted-service"
+      },
+      "repo_link_e12f9f10d29c1abb": {
+        "from": "doc:third-party-notices",
+        "id": "repo_link_e12f9f10d29c1abb",
+        "label": "Referência",
+        "to": "doc:eraser-diagrams"
+      },
+      "repo_link_e4382f559fbfebba": {
+        "from": "doc:readme",
+        "id": "repo_link_e4382f559fbfebba",
+        "label": "Referência",
+        "to": "doc:open-source-and-hosted-service"
+      },
+      "repo_link_e51d8f9aa6731a98": {
+        "from": "doc:readme",
+        "id": "repo_link_e51d8f9aa6731a98",
+        "label": "Referência",
+        "to": "doc:contributing-to-joinlet"
+      },
+      "repo_link_f014ac58c61ad27c": {
+        "from": "doc:readme",
+        "id": "repo_link_f014ac58c61ad27c",
+        "label": "Referência",
+        "to": "doc:third-party-notices"
+      },
+      "repo_link_f33cef0f23cfa6e9": {
+        "from": "doc:open-source-and-hosted-service",
+        "id": "repo_link_f33cef0f23cfa6e9",
+        "label": "Referência",
+        "to": "doc:corresponding-source"
+      },
+      "repo_link_fe0641aee617da79": {
+        "from": "diagram:arquitetura-do-joinlet",
+        "id": "repo_link_fe0641aee617da79",
+        "label": "Referência",
+        "to": "doc:conexao-e-sincronizacao-de-repositorios"
+      }
+    },
+    "documents": {
+      "CONTRIBUTING.md": {
+        "folder": "Repositório",
+        "hash": "a6fcdfc2168713b6a59b50dbeccfc737f95f929ab1aecbdeed4157fe152b3534",
+        "slug": "contributing-to-joinlet",
+        "sourceHash": "b19c70e594199f48e8e8c3e7bc1a751a66314248927c203c97e450fb33f3b0ef",
+        "title": "Contributing to Joinlet"
+      },
+      "README.md": {
+        "folder": "Repositório",
+        "hash": "87f448351b9a04e3fbbed3abcda61dd8a70a0948c5406097f767899a72ea0683",
+        "slug": "readme",
+        "sourceHash": "70d3b776037ec4eee8446ef406578f6c25539ffe72b551d2ebcbf033e547d42d",
+        "title": "README — ."
+      },
+      "SECURITY.md": {
+        "folder": "Repositório",
+        "hash": "83e520680b6a42af1c05b9d94ec91ccab8e800db8a577280b71594229d038e54",
+        "slug": "security-policy",
+        "sourceHash": "4891ad79994c1f62af9d49b3d9439aed8972d6224382fd0b82ea3e8aac89bc34",
+        "title": "Security policy"
+      },
+      "SOURCE.md": {
+        "folder": "Repositório",
+        "hash": "5e359756866793d1441440c5d16afb3d75bf6a03adc5e3fb7052e33b169caa66",
+        "slug": "corresponding-source",
+        "sourceHash": "62f70395671178d254ea526de53d9ff808bfcaca67a7fee5eba8d6c93697440b",
+        "title": "Corresponding source"
+      },
+      "THIRD_PARTY_NOTICES.md": {
+        "folder": "Repositório",
+        "hash": "03f21e2f38f4209cbec763575e0f919eeb725538e2bd72bb1b9ca0c35e0d99ce",
+        "slug": "third-party-notices",
+        "sourceHash": "339c90520d483d74e0ce82df0604550204b1637c19f93db176c18deda3b2d9b0",
+        "title": "Third-party notices"
+      },
+      "TRADEMARKS.md": {
+        "folder": "Repositório",
+        "hash": "363a0e3d26aadaefe58cc3edaa1640ece696ef20ddf119a38be4de0ab61642dc",
+        "slug": "joinlet-name-and-visual-identity",
+        "sourceHash": "ac27f1b1a7dcef392a47a500814cc35fc4f947db861cd1d3109ce6cd529f60fe",
+        "title": "Joinlet name and visual identity"
+      },
+      "apps/vscode/README.md": {
+        "folder": "Repositório/apps/vscode",
+        "hash": "d0bb47a53b055bdd9b4e9eb9a9f6261c0ab24549044902d883bc62e97d24b3fa",
+        "slug": "joinlet-para-vs-code",
+        "sourceHash": "31bb5bad860887e276edd92a5da95e078c73b141bc7b3b1de15c14be40674663",
+        "title": "Joinlet para VS Code"
+      },
+      "apps/web/DESIGN.md": {
+        "folder": "Repositório/apps/web",
+        "hash": "0dc918d3ff1c6e3c8cfc2027ffef388f0aac5c13d7751ff4316dadb7210610dd",
+        "slug": "joinlet-interface",
+        "sourceHash": "ac7c576bb09251d83eabac56e5eb00bc13c882dd5594a65bcb44083486a97c6b",
+        "title": "Joinlet interface"
+      },
+      "apps/web/PRODUCT.md": {
+        "folder": "Repositório/apps/web",
+        "hash": "8aa7d954b7d6a5031c2ab17fdedd5a88585d8a16d5ea72e283e8cd22e775c342",
+        "slug": "joinlet",
+        "sourceHash": "95eb911d16a14f9c7717e31203a623a48630841a2f9e727af10516099907a4b9",
+        "title": "Joinlet"
+      },
+      "deploy/README.md": {
+        "folder": "Repositório/deploy",
+        "hash": "71de7393acaec02bda7c9012014cebaa41ef1fcff0f85abc649e34bb8be81648",
+        "slug": "publicacao-do-joinlet",
+        "sourceHash": "6af31da1e76faddced6a5823040cd99fa461d4482b31cf6189de7751b2d031d5",
+        "title": "Publicação do Joinlet"
+      },
+      "docs/agents.md": {
+        "folder": "Repositório/docs",
+        "hash": "5e1dc87ce75457aaefd3c607e8911845f1b3eb667a14429d9e3457453ec9beae",
+        "slug": "agentes-mcp-cli",
+        "sourceHash": "70a7b41c3c64a40e95919b019e61955fb881ff7082ac06716fdb848e32207c7e",
+        "title": "Agentes: MCP + CLI"
+      },
+      "docs/idiomas.md": {
+        "folder": "Repositório/docs",
+        "hash": "7c52759be5a672e8b32bda555b7b9025792d04b820f4908c867dda694a163603",
+        "slug": "idiomas-da-interface",
+        "sourceHash": "a78e24a4f48a992ff412f6d3c3f473c14b01679998e58f15b7e8f85883f9ba0b",
+        "title": "Idiomas da interface"
+      },
+      "docs/landing-visual-stories.md": {
+        "folder": "Repositório/docs",
+        "hash": "adb8d605281da35e99f07c3c857e4017374415cb0d5dbe9a85ca19ff40ba3717",
+        "slug": "joinlet-demonstracoes-visuais",
+        "sourceHash": "1a9aca5ef742725e4449f3cd0397d95883c3a3551d5705e521d0713583340ca6",
+        "title": "Joinlet — demonstrações visuais"
+      },
+      "docs/open-source.md": {
+        "folder": "Repositório/docs",
+        "hash": "dbf85bd7cf70efea3923fb2525911b52a40f9fc9ec04463b4e7689c23e5e1f25",
+        "slug": "open-source-and-hosted-service",
+        "sourceHash": "04caa5b41dc34fb3a3a05b1cba7fe250c204932fc33c7accd0655d2fbd1c8e28",
+        "title": "Open source and hosted service"
+      },
+      "docs/provedores-de-ia.md": {
+        "folder": "Repositório/docs",
+        "hash": "8611205334068bcade5507629bb435c696f57c1f8c24dfa043acb265cccfcfce",
+        "slug": "provedores-de-ia-do-joinlet",
+        "sourceHash": "f9f79d813c5e3a0ae2e26b12b92f8b1b223b3fbbe8ef630608294978cffe873c",
+        "title": "Provedores de IA do Joinlet"
+      },
+      "docs/releases.md": {
+        "folder": "Repositório/docs",
+        "hash": "056fd760830f482ed65b80d2fcb91edbfc0f6f8f7c37e86f56a250b5e0d9e9cb",
+        "slug": "contributions-releases-and-the-official-service",
+        "sourceHash": "50a6bafee34f1e002b4267c349ec8e4e29ed416d8b20427fd04152ea06ef8009",
+        "title": "Contributions, releases and the official service"
+      },
+      "docs/third-party/cloud-icons.md": {
+        "folder": "Repositório/docs/third-party",
+        "hash": "5a81ac0f133a494b162dcd72f81788548d490f75ee6ed02e121422e879c91763",
+        "slug": "icones-oficiais-de-arquitetura-cloud",
+        "sourceHash": "caafa90156baea35ba9ee54b3f16626b254719de37d7cb8de4f33390923d4242",
+        "title": "Ícones oficiais de arquitetura cloud"
+      },
+      "docs/third-party/eraser-diagrams.md": {
+        "folder": "Repositório/docs/third-party",
+        "hash": "d562f41385f0f647036e46d63cd0e303e0ad7ebfc0e98b37ea8ae9403542eb51",
+        "slug": "eraser-diagrams",
+        "sourceHash": "841a60737dcb35a74697f990bb50478d9b84257e6054a1e4308c109c6e0abeff",
+        "title": "Eraser Diagrams"
+      },
+      "docs/third-party/ignore.md": {
+        "folder": "Repositório/docs/third-party",
+        "hash": "675e17551c0c06d676c3c76f06c5b81aa8abdcdfc6c673c16c944f5a94eb8821",
+        "slug": "ignore-md",
+        "sourceHash": "9c94db23dc4b1e9aaee5d195668b916afc71efed54af226b66cf0ccc4389c1c0",
+        "title": "ignore.md"
+      },
+      "docs/workspace-settings.md": {
+        "folder": "Repositório/docs",
+        "hash": "5fbe47149ae1b8cc6c69d3d4397984cce53f34dc37937cbc4e80b466c10684aa",
+        "slug": "configuracoes-do-workspace",
+        "sourceHash": "bfe83e7f72cd3d0bfe28c034197d4f0b9d89138c27450a743467a0aa15e69407",
+        "title": "Configurações do workspace"
+      }
+    },
+    "folders": {
+      "diagram:repository": "Arquitetura",
+      "doc:repository-architecture": "Arquitetura"
+    }
+  },
+  "labels": {
+    "repo_0461a65509f9b9": {
+      "analysis": "fast-check",
+      "source": "fast-check"
+    },
+    "repo_046ab0386bf67d": {
+      "analysis": "marked",
+      "source": "marked"
+    },
+    "repo_09e11a52066c67": {
+      "analysis": "strukt-vscode",
+      "source": "strukt-vscode"
+    },
+    "repo_0cf9503b1fd232": {
+      "analysis": "dompurify",
+      "source": "dompurify"
+    },
+    "repo_11eaccb1592f3a": {
+      "analysis": "@fontsource-variable/geist-mono",
+      "source": "@fontsource-variable/geist-mono"
+    },
+    "repo_1eaad0baed4750": {
+      "analysis": "@iconify-json/logos",
+      "source": "@iconify-json/logos"
+    },
+    "repo_21c42f64c2fbfe": {
+      "analysis": "vitest",
+      "source": "vitest"
+    },
+    "repo_23af5b5699c1a2": {
+      "analysis": "@codemirror/view",
+      "source": "@codemirror/view"
+    },
+    "repo_24a77a7893027a": {
+      "analysis": "@codemirror/commands",
+      "source": "@codemirror/commands"
+    },
+    "repo_2537290015818a": {
+      "analysis": "pdfmake",
+      "source": "pdfmake"
+    },
+    "repo_2b5de01fd6f042": {
+      "analysis": "@codemirror/language",
+      "source": "@codemirror/language"
+    },
+    "repo_2b6eb111d7567c": {
+      "analysis": "@codemirror/lang-markdown",
+      "source": "@codemirror/lang-markdown"
+    },
+    "repo_2e1ea497ec81e2": {
+      "analysis": "elkjs",
+      "source": "elkjs"
+    },
+    "repo_35968c1cad3daa": {
+      "analysis": "@lezer/highlight",
+      "source": "@lezer/highlight"
+    },
+    "repo_35c299d20169d0": {
+      "analysis": "zod",
+      "source": "zod"
+    },
+    "repo_3b4e3efd29cd13": {
+      "analysis": "@strukt/web",
+      "source": "@strukt/web"
+    },
+    "repo_41ba823706ed42": {
+      "analysis": "@strukt/layout",
+      "source": "@strukt/layout"
+    },
+    "repo_45904bd58762b0": {
+      "analysis": "@eraserlabs/layout",
+      "source": "@eraserlabs/layout"
+    },
+    "repo_484fb1e9cea553": {
+      "analysis": "@strukt/server",
+      "source": "@strukt/server"
+    },
+    "repo_4c5a34d0f0b789": {
+      "analysis": "@strukt/mcp",
+      "source": "@strukt/mcp"
+    },
+    "repo_523a2ed60c44ce": {
+      "analysis": "hono",
+      "source": "hono"
+    },
+    "repo_57e47bff163776": {
+      "analysis": "react-dom",
+      "source": "react-dom"
+    },
+    "repo_5c1ab4b7e80ad1": {
+      "analysis": "@strukt/dsl",
+      "source": "@strukt/dsl"
+    },
+    "repo_60ad17849ef425": {
+      "analysis": "ws",
+      "source": "ws"
+    },
+    "repo_66f5b9541a8970": {
+      "analysis": "@excalidraw/excalidraw",
+      "source": "@excalidraw/excalidraw"
+    },
+    "repo_68eda5522213e4": {
+      "analysis": "ajv",
+      "source": "ajv"
+    },
+    "repo_6ccd209c3439f9": {
+      "analysis": "express",
+      "source": "express"
+    },
+    "repo_6eb6a593145a8a": {
+      "analysis": "fflate",
+      "source": "fflate"
+    },
+    "repo_71391bfad4e6b4": {
+      "analysis": "@strukt/git",
+      "source": "@strukt/git"
+    },
+    "repo_86104d06094ed0": {
+      "analysis": "@strukt/remote",
+      "source": "@strukt/remote"
+    },
+    "repo_8749826de7bff8": {
+      "analysis": "simple-icons",
+      "source": "simple-icons"
+    },
+    "repo_8c5967fd8486f3": {
+      "analysis": "scripts",
+      "source": "scripts"
+    },
+    "repo_90da7cc929ad46": {
+      "analysis": "zustand",
+      "source": "zustand"
+    },
+    "repo_996d8c76f1effb": {
+      "analysis": "@fontsource-variable/shantell-sans",
+      "source": "@fontsource-variable/shantell-sans"
+    },
+    "repo_a15a3342a9d04a": {
+      "analysis": "motion",
+      "source": "motion"
+    },
+    "repo_a1bbd806b392be": {
+      "analysis": "lucide-react",
+      "source": "lucide-react"
+    },
+    "repo_a815c5175d75d0": {
+      "analysis": "yjs",
+      "source": "yjs"
+    },
+    "repo_a96b0b1a448cb5": {
+      "analysis": "@codemirror/lang-json",
+      "source": "@codemirror/lang-json"
+    },
+    "repo_ad9f261e20093d": {
+      "analysis": "yaml",
+      "source": "yaml"
+    },
+    "repo_adbf7b1d320547": {
+      "analysis": "@fontsource-variable/sora",
+      "source": "@fontsource-variable/sora"
+    },
+    "repo_b3234122088729": {
+      "analysis": "@codemirror/state",
+      "source": "@codemirror/state"
+    },
+    "repo_bde7b76204809a": {
+      "analysis": "@strukt/cli",
+      "source": "@strukt/cli"
+    },
+    "repo_c20355254f8935": {
+      "analysis": "react",
+      "source": "react"
+    },
+    "repo_c4867bba3a1c87": {
+      "analysis": "@anthropic-ai/sdk",
+      "source": "@anthropic-ai/sdk"
+    },
+    "repo_cc4c3b901ef9a1": {
+      "analysis": "radix-ui",
+      "source": "radix-ui"
+    },
+    "repo_cdcf301698c8d5": {
+      "analysis": "lucide",
+      "source": "lucide"
+    },
+    "repo_cf73f0512311cc": {
+      "analysis": "@codemirror/search",
+      "source": "@codemirror/search"
+    },
+    "repo_cfa007f180cfd6": {
+      "analysis": "@xyflow/react",
+      "source": "@xyflow/react"
+    },
+    "repo_d240db9c9d77f6": {
+      "analysis": "ignore",
+      "source": "ignore"
+    },
+    "repo_d4ff4b28356bed": {
+      "analysis": "@strukt/workspace",
+      "source": "@strukt/workspace"
+    },
+    "repo_d5a16586640c40": {
+      "analysis": "@strukt/ops",
+      "source": "@strukt/ops"
+    },
+    "repo_d7143f4f062ff5": {
+      "analysis": "vscode",
+      "source": "vscode"
+    },
+    "repo_e27f3faa9152db": {
+      "analysis": "@strukt/core",
+      "source": "@strukt/core"
+    },
+    "repo_e86a0d465b5caa": {
+      "analysis": "@strukt/json",
+      "source": "@strukt/json"
+    },
+    "repo_f67e61755f494b": {
+      "analysis": "@codemirror/autocomplete",
+      "source": "@codemirror/autocomplete"
+    },
+    "repo_f71cc4d7fe389e": {
+      "analysis": "@modelcontextprotocol/sdk",
+      "source": "@modelcontextprotocol/sdk"
+    },
+    "repo_febb4e65d49258": {
+      "analysis": "@codemirror/lint",
+      "source": "@codemirror/lint"
+    }
+  },
+  "layouts": {
+    "dependencies": {
+      "edges": {},
+      "nodes": {
+        "repo_0461a65509f9b9": {
+          "x": 7405,
+          "y": 2662
+        },
+        "repo_046ab0386bf67d": {
+          "x": 0,
+          "y": 418
+        },
+        "repo_09e11a52066c67": {
+          "x": 8339,
+          "y": 1778
+        },
+        "repo_0cf9503b1fd232": {
+          "x": 252,
+          "y": 418
+        },
+        "repo_10b0f86dd82efd": {
+          "x": 504,
+          "y": 418
+        },
+        "repo_11eaccb1592f3a": {
+          "x": 792,
+          "y": 418
+        },
+        "repo_1eaad0baed4750": {
+          "x": 1228,
+          "y": 418
+        },
+        "repo_21c42f64c2fbfe": {
+          "x": 1493,
+          "y": 2662
+        },
+        "repo_23af5b5699c1a2": {
+          "x": 1518,
+          "y": 418
+        },
+        "repo_24a77a7893027a": {
+          "x": 1779,
+          "y": 418
+        },
+        "repo_2537290015818a": {
+          "x": 2106,
+          "y": 418
+        },
+        "repo_2b5de01fd6f042": {
+          "x": 2358,
+          "y": 418
+        },
+        "repo_2b6eb111d7567c": {
+          "x": 2685,
+          "y": 418
+        },
+        "repo_2e1ea497ec81e2": {
+          "x": 5597,
+          "y": 2046
+        },
+        "repo_324a3d6580c3df": {
+          "x": 3550,
+          "y": 954
+        },
+        "repo_3574d03c8027d7": {
+          "x": 6301,
+          "y": 1778
+        },
+        "repo_35968c1cad3daa": {
+          "x": 3062,
+          "y": 418
+        },
+        "repo_35c299d20169d0": {
+          "x": 4051,
+          "y": 1222
+        },
+        "repo_3b4e3efd29cd13": {
+          "x": 9450,
+          "y": 0
+        },
+        "repo_41ba823706ed42": {
+          "x": 5611,
+          "y": 1778
+        },
+        "repo_45904bd58762b0": {
+          "x": 5849,
+          "y": 2046
+        },
+        "repo_484fb1e9cea553": {
+          "x": 3844,
+          "y": 686
+        },
+        "repo_4c5a34d0f0b789": {
+          "x": 4292,
+          "y": 954
+        },
+        "repo_4fd46f6b7c8ce6": {
+          "x": 14587,
+          "y": 418
+        },
+        "repo_523a2ed60c44ce": {
+          "x": 4040,
+          "y": 954
+        },
+        "repo_57e47bff163776": {
+          "x": 6552,
+          "y": 418
+        },
+        "repo_5c1ab4b7e80ad1": {
+          "x": 8087,
+          "y": 1778
+        },
+        "repo_60ad17849ef425": {
+          "x": 7027,
+          "y": 686
+        },
+        "repo_66f5b9541a8970": {
+          "x": 12332,
+          "y": 418
+        },
+        "repo_68eda5522213e4": {
+          "x": 4650,
+          "y": 1490
+        },
+        "repo_6ccd209c3439f9": {
+          "x": 6802,
+          "y": 686
+        },
+        "repo_6eb6a593145a8a": {
+          "x": 7213,
+          "y": 1778
+        },
+        "repo_71391bfad4e6b4": {
+          "x": 6260,
+          "y": 1222
+        },
+        "repo_86104d06094ed0": {
+          "x": 6804,
+          "y": 418
+        },
+        "repo_8661c935b81923": {
+          "x": 6300,
+          "y": 418
+        },
+        "repo_8749826de7bff8": {
+          "x": 3585,
+          "y": 418
+        },
+        "repo_8c5967fd8486f3": {
+          "x": 14771,
+          "y": 4
+        },
+        "repo_90da7cc929ad46": {
+          "x": 9740,
+          "y": 418
+        },
+        "repo_996d8c76f1effb": {
+          "x": 13644,
+          "y": 418
+        },
+        "repo_a15a3342a9d04a": {
+          "x": 14083,
+          "y": 418
+        },
+        "repo_a1bbd806b392be": {
+          "x": 14335,
+          "y": 418
+        },
+        "repo_a815c5175d75d0": {
+          "x": 8972,
+          "y": 1778
+        },
+        "repo_a96b0b1a448cb5": {
+          "x": 13307,
+          "y": 418
+        },
+        "repo_abcd8990e0cd9a": {
+          "x": 9413,
+          "y": 418
+        },
+        "repo_ad9f261e20093d": {
+          "x": 8592,
+          "y": 2046
+        },
+        "repo_adbf7b1d320547": {
+          "x": 11612,
+          "y": 418
+        },
+        "repo_b3234122088729": {
+          "x": 11314,
+          "y": 418
+        },
+        "repo_bde7b76204809a": {
+          "x": 8388,
+          "y": 686
+        },
+        "repo_c20355254f8935": {
+          "x": 11062,
+          "y": 418
+        },
+        "repo_c4867bba3a1c87": {
+          "x": 5315,
+          "y": 954
+        },
+        "repo_cc4c3b901ef9a1": {
+          "x": 10810,
+          "y": 418
+        },
+        "repo_cdb4ee2aea69cc": {
+          "x": 9198,
+          "y": 0
+        },
+        "repo_cdcf301698c8d5": {
+          "x": 10558,
+          "y": 418
+        },
+        "repo_cf73f0512311cc": {
+          "x": 10250,
+          "y": 418
+        },
+        "repo_cfa007f180cfd6": {
+          "x": 9992,
+          "y": 418
+        },
+        "repo_d240db9c9d77f6": {
+          "x": 7438,
+          "y": 1778
+        },
+        "repo_d4ff4b28356bed": {
+          "x": 7201,
+          "y": 1490
+        },
+        "repo_d5a16586640c40": {
+          "x": 4519,
+          "y": 1222
+        },
+        "repo_d7143f4f062ff5": {
+          "x": 8340,
+          "y": 2046
+        },
+        "repo_e27f3faa9152db": {
+          "x": 7316,
+          "y": 2314
+        },
+        "repo_e86a0d465b5caa": {
+          "x": 7804,
+          "y": 2046
+        },
+        "repo_f2dea9d4cb3be1": {
+          "x": 12034,
+          "y": 418
+        },
+        "repo_f67e61755f494b": {
+          "x": 12679,
+          "y": 418
+        },
+        "repo_f71cc4d7fe389e": {
+          "x": 4771,
+          "y": 1222
+        },
+        "repo_febb4e65d49258": {
+          "x": 13019,
+          "y": 418
+        }
+      }
+    }
+  },
+  "presentation": {
+    "diagramTitle": "Visão geral — Joinlet",
+    "documentTitle": "Arquitetura — Joinlet",
+    "view": "modules"
+  },
+  "proposals": [],
+  "technologyChoices": {},
+  "version": 1
+}

@@ -15,7 +15,16 @@
     "./sync": "./src/sync.ts",
     "./collaboration": "./src/collaborationEntry.ts",
     "./collaboration-sqlite": "./src/collaborationSqlite.ts",
-    "./specialist": "./src/specialistTemplates.ts"
+    "./specialist": "./src/specialistTemplates.ts",
+    "./repository": "./src/repository/engine.ts",
+    "./repository-contracts": "./src/repository/contracts.ts",
+    "./repository-technologies": "./src/repository/technologies.ts",
+    "./repository-reader": "./src/repository/reader.ts",
+    "./repository-transaction": "./src/repository/transaction.ts",
+    "./repository-cache": "./src/repository/cache.ts",
+    "./repository-agents": "./src/repository/agentInstructions.ts",
+    "./repository-guidance": "./src/repository/guidance.ts",
+    "./repository-source-access": "./src/repository/sourceAccess.ts"
   },
   "scripts": {
     "test": "vitest run",
@@ -25,7 +34,9 @@
     "@strukt/core": "workspace:*",
     "@strukt/dsl": "workspace:*",
     "@strukt/json": "workspace:*",
+    "@strukt/layout": "workspace:*",
     "fflate": "^0.8.3",
+    "ignore": "7.0.5",
     "yjs": "^13.6.32"
   },
   "devDependencies": {

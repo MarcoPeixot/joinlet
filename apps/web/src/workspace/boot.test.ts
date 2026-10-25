@@ -446,6 +446,8 @@ describe('shouldWarnOnUnload (fix wave 8)', () => {
   it('does not warn for a browser workspace with nothing pending', async () => {
     const f = await freshBoot();
     await bootIntoBrowser(f);
+    await f.context.contextSync.ready();
+    await f.appWorkspace.workspace.flush();
     expect(f.boot.shouldWarnOnUnload()).toBe(false);
   });
 });
@@ -493,7 +495,8 @@ describe('openFolderPicker copy branch (fix wave 10): copies the workspace as it
     await f.boot.openFolderPicker();
 
     expect(folderFiles.get(versionPath)).toBe(versionText('v1', 'Nó\n'));
-    expect(folderFiles.get(architecturePath)).toBe('# Arquitetura\n');
+    expect(folderFiles.get(architecturePath)).toContain('# Arquitetura — Meu workspace');
+    expect(folderFiles.get(architecturePath)).toContain('Kafka');
   });
 });
 

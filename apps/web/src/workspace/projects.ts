@@ -12,6 +12,19 @@ import { closeAgentContext } from '../context/session';
 import { stopTour } from '../onboarding/tour';
 import { versionStore } from '../versions/session';
 import { clearSnapshot } from '../state/persist';
+import { requestAuthHeaders } from './requestAuth';
+
+function navigateToCloud(id: string) {
+  const url=new URL(window.location.href);url.searchParams.set('workspace',id);url.searchParams.delete('connection');
+  window.location.assign(url.href);
+}
+async function changeCloudProject(change:()=>Promise<void>) {
+  if(catalogStore.getState().busy)throw Error(uiText('Aguarde a abertura do workspace.'));
+  catalogStore.setState({busy:true,error:null});
+  try { await workspace.prepareSwitch();await change(); }
+  catch(error){catalogStore.setState({error:reason(error)});throw error;}
+  finally{catalogStore.setState({busy:false});}
+}
 
 const reason = (error: unknown) => systemMessage(error instanceof Error ? error.message : String(error));
 
@@ -54,6 +67,11 @@ export async function leaveRepository(root: string | undefined): Promise<void> {
 export async function createBrowserWorkspace(submittedName: string): Promise<void> {
   const name = submittedName.trim();
   if (!name) throw new Error(uiText("Informe o nome do workspace."));
+  if(catalogStore.getState().cloud)return changeCloudProject(async()=>{
+    const response=await fetch('/api/remote/workspaces',{method:'POST',headers:{'content-type':'application/json',...requestAuthHeaders()},body:JSON.stringify({name})});
+    const data=await response.json();if(!response.ok)throw Error(data.error??uiText('Não foi possível criar o workspace.'));
+    navigateToCloud(data.id);
+  });
   if (!catalogStore.getState().available) throw new Error(uiText("O armazenamento local está indisponível. Tente reabrir a lista de projetos."));
   await changeProject(async () => {
     const current = await loadCatalog();
@@ -80,12 +98,17 @@ export async function createBrowserWorkspace(submittedName: string): Promise<voi
 }
 
 export async function openRegisteredWorkspace(id: string): Promise<void> {
+  if(catalogStore.getState().cloud)return changeCloudProject(async()=>{
+    const catalog=await loadCatalog();if(!catalog?.entries.some(entry=>entry.id===id))throw Error(uiText('Workspace não encontrado. Atualize a lista de projetos.'));
+    navigateToCloud(id);
+  });
   await changeProject(async () => {
     const catalog = await loadCatalog();
     const entry = catalog?.entries.find((entry) => entry.id === id);
     if (!entry) throw new Error(uiText("Workspace não encontrado. Atualize a lista de projetos."));
     const previous = catalog?.entries.find((item) => item.id === catalogStore.getState().activeId)?.location;
     const location = entry.location;
+    if(location.kind==='cloud')throw Error(uiText('Entre na sua conta Joinlet para abrir este workspace.'));
     if (location.kind === 'repository') await connectRepositoryNow(location.root, { allowInitialize: false, projectId: id });
     else {
       if (location.kind === 'folder' && !(await requestPermission(location.handle))) throw new Error(uiText("Sem permissão para abrir a pasta deste projeto."));

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { BETA_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
+import { BETA_PLAN, CLOUD_BETA_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver, BetaLimitError, assertBetaGrowth, assertBetaManifest, createBetaPresence } from './beta';
 import { addItem, newWorkspace, removeItem } from './workspace';
 import { printManifest } from './manifest';
 import { restoreItem, snapshotItem } from './itemSnapshot';
@@ -38,6 +38,14 @@ describe('Joinlet Beta business rules', () => {
       expect((error as BetaLimitError).toJSON()).toMatchObject({ code: 'WORKSPACE_LIMIT_REACHED', used: 1, limit: 1, plan: 'free-beta' });
     }
     expect(() => assertBetaGrowth('workspaces', 3, 3)).not.toThrow();
+  });
+
+  it('allows multiple authenticated Cloud workspaces while preserving the anonymous preview limit',()=>{
+    expect(BETA_PLAN.limits.workspaces).toBe(1);
+    expect(()=>assertBetaGrowth('workspaces',1,2,BETA_PLAN)).toThrow(BetaLimitError);
+    expect(CLOUD_BETA_PLAN.limits.workspaces).toBeNull();
+    expect(()=>assertBetaGrowth('workspaces',1,2,CLOUD_BETA_PLAN)).not.toThrow();
+    expect(CLOUD_BETA_PLAN.limits.diagrams).toBe(BETA_PLAN.limits.diagrams);
   });
 
   it('counts a session once across rooms, includes the host and expires abandoned sessions', () => {

@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
+import { BETA_PLAN, CLOUD_BETA_PLAN, SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { acceptAccessPlan, accessPlanStore, loadAccessPlan } from './accessPlan';
 
 afterEach(() => {
@@ -20,6 +20,11 @@ it('does not trust arbitrary server payload limits or unknown plan identifiers',
 it('keeps the local account policy while an owner observes a shared workspace', () => {
   acceptAccessPlan({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } }, true);
   expect(accessPlanStore.getState()).toEqual({ plan: BETA_PLAN, accountPlan: SELF_HOSTED_PLAN });
+});
+
+it('recognizes the canonical authenticated Cloud workspace policy',()=>{
+  acceptAccessPlan({plan:CLOUD_BETA_PLAN,accountPlan:CLOUD_BETA_PLAN});
+  expect(accessPlanStore.getState()).toEqual({plan:CLOUD_BETA_PLAN,accountPlan:CLOUD_BETA_PLAN});
 });
 
 it('allows offline local use while falling back conservatively for a remote policy failure', async () => {
