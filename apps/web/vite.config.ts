@@ -17,6 +17,8 @@ export default defineConfig({
         // Stable vendor chunks: better long-term caching and a lean entry. Yjs and DOMPurify are not listed
         // on purpose; they stay in the lazy chunks that import them.
         manualChunks(id) {
+          if (/\/src\/ui\/(IconButton|Button|Kbd|Panel)\.tsx$/.test(id)) return 'controls';
+          if (id.includes('/packages/core/src/') && !id.endsWith('.json')) return 'core';
           if (!id.includes('node_modules')) return undefined;
           if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react';
           if (/[\\/]node_modules[\\/]@radix-ui[\\/]/.test(id)) return 'radix';

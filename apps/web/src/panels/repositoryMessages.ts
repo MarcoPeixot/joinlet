@@ -1,4 +1,4 @@
-import { registerTranslations } from '../i18n';
+import { registerTranslations,uiText } from '../i18n';
 
 registerTranslations({
   "Visão principal": "Main view",
@@ -83,3 +83,23 @@ registerTranslations({
   "Pasta sem Git; a sincronização local continua disponível.": "This folder has no Git repository; local synchronization remains available.",
   "Git não está instalado; a sincronização da pasta continua disponível.": "Git is not installed; folder synchronization remains available."
 });
+
+export function repositoryMessage(message: string): string {
+  if(message.startsWith('Repository document has manual changes; review its source projection: '))return uiText('Documento com edição manual; revise a projeção da fonte: {0}',[message.split(': ').slice(1).join(': ')]);
+  if(message.startsWith('Repository document source is unavailable; existing projection kept: '))return uiText('Fonte do documento indisponível; a projeção existente foi preservada: {0}',[message.split(': ').slice(1).join(': ')]);
+  if(message.startsWith('Repository document was removed in the editor; projection preserved as deleted: '))return uiText('Documento excluído no editor; não foi recriado automaticamente: {0}',[message.split(': ').slice(1).join(': ')]);
+  if(message.startsWith('Repository document limit reached;'))return uiText('Limite de documentos atingido. Há Markdown que ainda não foram importados.');
+  if(message.startsWith('Overview connection limit reached;'))return uiText('Limite de conexões do Overview atingido. Há vínculos que ainda não foram adicionados.');
+  if(message.startsWith('Code analysis is pending;'))return uiText('A análise do código está pendente. Sincronize o repositório para executar a IA configurada.');
+  if(message.startsWith('Existing positions preserved'))return uiText('As posições existentes foram preservadas. Use Reorganizar para compactar a visão dos módulos.');
+  if(message.startsWith('Agent instructions need review: '))return uiText('As instruções dos agentes precisam de revisão: {0}',[message.slice('Agent instructions need review: '.length)]);
+  if(message.startsWith('AI provider is not configured'))return uiText('Configure um provider de IA para concluir a análise semântica do código.');
+  if(message.startsWith('AI analysis is paused'))return uiText('A análise de IA foi pausada. Confira conexão, créditos e limites do provider.');
+  if(message.startsWith('Repository changed during analysis'))return uiText('O código mudou durante a análise. Sincronize novamente para usar a revisão atual.');
+  if(message.startsWith('Inventory limit')||message.startsWith('AI analysis budget'))return uiText('O limite da análise foi atingido. Ajuste as regras de inclusão e exclusão.');
+  if(message.startsWith('Unreadable, binary or oversized file: '))return uiText('Arquivo ilegível, binário ou grande demais: {0}',[message.split(': ').slice(1).join(': ')]);
+  if(message.startsWith('AI input requires a narrower file: '))return uiText('Divida ou exclua este arquivo para análise de IA: {0}',[message.split(': ').slice(1).join(': ')]);
+  if(message.startsWith('Repository architecture document was edited manually'))return uiText('O documento foi editado manualmente. Revise a atualização proposta antes de substituí-lo.');
+  if(message.startsWith('An existing repository diagram has no managed baseline'))return uiText('O diagrama existente não tem base de análise. Revise a primeira mesclagem.');
+  return message;
+}

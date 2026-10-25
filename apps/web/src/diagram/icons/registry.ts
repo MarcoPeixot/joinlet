@@ -1,3 +1,7 @@
+import genericKeys from './lucide-keys.json';
+const knownGeneric=new Set(genericKeys);
+import coreBrands from './simple-core.json';
+import coreGeneric from './lucide-core.json';
 import type { IconifyJSON } from '@iconify-json/logos';
 import { own } from '@strukt/core';
 import type { Theme } from '../../ui/theme';
@@ -137,7 +141,8 @@ const pascal = (name: string) =>
     .join('');
 
 async function fromLucide(name: string): Promise<IconDef | null> {
-  const node = own(await lucide(), pascal(name));
+  if(!knownGeneric.has(pascal(name)))return null;
+  const node = own(coreGeneric as unknown as Record<string,IconNode>,pascal(name)) ?? own(await lucide(), pascal(name));
   if (!node) return null;
   const body = node
     .map(([tag, attrs]) => `<${tag} ${Object.entries(attrs).map(([k, v]) => `${k}="${escapeAttr(v)}"`).join(' ')}/>`)
@@ -146,7 +151,7 @@ async function fromLucide(name: string): Promise<IconDef | null> {
 }
 
 async function fromSimple(slug: string): Promise<IconDef | null> {
-  const icon = own(await simpleSubset(), slug) ?? (await simple()).get(slug);
+  const icon = own(coreBrands as Record<string,SimpleBrand>,slug) ?? own(await simpleSubset(), slug) ?? (await simple()).get(slug);
   if (!icon) return null;
   return { viewBox: '0 0 24 24', body: `<path d="${escapeAttr(icon.path)}"/>`, mode: 'fill', color: `#${icon.hex}` };
 }

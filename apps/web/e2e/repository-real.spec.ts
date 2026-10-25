@@ -35,9 +35,25 @@ test('initializes a real Git folder and follows a code edit into the running edi
  await expect.poll(async()=>{const state=await(await fetch(api+'/api/repositories')).json() as {connections:{phase:string;error?:string;persistedRevision?:string}[]};if(state.connections[0]?.phase==='error')throw Error(state.connections[0].error);return !!state.connections[0]?.persistedRevision;},{timeout:15000}).toBe(true);
  await expect(page.getByText('repository-browser-test',{exact:true}).first()).toBeVisible({timeout:20000});
  const manifest=JSON.parse(await readFile(join(root,'.arch','strukt.json'),'utf8'));expect(manifest.diagrams.some((d:{slug:string})=>d.slug==='repository')).toBe(true);
+ const steps=page.getByRole('region',{name:'Primeiros passos'});
+ await expect(steps.getByRole('button',{name:'Conectar projeto',exact:true})).toHaveAttribute('aria-pressed','true');
+ await page.getByRole('complementary',{name:'GitHub'}).getByRole('button',{name:'Fechar',exact:true}).click();
+ await steps.getByRole('button',{name:'Explorar mapa',exact:true}).click();
+ await page.locator('.strukt-scene-card').getByText('repository-browser-test',{exact:true}).click();
+ await expect(steps.getByRole('button',{name:'Explorar mapa',exact:true})).toHaveAttribute('aria-pressed','true');
+ await steps.getByRole('button',{name:'Abrir evidência',exact:true}).click();
+ await page.getByText('Evidência ancorada',{exact:true}).click();
+ await expect(page.locator('details[open]').filter({has:page.getByText('Evidência ancorada',{exact:true})})).toContainText(/package.json|src\/api.ts/);
+ await expect(steps.getByRole('button',{name:'Abrir evidência',exact:true})).toHaveAttribute('aria-pressed','true');
+ await steps.getByRole('button',{name:'Revisar análise',exact:true}).click();
+ await steps.getByRole('button',{name:'Revisei esta análise',exact:true}).click();
+ await steps.getByRole('button',{name:'Confirmar gravação',exact:true}).click();
+ await expect(steps).toContainText('Começando · 5/5');
+
  await writeFile(join(root,'src','api.ts'),'import redis from "redis";\nexport const api=redis;\n');
  await expect(page.getByText('redis',{exact:true}).first()).toBeVisible({timeout:20000});
  expect(await readFile(join(root,'.arch','diagrams','repository.strukt.json'),'utf8')).toContain('redis');
+ await expect(steps.getByRole('button',{name:'Revisar análise',exact:true})).toHaveAttribute('aria-pressed','false');
 });
 
 test('opens a compact monorepo overview with readable modules and the root project documentation',async({page})=>{

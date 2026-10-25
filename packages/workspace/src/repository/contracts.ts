@@ -9,8 +9,9 @@ export interface RepositoryReader {
 }
 export interface SourceRef { path: string; line: number; contains: string }
 export interface RepositoryTechnology { id: string; refs: SourceRef[] }
-export interface RepositoryFact { id: string; label: string; tech?: string; kind?: 'module' | 'dependency'; path?: string; technologies?: RepositoryTechnology[]; primaryTechnology?: string; refs: SourceRef[]; dependencies: { target: string; ref: SourceRef }[] }
-export interface RepositoryProposal { id: string; summary: string; refs: SourceRef[]; ops: unknown[]; reason: string }
+export interface RepositoryDependency { target: string; ref: SourceRef; usage?: 'value' | 'type' | 'include' | 'unknown'; scope?: 'production' | 'development' }
+export interface RepositoryFact { limitations?: string[]; unresolved?: { name:string; ref:SourceRef; usage?:string; scope?:string }[]; id: string; label: string; tech?: string; kind?: 'module' | 'dependency'; path?: string; technologies?: RepositoryTechnology[]; primaryTechnology?: string; refs: SourceRef[]; dependencies: RepositoryDependency[] }
+export interface RepositoryProposal { revision?:string; id: string; summary: string; refs: SourceRef[]; ops: unknown[]; reason: string }
 export interface RepositoryAnalysis { facts: RepositoryFact[]; proposals: RepositoryProposal[] }
 export interface RepositoryAnalyzer {
   identity?: string;
@@ -36,3 +37,7 @@ export interface RepositoryJob extends RepositoryStatus { created: number; updat
 export const REPOSITORY_CONFIG = 'repository.json';
 export const REPOSITORY_STATE = 'repository-state.json';
 export const DEFAULT_REPOSITORY_CONFIG: RepositoryConfig = { version: 1, diagram: 'repository', include: ['**/*'], exclude: [], ai: true, maxFiles: 20_000, maxBytes: 20_000_000, maxAiCalls: 20 };
+
+export type ImportUsage = 'value' | 'type' | 'include' | 'unknown';
+export interface SyntaxImport { name:string; line:number; contains:string; usage:ImportUsage; local?:boolean }
+export interface SyntaxResult { imports:SyntaxImport[]; declarations:string[]; limitations:string[] }

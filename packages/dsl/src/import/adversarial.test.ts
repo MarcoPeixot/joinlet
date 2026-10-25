@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { measured } from '../../../../scripts/performance';
 import { detectImportFormat, importArchitecture } from '../import';
 import { importD2 } from './d2';
 import { importKubernetes, k8sProbe } from './k8s';
@@ -25,11 +26,7 @@ const binary = (bytes: number): string => {
 };
 
 function timed<T>(fn: () => T, limit: number): T {
-  const start = performance.now();
-  const value = fn();
-  const took = performance.now() - start;
-  expect(took, `took ${took.toFixed(0)} ms`).toBeLessThan(limit);
-  return value;
+  return measured(fn, limit);
 }
 
 const whitespace: [string, string][] = [['newlines', '\n'], ['spaces', ' '], ['mixed whitespace', '\n\t ']];

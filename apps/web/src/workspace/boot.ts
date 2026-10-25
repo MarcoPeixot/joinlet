@@ -1,3 +1,4 @@
+import { journey } from '../onboarding/journey';
 import { SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { trackAnalytics } from '../analytics/client';
 import { identifyNavigation, navigationPersistence } from './navigation';
@@ -455,6 +456,7 @@ export async function retrySave(): Promise<void> {
 }
 
 export async function exportZip(): Promise<void> {
+  const captured=journey.token();
   try {
     const data = workspace.store.getState().data;
     if (!data) return;
@@ -462,6 +464,7 @@ export async function exportZip(): Promise<void> {
     const extra = adapter ? await extraFiles(adapter) : {};
     const { zipFiles } = await import('@strukt/workspace/zip'); // fflate loads on the first zip
     downloadBlob(new Blob([zipFiles({ ...extra, ...workspace.files() })], { type: 'application/zip' }), `${slugify(data.manifest.name)}.zip`);
+    journey.complete('backup',captured);
     trackAnalytics('export_generated', false, { format: 'zip' });
   } catch (err) {
     trackAnalytics('export_failed', false, { format: 'zip' });

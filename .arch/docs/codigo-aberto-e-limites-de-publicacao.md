@@ -25,8 +25,8 @@ No commercial quota does not mean infinite capacity or additional permissions. A
 
 ## Sustainability and contribution rights
 
-Joinlet Cloud sells managed operation: hosting, storage, maintenance, backups and support as actually offered. The source license permits commercial reuse, including competing hosting, subject to its conditions. The Joinlet name and identity are governed separately by [the brand policy](../TRADEMARKS.md).
+Joinlet Cloud sells managed operation: hosting, storage, maintenance, backups and support as actually offered. The source license permits commercial reuse, including competing hosting, subject to its conditions. The Joinlet name and identity are governed separately by [the brand policy](../../TRADEMARKS.md).
 
 Contributions to the original product use AGPL-3.0-only. Contributors retain their copyright; no assignment or blanket permission for proprietary relicensing is requested. Already granted rights are not revoked by later hiding the repository or changing a future release's license. Review contributor rights and license compatibility before introducing any different licensing model.
 
-Operational procedures and commercial records may remain private. Credentials and customer data stay outside Git. A separate private repository does not itself exempt product modifications from applicable license obligations. See [SOURCE.md](../SOURCE.md) for corresponding source and [the release process](releases.md) for promotion to an official installation.
+Operational procedures and commercial records may remain private. Credentials and customer data stay outside Git. A separate private repository does not itself exempt product modifications from applicable license obligations. See [SOURCE.md](../../SOURCE.md) for corresponding source and [the release process](release-do-joinlet.md) for promotion to an official installation.

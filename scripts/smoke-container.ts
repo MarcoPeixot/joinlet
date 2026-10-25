@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+import {syntaxFixtures} from '../packages/workspace/src/repository/syntaxFixtures';
 
 const image = process.argv[2] || 'joinlet-remote:check';
 const name = `joinlet-smoke-${randomUUID()}`;
@@ -27,6 +28,7 @@ try {
   assert.equal((await fetch(`${origin}/.env`)).status, 404);
   assert.notEqual(docker('exec', name, 'bun', '-e', 'console.log(process.getuid())'), '0');
   docker('exec', name, 'bun', '-e', `import {existsSync} from 'node:fs'; for(const p of ['/app/.env','/app/.arch','/app/.codex']) if(existsSync(p)) throw Error('Private build input shipped: '+p);`);
+  docker('exec',name,'bun','-e',`import {parseSource} from './packages/workspace/src/repository/syntax'; for(const [extension,text,expected,line] of ${JSON.stringify(syntaxFixtures)}) {const result=await parseSource('probe.'+extension,text);if(!result.imports.some(ref=>ref.name===expected&&ref.line===line))throw Error('Distributed parser failed: '+extension);}console.log('All distributed syntax parsers passed.');`);
   const probe = `import {Database} from 'bun:sqlite'; const db=new Database('/data/remote.sqlite'); db.exec('CREATE TABLE deployment_probe (value TEXT)'); db.query('INSERT INTO deployment_probe VALUES (?)').run('persisted'); db.close();`;
   docker('exec', name, 'bun', '-e', probe);
   docker('exec', name, 'bun', 'apps/remote/src/backup.ts', '/data/remote.sqlite', '/data/backup.sqlite');

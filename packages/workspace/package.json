@@ -28,7 +28,8 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "test:performance": "JOINLET_PERFORMANCE_TESTS=1 vitest run src/evidence.test.ts --maxWorkers 1 --no-file-parallelism --testTimeout 20000"
   },
   "dependencies": {
     "@strukt/core": "workspace:*",
@@ -37,7 +38,8 @@
     "@strukt/layout": "workspace:*",
     "fflate": "^0.8.3",
     "ignore": "7.0.5",
-    "yjs": "^13.6.32"
+    "yjs": "^13.6.32",
+    "web-tree-sitter": "0.25.10"
   },
   "devDependencies": {
     "@types/bun": "^1.2.0",

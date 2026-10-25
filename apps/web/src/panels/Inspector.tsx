@@ -1,3 +1,6 @@
+import '../onboarding/journeyMessages';
+import {useStore} from 'zustand';
+import { journey } from '../onboarding/journey';
 import { uiText } from '../i18n';
 import './inspector.css';
 import { CARDINALITIES, COLOR_MODES, CONNECTORS, STYLE_MODES, TYPEFACES, drawingShape, nodeVariant, own } from '@strukt/core';
@@ -8,7 +11,7 @@ import type { ItemEntry } from '@strukt/workspace';
 import { Boxes, Check, ChevronDown, Copy, FileText, Layers, Palette, Settings2, ShieldCheck, Sparkles, Trash2 } from 'lucide-react';
 import { m, useIsPresent } from 'motion/react';
 import { Tabs } from 'radix-ui';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   deleteSelection, groupSelectionOrCreate, renameElement, updateEdge, updateElement, updateElements,
@@ -56,6 +59,18 @@ function EditorSection({ title, hint, icon, open = false, children }: { title: s
 const NO_DOCS: ItemEntry[] = [];
 const NO_EVIDENCE: Evidence[] = [];
 const NO_CONCERNS: Concern[] = [];
+
+function AnchoredEvidence({id}:{id:string}){
+ const refs=useWorkspace(s=>refsFor(s.data,s.diagram,id)||NO_EVIDENCE);
+ const readable=refs.filter(ref=>ref.line&&ref.contains);
+ const [open,setOpen]=useState(false);
+ const revision=useStore(journey.store,s=>s.revision);
+ const opened=useRef<ReturnType<typeof journey.token>>(null);
+ useEffect(()=>{setOpen(false);},[id,revision]);
+ useEffect(()=>{if(open&&readable.length&&!workspace.hasUnsaved()&&!workspace.store.getState().external)journey.complete('evidence',opened.current);},[open,id,refs,revision]);
+ if(!refs.length)return null;
+ return <details className="m-3 rounded-control border border-line p-2 text-caption" open={open} onToggle={event=>{opened.current=event.currentTarget.open?journey.token():null;setOpen(event.currentTarget.open);}}><summary>{uiText('Evidência ancorada')}</summary><code className="block text-meta">{revision?.slice(0,12)}</code>{readable.length?readable.map(ref=><div key={ref.path+ref.line} className="mt-2"><code>{ref.path}:{ref.line}</code><pre className="overflow-auto whitespace-pre-wrap">{ref.contains}</pre></div>):<p>{uiText('Sem trecho ancorado disponível.')}</p>}</details>;
+}
 
 function EvidenceField({ id }: { id: string }) {
   const slug = useWorkspace((s) => s.diagram);
@@ -239,6 +254,7 @@ function ElementPanel({ el }: { el: DiagramElement }) {
         <PanelTabs />
         <Tabs.Content value="overview" className="flex min-h-0 flex-1 flex-col outline-none">
           <Passport el={el} />
+          <AnchoredEvidence id={el.id}/>
         </Tabs.Content>
         <Tabs.Content value="edit" className="flex min-h-0 flex-1 flex-col outline-none">
           <ElementFields el={el} />

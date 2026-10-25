@@ -296,6 +296,15 @@
       "w": 280,
       "x": 40,
       "y": 2600
+    },
+    {
+      "h": 200,
+      "id": "doc:confiabilidade-analise-sintatica-e-onboarding",
+      "kind": "doc",
+      "slug": "confiabilidade-analise-sintatica-e-onboarding",
+      "w": 280,
+      "x": 440,
+      "y": 2600
     }
   ],
   "connections": [
@@ -454,6 +463,18 @@
       "id": "repo_link_11e417eb6b2a3693",
       "label": "Contexto do projeto",
       "to": "doc:readme"
+    },
+    {
+      "from": "diagram:sincronizacao-de-repositorios",
+      "id": "repo_link_2ee255cf29778432",
+      "label": "Referência",
+      "to": "doc:confiabilidade-analise-sintatica-e-onboarding"
+    },
+    {
+      "from": "doc:agentes-mcp-cli",
+      "id": "repo_link_5f43897bb307336d",
+      "label": "Referência",
+      "to": "doc:conexao-e-sincronizacao-de-repositorios"
     }
   ],
   "sections": [],

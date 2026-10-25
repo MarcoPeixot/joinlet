@@ -13,7 +13,7 @@ export interface TourStep {
 export const TOUR_STEPS: readonly TourStep[] = [
   { target: 'canvas', title: uiText("O canvas"), text: uiText("Clique duas vezes para criar um nó e arraste de um nó a outro para conectar."), side: 'top' },
   { target: 'ai', title: uiText("IA (⌘J)"), text: uiText("Descreva uma mudança em uma frase; a IA propõe e você decide se aplica."), side: 'top' },
-  { target: 'palette', title: uiText("Comandos (⌘K)"), text: uiText("Tudo o que o Joinlet faz está na paleta: busque uma ação ou salte para um item."), side: 'bottom' },
+  { target: 'workspace', title: uiText("Comandos (⌘K)"), text: uiText("Use a sidebar para abrir diagramas e documentos; a paleta (⌘K) também encontra ações e itens."), side: 'bottom' },
   { target: 'code', title: uiText("Código"), text: uiText("O diagrama também é JSON. Edite o texto e o canvas acompanha, ou cole um diagrama pronto."), side: 'bottom' },
 ];
 

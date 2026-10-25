@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { measured } from '../../../scripts/performance';
 import { MAX_DRIFT_BYTES, checkEvidenceDrift, exceedsDriftBytes, fingerprintLines, parseEvidence, printEvidence, validEvidencePath } from './evidence';
 import type { EvidenceIndex } from './evidence';
 
@@ -148,10 +149,8 @@ describe('checkEvidenceDrift', () => {
       const text = Array.from({ length: 200_000 }, (_, i) => `line ${i}`).join('\n');
       const evidence: EvidenceIndex = { a: {} };
       for (let i = 0; i < 500; i++) evidence.a![`e${i}`] = [{ path: 'f.ts', line: 10 + i, snippet: 'ffffffff' }];
-      const start = performance.now();
-      const findings = checkEvidenceDrift(evidence, () => text.slice(0, MAX_DRIFT_BYTES));
+      const findings = measured(() => checkEvidenceDrift(evidence, () => text.slice(0, MAX_DRIFT_BYTES)), 500);
       expect(findings).toHaveLength(500);
-      expect(performance.now() - start).toBeLessThan(500);
     });
     describe('contains fallback cost', () => {
       const big = Array.from({ length: 300_000 }, (_, i) => i.toString(36)).join('\n');
@@ -163,10 +162,8 @@ describe('checkEvidenceDrift', () => {
       };
 
       it('handles 500 distinct missing contains texts over a 300k-line file quickly', () => {
-        const start = performance.now();
-        const findings = checkEvidenceDrift(refs(500, (i) => `nowhere-${i}`), () => big);
+        const findings = measured(() => checkEvidenceDrift(refs(500, (i) => `nowhere-${i}`), () => big), 800);
         expect(findings.filter((f) => f.kind !== 'truncated')).toEqual([]);
-        expect(performance.now() - start).toBeLessThan(800);
       });
 
       it('scans a file once for a contains text shared by 400 refs', () => {

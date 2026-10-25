@@ -1,3 +1,4 @@
+import { journey } from '../onboarding/journey';
 import { uiText } from '../i18n';
 import type { LayoutState } from '@strukt/core';
 import type { EdgeRouter } from '@strukt/layout';
@@ -106,9 +107,11 @@ export function createVersionStore(deps: VersionDeps) {
       const { model, layout } = deps.diagram.getState();
       const flows = deps.flows?.(slug);
       const version = createVersion({ model, layout }, { id: newId(), createdAt: now().toISOString(), message: message.trim(), author, ...meta, ...(flows ? { flows } : {}) });
+      const captured=journey.token();
       try {
         const entry = await writeVersion(storage, slug, version);
         if (get().diagram === slug && deps.target().storage === storage) set({ entries: [entry, ...get().entries] });
+        if(deps.target().storage===storage)journey.complete('version',captured);
         return { ok: true };
       } catch (err) {
         return { ok: false, kind: 'write-failed', reason: reason(err) };

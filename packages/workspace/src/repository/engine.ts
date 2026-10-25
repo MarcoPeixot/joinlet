@@ -1,5 +1,7 @@
 import { synchronizeDiscoveredSources } from './importers';
-import { posix } from 'node:path';
+import { extractRepositoryFacts, repositoryOwnership, CODE } from './facts';
+import { EXTRACTION_VERSION } from './syntax';
+export { extractRepositoryFacts } from './facts';
 import { applyOps, emptyLayout, emptyModel, normalizeEdgeIds } from '@strukt/core';
 import type { DiagramModel, DiagramOp } from '@strukt/core';
 import { parseDiagramJson, printDiagramJson } from '@strukt/json';
@@ -25,9 +27,8 @@ import type {RepositoryKnowledge} from './knowledge';
 
 interface CachedFile { revision: string; hash: string; text: string | null }
 interface TechnologyChoice { id:string; refs:SourceRef[] }
-interface ManagedState extends RepositoryLayouts { knowledge?:RepositoryKnowledge; technologyChoices?:Record<string,TechnologyChoice>; presentation?: { diagramTitle: string; documentTitle: string; view?:'modules'|'dependencies' }; proposals?:RepositoryProposal[]; analysisFiles?:Record<string,string>; analysisIdentity?:string; analysisFingerprint?: string; labels?: Record<string,{source:string;analysis:string}>; version: 1; diagram: string; base: unknown; document: { slug: string; text: string }; evidence: EvidenceIndex }
+interface ManagedState extends RepositoryLayouts { knowledge?:RepositoryKnowledge; technologyChoices?:Record<string,TechnologyChoice>; presentation?: { diagramTitle: string; documentTitle: string; view?:'modules'|'dependencies' }; proposals?:RepositoryProposal[]; analysisFiles?:Record<string,string>; analysisIdentity?:string; analysisFingerprint?: string; labels?: Record<string,{source:string;analysis:string;refs?:SourceRef[]}>; extractionVersion?:string; version: 1; diagram: string; base: unknown; document: { slug: string; text: string }; evidence: EvidenceIndex }
 export interface RepositoryResult { status: RepositoryStatus; files: Record<string, string>; data: WorkspaceData; changed: string[] }
-const CODE = /\.(?:[cm]?[jt]sx?|py|java|go|rs|rb|php|cs|fs|c|h|cpp|swift|kts?|scala|vue|svelte|astro)$/i;
 const DOC = /(?:^|\/)(?:README(?:\.[^/]*)?|[^/]+\.(?:md|markdown|mdx))$/i;
 const INPUT = /(?:\.(?:json|ya?ml|tf|d2|mmd|mermaid|c4|likec4|dsl|toml|xml|mod|gradle)|(?:^|\/)Dockerfile)$/i;
 const idOf = (path: string) => `repo_${digest(path).slice(0, 14)}`;
@@ -47,61 +48,6 @@ export function readRepositoryConfig(text: string | null): RepositoryConfig {
   if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(config.diagram) || !Array.isArray(config.include) || !config.include.every(x => typeof x === 'string') || !Array.isArray(config.exclude) || !config.exclude.every(x => typeof x === 'string') || typeof config.ai !== 'boolean') throw Error('Invalid repository configuration.');
   for (const key of ['maxFiles', 'maxBytes', 'maxAiCalls'] as const) if (!Number.isSafeInteger(config[key]) || config[key] < 1 || config[key] > DEFAULT_REPOSITORY_CONFIG[key] * 10) throw Error(`Invalid repository limit: ${key}.`);
   return config;
-}
-
-/** Deterministic module/import graph. Relations cite the declaration that actually links both endpoints. */
-export function extractRepositoryFacts(files: Map<string, string>): RepositoryFact[] {
-  const facts = new Map<string, RepositoryFact>(), packages = new Map<string, string>();
-  const put = (key: string, label: string, ref: SourceRef, tech?: string) => {
-    let fact = facts.get(key);
-    if (!fact) { fact = { id: idOf(key), label, kind:key.startsWith('dependency:')?'dependency':'module',...(!key.startsWith('dependency:')?{path:key}:{}), ...(tech ? { tech } : {}), refs: [], dependencies: [] }; facts.set(key, fact); }
-    if (!fact.refs.some(r => r.path === ref.path && r.line === ref.line)) fact.refs.push(ref);
-    return fact;
-  };
-  for (const [path, text] of files) if (path.endsWith('package.json')) {
-    try {
-      const pkg = JSON.parse(text), dir = posix.dirname(path);
-      if (typeof pkg.name === 'string') { packages.set(pkg.name, dir); if(!pkg.workspaces||pkg.main||pkg.bin||pkg.exports)put(dir, pkg.name, refAt(path, text, '"name"'), 'JavaScript / TypeScript'); }
-    } catch { /* Invalid manifests remain available to the analyzer; do not invent dependencies. */ }
-  }
-  const roots = [...new Set(packages.values())].sort((a, b) => b.length - a.length);
-  const moduleFor = (path: string) => {
-    const pkg = roots.find(r => r !== '.' && path.startsWith(r + '/'));
-    if (pkg) return pkg;
-    const parts = path.split('/');
-    if (parts.length > 2 && ['src', 'app', 'lib', 'apps', 'packages', 'services'].includes(parts[0]!)) return parts.slice(0, 2).join('/');
-    return parts.length > 1 && !['src', 'lib'].includes(parts[0]!) ? parts[0]! : '.';
-  };
-  for (const [path, text] of files) {
-    if (!CODE.test(path)||developmentSource(path)) continue;
-    const key = moduleFor(path), first = text.split(/\r?\n/).find(l => l.trim() && !/^\s*(?:\/\/|#|\/\*|\*)/.test(l))?.trim();
-    if (!first) continue;
-    const current = put(key, labelOf(key), refAt(path, text, first));
-    // Only declaration forms, never arbitrary strings or comments. Broader semantic inference is reviewable AI work.
-    const lines = text.split(/\r?\n/);
-    for (let n = 0; n < lines.length; n++) {
-      const line = lines[n]!;
-      const match = line.match(/^\s*(?:import\s+(?:.*?\s+from\s+)?|export\s+.*?\s+from\s+)["']([^"']+)["']/) ?? line.match(/^\s*(?:const|let|var)\s+[^=]+?=\s*require\(["']([^"']+)["']\)/) ?? line.match(/^\s*from\s+([\w.]+)\s+import\s+/);
-      if (!match) continue;
-      const name = match[1]!, ref = { path, line: n + 1, contains: line.trim().slice(0, 400) };
-      let targetKey: string;
-      if (name.startsWith('.')) {
-        const resolved = posix.normalize(posix.join(posix.dirname(path), name));
-        const target = [resolved, ...['.ts', '.tsx', '.js', '.jsx', '.py', '/index.ts', '/index.js', '/__init__.py'].map(ext => resolved + ext)].find(p => files.has(p));
-        if (!target) continue;
-        targetKey = moduleFor(target);
-        if (targetKey === key) continue;
-        put(targetKey, labelOf(targetKey), refAt(target, files.get(target)!, files.get(target)!.split(/\r?\n/).find(l => l.trim()) ?? ''));
-      } else {
-        const dependency = name.startsWith('@') ? name.split('/').slice(0, 2).join('/') : name.split('/')[0]!;
-        if (dependency.startsWith('node:')||dependency==='bun'||dependency.startsWith('bun:')||/^(?:pathlib|typing|collections|asyncio|dataclasses|unittest|sys|os|json|re|math)$/.test(dependency)&&/\.py$/.test(path)) continue;
-        targetKey = packages.get(dependency) ?? `dependency:${dependency}`;
-        put(targetKey, packages.has(dependency) ? dependency : dependency, ref, packages.has(dependency) ? undefined : dependency);
-      }
-      if (targetKey!==key && !current.dependencies.some(d => d.target === idOf(targetKey))) current.dependencies.push({ target: idOf(targetKey), ref });
-    }
-  }
-  return detectRepositoryTechnologies([...facts.values()],files,moduleFor).map(f => ({ ...f, refs: f.refs.sort((a,b) => a.path.localeCompare(b.path) || a.line-b.line).slice(0, 20), dependencies: f.dependencies.sort((a,b) => a.target.localeCompare(b.target)) })).sort((a,b) => a.id.localeCompare(b.id));
 }
 
 export class RepositoryEngine {
@@ -130,6 +76,7 @@ export class RepositoryEngine {
     for(const path of this.architectureCache.keys())if(!beforeFiles.has(path))this.architectureCache.delete(path);
     const config=readRepositoryConfig(beforeFiles.get(REPOSITORY_CONFIG)??null);
     config.locale ??= options.locale ?? 'en';
+    const analyzer = config.ai ? this.analyzer : undefined;
     const loaded = await loadWorkspace(createMemoryAdapter(Object.fromEntries([...beforeFiles].filter((e): e is [string,string] => e[1] !== null))));
     if (loaded?.warnings.length) throw Error(`Architecture needs repair: ${loaded.warnings.join('; ')}`);
     if (!loaded && beforeFiles.size) throw Error('The existing .arch directory has no valid manifest. Its files were preserved.');
@@ -157,7 +104,7 @@ export class RepositoryEngine {
     const currentPaths = new Set(entries.map(e => e.path));
     for (const path of this.cache.keys()) if (!currentPaths.has(path)) this.cache.delete(path);
     status.phase = 'architecture'; emit();
-    const facts = extractRepositoryFacts(texts);
+    const facts = await extractRepositoryFacts(texts);
     if(!facts.length)for(const[path,text]of texts){
       const tech=/\.tf$/.test(path)?'Terraform':/^[\s{]*["']?openapi["']?\s*:/m.test(text)?'OpenAPI':/^apiVersion:\s*\S+/m.test(text)&&/^kind:\s*\S+/m.test(text)?'Kubernetes':undefined;
       if(tech&&!facts.some(f=>f.tech===tech)){const ref=refAt(path,text,text.split(/\r?\n/).find(l=>l.trim())??''),id=tech.toLowerCase();facts.push({id:idOf('infrastructure:'+tech),label:tech,tech,primaryTechnology:id,technologies:[{id,refs:[ref]}],refs:[ref],dependencies:[]});}
@@ -166,41 +113,45 @@ export class RepositoryEngine {
     status.proposals=(oldState?.proposals??[]).filter(p=>p.refs.every(ref=>texts.get(ref.path)?.split(/\r?\n/)[ref.line-1]?.includes(ref.contains)));
     const plainLabels = new Map(facts.map(f => [f.id,f.label]));
     const fingerprint = digest(stableStringify([...texts].filter(([path])=>!developmentSource(path)).map(([path,text]) => [path,digest(text)])));
-    const analysisIdentity=(this.analyzer?.identity??'configured')+':technologies-v1';
+    const analysisIdentity=options.check?(oldState?.analysisIdentity??EXTRACTION_VERSION):(analyzer?.identity??'configured')+':'+EXTRACTION_VERSION;
+    const {moduleFor}=repositoryOwnership(texts);
+    const validRef=(ref:SourceRef)=>!!ref&&typeof ref.path==='string'&&Number.isInteger(ref.line)&&ref.line>0&&typeof ref.contains==='string'&&ref.contains.trim().length>0&&!!texts.get(ref.path)?.split(/\r?\n/)[ref.line-1]?.includes(ref.contains);
+    const ownsRefs=(fact:RepositoryFact,refs:SourceRef[])=>refs.length>0&&refs.every(ref=>validRef(ref)&&(fact.path!==undefined?moduleFor(ref.path)===fact.path:fact.refs.some(r=>r.path===ref.path&&r.line===ref.line&&r.contains.includes(ref.contains))));
+    const labelRefs:Record<string,SourceRef[]>={};
     const technologyChoices:Record<string,TechnologyChoice>={};
     for(const fact of facts){const choice=oldState?.technologyChoices?.[fact.id],detected=fact.technologies?.find(t=>t.id===choice?.id);if(choice&&detected&&choice.refs.length&&choice.refs.every(ref=>detected.refs.some(r=>r.path===ref.path&&r.line===ref.line&&r.contains===ref.contains))){fact.primaryTechnology=choice.id;technologyChoices[fact.id]=choice;}}
     const analysisFiles:Record<string,string>=oldState?.analysisIdentity===analysisIdentity?{...oldState.analysisFiles}:{};
     for(const path of Object.keys(analysisFiles))if(!texts.has(path))delete analysisFiles[path];
-    let aiComplete = !!this.analyzer && config.ai && !options.check;
-    for(const fact of facts){const label=oldState?.labels?.[fact.id];if(label&&label.source===fact.label)fact.label=label.analysis;}
-    if (config.ai && !this.analyzer && selected.some(e => CODE.test(e.path)&&!developmentSource(e.path)) && oldState?.analysisFingerprint !== fingerprint) status.pending.push('AI provider is not configured; semantic code analysis is pending.');
-    if(config.ai&&this.analyzer&&options.check&&oldState?.analysisFingerprint!==fingerprint)status.pending.push('Code analysis is pending; synchronize the repository to run the configured AI provider.');
-    if (config.ai && this.analyzer && !options.check) {
+    let aiComplete = !!analyzer && !options.check;
+    for(const fact of facts){const label=oldState?.labels?.[fact.id];if(label&&label.source===fact.label&&label.analysis!==label.source){if(label.refs&&ownsRefs(fact,label.refs)){fact.label=label.analysis;labelRefs[fact.id]=label.refs;}else status.proposals.push({id:digest('legacy-label:'+fact.id+label.analysis).slice(0,16),summary:label.analysis,refs:fact.refs,ops:[],reason:'Generated description has no verified module evidence; review required.'});}}
+    if (config.ai && !options.check && !analyzer && selected.some(e => CODE.test(e.path)&&!developmentSource(e.path)) && oldState?.analysisFingerprint !== fingerprint) status.pending.push('AI provider is not configured; semantic code analysis is pending.');
+    if(config.ai&&options.check&&oldState?.analysisFingerprint!==fingerprint)status.pending.push('Code analysis is pending; synchronize the repository to run the configured AI provider.');
+    if (config.ai && analyzer && !options.check) {
       let batch: { path: string; text: string }[] = [], size = 0, analysisPaused=false;
       const analyze = async () => {
         if (!batch.length||analysisPaused) return;
-        const key = digest(analysisIdentity+stableStringify(batch));
+        const key = digest(analysisIdentity+stableStringify({batch,facts}));
         let analysis = this.analyses.get(key);
         if (!analysis) {
           if (status.metrics.aiCalls >= config.maxAiCalls) { aiComplete=false; status.pending.push('AI analysis budget reached.'); return; }
-          status.metrics.aiCalls++; try { analysis = await this.analyzer!.analyze({ files: batch, facts, revision, signal: options.signal }); } catch (error) { options.signal?.throwIfAborted(); aiComplete=false; analysisPaused=true; status.pending.push(error instanceof RepositoryProviderNotConfigured ? error.message : 'AI analysis is paused: provider unavailable, credits exhausted or request limit reached.'); return; }
+          status.metrics.aiCalls++; try { analysis = await analyzer!.analyze({ files: batch, facts, revision, signal: options.signal }); } catch (error) { options.signal?.throwIfAborted(); aiComplete=false; analysisPaused=true; status.pending.push(error instanceof RepositoryProviderNotConfigured ? error.message : 'AI analysis is paused: provider unavailable, credits exhausted or request limit reached.'); return; }
           this.analyses.set(key, analysis);
         }
         status.proposals=status.proposals.filter(proposal=>!proposal.refs.some(ref=>batch.some(file=>file.path===ref.path)));
         for(const file of batch)analysisFiles[file.path]=digest(file.text);
         // Existing facts can receive grounded descriptive labels. New semantic claims require review.
-        const validRef = (ref: SourceRef) => !!ref && typeof ref.path === 'string' && Number.isInteger(ref.line) && ref.line > 0 && typeof ref.contains === 'string' && ref.contains.trim().length > 0 && texts.get(ref.path)?.split(/\r?\n/)[ref.line-1]?.includes(ref.contains);
         for (const fact of analysis.facts ?? []) {
           if(!fact || typeof fact!=='object')continue;
           const existing = facts.find(f => f.id === fact.id);
-          if (existing && Array.isArray(fact.refs) && fact.refs.length && fact.refs.every(validRef) && typeof fact.label === 'string' && fact.label.length <= 120) {
+          if (existing && Array.isArray(fact.refs) && fact.refs.length && ownsRefs(existing,fact.refs) && typeof fact.label === 'string' && fact.label.length <= 120) {
             existing.label = fact.label;
+            labelRefs[existing.id]=fact.refs;
             // AI can choose among locally proven technologies; a plausible name or file alone is insufficient.
             const technology=repositoryTechnology(fact.primaryTechnology)&&existing.technologies?.find(t=>t.id===fact.primaryTechnology);
-            const refs=technology?technology.refs.filter(ref=>fact.refs.some(r=>r.path===ref.path&&r.line===ref.line)):[];
+            const refs=technology?technology.refs.filter(ref=>fact.refs.some(r=>r.path===ref.path&&r.line===ref.line&&r.contains.includes(ref.contains))):[];
             if(technology&&refs.length){existing.primaryTechnology=technology.id;technologyChoices[existing.id]={id:technology.id,refs};}
           }
-          else if (Array.isArray(fact.refs) && fact.refs.length && fact.refs.every(validRef)) status.proposals.push({ id: digest(JSON.stringify(fact)).slice(0,16), summary: fact.label, refs: fact.refs, ops: [], reason: 'Semantic inference requires architecture review.' });
+          else if (Array.isArray(fact.refs) && fact.refs.length && fact.refs.every(validRef)) status.proposals.push({ id: digest(JSON.stringify(fact)).slice(0,16), summary: fact.label, refs: fact.refs, ops: existing&&typeof fact.label==='string'&&fact.label.length<=120?[{op:'update',id:existing.id,set:{label:fact.label}}]:[], reason: existing?'Description cites another module; explicit architecture review required.':'Semantic inference requires architecture review.' });
         }
         for (const proposal of analysis.proposals ?? []) if (proposal && typeof proposal.id === 'string' && typeof proposal.summary === 'string' && proposal.summary.length <= 2000 && Array.isArray(proposal.ops) && proposal.ops.length <= 1000 && Array.isArray(proposal.refs) && proposal.refs.length && proposal.refs.every(validRef)) status.proposals.push(proposal);
       };
@@ -268,7 +219,8 @@ export class RepositoryEngine {
     else if (data.docs[docSlug] === previous!.document.text) data = { ...data, docs: { ...data.docs, [docSlug]: documentText } };
     else if (data.docs[docSlug] !== documentText) status.pending.push('Repository architecture document was edited manually; generated update requires review.');
     data.manifest.docs = data.manifest.docs.map(d => d.slug === docSlug && d.title === (previous?.presentation?.documentTitle ?? 'Repository architecture') ? { ...d, title: presentation.documentTitle } : d);
-    const state: ManagedState = { technologyChoices,presentation:{...presentation,view:view.mode},layouts:placement.layouts,generatedLayouts:placement.generatedLayouts, proposals:status.proposals, ...(this.analyzer?{analysisIdentity,analysisFiles}:oldState?.analysisIdentity?{analysisIdentity:oldState.analysisIdentity,analysisFiles:oldState.analysisFiles}:{}), ...(aiComplete ? {analysisFingerprint:fingerprint} : oldState?.analysisFingerprint ? {analysisFingerprint:oldState.analysisFingerprint} : {}), labels:Object.fromEntries(facts.map(f=>[f.id,{source:plainLabels.get(f.id)!,analysis:f.label}])), version: 1, diagram: config.diagram, base: JSON.parse(printDiagramJson(model.model)), document: { slug: docSlug, text: documentText }, evidence };
+    status.proposals=[...new Map(status.proposals.map(proposal=>[proposal.id,{...proposal,revision}])).values()];
+    const state: ManagedState = { extractionVersion:EXTRACTION_VERSION,technologyChoices,presentation:{...presentation,view:view.mode},layouts:placement.layouts,generatedLayouts:placement.generatedLayouts, proposals:status.proposals, ...(analyzer&&!options.check?{analysisIdentity,analysisFiles}:oldState?.analysisIdentity?{analysisIdentity:oldState.analysisIdentity,analysisFiles:oldState.analysisFiles}:{}), ...(aiComplete ? {analysisFingerprint:fingerprint} : oldState?.analysisFingerprint ? {analysisFingerprint:oldState.analysisFingerprint} : {}), labels:Object.fromEntries(facts.map(f=>[f.id,{source:plainLabels.get(f.id)!,analysis:f.label,...(labelRefs[f.id]?{refs:labelRefs[f.id]}:{})}])), version: 1, diagram: config.diagram, base: JSON.parse(printDiagramJson(model.model)), document: { slug: docSlug, text: documentText }, evidence };
     const imported = await synchronizeDiscoveredSources(texts, data, beforeFiles);
     data = imported.data; status.pending.push(...imported.pending);
     const generated=[...new Set([config.diagram,...parseSources(imported.files['sources.json']??null).sources.map(source=>source.diagram)])];

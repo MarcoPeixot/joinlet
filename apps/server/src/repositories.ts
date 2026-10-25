@@ -20,7 +20,7 @@ export async function chooseRepositoryFolder(): Promise<string | null> {
   if (result.code) throw Error('Native folder picker is unavailable. Enter the folder path or run joinlet connect --dir <folder>.');
   return result.stdout.trim() || null;
 }
-interface Connection { root: string; locale?: RepositoryLocale; engine: RepositoryEngine; job: RepositoryJob; timer?: ReturnType<typeof setTimeout>; stop?: () => void; listeners: Set<(job: RepositoryJob) => void>; running: boolean; again: boolean; abort?: AbortController; gitAt?: number }
+interface Connection { root: string; locale?: RepositoryLocale; engine: RepositoryEngine; job: RepositoryJob; timer?: ReturnType<typeof setTimeout>; stop?: () => void; listeners: Set<(job: RepositoryJob) => void>; running: boolean; again: boolean; abort?: AbortController; gitAt?: number; architecture?:Record<string,string> }
 export function createRepositoryService(analyzer: () => RepositoryAnalyzer | undefined = () => undefined) {
   const connections = new Map<string, Connection>();
   const notify = (c: Connection, status: Partial<RepositoryStatus>) => { c.job = { ...c.job, ...status, updated: Date.now() }; for (const listener of c.listeners) listener(c.job); };
@@ -35,7 +35,7 @@ export function createRepositoryService(analyzer: () => RepositoryAnalyzer | und
       const result=await c.engine.run({ signal:c.abort!.signal, name: basename(c.root), locale: c.locale, progress: s => notify(c, { ...s, id: c.job.id, root: c.root }) });
       if(instructions.conflicts.length){result.status.pending.push('Agent instructions need review: '+instructions.conflicts.join(', '));result.status.phase='review';}
       return result;
-    }).then(r => notify(c, { ...r.status, id: c.job.id, root: c.root }))
+    }).then(r => {c.architecture=r.files;notify(c, { ...r.status, id: c.job.id, root: c.root });})
       .catch(error => notify(c, { phase: /changed|conflict/i.test(String(error)) ? 'conflict' : 'error', error: error instanceof Error ? error.message : String(error) }))
       .finally(() => { c.running = false; if (c.again && connections.get(c.job.id) === c) { c.again = false; start(c); } });
   };
@@ -51,11 +51,11 @@ export function createRepositoryService(analyzer: () => RepositoryAnalyzer | und
       const id = crypto.randomUUID(), now = Date.now();
       const job: RepositoryJob = { id, root: reader.root, phase: 'queued', completed: 0, total: 0, analyzedRevision: null, persistedRevision: null, coverage: 'none', pending: [], proposals: [], metrics: { files: 0, reads: 0, aiCalls: 0, written: 0 }, created: now, updated: now };
       const c: Connection = { root: reader.root, locale, engine: new RepositoryEngine(reader, storage, analyzer()), job, listeners: new Set(), running: false, again: false };
-      const schedule = () => { clearTimeout(c.timer); c.timer = setTimeout(() => start(c), 750); };
+      const schedule = (sourceOnly=true) => { clearTimeout(c.timer); c.timer = setTimeout(() => {void (async()=>{if(sourceOnly&&c.job.analyzedRevision){await reader.list();if(await reader.revision()===c.job.analyzedRevision)return;}if(connections.get(id)===c)start(c);})().catch(error=>notify(c,{phase:'error',error:String(error)}));},750); };
       try { const watcher = watch(reader.root, { recursive: true }, (_event, path) => {
         const p = String(path ?? '').replaceAll('\\','/');
         reader.invalidate(p);
-        if(!c.running && /^\.arch\/(?:diagrams\/|docs\/|strukt\.json$|repository\.json$|sources\.json$|evidence\.json$)/.test(p) && !p.includes('.joinlet-'))schedule();
+        if(!c.running && /^\.arch\/(?:diagrams\/|docs\/|strukt\.json$|repository\.json$|sources\.json$|evidence\.json$)/.test(p) && !p.includes('.joinlet-')){const path=p.slice(6);void storage.read(path).then(text=>{if(text!==(c.architecture?.[path]??null)&&connections.get(id)===c)schedule(false);}).catch(()=>schedule(false));}
         if (sourcePath(p) || p === '.git/HEAD' || p.startsWith('.git/refs/heads/')) schedule();
       }); c.stop = () => watcher.close(); }
       catch { notify(c, { pending: ['Filesystem events unavailable; use Sync to reconcile.'] }); }

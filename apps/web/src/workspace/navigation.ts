@@ -12,6 +12,7 @@ export function identifyNavigation<T extends StorageAdapter>(
   identities.set(adapter, identity);
   return adapter;
 }
+export const navigationIdentity = (adapter: StorageAdapter): string | null => identities.get(adapter) ?? null;
 const key = (adapter: StorageAdapter) => {
   const id = identities.get(adapter);
   return id ? `joinlet:navigation:v1:${id}` : null;

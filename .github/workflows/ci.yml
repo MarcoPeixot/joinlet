@@ -28,12 +28,37 @@ jobs:
       - run: bun run typecheck
       - run: bun run build
       - run: bun run test
+      - run: bun run check:parsers
       - run: bun run verify:knowledge
       - run: bunx playwright install --with-deps chromium
         working-directory: apps/web
+      - run: bun run --filter @strukt/web e2e:production
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: production-loading-report
+          path: apps/web/test-results
+          if-no-files-found: ignore
       - run: bun run --filter @strukt/web e2e chat.spec.ts --grep 'sends the diagram|while it is being written'
       - run: bun run --filter @strukt/web e2e sketch-design.spec.ts password.spec.ts hosted.spec.ts beta.spec.ts admin.spec.ts selfHosted.spec.ts publicPreview.spec.ts analytics.spec.ts defaults.spec.ts documentation.spec.ts landing.spec.ts
       - name: Verify repository connections and Overview spacing
-        run: bun run --filter @strukt/web e2e repository-real.spec.ts cloud-workspaces-real.spec.ts overview-spacing.spec.ts
+        run: bun run --filter @strukt/web e2e repository-real.spec.ts cloud-workspaces-real.spec.ts overview-spacing.spec.ts onboarding.spec.ts comments.spec.ts
       - run: docker build -f apps/remote/Dockerfile -t joinlet-remote:check .
       - run: bun scripts/smoke-container.ts joinlet-remote:check
+
+  performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: '1.4.3'
+      - run: bun install --frozen-lockfile
+      - run: bun run test:performance

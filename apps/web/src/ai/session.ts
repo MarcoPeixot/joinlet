@@ -1,3 +1,4 @@
+import { journey } from '../onboarding/journey';
 import { useStore } from 'zustand';
 import { flushCodeEdits } from '../code/registry';
 import { diagramStore } from '../state/appStore';
@@ -26,6 +27,7 @@ export const aiStore = createAiStore(diagramStore, {
   // Loaded lazily: boot imports the modules that import this one.
   keepIds: async () => (await import('../workspace/boot')).collaborationSession() !== null,
   onApplied: (draft) => {
+    if(draft.source==='ai')journey.complete('ai');
     // Isolated per listener: the diagram mutation already committed, so one throwing listener must
     // neither skip the others nor turn this successful apply() into a rejection.
     for (const listener of appliedListeners) {

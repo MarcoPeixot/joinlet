@@ -18,8 +18,8 @@ function project(){return new Map([
  ]);}
 const reader=(files:Map<string,string>)=>({list:async()=>[...files].map(([path,text])=>({path,revision:text})),revision:async()=>JSON.stringify([...files]),read:async(path:string)=>files.get(path)??null});
 
-it('detects frameworks, languages and runtime within module boundaries instead of guessing from names or READMEs',()=>{
- const facts=extractRepositoryFacts(project()),module=(path:string)=>facts.find(f=>f.path===path)!;
+it('detects frameworks, languages and runtime within module boundaries instead of guessing from names or READMEs',async()=>{
+ const facts=await extractRepositoryFacts(project()),module=(path:string)=>facts.find(f=>f.path===path)!;
  expect(module('apps/web').primaryTechnology).toBe('nextjs');
  expect(module('apps/web').technologies?.map(t=>t.id)).toEqual(['nextjs','react','typescript','vite']);
  expect(module('apps/api').technologies?.map(t=>t.id)).toEqual(['hono','typescript','bun','sqlite']);
@@ -32,18 +32,18 @@ it('detects frameworks, languages and runtime within module boundaries instead o
  expect(view.model.elements[module('apps/frontend').id]).toMatchObject({icon:'si:typescript'});
 });
 
-it('gives recognized libraries their own icons without turning a data client into the module identity',()=>{
+it('gives recognized libraries their own icons without turning a data client into the module identity',async()=>{
  const files=new Map([['src/index.ts','import Redis from "ioredis";\nexport const client=new Redis();']]);
- const facts=extractRepositoryFacts(files),view=repositoryPresentation(facts,DEFAULT_REPOSITORY_CONFIG,new Map(facts.map(f=>[f.id,f.label])));
+ const facts=await extractRepositoryFacts(files),view=repositoryPresentation(facts,DEFAULT_REPOSITORY_CONFIG,new Map(facts.map(f=>[f.id,f.label])));
  expect(view.model.elements[facts.find(f=>f.kind==='dependency')!.id].icon).toBe('si:redis');
  expect(view.model.elements[facts.find(f=>f.kind==='module')!.id].icon).toBe('si:typescript');
 });
 
-it('chooses the predominant source language instead of a helper script or a compiler devDependency',()=>{
+it('chooses the predominant source language instead of a helper script or a compiler devDependency',async()=>{
  const files=new Map([['package.json','{"name":"scripts","devDependencies":{"typescript":"*"}}'],['scripts/helper.py','print("helper")']]);
  for(let i=0;i<12;i++)files.set('scripts/task-'+i+'.ts','export const task=true;');
  files.set('src/index.js','export const app=true;');
- const facts=extractRepositoryFacts(files);
+ const facts=await extractRepositoryFacts(files);
  expect(facts.find(f=>f.path==='scripts')!.primaryTechnology).toBe('typescript');
  expect(facts.find(f=>f.path==='.')!.primaryTechnology).toBe('javascript');
 });

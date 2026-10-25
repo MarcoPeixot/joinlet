@@ -196,7 +196,7 @@ export function TopBar({ embedded = false }: { embedded?: boolean }) {
             <span className={`${SEP} hidden md:block`} />
           </>
         )}
-        <IconButton label={uiText("Chat com a IA")} title={uiText("Conversar com a IA sobre os diagramas e documentos")} pressed={chatOpen} onClick={() => toggleRightPanel('chat')}>
+        <IconButton data-tour="ai" label={uiText("Chat com a IA")} title={uiText("Conversar com a IA sobre os diagramas e documentos")} pressed={chatOpen} onClick={() => toggleRightPanel('chat')}>
           <MessageCircle />
         </IconButton>
         <IconButton label={uiText("Configurações (⌘,)")} onClick={() => openSettings()}>

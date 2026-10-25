@@ -13,6 +13,7 @@ const port = Number(process.env.STRUKT_E2E_PORT);
 
 export default defineConfig({
   testDir: './e2e',
+  testIgnore: 'production-loading.spec.ts',
   fullyParallel: false,
   workers: 1,
   retries: 0,

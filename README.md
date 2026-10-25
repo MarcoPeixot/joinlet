@@ -31,7 +31,6 @@ Start in your browser without an account, or save a workspace to a local folder.
 ## Features
 
 - **Visual system design.** Build diagrams with nested groups, cloud and technology icons, architecture perspectives and animated flows. Export to SVG, PNG, Mermaid or PlantUML.
-- **System simulation.** Model traffic, finite queues, caching, retries, circuit breakers and autoscaling on an existing diagram. Run reproducible scenarios in a browser worker or through CLI/MCP, compare saved reports and start from illustrative Playground examples. See the [simulation model and reference](.arch/docs/simulacao-de-sistemas-no-joinlet.md).
 - **Diagrams, decisions and sketches together.** Keep Markdown documentation and Excalidraw sketches in the same workspace. Use presentation mode to walk others through your design.
 - **Made for Git.** Store diagram structure and layout separately, inspect semantic differences and keep version history. Moving a node does not rewrite its architecture definition.
 - **Context for coding agents.** Read and update architecture through MCP, generate repository context with the CLI, and connect diagrams to source evidence. Synchronize supported source formats such as Terraform, OpenAPI and Kubernetes.

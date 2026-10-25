@@ -88,3 +88,9 @@ Copyright (c) Eemeli Aro. Used unmodified by `packages/dsl` to parse OpenAPI and
 ## ignore — MIT
 
 Copyright (c) 2013 Kael Zhang and contributors. Used unmodified to honor `.gitignore` rules for folders without Git. Source: https://github.com/kaelzhang/node-ignore. The copyright and permission notice is reproduced in [docs/third-party/ignore.md](docs/third-party/ignore.md).
+
+## Tree-sitter parsers — upstream licenses
+
+Repository analysis uses `web-tree-sitter` (MIT) and locally shipped WebAssembly grammars. The runtime version, immutable package integrity and asset SHA-256 hashes are recorded in `packages/workspace/parsers/manifest.json`. The grammar bundles are `tree-sitter-wasms` and `@repomix/tree-sitter-wasms`; F# is distributed from `tree-sitter-fsharp`. Bundle licensing does not replace the individual grammars’ terms: upstream notices and declared grammar versions are retained alongside the assets. The selected Swift grammar avoids a Node/V8 compilation failure observed with the older bundled grammar.
+
+These parsers only inspect source syntax. Analyzed repository code is never executed. No grammar is downloaded at runtime. Maintainers can reproduce the shipped assets with `python3 scripts/update-repository-grammars.py`; that explicit maintenance command verifies the pinned package integrity before extracting files.
