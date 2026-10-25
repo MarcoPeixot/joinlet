@@ -50,7 +50,7 @@ Sem `JOINLET_SITE_URL`, o servidor conserva o modo combinado: landing `/`, edito
 
 O exemplo e o entrypoint remoto usam `JOINLET_DEPLOYMENT_MODE=self-hosted` por padrão, sem cotas comerciais de workspaces, diagramas ou participantes. Troque domínios e credenciais pelos seus. `cloud` seleciona a política Beta para uma operação gerenciada; não concede acesso à infraestrutura oficial. A operação oficial deve definir esse valor explicitamente no ambiente privado.
 
-Capacidade continua limitada pelo host, por uma réplica por workspace, pelo workspace pessoal persistente único por conta no backend atual e pelos limites técnicos de arquivos/requisições/armazenamento. Autenticação, papéis e isolamento continuam ativos. Este exemplo não comprova uma instalação oficial já publicada. Veja [o modelo aberto](../docs/open-source.md) e [a promoção de releases](../docs/releases.md).
+Capacidade continua limitada pelo host, por uma réplica por instalação, pelos workspaces pessoais persistentes isolados por conta e pelos limites técnicos de arquivos/requisições/armazenamento. Autenticação, papéis e isolamento continuam ativos. Este exemplo não comprova uma instalação oficial já publicada. Veja [o modelo aberto](../docs/open-source.md) e [a promoção de releases](../docs/releases.md).
 
 ## Sincronização de repositórios
 

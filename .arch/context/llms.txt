@@ -1,6 +1,6 @@
 # Joinlet
 
-> Arquitetura do workspace “Joinlet” no Joinlet: 5 diagramas e 28 documentos. Comece por ARCHITECTURE.md.
+> Arquitetura do workspace “Joinlet” no Joinlet: 5 diagramas e 29 documentos. Comece por ARCHITECTURE.md.
 
 Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group"` e `children` para grupos) e cada item de `connections` liga `from` a `to`. As posições do desenho ficam em `.arch/diagrams/*.layout.json` e não mudam o significado. Arquivos gerados a partir de `.arch/`: não edite à mão.
 
@@ -13,8 +13,8 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 - [Arquitetura do Joinlet](diagrams/arquitetura-do-joinlet.md): 11 componentes, 14 conexões
 - [Distribuição do código Joinlet](diagrams/distribuicao-do-codigo-joinlet.md): 5 componentes, 4 conexões
 - [Fluxo de release proposto](diagrams/fluxo-de-release-proposto.md): 9 componentes, 9 conexões
-- [Sincronização de repositórios](diagrams/sincronizacao-de-repositorios.md): 13 componentes, 16 conexões
-- [Visão geral — Joinlet](diagrams/repository.md): 16 componentes, 40 conexões
+- [Sincronização de repositórios](diagrams/sincronizacao-de-repositorios.md): 14 componentes, 17 conexões
+- [Visão geral — Joinlet](diagrams/repository.md): 16 componentes, 44 conexões
 
 ## Documentos
 
@@ -46,6 +46,7 @@ Os diagramas são JSON: cada item de `nodes` é um componente (com `type: "group
 - [Eraser Diagrams](../docs/eraser-diagrams.md): documento do workspace
 - [ignore.md](../docs/ignore-md.md): documento do workspace
 - [Configurações do workspace](../docs/configuracoes-do-workspace.md): documento do workspace
+- [Confiabilidade, análise sintática e onboarding](../docs/confiabilidade-analise-sintatica-e-onboarding.md): ligado a Parsers sintáticos (Sincronização de repositórios)
 
 ## Optional
 

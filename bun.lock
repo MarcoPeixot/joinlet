@@ -220,6 +220,7 @@
         "@strukt/layout": "workspace:*",
         "fflate": "^0.8.3",
         "ignore": "7.0.5",
+        "web-tree-sitter": "0.25.10",
         "yjs": "^13.6.32",
       },
       "devDependencies": {
@@ -562,7 +563,6 @@
     "@strukt/remote": ["@strukt/remote@workspace:apps/remote"],
 
     "@strukt/server": ["@strukt/server@workspace:apps/server"],
-
 
     "@strukt/web": ["@strukt/web@workspace:apps/web"],
 
@@ -1291,6 +1291,8 @@
     "vscode-uri": ["vscode-uri@3.0.8", "", {}, "sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw=="],
 
     "w3c-keyname": ["w3c-keyname@2.2.8", "", {}, "sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ=="],
+
+    "web-tree-sitter": ["web-tree-sitter@0.25.10", "", { "peerDependencies": { "@types/emscripten": "^1.40.0" }, "optionalPeers": ["@types/emscripten"] }, "sha512-Y09sF44/13XvgVKgO2cNDw5rGk6s26MgoZPXLESvMXeefBf7i6/73eFurre0IsTW6E14Y0ArIzhUMmjoc7xyzA=="],
 
     "webworkify": ["webworkify@1.5.0", "", {}, "sha512-AMcUeyXAhbACL8S2hqqdqOLqvJ8ylmIbNwUIqQujRSouf4+eUFaXbG6F1Rbu+srlJMmxQWsiU7mOJi0nMBfM1g=="],
 

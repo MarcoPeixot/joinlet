@@ -147,7 +147,7 @@ export const uiStore = createStore<UiState>()(() => ({
   fitRequest: 0,
   fitNodes: null,
   fitInsetBottom: 0,
-  codeOpen: false,
+  codeOpen: readPref('strukt:code-open') === 'open',
   flowAnimation: initialFlowAnimation(),
   rightPanel: null,
   activeTag: null,
@@ -296,7 +296,9 @@ export function requestFit(nodes?: ID[]): void {
 }
 
 export function toggleCode(): void {
-  uiStore.setState((s) => ({ codeOpen: !s.codeOpen }));
+  const open=!uiStore.getState().codeOpen;
+  uiStore.setState({codeOpen:open});
+  writePref('strukt:code-open',open?'open':'closed');
 }
 
 export function setFlowAnimation(on: boolean): void {

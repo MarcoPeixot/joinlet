@@ -226,7 +226,7 @@ necessária: `pull-requests: write`.
 
 **Sincronização por PR** (opcional, `.arch/sources.json`): os jobs `sync` e `commit-sync` do mesmo template rodam `joinlet sync`
 e comitam o resultado na branch do PR (só PRs do próprio repositório; o job que executa o CLI é somente leitura e o que escreve
-não executa código nenhum). Formato, regras de mesclagem e limites: [`docs/superpowers/specs/2026-10-03-sync-por-pr-design.md`](superpowers/specs/2026-10-03-sync-por-pr-design.md).
+não executa código nenhum). Formato, regras de mesclagem e limites: [conexão e sincronização de repositórios](../.arch/docs/conexao-e-sincronizacao-de-repositorios.md).
 
 ## Fluxo recomendado
 

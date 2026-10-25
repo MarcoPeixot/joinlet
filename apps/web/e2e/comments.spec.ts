@@ -26,7 +26,7 @@ const COMMENTS = () => join(stack.root, '.arch', 'comments', 'diagram-mapa.json'
 
 async function guest(browser: Browser, link: string, name: string, color: string) {
   const context = await browser.newContext();
-  await context.addInitScript(([n, c, col]) => sessionStorage.setItem('strukt:collaborator', JSON.stringify({ name: n, cid: c, color: col })), [name, `${name.toLowerCase()}-00000001`, color]);
+  await context.addInitScript(([n, c, col]) => {localStorage.setItem('joinlet:locale','pt-BR');sessionStorage.setItem('strukt:collaborator', JSON.stringify({ name: n, cid: c, color: col }));}, [name, `${name.toLowerCase()}-00000001`, color]);
   const page = await context.newPage();
   await page.goto(link);
   await expect(sidebar(page)).toBeVisible();

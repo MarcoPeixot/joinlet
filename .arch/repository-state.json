@@ -10,6 +10,10 @@
       },
       {
         "from": "repo_bde7b76204809a",
+        "to": "repo_484fb1e9cea553"
+      },
+      {
+        "from": "repo_bde7b76204809a",
         "to": "repo_5c1ab4b7e80ad1"
       },
       {
@@ -35,6 +39,10 @@
       {
         "from": "repo_4c5a34d0f0b789",
         "to": "repo_41ba823706ed42"
+      },
+      {
+        "from": "repo_4c5a34d0f0b789",
+        "to": "repo_484fb1e9cea553"
       },
       {
         "from": "repo_4c5a34d0f0b789",
@@ -67,6 +75,10 @@
       {
         "from": "repo_86104d06094ed0",
         "to": "repo_d4ff4b28356bed"
+      },
+      {
+        "from": "repo_86104d06094ed0",
+        "to": "repo_e27f3faa9152db"
       },
       {
         "from": "repo_484fb1e9cea553",
@@ -163,6 +175,10 @@
       {
         "from": "repo_d4ff4b28356bed",
         "to": "repo_e86a0d465b5caa"
+      },
+      {
+        "from": "repo_8c5967fd8486f3",
+        "to": "repo_d4ff4b28356bed"
       }
     ],
     "nodes": [
@@ -274,12 +290,12 @@
             "tech": "TypeScript"
           },
           {
-            "description": "@strukt/workspace · packages/workspace · TypeScript · Bun · Node.js · SQLite",
+            "description": "@strukt/workspace · packages/workspace · TypeScript · Node.js",
             "icon": "si:typescript",
             "id": "repo_d4ff4b28356bed",
             "label": "workspace",
             "presentation": "card",
-            "tech": "TypeScript · Bun"
+            "tech": "TypeScript · Node.js"
           }
         ],
         "icon": "folder",
@@ -305,29 +321,29 @@
   "diagram": "repository",
   "document": {
     "slug": "repository-architecture",
-    "text": "# Arquitetura — Joinlet\n\nGerado automaticamente pelo Joinlet a partir dos manifestos, imports e documentos encontrados no repositório. A cobertura semântica é parcial; revise comportamentos inferidos.\n\n## Contexto do projeto\n\nJoinlet is an open-source workspace for software architecture. Draw how your system fits together, write down the decisions behind it, and give your coding agents that same context through MCP and the CLI.\n\nStart in your browser without an account, or save a workspace to a local folder. Repository workspaces live in `.arch/` as JSON and Markdown, so architecture changes can be reviewed alongside code in Git.\n\nFonte: `README.md`\n\n## Módulos\n\n- strukt-vscode — `apps/vscode`\n- @strukt/web — `apps/web`\n- @strukt/layout — `packages/layout`\n- @strukt/server — `apps/server`\n- @strukt/mcp — `apps/mcp`\n- @strukt/dsl — `packages/dsl`\n- @strukt/git — `packages/git`\n- @strukt/remote — `apps/remote`\n- scripts — `scripts`\n- @strukt/cli — `apps/cli`\n- @strukt/workspace — `packages/workspace`\n- @strukt/ops — `packages/ops`\n- @strukt/core — `packages/core`\n- @strukt/json — `packages/json`\n\nA visão geral mostra os módulos do projeto; o detalhe das bibliotecas está listado abaixo.\n\n## Tecnologias identificadas\n\nIdentificadas por manifestos, imports e tipos de arquivo no próprio módulo. O ícone destaca a tecnologia principal; dependências de dados não comprovam a existência de serviços em execução.\n\n### @strukt/cli — `apps/cli`\n\n- **TypeScript** (ícone): `apps/cli/src/args.ts:1`, `apps/cli/src/cloudAllowlist.ts:1`, `apps/cli/src/cloudCollect.ts:1`, `apps/cli/src/cloudDrift.ts:1`, `apps/cli/src/cloudTesting.ts:1`\n- **Node.js**: `apps/cli/src/commands/context.ts:1`, `apps/cli/src/commands/diff.ts:1`, `apps/cli/src/commands/export.ts:1`, `apps/cli/src/commands/importCloud.ts:1`, `apps/cli/src/commands/importCloud.ts:2`\n\n### @strukt/mcp — `apps/mcp`\n\n- **MCP** (ícone): `apps/mcp/package.json:18`, `apps/mcp/src/comments.ts:4`\n- **TypeScript**: `apps/mcp/src/args.ts:1`, `apps/mcp/src/comments.ts:1`, `apps/mcp/src/github.ts:1`, `apps/mcp/src/index.ts:1`, `apps/mcp/src/main.ts:1`\n- **Node.js**: `apps/mcp/src/repositoryKnowledge.ts:2`, `apps/mcp/src/sync.ts:4`, `apps/mcp/src/testing.ts:1`, `apps/mcp/src/testing.ts:2`, `apps/mcp/src/testing.ts:3`\n\n### @strukt/remote — `apps/remote`\n\n- **Express** (ícone): `apps/remote/package.json:16`, `apps/remote/src/accountDirectory.ts:1`\n- **MCP**: `apps/remote/package.json:13`, `apps/remote/src/app.ts:7`\n- **TypeScript**: `apps/remote/src/accountDirectory.ts:1`, `apps/remote/src/accounts.ts:1`, `apps/remote/src/app.ts:1`, `apps/remote/src/auth.ts:1`, `apps/remote/src/backup.ts:1`\n- **Bun**: `apps/remote/src/accounts.ts:1`, `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/betaAccounts.ts:1`, `apps/remote/src/collaboration.ts:6`\n- **Node.js**: `apps/remote/src/accountDirectory.ts:2`, `apps/remote/src/accounts.ts:2`, `apps/remote/src/app.ts:5`, `apps/remote/src/app.ts:6`, `apps/remote/src/auth.ts:5`\n- **Docker**: `apps/remote/Dockerfile:1`\n- **SQLite**: `apps/remote/src/accounts.ts:1`, `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/betaAccounts.ts:1`, `apps/remote/src/collaboration.ts:6`\n\n### @strukt/server — `apps/server`\n\n- **Hono** (ícone): `apps/server/package.json:24`, `apps/server/src/app.ts:1`\n- **MCP**: `apps/server/package.json:14`, `apps/server/src/app.ts:26`\n- **TypeScript**: `apps/server/src/agentSetup.ts:1`, `apps/server/src/anthropic.ts:1`, `apps/server/src/app.ts:1`, `apps/server/src/audit.ts:1`, `apps/server/src/chat.ts:1`\n- **Bun**: `apps/server/src/collaborationHost.ts:7`, `apps/server/src/collaborationHost.ts:8`, `apps/server/src/connector.ts:1`, `apps/server/src/shareStack.ts:1`, `apps/server/src/shareStack.ts:11`\n- **Node.js**: `apps/server/src/agentSetup.ts:2`, `apps/server/src/agentSetup.ts:3`, `apps/server/src/agentSetup.ts:4`, `apps/server/src/app.ts:12`, `apps/server/src/app.ts:29`\n- **SQLite**: `apps/server/src/collaborationHost.ts:7`\n\n### strukt-vscode — `apps/vscode`\n\n- **TypeScript** (ícone): `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/appUrl.ts:1`, `apps/vscode/src/checkReport.ts:1`, `apps/vscode/src/cli.ts:1`, `apps/vscode/src/commands.ts:1`\n- **Node.js**: `apps/vscode/package.json:13`, `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/commands.ts:1`, `apps/vscode/src/nodeExec.ts:1`\n\n### @strukt/web — `apps/web`\n\n- **React** (ícone): `apps/web/package.json:42`, `apps/web/package.json:43`, `apps/web/src/analytics/AnalyticsConsent.tsx:1`, `apps/web/src/comments/CommentsHost.tsx:6`\n- **TypeScript**: `apps/web/scripts/build-icon-subset.ts:1`, `apps/web/scripts/build-logos-subset.ts:1`, `apps/web/scripts/build-lucide-categories.ts:1`, `apps/web/src/actions/canvasDiagrams.ts:1`, `apps/web/src/actions/clipboard.ts:1`\n- **JavaScript**: `apps/web/docs/client.js:1`, `apps/web/docs/site.mjs:1`\n- **Python**: `apps/web/scripts/build-cloud-icons.py:1`\n- **Node.js**: `apps/web/docs/site.mjs:1`, `apps/web/scripts/build-icon-subset.ts:15`, `apps/web/scripts/build-icon-subset.ts:16`, `apps/web/scripts/build-logos-subset.ts:8`, `apps/web/scripts/build-lucide-categories.ts:11`\n- **Tailwind CSS**: `apps/web/package.json:56`\n- **Vite**: `apps/web/package.json:6`\n\n### @strukt/core — `packages/core`\n\n- **TypeScript** (ícone): `packages/core/src/aiProviders.ts:1`, `packages/core/src/applyOps.ts:1`, `packages/core/src/canvasDiagrams.ts:1`, `packages/core/src/catalogSearch.ts:1`, `packages/core/src/chatEdit.ts:1`\n\n### @strukt/dsl — `packages/dsl`\n\n- **TypeScript** (ícone): `packages/dsl/src/detect.ts:1`, `packages/dsl/src/diagramTree.ts:1`, `packages/dsl/src/export.ts:1`, `packages/dsl/src/import.ts:1`, `packages/dsl/src/import/cloud/aws.ts:1`\n\n### @strukt/git — `packages/git`\n\n- **TypeScript** (ícone): `packages/git/src/diff.ts:1`, `packages/git/src/diffSvg.ts:1`, `packages/git/src/index.ts:1`, `packages/git/src/publish.ts:1`, `packages/git/src/run.ts:1`\n- **Node.js**: `packages/git/src/run.ts:1`\n\n### @strukt/json — `packages/json`\n\n- **TypeScript** (ícone): `packages/json/src/index.ts:1`, `packages/json/src/parse.ts:1`, `packages/json/src/parseJson.ts:1`, `packages/json/src/print.ts:1`, `packages/json/src/schema.ts:1`\n\n### @strukt/layout — `packages/layout`\n\n- **TypeScript** (ícone): `packages/layout/src/canvasFrames.ts:1`, `packages/layout/src/composition.ts:1`, `packages/layout/src/compositionRoutes.ts:1`, `packages/layout/src/elk.ts:1`, `packages/layout/src/eraserRouter.ts:1`\n\n### @strukt/ops — `packages/ops`\n\n- **TypeScript** (ícone): `packages/ops/src/check.ts:1`, `packages/ops/src/index.ts:1`, `packages/ops/src/plan.ts:1`, `packages/ops/src/schema.ts:1`, `packages/ops/tsconfig.json:1`\n\n### @strukt/workspace — `packages/workspace`\n\n- **TypeScript** (ícone): `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/agentHarness.ts:1`, `packages/workspace/src/assistants.ts:1`, `packages/workspace/src/assistantsBuiltin.ts:1`, `packages/workspace/src/assistantsParse.ts:1`\n- **Bun**: `packages/workspace/src/collaborationSqlite.ts:1`\n- **Node.js**: `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/fs.ts:3`, `packages/workspace/src/fs.ts:4`, `packages/workspace/src/health.ts:1`, `packages/workspace/src/health.ts:2`\n- **SQLite**: `packages/workspace/src/collaborationSqlite.ts:1`\n\n### scripts — `scripts`\n\n- **Python** (ícone): `scripts/check-publication.py:1`, `scripts/check-secrets.py:1`, `scripts/test_publication.py:1`, `scripts/test_secret_scanner.py:1`\n- **TypeScript**: `scripts/build-connector.ts:1`, `scripts/smoke-container.ts:1`\n- **Node.js**: `scripts/build-connector.ts:2`, `scripts/build-connector.ts:3`, `scripts/smoke-container.ts:1`, `scripts/smoke-container.ts:2`, `scripts/smoke-container.ts:3`\n\n## Dependências por módulo\n\nRelações estáticas de imports do código. Bibliotecas não são, por si só, serviços da arquitetura. Imports exclusivos de testes, fixtures e configuração de build ficam fora deste mapa.\n\n### @strukt/cli\n\n`apps/cli`\n\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n\n### @strukt/mcp\n\n`apps/mcp`\n\n- @modelcontextprotocol/sdk\n- @strukt/core — `packages/core`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n- zod\n\n### @strukt/remote\n\n`apps/remote`\n\n- @anthropic-ai/sdk\n- @modelcontextprotocol/sdk\n- @strukt/mcp — `apps/mcp`\n- @strukt/server — `apps/server`\n- @strukt/workspace — `packages/workspace`\n- express\n- ws\n- yjs\n\n### @strukt/server\n\n`apps/server`\n\n- @anthropic-ai/sdk\n- @modelcontextprotocol/sdk\n- @strukt/core — `packages/core`\n- @strukt/git — `packages/git`\n- @strukt/json — `packages/json`\n- @strukt/mcp — `apps/mcp`\n- @strukt/ops — `packages/ops`\n- @strukt/workspace — `packages/workspace`\n- hono\n\n### strukt-vscode\n\n`apps/vscode`\n\n- @strukt/json — `packages/json`\n- vscode\n\n### @strukt/web\n\n`apps/web`\n\n- @codemirror/autocomplete\n- @codemirror/commands\n- @codemirror/lang-json\n- @codemirror/lang-markdown\n- @codemirror/language\n- @codemirror/lint\n- @codemirror/search\n- @codemirror/state\n- @codemirror/view\n- @excalidraw/excalidraw\n- @fontsource-variable/geist-mono\n- @fontsource-variable/shantell-sans\n- @fontsource-variable/sora\n- @iconify-json/logos\n- @lezer/highlight\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- @strukt/workspace — `packages/workspace`\n- @xyflow/react\n- dompurify\n- lucide\n- lucide-react\n- marked\n- motion\n- pdfmake\n- radix-ui\n- react\n- react-dom\n- simple-icons\n- vitest\n- yjs\n- zustand\n\n### @strukt/core\n\n`packages/core`\n\n- fast-check\n\n### @strukt/dsl\n\n`packages/dsl`\n\n- @strukt/core — `packages/core`\n- @strukt/json — `packages/json`\n- vitest\n- yaml\n\n### @strukt/git\n\n`packages/git`\n\n- @strukt/core — `packages/core`\n- @strukt/workspace — `packages/workspace`\n\n### @strukt/json\n\n`packages/json`\n\n- @strukt/core — `packages/core`\n\n### @strukt/layout\n\n`packages/layout`\n\n- @eraserlabs/layout\n- @strukt/core — `packages/core`\n- elkjs\n\n### @strukt/ops\n\n`packages/ops`\n\n- @strukt/core — `packages/core`\n- @strukt/layout — `packages/layout`\n- ajv\n\n### @strukt/workspace\n\n`packages/workspace`\n\n- @strukt/core — `packages/core`\n- @strukt/dsl — `packages/dsl`\n- @strukt/json — `packages/json`\n- @strukt/layout — `packages/layout`\n- fflate\n- ignore\n- yjs\n\n### scripts\n\n`scripts`\n\nSem imports externos ao módulo reconhecidos.\n\n## Documentação encontrada\n\n- apps/vscode/README.md\n- apps/web/DESIGN.md\n- apps/web/PRODUCT.md\n- CONTRIBUTING.md\n- deploy/README.md\n- docs/agents.md\n- docs/idiomas.md\n- docs/landing-visual-stories.md\n- docs/open-source.md\n- docs/provedores-de-ia.md\n- docs/releases.md\n- docs/third-party/cloud-icons.md\n- docs/third-party/eraser-diagrams.md\n- docs/third-party/ignore.md\n- docs/workspace-settings.md\n- README.md\n- SECURITY.md\n- SOURCE.md\n- THIRD_PARTY_NOTICES.md\n- TRADEMARKS.md\n"
+    "text": "# Arquitetura — Joinlet\n\nGerado automaticamente pelo Joinlet a partir dos manifestos, imports e documentos encontrados no repositório. A cobertura semântica é parcial; revise comportamentos inferidos.\n\n## Contexto do projeto\n\nJoinlet is an open-source workspace for software architecture. Draw how your system fits together, write down the decisions behind it, and give your coding agents that same context through MCP and the CLI.\n\nStart in your browser without an account, or save a workspace to a local folder. Repository workspaces live in `.arch/` as JSON and Markdown, so architecture changes can be reviewed alongside code in Git.\n\nFonte: `README.md`\n\n## Módulos\n\n- strukt-vscode — `apps/vscode`\n- @strukt/web — `apps/web`\n- @strukt/layout — `packages/layout`\n- @strukt/server — `apps/server`\n- @strukt/mcp — `apps/mcp`\n- @strukt/dsl — `packages/dsl`\n- @strukt/git — `packages/git`\n- @strukt/remote — `apps/remote`\n- scripts — `scripts`\n- @strukt/cli — `apps/cli`\n- @strukt/workspace — `packages/workspace`\n- @strukt/ops — `packages/ops`\n- @strukt/core — `packages/core`\n- @strukt/json — `packages/json`\n\nA visão geral mostra os módulos do projeto; o detalhe das bibliotecas está listado abaixo.\n\n## Tecnologias identificadas\n\nIdentificadas por manifestos, imports e tipos de arquivo no próprio módulo. O ícone destaca a tecnologia principal; dependências de dados não comprovam a existência de serviços em execução.\n\n### @strukt/cli — `apps/cli`\n\n- **TypeScript** (ícone): `apps/cli/src/args.ts:1`, `apps/cli/src/cloudAllowlist.ts:1`, `apps/cli/src/cloudCollect.ts:1`, `apps/cli/src/cloudDrift.ts:1`, `apps/cli/src/cloudTesting.ts:1`\n- **Node.js**: `apps/cli/src/commands/context.ts:1`, `apps/cli/src/commands/diff.ts:1`, `apps/cli/src/commands/export.ts:1`, `apps/cli/src/commands/importCloud.ts:1`, `apps/cli/src/commands/importCloud.ts:2`\n\n### @strukt/mcp — `apps/mcp`\n\n- **MCP** (ícone): `apps/mcp/package.json:18`, `apps/mcp/src/main.ts:3`\n- **TypeScript**: `apps/mcp/src/args.ts:1`, `apps/mcp/src/comments.ts:1`, `apps/mcp/src/github.ts:1`, `apps/mcp/src/index.ts:1`, `apps/mcp/src/main.ts:1`\n- **Node.js**: `apps/mcp/src/repositoryKnowledge.ts:2`, `apps/mcp/src/sync.ts:4`, `apps/mcp/src/testing.ts:1`, `apps/mcp/src/testing.ts:2`, `apps/mcp/src/testing.ts:3`\n\n### @strukt/remote — `apps/remote`\n\n- **Express** (ícone): `apps/remote/package.json:16`, `apps/remote/src/app.ts:4`\n- **MCP**: `apps/remote/package.json:13`, `apps/remote/src/app.ts:7`\n- **TypeScript**: `apps/remote/src/accountDirectory.ts:1`, `apps/remote/src/accounts.ts:1`, `apps/remote/src/app.ts:1`, `apps/remote/src/auth.ts:1`, `apps/remote/src/backup.ts:1`\n- **Bun**: `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/collaboration.ts:6`, `apps/remote/src/deploymentSmoke.ts:6`, `apps/remote/src/hostedStore.ts:1`\n- **Node.js**: `apps/remote/src/accountDirectory.ts:2`, `apps/remote/src/accounts.ts:2`, `apps/remote/src/app.ts:5`, `apps/remote/src/app.ts:6`, `apps/remote/src/auth.ts:5`\n- **Docker**: `apps/remote/Dockerfile:1`\n- **SQLite**: `apps/remote/src/auth.ts:7`, `apps/remote/src/backup.ts:1`, `apps/remote/src/collaboration.ts:6`, `apps/remote/src/deploymentSmoke.ts:6`, `apps/remote/src/hostedStore.ts:1`\n\n### @strukt/server — `apps/server`\n\n- **Hono** (ícone): `apps/server/package.json:24`, `apps/server/src/app.ts:1`\n- **MCP**: `apps/server/package.json:14`, `apps/server/src/app.ts:26`\n- **TypeScript**: `apps/server/src/agentSetup.ts:1`, `apps/server/src/anthropic.ts:1`, `apps/server/src/app.ts:1`, `apps/server/src/audit.ts:1`, `apps/server/src/chat.ts:1`\n- **Bun**: `apps/server/src/collaborationHost.ts:7`, `apps/server/src/collaborationHost.ts:8`, `apps/server/src/connector.ts:1`, `apps/server/src/shareStack.ts:1`, `apps/server/src/shareStack.ts:11`\n- **Node.js**: `apps/server/src/agentSetup.ts:2`, `apps/server/src/agentSetup.ts:3`, `apps/server/src/agentSetup.ts:4`, `apps/server/src/app.ts:12`, `apps/server/src/app.ts:29`\n- **SQLite**: `apps/server/src/collaborationHost.ts:7`\n\n### strukt-vscode — `apps/vscode`\n\n- **TypeScript** (ícone): `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/appUrl.ts:1`, `apps/vscode/src/checkReport.ts:1`, `apps/vscode/src/cli.ts:1`, `apps/vscode/src/commands.ts:1`\n- **Node.js**: `apps/vscode/package.json:13`, `apps/vscode/scripts/write-schema.ts:1`, `apps/vscode/src/commands.ts:1`, `apps/vscode/src/nodeExec.ts:1`\n\n### @strukt/web — `apps/web`\n\n- **React** (ícone): `apps/web/package.json:43`, `apps/web/package.json:44`, `apps/web/src/analytics/AnalyticsConsent.tsx:1`, `apps/web/src/comments/CommentsHost.tsx:6`\n- **TypeScript**: `apps/web/scripts/build-icon-subset.ts:1`, `apps/web/scripts/build-logos-subset.ts:1`, `apps/web/scripts/build-lucide-categories.ts:1`, `apps/web/src/actions/canvasDiagrams.ts:1`, `apps/web/src/actions/clipboard.ts:1`\n- **JavaScript**: `apps/web/docs/client.js:1`, `apps/web/docs/site.mjs:1`\n- **Python**: `apps/web/scripts/build-cloud-icons.py:1`\n- **Node.js**: `apps/web/docs/site.mjs:1`, `apps/web/scripts/build-icon-subset.ts:15`, `apps/web/scripts/build-icon-subset.ts:16`, `apps/web/scripts/build-logos-subset.ts:8`, `apps/web/scripts/build-lucide-categories.ts:11`\n- **Tailwind CSS**: `apps/web/package.json:57`\n- **Vite**: `apps/web/package.json:6`\n\n### @strukt/core — `packages/core`\n\n- **TypeScript** (ícone): `packages/core/src/aiProviders.ts:1`, `packages/core/src/applyOps.ts:1`, `packages/core/src/canvasDiagrams.ts:1`, `packages/core/src/catalogSearch.ts:1`, `packages/core/src/chatEdit.ts:1`\n\n### @strukt/dsl — `packages/dsl`\n\n- **TypeScript** (ícone): `packages/dsl/src/detect.ts:1`, `packages/dsl/src/diagramTree.ts:1`, `packages/dsl/src/export.ts:1`, `packages/dsl/src/import.ts:1`, `packages/dsl/src/import/cloud/aws.ts:1`\n\n### @strukt/git — `packages/git`\n\n- **TypeScript** (ícone): `packages/git/src/diff.ts:1`, `packages/git/src/diffSvg.ts:1`, `packages/git/src/index.ts:1`, `packages/git/src/publish.ts:1`, `packages/git/src/run.ts:1`\n- **Node.js**: `packages/git/src/run.ts:1`\n\n### @strukt/json — `packages/json`\n\n- **TypeScript** (ícone): `packages/json/src/index.ts:1`, `packages/json/src/parse.ts:1`, `packages/json/src/parseJson.ts:1`, `packages/json/src/print.ts:1`, `packages/json/src/schema.ts:1`\n\n### @strukt/layout — `packages/layout`\n\n- **TypeScript** (ícone): `packages/layout/src/canvasFrames.ts:1`, `packages/layout/src/composition.ts:1`, `packages/layout/src/compositionRoutes.ts:1`, `packages/layout/src/elk.ts:1`, `packages/layout/src/eraserRouter.ts:1`\n\n### @strukt/ops — `packages/ops`\n\n- **TypeScript** (ícone): `packages/ops/src/check.ts:1`, `packages/ops/src/index.ts:1`, `packages/ops/src/plan.ts:1`, `packages/ops/src/schema.ts:1`, `packages/ops/tsconfig.json:1`\n\n### @strukt/workspace — `packages/workspace`\n\n- **TypeScript** (ícone): `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/agentHarness.ts:1`, `packages/workspace/src/assistants.ts:1`, `packages/workspace/src/assistantsBuiltin.ts:1`, `packages/workspace/src/assistantsParse.ts:1`\n- **Node.js**: `packages/workspace/src/accessContext.ts:1`, `packages/workspace/src/fs.ts:3`, `packages/workspace/src/fs.ts:4`, `packages/workspace/src/health.ts:1`, `packages/workspace/src/health.ts:2`\n\n### scripts — `scripts`\n\n- **Python** (ícone): `scripts/check-publication.py:1`, `scripts/check-secrets.py:1`, `scripts/test_publication.py:1`, `scripts/test_secret_scanner.py:1`, `scripts/update-repository-grammars.py:1`\n- **TypeScript**: `scripts/build-connector.ts:1`, `scripts/check-repository-parsers.ts:1`, `scripts/performance.ts:1`, `scripts/smoke-container.ts:1`\n- **Node.js**: `scripts/build-connector.ts:2`, `scripts/build-connector.ts:3`, `scripts/check-repository-parsers.ts:1`, `scripts/smoke-container.ts:1`, `scripts/smoke-container.ts:2`\n\n## Dependências por módulo\n\nRelações estáticas de imports do código. Bibliotecas não são, por si só, serviços da arquitetura. Tipos e imports exclusivos de testes, fixtures e configuração de build ficam fora do mapa principal; estão separados abaixo.\n\n### @strukt/cli\n\n`apps/cli`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `apps/cli/src/cloudDrift.ts:1`\n- @strukt/dsl — `packages/dsl` — `apps/cli/src/cloudCollect.ts:1`\n- @strukt/git — `packages/git` — `apps/cli/src/commands/check.ts:9`\n- @strukt/json — `packages/json` — `apps/cli/src/commands/check.ts:5`\n- @strukt/layout — `packages/layout` — `apps/cli/src/commands/importCloud.ts:8`\n- @strukt/ops — `packages/ops` — `apps/cli/src/commands/sync.ts:3`\n- @strukt/server — `apps/server` — `apps/cli/src/commands/repository.ts:14`\n- @strukt/workspace — `packages/workspace` — `apps/cli/src/args.ts:1`\n\n#### Tipos\n\n- @strukt/dsl — `packages/dsl` — `apps/cli/src/cloudCollect.ts:2`\n- @strukt/git — `packages/git` — `apps/cli/src/cloudAllowlist.ts:1`\n- @strukt/json — `packages/json` — `apps/cli/src/commands/check.ts:6`\n- @strukt/workspace — `packages/workspace` — `apps/cli/src/cloudDrift.ts:5`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `apps/cli/src/commands/diffStage.test.ts:1`\n- @strukt/dsl — `packages/dsl` — `apps/cli/src/cloudDrift.test.ts:3`\n- @strukt/git — `packages/git` — `apps/cli/src/cloudAllowlist.test.ts:3`\n- @strukt/git — `packages/git` — `apps/cli/src/slugParity.test.ts:2`\n- @strukt/json — `packages/json` — `apps/cli/src/commands/importCloud.test.ts:4`\n- @strukt/mcp — `apps/mcp` — `apps/cli/src/commands/verify.test.ts:8`\n- @strukt/workspace — `packages/workspace` — `apps/cli/src/commands/diffStage.test.ts:3`\n- @strukt/workspace — `packages/workspace` — `apps/cli/src/commands/check.test.ts:3`\n- vitest — `apps/cli/src/args.test.ts:1`\n- yaml — `apps/cli/src/workflowTemplate.test.ts:6`\n\n### @strukt/mcp\n\n`apps/mcp`\n\n#### Produção (imports estáticos)\n\n- @modelcontextprotocol/sdk — `apps/mcp/src/main.ts:3`\n- @strukt/core — `packages/core` — `apps/mcp/src/comments.ts:1`\n- @strukt/git — `packages/git` — `apps/mcp/src/github.ts:1`\n- @strukt/json — `packages/json` — `apps/mcp/src/resources.ts:2`\n- @strukt/layout — `packages/layout` — `apps/mcp/src/tools.ts:8`\n- @strukt/ops — `packages/ops` — `apps/mcp/src/tools.ts:9`\n- @strukt/server — `apps/server` — `apps/mcp/src/main.ts:20`\n- @strukt/workspace — `packages/workspace` — `apps/mcp/src/comments.ts:2`\n- zod — `apps/mcp/src/comments.ts:5`\n\n#### Tipos\n\n- @modelcontextprotocol/sdk — `apps/mcp/src/comments.ts:4`\n- @strukt/core — `packages/core` — `apps/mcp/src/tools.ts:6`\n- @strukt/git — `packages/git` — `apps/mcp/src/github.ts:2`\n- @strukt/workspace — `packages/workspace` — `apps/mcp/src/comments.ts:3`\n\n#### Desenvolvimento\n\n- @modelcontextprotocol/sdk — `apps/mcp/src/tools.test.ts:4`\n- @strukt/core — `packages/core` — `apps/mcp/src/tools.test.ts:7`\n- @strukt/core — `packages/core` — `apps/mcp/src/perspectives.test.ts:1`\n- @strukt/json — `packages/json` — `apps/mcp/src/perspectives.test.ts:2`\n- @strukt/layout — `packages/layout` — `apps/mcp/src/tools.test.ts:9`\n- @strukt/workspace — `packages/workspace` — `apps/mcp/src/comments.test.ts:2`\n- @strukt/workspace — `packages/workspace` — `apps/mcp/src/comments.test.ts:1`\n- vitest — `apps/mcp/src/comments.test.ts:3`\n\n### @strukt/remote\n\n`apps/remote`\n\n#### Produção (imports estáticos)\n\n- @anthropic-ai/sdk — `apps/remote/src/hostedAi.ts:1`\n- @modelcontextprotocol/sdk — `apps/remote/src/app.ts:7`\n- @strukt/core — `packages/core` — `apps/remote/src/hostedAi.ts:7`\n- @strukt/mcp — `apps/mcp` — `apps/remote/src/app.ts:10`\n- @strukt/server — `apps/server` — `apps/remote/src/hosted.ts:5`\n- @strukt/workspace — `packages/workspace` — `apps/remote/src/app.ts:2`\n- express — `apps/remote/src/app.ts:4`\n- ws — `apps/remote/src/collaboration.ts:9`\n- yjs — `apps/remote/src/hostedSmoke.ts:12`\n\n#### Tipos\n\n- @modelcontextprotocol/sdk — `apps/remote/src/auth.ts:9`\n- @strukt/mcp — `apps/mcp` — `apps/remote/src/app.ts:11`\n- @strukt/server — `apps/server` — `apps/remote/src/hostedAi.ts:27`\n- @strukt/workspace — `packages/workspace` — `apps/remote/src/betaAccounts.ts:2`\n- express — `apps/remote/src/accountDirectory.ts:1`\n- ws — `apps/remote/src/collaboration.ts:10`\n\n#### Desenvolvimento\n\n- @strukt/workspace — `packages/workspace` — `apps/remote/src/githubWorkspace.test.ts:1`\n- express — `apps/remote/src/webHosting.test.ts:3`\n- vitest — `apps/remote/src/betaAccounts.test.ts:5`\n\n### @strukt/server\n\n`apps/server`\n\n#### Produção (imports estáticos)\n\n- @anthropic-ai/sdk — `apps/server/src/app.ts:22`\n- @modelcontextprotocol/sdk — `apps/server/src/app.ts:26`\n- @strukt/core — `packages/core` — `apps/server/src/anthropic.ts:17`\n- @strukt/git — `packages/git` — `apps/server/src/app.ts:23`\n- @strukt/json — `packages/json` — `apps/server/src/chatEdit.ts:5`\n- @strukt/mcp — `apps/mcp` — `apps/server/src/app.ts:27`\n- @strukt/ops — `packages/ops` — `apps/server/src/chatEdit.ts:6`\n- @strukt/workspace — `packages/workspace` — `apps/server/src/agentSetup.ts:1`\n- hono — `apps/server/src/app.ts:1`\n\n#### Tipos\n\n- @anthropic-ai/sdk — `apps/server/src/anthropic.ts:1`\n- @strukt/core — `packages/core` — `apps/server/src/chatEdit.ts:4`\n- @strukt/git — `packages/git` — `apps/server/src/app.ts:24`\n- @strukt/ops — `packages/ops` — `apps/server/src/prompt.ts:5`\n- @strukt/workspace — `packages/workspace` — `apps/server/src/app.ts:9`\n- hono — `apps/server/src/app.ts:31`\n\n#### Desenvolvimento\n\n- @anthropic-ai/sdk — `apps/server/src/app.test.ts:1`\n- @modelcontextprotocol/sdk — `apps/server/src/app.test.ts:5`\n- @strukt/core — `packages/core` — `apps/server/src/chatEdit.test.ts:7`\n- @strukt/dsl — `packages/dsl` — `apps/server/src/diagram.test.ts:3`\n- @strukt/git — `packages/git` — `apps/server/src/git.test.ts:8`\n- @strukt/git — `packages/git` — `apps/server/src/app.test.ts:11`\n- @strukt/json — `packages/json` — `apps/server/src/chatRepair.test.ts:3`\n- @strukt/ops — `packages/ops` — `apps/server/src/diagram.test.ts:6`\n- @strukt/web — `apps/web` — `apps/server/src/collaborationHttp.test.ts:10`\n- @strukt/workspace — `packages/workspace` — `apps/server/src/collaborationHttp.test.ts:8`\n- @strukt/workspace — `packages/workspace` — `apps/server/src/app.test.ts:7`\n- vitest — `apps/server/src/agentSetup.test.ts:4`\n\n### strukt-vscode\n\n`apps/vscode`\n\n#### Produção (imports estáticos)\n\n- @strukt/json — `packages/json` — `apps/vscode/scripts/write-schema.ts:2`\n- vscode — `apps/vscode/src/extension.ts:1`\n\n#### Tipos\n\n- @strukt/json — `packages/json` — `apps/vscode/src/diagnostics.ts:2`\n\n#### Desenvolvimento\n\n- @strukt/json — `packages/json` — `apps/vscode/src/diagnostics.test.ts:3`\n- vitest — `apps/vscode/src/appUrl.test.ts:1`\n\n### @strukt/web\n\n`apps/web`\n\n#### Produção (imports estáticos)\n\n- @codemirror/autocomplete — `apps/web/src/docs/commands.ts:2`\n- @codemirror/commands — `apps/web/src/docs/commands.ts:4`\n- @codemirror/lang-json — `apps/web/src/panels/CodePanel.tsx:5`\n- @codemirror/lang-markdown — `apps/web/src/docs/DocView.tsx:11`\n- @codemirror/language — `apps/web/src/docs/commands.ts:5`\n- @codemirror/lint — `apps/web/src/panels/CodePanel.tsx:6`\n- @codemirror/search — `apps/web/src/panels/CodePanel.tsx:7`\n- @codemirror/state — `apps/web/src/docs/commentMarks.ts:1`\n- @codemirror/view — `apps/web/src/docs/commands.ts:7`\n- @excalidraw/excalidraw — `apps/web/src/sketch/applyEdit.ts:3`\n- @fontsource-variable/geist-mono — `apps/web/src/export/fonts.ts:2`\n- @fontsource-variable/shantell-sans — `apps/web/src/export/fonts.ts:3`\n- @fontsource-variable/sora — `apps/web/src/export/fonts.ts:1`\n- @iconify-json/logos — `apps/web/scripts/build-logos-subset.ts:9`\n- @lezer/highlight — `apps/web/src/docs/livePreview.ts:16`\n- @strukt/core — `packages/core` — `apps/web/src/actions/canvasDiagrams.ts:2`\n- @strukt/dsl — `packages/dsl` — `apps/web/src/actions/export.ts:40`\n- @strukt/json — `packages/json` — `apps/web/src/ai/aiStore.ts:2`\n- @strukt/layout — `packages/layout` — `apps/web/src/actions/canvasDiagrams.ts:4`\n- @strukt/workspace — `packages/workspace` — `apps/web/src/actions/library.ts:3`\n- @xyflow/react — `apps/web/src/app/AppShell.tsx:5`\n- dompurify — `apps/web/src/docs/markdown.ts:46`\n- lucide — `apps/web/scripts/build-lucide-categories.ts:12`\n- lucide-react — `apps/web/src/app/BootScreen.tsx:5`\n- marked — `apps/web/docs/site.mjs:2`\n- motion — `apps/web/src/App.tsx:1`\n- pdfmake — `apps/web/src/docs/pdf.ts:10`\n- radix-ui — `apps/web/src/App.tsx:2`\n- react — `apps/web/src/analytics/AnalyticsConsent.tsx:1`\n- react-dom — `apps/web/src/comments/CommentsHost.tsx:6`\n- simple-icons — `apps/web/docs/site.mjs:3`\n- vitest — `apps/web/src/testLocale.ts:1`\n- xml — `apps/web/scripts/build-cloud-icons.py:5`\n- yjs — `apps/web/src/app/CollaborationBridge.tsx:2`\n- zustand — `apps/web/src/actions/library.ts:5`\n\n#### Tipos\n\n- @codemirror/autocomplete — `apps/web/src/docs/commands.ts:3`\n- @codemirror/lint — `apps/web/src/code/diagnostics.ts:1`\n- @codemirror/state — `apps/web/src/docs/commands.ts:6`\n- @codemirror/view — `apps/web/src/docs/commentBridge.ts:1`\n- @excalidraw/excalidraw — `apps/web/src/sketch/applyEdit.ts:5`\n- @iconify-json/logos — `apps/web/scripts/build-logos-subset.ts:10`\n- @strukt/core — `packages/core` — `apps/web/src/actions/canvasDiagrams.ts:3`\n- @strukt/dsl — `packages/dsl` — `apps/web/src/code/importFormats.ts:2`\n- @strukt/json — `packages/json` — `apps/web/src/code/sync.ts:5`\n- @strukt/layout — `packages/layout` — `apps/web/src/ai/aiStore.ts:3`\n- @strukt/workspace — `packages/workspace` — `apps/web/src/actions/commands.ts:2`\n- @xyflow/react — `apps/web/src/board/boardFlow.ts:4`\n- dompurify — `apps/web/src/docs/markdown.ts:4`\n- lucide-react — `apps/web/src/landing/Diagram.tsx:4`\n- marked — `apps/web/src/docs/markdown.ts:5`\n- motion — `apps/web/src/ui/motion.ts:1`\n- pdfmake — `apps/web/src/docs/pdf.ts:6`\n- react — `apps/web/src/app/EmptyCanvas.tsx:5`\n- zustand — `apps/web/src/board/boardRoutes.ts:4`\n\n#### Desenvolvimento\n\n-  — `apps/web/e2e/admin.spec.ts:17`\n- @codemirror/autocomplete — `apps/web/src/docs/commands.test.ts:2`\n- @codemirror/lang-markdown — `apps/web/src/docs/commands.test.ts:3`\n- @codemirror/state — `apps/web/src/docs/commands.test.ts:4`\n- @playwright/test — `apps/web/e2e/a11y-axe.spec.ts:2`\n- @playwright/test — `apps/web/e2e/a11y-axe.spec.ts:1`\n- @strukt/core — `packages/core` — `apps/web/e2e/group-composition.spec.ts:4`\n- @strukt/core — `packages/core` — `apps/web/e2e/components.spec.ts:2`\n- @strukt/dsl — `packages/dsl` — `apps/web/src/code/importFormats.test.ts:2`\n- @strukt/json — `packages/json` — `apps/web/src/code/sync.test.ts:5`\n- @strukt/json — `packages/json` — `apps/web/e2e/group-composition.spec.ts:5`\n- @strukt/layout — `packages/layout` — `apps/web/src/board/boardRoutes.test.ts:2`\n- @strukt/layout — `packages/layout` — `apps/web/e2e/group-composition.spec.ts:1`\n- @strukt/mcp — `apps/mcp` — `apps/web/e2e/architecture-features.spec.ts:4`\n- @strukt/remote — `apps/remote` — `apps/web/e2e/fixtures/hosted.ts:6`\n- @strukt/server — `apps/server` — `apps/web/src/integrations/svgCompat.test.ts:7`\n- @strukt/workspace — `packages/workspace` — `apps/web/src/actions/templates.test.ts:3`\n- @strukt/workspace — `packages/workspace` — `apps/web/e2e/password.spec.ts:5`\n- @tailwindcss/vite — `apps/web/vite.config.ts:1`\n- @vitejs/plugin-react — `apps/web/vite.config.ts:2`\n- marked — `apps/web/src/context/contextMarkdown.test.ts:3`\n- radix-ui — `apps/web/src/app/TopBar.test.tsx:1`\n- react — `apps/web/src/share/components.test.tsx:3`\n- react-dom — `apps/web/src/app/SaveIndicator.test.tsx:1`\n- simple-icons — `apps/web/src/diagram/icons/simpleIndex.test.ts:1`\n- vite — `apps/web/vite.config.ts:3`\n- vitest — `apps/web/src/actions/clipboard.test.ts:2`\n- yjs — `apps/web/src/docs/remoteCursors.test.ts:2`\n- zustand — `apps/web/src/board/boardRoutes.test.ts:7`\n\n#### Referências não resolvidas\n\n- ../build/loadingBudget — `apps/web/e2e/production-loading.spec.ts:1`\n- ./analytics.css — `apps/web/src/analytics/ConsentView.tsx:5`\n- ./board.css — `apps/web/src/board/BoardView.tsx:26`\n- ../build/loadingBudget — `apps/web/src/bundle.test.ts:2`\n- ../build/sourceStamp.mjs — `apps/web/src/bundle.test.ts:3`\n- ./cloud/aws.json — `apps/web/src/diagram/icons/registry.ts:91`\n- ./cloud/azure.json — `apps/web/src/diagram/icons/registry.ts:92`\n- ./cloud/gcp.json — `apps/web/src/diagram/icons/registry.ts:93`\n- ./documents.css — `apps/web/src/docs/DocView.tsx:9`\n- ./language.css — `apps/web/src/i18n/LanguagePicker.tsx:4`\n- ./landing.css — `apps/web/src/landing/main.tsx:23`\n- ./styles/app.css — `apps/web/src/main.tsx:7`\n- ./styles/diagram.css — `apps/web/src/main.tsx:8`\n- ./inspector.css — `apps/web/src/panels/Inspector.tsx:5`\n- ./settings.css — `apps/web/src/settings/SettingsModal.tsx:19`\n- ../build/sourceStamp.mjs — `apps/web/src/sourceStamp.test.ts:5`\n- ./build/sourceStamp.mjs — `apps/web/vite.config.ts:4`\n\n#### Limitações sintáticas\n\n- apps/web/e2e/chat-experience.spec.ts: Dynamic or unresolved reference at line 65, column 33.\n- apps/web/src/ai/draft.test.ts: Invalid syntax at line 109.\n- apps/web/src/chat/store.test.ts: Invalid syntax at line 429.\n- apps/web/src/code/sync.test.ts: Invalid syntax at line 17.\n- apps/web/src/code/sync.test.ts: Invalid syntax at line 22.\n- apps/web/src/panels/ComponentLibrary.tsx: Invalid syntax at line 24.\n- apps/web/src/settings/PlanSection.tsx: Invalid syntax at line 34.\n- apps/web/src/state/routing.test.ts: Invalid syntax at line 14.\n- apps/web/src/workspace/workspace.ts: Invalid syntax at line 98.\n- apps/web/src/workspace/workspace.ts: Invalid syntax at line 186.\n\n### @strukt/core\n\n`packages/core`\n\n#### Produção (imports estáticos)\n\n- fast-check — `packages/core/src/testing.ts:1`\n\n#### Desenvolvimento\n\n- fast-check — `packages/core/src/diff.test.ts:1`\n- vitest — `packages/core/src/applyOps.test.ts:1`\n\n### @strukt/dsl\n\n`packages/dsl`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `packages/dsl/src/diagramTree.ts:1`\n- @strukt/json — `packages/json` — `packages/dsl/src/import/testkit.ts:2`\n- vitest — `packages/dsl/src/import/testkit.ts:1`\n- yaml — `packages/dsl/src/import/yaml.ts:1`\n\n#### Tipos\n\n- @strukt/core — `packages/core` — `packages/dsl/src/diagramTree.ts:2`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/dsl/src/diagramTree.test.ts:2`\n- @strukt/core — `packages/core` — `packages/dsl/src/diagramTree.test.ts:1`\n- @strukt/json — `packages/json` — `packages/dsl/src/import/cloud/graph.test.ts:2`\n- fast-check — `packages/dsl/src/parse.test.ts:2`\n- scripts — `scripts` — `packages/dsl/src/import/adversarial.test.ts:2`\n- vitest — `packages/dsl/src/diagramTree.test.ts:3`\n\n#### Limitações sintáticas\n\n- packages/dsl/src/import.ts: Invalid syntax at line 29.\n\n### @strukt/git\n\n`packages/git`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `packages/git/src/diff.ts:1`\n- @strukt/workspace — `packages/workspace` — `packages/git/src/diff.ts:3`\n\n#### Tipos\n\n- @strukt/core — `packages/core` — `packages/git/src/diff.ts:2`\n- @strukt/workspace — `packages/workspace` — `packages/git/src/diff.ts:4`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/git/src/diffSvg.test.ts:3`\n- @strukt/core — `packages/core` — `packages/git/src/diffSvg.test.ts:2`\n- @strukt/workspace — `packages/workspace` — `packages/git/src/diff.test.ts:2`\n- vitest — `packages/git/src/diff.test.ts:1`\n\n### @strukt/json\n\n`packages/json`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `packages/json/src/parse.ts:3`\n\n#### Tipos\n\n- @strukt/core — `packages/core` — `packages/json/src/parse.ts:4`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/json/src/parse.test.ts:2`\n- @strukt/core — `packages/core` — `packages/json/src/canvasFrame.test.ts:2`\n- fast-check — `packages/json/src/parse.test.ts:4`\n- vitest — `packages/json/src/canvasFrame.test.ts:1`\n\n### @strukt/layout\n\n`packages/layout`\n\n#### Produção (imports estáticos)\n\n- @eraserlabs/layout — `packages/layout/src/eraserRouter.ts:1`\n- @strukt/core — `packages/core` — `packages/layout/src/canvasFrames.ts:1`\n- elkjs — `packages/layout/src/elk.ts:26`\n\n#### Tipos\n\n- @eraserlabs/layout — `packages/layout/src/eraserRouter.ts:2`\n- @strukt/core — `packages/core` — `packages/layout/src/canvasFrames.ts:2`\n- elkjs — `packages/layout/src/elk.ts:3`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/layout/src/composition.test.ts:2`\n- @strukt/core — `packages/core` — `packages/layout/src/canvasFrames.test.ts:1`\n- vitest — `packages/layout/src/canvasFrames.test.ts:2`\n\n### @strukt/ops\n\n`packages/ops`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `packages/ops/src/check.ts:1`\n- @strukt/layout — `packages/layout` — `packages/ops/src/plan.ts:3`\n- ajv — `packages/ops/src/schema.ts:3`\n\n#### Tipos\n\n- @strukt/core — `packages/core` — `packages/ops/src/check.ts:2`\n- ajv — `packages/ops/src/schema.ts:4`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/ops/src/plan.test.ts:2`\n- @strukt/core — `packages/core` — `packages/ops/src/plan.test.ts:1`\n- ajv — `packages/ops/src/schema.test.ts:2`\n- vitest — `packages/ops/src/plan.test.ts:3`\n\n### @strukt/workspace\n\n`packages/workspace`\n\n#### Produção (imports estáticos)\n\n- @strukt/core — `packages/core` — `packages/workspace/src/board.ts:1`\n- @strukt/dsl — `packages/dsl` — `packages/workspace/src/diagram.ts:3`\n- @strukt/json — `packages/json` — `packages/workspace/src/collaborationFiles.ts:2`\n- @strukt/layout — `packages/layout` — `packages/workspace/src/repository/importers.ts:1`\n- fflate — `packages/workspace/src/zip.ts:2`\n- ignore — `packages/workspace/src/repository/reader.ts:1`\n- web-tree-sitter — `packages/workspace/src/repository/syntax.ts:1`\n- yjs — `packages/workspace/src/collaboration.ts:1`\n\n#### Tipos\n\n- @strukt/core — `packages/core` — `packages/workspace/src/collaborationSanitize.ts:2`\n- @strukt/dsl — `packages/dsl` — `packages/workspace/src/diagram.ts:4`\n- @strukt/json — `packages/json` — `packages/workspace/src/diagram.ts:6`\n- web-tree-sitter — `packages/workspace/src/repository/syntax.ts:1`\n\n#### Desenvolvimento\n\n- @strukt/core — `packages/core` — `packages/workspace/src/collaboration.test.ts:4`\n- @strukt/core — `packages/core` — `packages/workspace/src/collaboration.test.ts:3`\n- @strukt/dsl — `packages/dsl` — `packages/workspace/src/context.test.ts:1`\n- @strukt/json — `packages/json` — `packages/workspace/src/collaboration.test.ts:5`\n- fflate — `packages/workspace/src/zip.test.ts:1`\n- scripts — `scripts` — `packages/workspace/src/evidence.test.ts:2`\n- vitest — `packages/workspace/src/accessContext.test.ts:1`\n- yjs — `packages/workspace/src/collaboration.test.ts:2`\n\n### scripts\n\n`scripts`\n\n#### Produção (imports estáticos)\n\n- @strukt/workspace — `packages/workspace` — `scripts/check-repository-parsers.ts:2`\n- argparse — `scripts/check-secrets.py:3`\n- base64 — `scripts/update-repository-grammars.py:3`\n- hashlib — `scripts/update-repository-grammars.py:3`\n- importlib — `scripts/test_publication.py:1`\n- io — `scripts/update-repository-grammars.py:3`\n- secrets — `scripts/test_secret_scanner.py:5`\n- subprocess — `scripts/check-publication.py:5`\n- tarfile — `scripts/update-repository-grammars.py:3`\n- tempfile — `scripts/check-secrets.py:7`\n- urllib — `scripts/update-repository-grammars.py:3`\n\n#### Referências não resolvidas\n\n- ../apps/web/build/checkLinks — `scripts/links.test.ts:5`\n\n## Documentação encontrada\n\n- apps/vscode/README.md\n- apps/web/DESIGN.md\n- apps/web/PRODUCT.md\n- CONTRIBUTING.md\n- deploy/README.md\n- docs/agents.md\n- docs/idiomas.md\n- docs/landing-visual-stories.md\n- docs/open-source.md\n- docs/provedores-de-ia.md\n- docs/releases.md\n- docs/third-party/cloud-icons.md\n- docs/third-party/eraser-diagrams.md\n- docs/third-party/ignore.md\n- docs/workspace-settings.md\n- README.md\n- SECURITY.md\n- SOURCE.md\n- THIRD_PARTY_NOTICES.md\n- TRADEMARKS.md\n"
   },
   "evidence": {
     "repository": {
       "edge:repo_09e11a52066c67→repo_e86a0d465b5caa": [
         {
-          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+          "contains": "'@strukt/json'",
           "line": 2,
-          "path": "apps/vscode/scripts/write-schema.ts",
-          "snippet": "73af2f15"
+          "path": "apps/vscode/src/diagnostics.ts",
+          "snippet": "9955268a"
         }
       ],
       "edge:repo_3b4e3efd29cd13→repo_41ba823706ed42": [
         {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 4,
-          "path": "apps/web/src/actions/canvasDiagrams.ts",
-          "snippet": "38f9c857"
+          "contains": "'@strukt/layout'",
+          "line": 3,
+          "path": "apps/web/src/ai/aiStore.ts",
+          "snippet": "95695a33"
         }
       ],
       "edge:repo_3b4e3efd29cd13→repo_5c1ab4b7e80ad1": [
         {
-          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+          "contains": "'@strukt/dsl/lite'",
           "line": 2,
           "path": "apps/web/src/code/importFormats.ts",
           "snippet": "2336042f"
@@ -335,7 +351,7 @@
       ],
       "edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed": [
         {
-          "contains": "import type { ItemKind } from '@strukt/workspace';",
+          "contains": "'@strukt/workspace'",
           "line": 2,
           "path": "apps/web/src/actions/commands.ts",
           "snippet": "8319b8ce"
@@ -343,31 +359,31 @@
       ],
       "edge:repo_3b4e3efd29cd13→repo_e27f3faa9152db": [
         {
-          "contains": "import { addCanvasDiagram, canvasFrameModel, canvasFrames, computeRects, emptyLayout, emptyModel, unionRect } from '@strukt/core';",
-          "line": 2,
-          "path": "apps/web/src/actions/canvasDiagrams.ts",
-          "snippet": "978597c8"
+          "contains": "'@strukt/core'",
+          "line": 4,
+          "path": "apps/web/e2e/group-composition.spec.ts",
+          "snippet": "c72ad018"
         }
       ],
       "edge:repo_3b4e3efd29cd13→repo_e86a0d465b5caa": [
         {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/web/src/ai/aiStore.ts",
-          "snippet": "08bb11bf"
+          "contains": "'@strukt/json'",
+          "line": 5,
+          "path": "apps/web/src/code/sync.test.ts",
+          "snippet": "93161c20"
         }
       ],
       "edge:repo_41ba823706ed42→repo_e27f3faa9152db": [
         {
-          "contains": "import { canvasFrameModel, canvasFrames, computeRects, copyElements, unionRect, visualBox } from '@strukt/core';",
-          "line": 1,
+          "contains": "'@strukt/core'",
+          "line": 2,
           "path": "packages/layout/src/canvasFrames.ts",
-          "snippet": "d9233034"
+          "snippet": "a79b5e36"
         }
       ],
       "edge:repo_484fb1e9cea553→repo_4c5a34d0f0b789": [
         {
-          "contains": "import { createStruktServer, openMcpWorkspace, writeContext } from '@strukt/mcp';",
+          "contains": "'@strukt/mcp'",
           "line": 27,
           "path": "apps/server/src/app.ts",
           "snippet": "f813dc3e"
@@ -375,39 +391,39 @@
       ],
       "edge:repo_484fb1e9cea553→repo_71391bfad4e6b4": [
         {
-          "contains": "import { createProcessRunner } from '@strukt/git';",
-          "line": 23,
+          "contains": "'@strukt/git'",
+          "line": 24,
           "path": "apps/server/src/app.ts",
-          "snippet": "ed654773"
+          "snippet": "be5ba95b"
         }
       ],
       "edge:repo_484fb1e9cea553→repo_d4ff4b28356bed": [
         {
-          "contains": "import { withKnowledgeHarness } from '@strukt/workspace';",
-          "line": 1,
-          "path": "apps/server/src/agentSetup.ts",
-          "snippet": "e5684ff8"
+          "contains": "'@strukt/workspace'",
+          "line": 9,
+          "path": "apps/server/src/app.ts",
+          "snippet": "7aff43dc"
         }
       ],
       "edge:repo_484fb1e9cea553→repo_d5a16586640c40": [
         {
-          "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
-          "line": 6,
-          "path": "apps/server/src/chatEdit.ts",
-          "snippet": "4f6d00ed"
+          "contains": "'@strukt/ops'",
+          "line": 5,
+          "path": "apps/server/src/prompt.ts",
+          "snippet": "7f085284"
         }
       ],
       "edge:repo_484fb1e9cea553→repo_e27f3faa9152db": [
         {
-          "contains": "import { isAiProvider, isCompatibleProvider, readChatModel } from '@strukt/core';",
-          "line": 17,
-          "path": "apps/server/src/app.ts",
-          "snippet": "ca5bd477"
+          "contains": "'@strukt/core'",
+          "line": 4,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "a591533a"
         }
       ],
       "edge:repo_484fb1e9cea553→repo_e86a0d465b5caa": [
         {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
+          "contains": "'@strukt/json'",
           "line": 5,
           "path": "apps/server/src/chatEdit.ts",
           "snippet": "e9df8490"
@@ -415,31 +431,39 @@
       ],
       "edge:repo_4c5a34d0f0b789→repo_41ba823706ed42": [
         {
-          "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
-          "line": 8,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "93c130d6"
+          "contains": "'../../../packages/layout/src/groupComposition.fixture.json'",
+          "line": 9,
+          "path": "apps/mcp/src/tools.test.ts",
+          "snippet": "14b5bf0d"
+        }
+      ],
+      "edge:repo_4c5a34d0f0b789→repo_484fb1e9cea553": [
+        {
+          "contains": "import('../../server/src/localRepositoryAi')",
+          "line": 20,
+          "path": "apps/mcp/src/main.ts",
+          "snippet": "d55e1dec"
         }
       ],
       "edge:repo_4c5a34d0f0b789→repo_71391bfad4e6b4": [
         {
-          "contains": "import { publish, prStatus } from '@strukt/git';",
-          "line": 1,
+          "contains": "'@strukt/git'",
+          "line": 2,
           "path": "apps/mcp/src/github.ts",
-          "snippet": "c3616889"
+          "snippet": "3226053d"
         }
       ],
       "edge:repo_4c5a34d0f0b789→repo_d4ff4b28356bed": [
         {
-          "contains": "import { isMentioned, listCommentFiles, liveMessages, liveThreads, parseComments, resolveTextAnchor } from '@strukt/workspace';",
+          "contains": "'@strukt/workspace'",
           "line": 2,
-          "path": "apps/mcp/src/comments.ts",
-          "snippet": "27c52cee"
+          "path": "apps/mcp/src/comments.test.ts",
+          "snippet": "1fe032cd"
         }
       ],
       "edge:repo_4c5a34d0f0b789→repo_d5a16586640c40": [
         {
-          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+          "contains": "'@strukt/ops'",
           "line": 9,
           "path": "apps/mcp/src/tools.ts",
           "snippet": "f6df6743"
@@ -447,111 +471,135 @@
       ],
       "edge:repo_4c5a34d0f0b789→repo_e27f3faa9152db": [
         {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/mcp/src/comments.ts",
-          "snippet": "fd421b26"
+          "contains": "'@strukt/core'",
+          "line": 7,
+          "path": "apps/mcp/src/tools.test.ts",
+          "snippet": "d97a1604"
         }
       ],
       "edge:repo_4c5a34d0f0b789→repo_e86a0d465b5caa": [
         {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
+          "contains": "'@strukt/json'",
           "line": 2,
-          "path": "apps/mcp/src/resources.ts",
-          "snippet": "31f5cc5f"
+          "path": "apps/mcp/src/perspectives.test.ts",
+          "snippet": "c84af76d"
         }
       ],
       "edge:repo_5c1ab4b7e80ad1→repo_e27f3faa9152db": [
         {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "packages/dsl/src/diagramTree.ts",
-          "snippet": "58f1ea78"
+          "contains": "'@strukt/core'",
+          "line": 2,
+          "path": "packages/dsl/src/diagramTree.test.ts",
+          "snippet": "85074362"
         }
       ],
       "edge:repo_5c1ab4b7e80ad1→repo_e86a0d465b5caa": [
         {
-          "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
+          "contains": "'@strukt/json'",
           "line": 2,
-          "path": "packages/dsl/src/import/testkit.ts",
-          "snippet": "59af61c7"
+          "path": "packages/dsl/src/import/cloud/graph.test.ts",
+          "snippet": "5ea8b7a2"
         }
       ],
       "edge:repo_71391bfad4e6b4→repo_d4ff4b28356bed": [
         {
-          "contains": "import { createMemoryAdapter, loadWorkspace, openConcerns, stableStringify } from '@strukt/workspace';",
-          "line": 3,
+          "contains": "'@strukt/workspace'",
+          "line": 4,
           "path": "packages/git/src/diff.ts",
-          "snippet": "954d4337"
+          "snippet": "29a81ee7"
         }
       ],
       "edge:repo_71391bfad4e6b4→repo_e27f3faa9152db": [
         {
-          "contains": "import { compareModels, emptyModel, own } from '@strukt/core';",
-          "line": 1,
+          "contains": "'@strukt/core'",
+          "line": 2,
           "path": "packages/git/src/diff.ts",
-          "snippet": "c55217d1"
+          "snippet": "8ddb9d72"
         }
       ],
       "edge:repo_86104d06094ed0→repo_484fb1e9cea553": [
         {
-          "contains": "import { serializeWorkspaceWrite } from \"../../server/src/workspaceWrite\";",
-          "line": 5,
-          "path": "apps/remote/src/hosted.ts",
-          "snippet": "faeda951"
+          "contains": "\"../../server/src/anthropic\"",
+          "line": 27,
+          "path": "apps/remote/src/hostedAi.ts",
+          "snippet": "148c150a"
         }
       ],
       "edge:repo_86104d06094ed0→repo_4c5a34d0f0b789": [
         {
-          "contains": "import { createStruktServer } from '@strukt/mcp';",
-          "line": 10,
+          "contains": "'@strukt/mcp'",
+          "line": 11,
           "path": "apps/remote/src/app.ts",
-          "snippet": "afefa2d9"
+          "snippet": "773d4b5b"
         }
       ],
       "edge:repo_86104d06094ed0→repo_d4ff4b28356bed": [
         {
-          "contains": "import { withAccessPlan, setRequestPlans } from '@strukt/workspace/access-context';",
+          "contains": "'@strukt/workspace'",
           "line": 2,
-          "path": "apps/remote/src/app.ts",
-          "snippet": "64a8deb8"
+          "path": "apps/remote/src/betaAccounts.ts",
+          "snippet": "bbe47e7a"
+        }
+      ],
+      "edge:repo_86104d06094ed0→repo_e27f3faa9152db": [
+        {
+          "contains": "\"@strukt/core\"",
+          "line": 7,
+          "path": "apps/remote/src/hostedAi.ts",
+          "snippet": "cdb5e3f1"
+        }
+      ],
+      "edge:repo_8c5967fd8486f3→repo_d4ff4b28356bed": [
+        {
+          "contains": "'../packages/workspace/src/repository/syntax.ts'",
+          "line": 2,
+          "path": "scripts/check-repository-parsers.ts",
+          "snippet": "2681f9d4"
         }
       ],
       "edge:repo_bde7b76204809a→repo_41ba823706ed42": [
         {
-          "contains": "import { autoLayout } from '@strukt/layout';",
+          "contains": "'@strukt/layout'",
           "line": 8,
           "path": "apps/cli/src/commands/importCloud.ts",
           "snippet": "a27b8b02"
         }
       ],
+      "edge:repo_bde7b76204809a→repo_484fb1e9cea553": [
+        {
+          "contains": "import('../../../server/src/connector')",
+          "line": 14,
+          "path": "apps/cli/src/commands/repository.ts",
+          "snippet": "63e3c8a5"
+        }
+      ],
       "edge:repo_bde7b76204809a→repo_5c1ab4b7e80ad1": [
         {
-          "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
-          "line": 1,
+          "contains": "'@strukt/dsl/import'",
+          "line": 2,
           "path": "apps/cli/src/cloudCollect.ts",
-          "snippet": "6743fe48"
+          "snippet": "263e1c7b"
         }
       ],
       "edge:repo_bde7b76204809a→repo_71391bfad4e6b4": [
         {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 1,
-          "path": "apps/cli/src/cloudAllowlist.ts",
-          "snippet": "1ded471c"
+          "contains": "'@strukt/git'",
+          "line": 3,
+          "path": "apps/cli/src/cloudAllowlist.test.ts",
+          "snippet": "d4cea921"
         }
       ],
       "edge:repo_bde7b76204809a→repo_d4ff4b28356bed": [
         {
-          "contains": "import { parseStage } from '@strukt/workspace';",
-          "line": 1,
-          "path": "apps/cli/src/args.ts",
-          "snippet": "3509beb1"
+          "contains": "'@strukt/workspace/fs'",
+          "line": 5,
+          "path": "apps/cli/src/cloudDrift.ts",
+          "snippet": "1981f21e"
         }
       ],
       "edge:repo_bde7b76204809a→repo_d5a16586640c40": [
         {
-          "contains": "import { planSnapshot } from '@strukt/ops';",
+          "contains": "'@strukt/ops'",
           "line": 3,
           "path": "apps/cli/src/commands/sync.ts",
           "snippet": "16e5030b"
@@ -559,7 +607,7 @@
       ],
       "edge:repo_bde7b76204809a→repo_e27f3faa9152db": [
         {
-          "contains": "import { own } from '@strukt/core';",
+          "contains": "'@strukt/core'",
           "line": 1,
           "path": "apps/cli/src/cloudDrift.ts",
           "snippet": "eeb426e3"
@@ -567,15 +615,15 @@
       ],
       "edge:repo_bde7b76204809a→repo_e86a0d465b5caa": [
         {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 5,
+          "contains": "'@strukt/json'",
+          "line": 6,
           "path": "apps/cli/src/commands/check.ts",
-          "snippet": "f731a6a7"
+          "snippet": "77076d23"
         }
       ],
       "edge:repo_d4ff4b28356bed→repo_41ba823706ed42": [
         {
-          "contains": "import { autoLayout } from '@strukt/layout';",
+          "contains": "'@strukt/layout'",
           "line": 1,
           "path": "packages/workspace/src/repository/importers.ts",
           "snippet": "9d2b13a1"
@@ -583,31 +631,31 @@
       ],
       "edge:repo_d4ff4b28356bed→repo_5c1ab4b7e80ad1": [
         {
-          "contains": "import { parseDsl } from '@strukt/dsl/lite';",
-          "line": 3,
+          "contains": "'@strukt/dsl/lite'",
+          "line": 4,
           "path": "packages/workspace/src/diagram.ts",
-          "snippet": "cda7f69a"
+          "snippet": "cf8d047b"
         }
       ],
       "edge:repo_d4ff4b28356bed→repo_e27f3faa9152db": [
         {
-          "contains": "import { RESERVED_NAME, own } from '@strukt/core';",
-          "line": 1,
-          "path": "packages/workspace/src/board.ts",
-          "snippet": "d37368b1"
+          "contains": "'@strukt/core'",
+          "line": 4,
+          "path": "packages/workspace/src/collaboration.test.ts",
+          "snippet": "f6d47ed9"
         }
       ],
       "edge:repo_d4ff4b28356bed→repo_e86a0d465b5caa": [
         {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "packages/workspace/src/collaborationFiles.ts",
-          "snippet": "46fa7cac"
+          "contains": "'@strukt/json'",
+          "line": 6,
+          "path": "packages/workspace/src/diagram.ts",
+          "snippet": "49868367"
         }
       ],
       "edge:repo_d5a16586640c40→repo_41ba823706ed42": [
         {
-          "contains": "import { placeBatch } from '@strukt/layout';",
+          "contains": "'@strukt/layout'",
           "line": 3,
           "path": "packages/ops/src/plan.ts",
           "snippet": "6b2bc1e8"
@@ -615,18 +663,18 @@
       ],
       "edge:repo_d5a16586640c40→repo_e27f3faa9152db": [
         {
-          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
-          "line": 1,
+          "contains": "'@strukt/core'",
+          "line": 2,
           "path": "packages/ops/src/check.ts",
-          "snippet": "2f9f9eaf"
+          "snippet": "02ab75d2"
         }
       ],
       "edge:repo_e86a0d465b5caa→repo_e27f3faa9152db": [
         {
-          "contains": "import type { Connector, DiagramElement, DiagramModel, EdgeEl, ID, Shape, Span } from '@strukt/core';",
-          "line": 4,
-          "path": "packages/json/src/parse.ts",
-          "snippet": "76a7c95f"
+          "contains": "'@strukt/core'",
+          "line": 2,
+          "path": "packages/json/src/parse.test.ts",
+          "snippet": "4200e2a3"
         }
       ],
       "repo_09e11a52066c67": [
@@ -667,12 +715,6 @@
           "snippet": "58035c97"
         },
         {
-          "contains": "export interface CliSettings {",
-          "line": 2,
-          "path": "apps/vscode/src/cli.ts",
-          "snippet": "01711360"
-        },
-        {
           "contains": "import { join } from 'node:path';",
           "line": 1,
           "path": "apps/vscode/src/commands.ts",
@@ -685,10 +727,10 @@
           "snippet": "f88e2ddc"
         },
         {
-          "contains": "export function diffMarkdown(ref: string, stdout: string): string {",
-          "line": 2,
+          "contains": "/** Markdown shown in the preview: the CLI output, or an explicit \"nothing changed\" instead of an empty page. */",
+          "line": 1,
           "path": "apps/vscode/src/diffView.ts",
-          "snippet": "970c0849"
+          "snippet": "d53293d5"
         },
         {
           "contains": "import * as vscode from 'vscode';",
@@ -709,22 +751,22 @@
           "snippet": "ef1bd4a9"
         },
         {
-          "contains": "export const DIAGRAM_FILE_MATCH = ['*.strukt.json'];",
-          "line": 2,
+          "contains": "/** Diagram documents are `<slug>.strukt.json`; the manifest (`strukt.json`), layouts and the board use other shapes. */",
+          "line": 1,
           "path": "apps/vscode/src/schema.ts",
-          "snippet": "9aaf6a03"
+          "snippet": "b0222f03"
         },
         {
-          "contains": "declare module 'vscode' {",
-          "line": 5,
+          "contains": "/**",
+          "line": 1,
           "path": "apps/vscode/src/vscode.d.ts",
-          "snippet": "beda3385"
+          "snippet": "1a9e536d"
         },
         {
-          "contains": "export function rootOfManifest(manifestPath: string): string | null {",
-          "line": 2,
+          "contains": "/** `<root>/.arch/strukt.json` → `<root>`; anything else is not a Joinlet manifest. */",
+          "line": 1,
           "path": "apps/vscode/src/workspaceRoots.ts",
-          "snippet": "e88da156"
+          "snippet": "618ac841"
         }
       ],
       "repo_3b4e3efd29cd13": [
@@ -754,19 +796,19 @@
         },
         {
           "contains": "\"react\": \"^19.3.0\",",
-          "line": 42,
+          "line": 43,
           "path": "apps/web/package.json",
           "snippet": "09526953"
         },
         {
           "contains": "\"react-dom\": \"^19.3.0\",",
-          "line": 43,
+          "line": 44,
           "path": "apps/web/package.json",
           "snippet": "b6c5e60d"
         },
         {
           "contains": "\"tailwindcss\": \"^4.3.3\",",
-          "line": 56,
+          "line": 57,
           "path": "apps/web/package.json",
           "snippet": "6cd7782a"
         },
@@ -783,13 +825,13 @@
           "snippet": "7727f016"
         },
         {
-          "contains": "import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';",
+          "contains": "'node:fs'",
           "line": 15,
           "path": "apps/web/scripts/build-icon-subset.ts",
           "snippet": "2cbc1e50"
         },
         {
-          "contains": "import { join } from 'node:path';",
+          "contains": "'node:path'",
           "line": 16,
           "path": "apps/web/scripts/build-icon-subset.ts",
           "snippet": "8805b5d8"
@@ -801,7 +843,7 @@
           "snippet": "eaba0b5a"
         },
         {
-          "contains": "import { writeFileSync } from 'node:fs';",
+          "contains": "'node:fs'",
           "line": 8,
           "path": "apps/web/scripts/build-logos-subset.ts",
           "snippet": "31fddfe1"
@@ -813,7 +855,7 @@
           "snippet": "652cd845"
         },
         {
-          "contains": "import { readdirSync, writeFileSync } from 'node:fs';",
+          "contains": "'node:fs'",
           "line": 11,
           "path": "apps/web/scripts/build-lucide-categories.ts",
           "snippet": "4102b53f"
@@ -843,97 +885,13 @@
           "snippet": "e3c3f2b3"
         },
         {
-          "contains": "import { createPortal } from 'react-dom';",
+          "contains": "'react-dom'",
           "line": 6,
           "path": "apps/web/src/comments/CommentsHost.tsx",
           "snippet": "1f8b1495"
         }
       ],
       "repo_41ba823706ed42": [
-        {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 8,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "a27b8b02"
-        },
-        {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 2,
-          "path": "apps/cli/src/commands/sync.ts",
-          "snippet": "1b7752ab"
-        },
-        {
-          "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
-          "line": 8,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "93c130d6"
-        },
-        {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 4,
-          "path": "apps/web/src/actions/canvasDiagrams.ts",
-          "snippet": "38f9c857"
-        },
-        {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 4,
-          "path": "apps/web/src/actions/layout.ts",
-          "snippet": "acb5b01b"
-        },
-        {
-          "contains": "import { autoLayout } from '@strukt/layout';",
-          "line": 3,
-          "path": "apps/web/src/actions/templates.ts",
-          "snippet": "6b3a1474"
-        },
-        {
-          "contains": "import type { EdgeRouter } from '@strukt/layout';",
-          "line": 3,
-          "path": "apps/web/src/ai/aiStore.ts",
-          "snippet": "95695a33"
-        },
-        {
-          "contains": "import { autoLayout, placeBatch } from '@strukt/layout';",
-          "line": 4,
-          "path": "apps/web/src/ai/draft.ts",
-          "snippet": "d3a51715"
-        },
-        {
-          "contains": "import type { EdgeRouter } from '@strukt/layout';",
-          "line": 5,
-          "path": "apps/web/src/ai/draft.ts",
-          "snippet": "c260640e"
-        },
-        {
-          "contains": "import { cachedLabel, cachedRoute } from '@strukt/layout';",
-          "line": 3,
-          "path": "apps/web/src/ai/overlay.ts",
-          "snippet": "cb466cf7"
-        },
-        {
-          "contains": "import { nudgeParallels, placeLabels, pointAtHalf, routeCorridors, routeKey, textWidth } from '@strukt/layout';",
-          "line": 1,
-          "path": "apps/web/src/board/boardRoutes.ts",
-          "snippet": "861e5de3"
-        },
-        {
-          "contains": "import type { Point } from '@strukt/layout';",
-          "line": 2,
-          "path": "apps/web/src/board/boardRoutes.ts",
-          "snippet": "1d617307"
-        },
-        {
-          "contains": "import type { Point } from '@strukt/layout';",
-          "line": 1,
-          "path": "apps/web/src/board/connectionPath.ts",
-          "snippet": "5534686a"
-        },
-        {
-          "contains": "import { arrowHead, roundedPath, trimEnd } from '@strukt/layout';",
-          "line": 2,
-          "path": "apps/web/src/board/FloatingEdge.tsx",
-          "snippet": "7d62c403"
-        },
         {
           "contains": "\"name\": \"@strukt/layout\",",
           "line": 2,
@@ -969,6 +927,90 @@
           "line": 1,
           "path": "packages/layout/src/eraserRouter.ts",
           "snippet": "cad86e08"
+        },
+        {
+          "contains": "{",
+          "line": 1,
+          "path": "packages/layout/src/groupComposition.fixture.json",
+          "snippet": "d9ce64ae"
+        },
+        {
+          "contains": "import { cardSize, computeRects, defaultSize, GROUP_PADDING, nodeVariant, own, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/groupComposition.ts",
+          "snippet": "d5b95bd6"
+        },
+        {
+          "contains": "import { groupTitleBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/groupRoutes.ts",
+          "snippet": "1eaf6bbf"
+        },
+        {
+          "contains": "export * from './route';",
+          "line": 1,
+          "path": "packages/layout/src/index.ts",
+          "snippet": "e49e92b1"
+        },
+        {
+          "contains": "import type { ID, Rect } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/labels.ts",
+          "snippet": "ef751bdb"
+        },
+        {
+          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/nestedComposition.fixture.ts",
+          "snippet": "4a621c39"
+        },
+        {
+          "contains": "import { cardSize, computeRects, defaultSize, GROUP_PADDING, intersects, nodeVariant, own, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/nestedComposition.ts",
+          "snippet": "c9502bed"
+        },
+        {
+          "contains": "import type { ID, Rect } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/nudge.ts",
+          "snippet": "ef751bdb"
+        },
+        {
+          "contains": "import type { Point } from './route';",
+          "line": 1,
+          "path": "packages/layout/src/path.ts",
+          "snippet": "3c8dd795"
+        },
+        {
+          "contains": "import { EMPTY_GROUP_SIZE, GROUP_PADDING, contains, defaultSize, depthOf, findFreeSpot, isAncestor, nextPosition, own, unionRect, visualBox } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/place.ts",
+          "snippet": "e2abc6a6"
+        },
+        {
+          "contains": "import type { Rect } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/route.ts",
+          "snippet": "1e58bafa"
+        },
+        {
+          "contains": "import type { DiagramModel, EdgeEl, EdgeRoute, ID, Rect } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/router.ts",
+          "snippet": "e7366197"
+        },
+        {
+          "contains": "import { SEQUENCE_MESSAGE_GAP, participantSize } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/sequence.ts",
+          "snippet": "5e401be1"
+        },
+        {
+          "contains": "import type { SketchShape } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/layout/src/sketch.ts",
+          "snippet": "af41f095"
         }
       ],
       "repo_484fb1e9cea553": [
@@ -997,19 +1039,19 @@
           "snippet": "e5684ff8"
         },
         {
-          "contains": "import { mkdir, readFile, writeFile } from 'node:fs/promises';",
+          "contains": "'node:fs/promises'",
           "line": 2,
           "path": "apps/server/src/agentSetup.ts",
           "snippet": "ae73ddf3"
         },
         {
-          "contains": "import { randomUUID } from 'node:crypto';",
+          "contains": "'node:crypto'",
           "line": 3,
           "path": "apps/server/src/agentSetup.ts",
           "snippet": "797b047f"
         },
         {
-          "contains": "import { dirname, join } from 'node:path';",
+          "contains": "'node:path'",
           "line": 4,
           "path": "apps/server/src/agentSetup.ts",
           "snippet": "262bc43b"
@@ -1027,19 +1069,19 @@
           "snippet": "8bf9dfe7"
         },
         {
-          "contains": "import { homedir } from 'node:os';",
+          "contains": "'node:os'",
           "line": 12,
           "path": "apps/server/src/app.ts",
           "snippet": "93e8c3cd"
         },
         {
-          "contains": "import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';",
+          "contains": "'@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'",
           "line": 26,
           "path": "apps/server/src/app.ts",
           "snippet": "f6b21515"
         },
         {
-          "contains": "import { lstat, stat, mkdir, mkdtemp, rm, realpath } from 'node:fs/promises';",
+          "contains": "'node:fs/promises'",
           "line": 29,
           "path": "apps/server/src/app.ts",
           "snippet": "c1eebae6"
@@ -1057,13 +1099,19 @@
           "snippet": "5077b60c"
         },
         {
-          "contains": "import { Database } from 'bun:sqlite';",
+          "contains": "import { DIAGRAM_DESIGN_GUIDANCE } from './diagramDesign';",
+          "line": 1,
+          "path": "apps/server/src/chatEdit.ts",
+          "snippet": "b0db5e16"
+        },
+        {
+          "contains": "'bun:sqlite'",
           "line": 7,
           "path": "apps/server/src/collaborationHost.ts",
           "snippet": "c79e0e90"
         },
         {
-          "contains": "import { file as bunFile, serve } from 'bun';",
+          "contains": "'bun'",
           "line": 8,
           "path": "apps/server/src/collaborationHost.ts",
           "snippet": "a7b3bc3c"
@@ -1081,16 +1129,10 @@
           "snippet": "0c670cb6"
         },
         {
-          "contains": "import { serve } from 'bun';",
+          "contains": "'bun'",
           "line": 11,
           "path": "apps/server/src/shareStack.ts",
           "snippet": "ca98b18b"
-        },
-        {
-          "contains": "export { coordinateWrite as serializeWorkspaceWrite } from '@strukt/workspace/repository-transaction';",
-          "line": 1,
-          "path": "apps/server/src/workspaceWrite.ts",
-          "snippet": "b30ef814"
         }
       ],
       "repo_4c5a34d0f0b789": [
@@ -1119,12 +1161,6 @@
           "snippet": "fd421b26"
         },
         {
-          "contains": "import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';",
-          "line": 4,
-          "path": "apps/mcp/src/comments.ts",
-          "snippet": "84431ca6"
-        },
-        {
           "contains": "import { publish, prStatus } from '@strukt/git';",
           "line": 1,
           "path": "apps/mcp/src/github.ts",
@@ -1143,10 +1179,10 @@
           "snippet": "ce2091ae"
         },
         {
-          "contains": "import { ADMIN_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver } from '@strukt/workspace';",
-          "line": 2,
+          "contains": "'@modelcontextprotocol/sdk/server/stdio.js'",
+          "line": 3,
           "path": "apps/mcp/src/main.ts",
-          "snippet": "e96f3f03"
+          "snippet": "302e2c9d"
         },
         {
           "contains": "import { own } from '@strukt/core';",
@@ -1167,7 +1203,7 @@
           "snippet": "05848396"
         },
         {
-          "contains": "import {isAbsolute} from 'node:path';",
+          "contains": "'node:path'",
           "line": 2,
           "path": "apps/mcp/src/repositoryKnowledge.ts",
           "snippet": "9a5d3698"
@@ -1191,7 +1227,7 @@
           "snippet": "a6066a95"
         },
         {
-          "contains": "import { isAbsolute } from 'node:path';",
+          "contains": "'node:path'",
           "line": 4,
           "path": "apps/mcp/src/sync.ts",
           "snippet": "66c2bf88"
@@ -1203,85 +1239,25 @@
           "snippet": "0f53c358"
         },
         {
-          "contains": "import { tmpdir } from 'node:os';",
+          "contains": "'node:os'",
           "line": 2,
           "path": "apps/mcp/src/testing.ts",
           "snippet": "d7f12089"
         },
         {
-          "contains": "import { dirname, join } from 'node:path';",
+          "contains": "'node:path'",
           "line": 3,
           "path": "apps/mcp/src/testing.ts",
           "snippet": "eb1516cb"
+        },
+        {
+          "contains": "import { own } from '@strukt/core';",
+          "line": 1,
+          "path": "apps/mcp/src/timelineTool.ts",
+          "snippet": "7013aec4"
         }
       ],
       "repo_5c1ab4b7e80ad1": [
-        {
-          "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
-          "line": 1,
-          "path": "apps/cli/src/cloudCollect.ts",
-          "snippet": "6743fe48"
-        },
-        {
-          "contains": "import type { AwsInputs, CloudGraph, CloudProvider, CloudScope } from '@strukt/dsl/import';",
-          "line": 2,
-          "path": "apps/cli/src/cloudCollect.ts",
-          "snippet": "263e1c7b"
-        },
-        {
-          "contains": "import { CLOUD_STATE_PATH, compareCloud, parseCloudState } from '@strukt/dsl/import';",
-          "line": 2,
-          "path": "apps/cli/src/cloudDrift.ts",
-          "snippet": "df3e1fae"
-        },
-        {
-          "contains": "import type { CloudDriftFinding, CloudGraph, CloudProvider, CloudSource } from '@strukt/dsl/import';",
-          "line": 3,
-          "path": "apps/cli/src/cloudDrift.ts",
-          "snippet": "321723d6"
-        },
-        {
-          "contains": "import { awsOutputs, azureListingJson, gcpListingJson } from '@strukt/dsl/cloud-fixtures';",
-          "line": 1,
-          "path": "apps/cli/src/cloudTesting.ts",
-          "snippet": "2df4b0a8"
-        },
-        {
-          "contains": "import { printMermaid, printPlantUml } from '@strukt/dsl';",
-          "line": 3,
-          "path": "apps/cli/src/commands/export.ts",
-          "snippet": "6a7f501e"
-        },
-        {
-          "contains": "import { CLOUD_STATE_PATH, graphToModel, parseCloudState, parseTerraformShow, printCloudState, trackResources, withSource } from '@strukt/dsl/import';",
-          "line": 4,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "74138260"
-        },
-        {
-          "contains": "import type { CloudGraph, CloudOrigin, CloudProvider } from '@strukt/dsl/import';",
-          "line": 5,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "76ff0782"
-        },
-        {
-          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
-          "line": 2,
-          "path": "apps/web/src/code/importFormats.ts",
-          "snippet": "2336042f"
-        },
-        {
-          "contains": "import { detectImportFormat, parseDsl, printDsl } from '@strukt/dsl/lite';",
-          "line": 10,
-          "path": "apps/web/src/panels/CodePanel.tsx",
-          "snippet": "dc1badce"
-        },
-        {
-          "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
-          "line": 11,
-          "path": "apps/web/src/panels/CodePanel.tsx",
-          "snippet": "64c16b09"
-        },
         {
           "contains": "\"name\": \"@strukt/dsl\",",
           "line": 2,
@@ -1293,12 +1269,6 @@
           "line": 1,
           "path": "packages/dsl/src/detect.ts",
           "snippet": "ef289a14"
-        },
-        {
-          "contains": "export type ImportFormat = 'mermaid' | 'likec4' | 'structurizr' | 'd2' | 'terraform' | 'openapi' | 'kubernetes';",
-          "line": 2,
-          "path": "packages/dsl/src/detect.ts",
-          "snippet": "3ef6fc72"
         },
         {
           "contains": "import { own } from '@strukt/core';",
@@ -1335,93 +1305,81 @@
           "line": 1,
           "path": "packages/dsl/src/import/cloud/collector.ts",
           "snippet": "d1336f37"
+        },
+        {
+          "contains": "import { asArray, asString, pick } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/gcp.ts",
+          "snippet": "d9ac3107"
+        },
+        {
+          "contains": "import { applyOps } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/graph.ts",
+          "snippet": "b142033f"
+        },
+        {
+          "contains": "/** The ARN pieces the importers need; `undefined` for anything that is not a plain `arn:partition:service:region:account:resource`. */",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/ids.ts",
+          "snippet": "bc2a3646"
+        },
+        {
+          "contains": "export { normalizeAws } from './aws';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/index.ts",
+          "snippet": "a86f0247"
+        },
+        {
+          "contains": "import type { Shape } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/kinds.ts",
+          "snippet": "9f92de29"
+        },
+        {
+          "contains": "import { cleanText } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/safe.ts",
+          "snippet": "c24309ba"
+        },
+        {
+          "contains": "import { asArray, asString, cleanText, isRecord, pick } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/state.ts",
+          "snippet": "a7d773c2"
+        },
+        {
+          "contains": "import { MAX_IMPORT, asArray, asString, cleanText, failure, isRecord, pick } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/terraformShow.ts",
+          "snippet": "2442dbd9"
+        },
+        {
+          "contains": "import type { ImportDiagnostic } from '../common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/cloud/types.ts",
+          "snippet": "2fcc62ef"
+        },
+        {
+          "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/import/common.ts",
+          "snippet": "f3d6752e"
+        },
+        {
+          "contains": "import type { Connector, Direction, Shape } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/dsl/src/import/d2.ts",
+          "snippet": "0d0d7c08"
+        },
+        {
+          "contains": "import type { NodeProps } from './common';",
+          "line": 1,
+          "path": "packages/dsl/src/import/k8s.ts",
+          "snippet": "675f728a"
         }
       ],
       "repo_71391bfad4e6b4": [
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 1,
-          "path": "apps/cli/src/cloudAllowlist.ts",
-          "snippet": "1ded471c"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 3,
-          "path": "apps/cli/src/cloudCollect.ts",
-          "snippet": "0c47c30e"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 4,
-          "path": "apps/cli/src/cloudDrift.ts",
-          "snippet": "7a010636"
-        },
-        {
-          "contains": "import type { CommandResult, CommandRunner } from '@strukt/git';",
-          "line": 2,
-          "path": "apps/cli/src/cloudTesting.ts",
-          "snippet": "ccb31bfe"
-        },
-        {
-          "contains": "import { createProcessRunner } from '@strukt/git';",
-          "line": 9,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "fe155c1e"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 10,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "ac0a3da4"
-        },
-        {
-          "contains": "import { assignDiffSvgNames, diffSides, diffWorkspaces, renderDiffMarkdown, renderDiffSvgs, renderDiffText } from '@strukt/git';",
-          "line": 3,
-          "path": "apps/cli/src/commands/diff.ts",
-          "snippet": "d73ff074"
-        },
-        {
-          "contains": "import type { CommandRunner, DiagramSvg } from '@strukt/git';",
-          "line": 4,
-          "path": "apps/cli/src/commands/diff.ts",
-          "snippet": "7c4f2ead"
-        },
-        {
-          "contains": "import { createProcessRunner } from '@strukt/git';",
-          "line": 6,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "59c98df8"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 7,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "ef7cd70c"
-        },
-        {
-          "contains": "import { prComment } from '@strukt/git';",
-          "line": 1,
-          "path": "apps/cli/src/commands/pr-comment.ts",
-          "snippet": "1b33a1c1"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 2,
-          "path": "apps/cli/src/commands/pr-comment.ts",
-          "snippet": "d04c9a9c"
-        },
-        {
-          "contains": "import { publish } from '@strukt/git';",
-          "line": 2,
-          "path": "apps/cli/src/commands/publish.ts",
-          "snippet": "e8d3a519"
-        },
-        {
-          "contains": "import type { CommandRunner } from '@strukt/git';",
-          "line": 3,
-          "path": "apps/cli/src/commands/publish.ts",
-          "snippet": "dab6b91c"
-        },
         {
           "contains": "\"name\": \"@strukt/git\",",
           "line": 2,
@@ -1457,6 +1415,12 @@
           "line": 1,
           "path": "packages/git/src/run.ts",
           "snippet": "21428736"
+        },
+        {
+          "contains": "import type { CommandResult, CommandRunner } from './run';",
+          "line": 1,
+          "path": "packages/git/src/testing.ts",
+          "snippet": "8dfcb120"
         }
       ],
       "repo_86104d06094ed0": [
@@ -1491,7 +1455,7 @@
           "snippet": "55cf799c"
         },
         {
-          "contains": "import { timingSafeEqual } from 'node:crypto';",
+          "contains": "'node:crypto'",
           "line": 2,
           "path": "apps/remote/src/accountDirectory.ts",
           "snippet": "da51c840"
@@ -1503,7 +1467,7 @@
           "snippet": "e9ed8c7a"
         },
         {
-          "contains": "import { createHash, randomBytes } from 'node:crypto';",
+          "contains": "'node:crypto'",
           "line": 2,
           "path": "apps/remote/src/accounts.ts",
           "snippet": "8c140a18"
@@ -1515,19 +1479,25 @@
           "snippet": "53091f46"
         },
         {
-          "contains": "import { access } from 'node:fs/promises';",
+          "contains": "'express'",
+          "line": 4,
+          "path": "apps/remote/src/app.ts",
+          "snippet": "7091759f"
+        },
+        {
+          "contains": "'node:fs/promises'",
           "line": 5,
           "path": "apps/remote/src/app.ts",
           "snippet": "e037f9a1"
         },
         {
-          "contains": "import { fileURLToPath } from 'node:url';",
+          "contains": "'node:url'",
           "line": 6,
           "path": "apps/remote/src/app.ts",
           "snippet": "422dcf9a"
         },
         {
-          "contains": "import { getOAuthProtectedResourceMetadataUrl, mcpAuthRouter } from '@modelcontextprotocol/sdk/server/auth/router.js';",
+          "contains": "'@modelcontextprotocol/sdk/server/auth/router.js'",
           "line": 7,
           "path": "apps/remote/src/app.ts",
           "snippet": "582863ca"
@@ -1539,13 +1509,13 @@
           "snippet": "14e8030d"
         },
         {
-          "contains": "import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';",
+          "contains": "'node:crypto'",
           "line": 5,
           "path": "apps/remote/src/auth.ts",
           "snippet": "2f1e7663"
         },
         {
-          "contains": "import { Database } from 'bun:sqlite';",
+          "contains": "'bun:sqlite'",
           "line": 7,
           "path": "apps/remote/src/auth.ts",
           "snippet": "c3a0e62f"
@@ -1557,28 +1527,22 @@
           "snippet": "87215990"
         },
         {
-          "contains": "import type { Database } from 'bun:sqlite';",
-          "line": 1,
-          "path": "apps/remote/src/betaAccounts.ts",
-          "snippet": "b0df6a8c"
-        },
-        {
-          "contains": "import { configureRuntimeDatabase } from './database';",
-          "line": 1,
-          "path": "apps/remote/src/collaboration.ts",
-          "snippet": "e3d06c04"
-        },
-        {
-          "contains": "import { Database } from 'bun:sqlite';",
+          "contains": "'bun:sqlite'",
           "line": 6,
           "path": "apps/remote/src/collaboration.ts",
           "snippet": "881940b6"
         },
         {
-          "contains": "import { parseAdminGithubIds } from '@strukt/workspace/access-context';",
+          "contains": "'bun:sqlite'",
+          "line": 6,
+          "path": "apps/remote/src/deploymentSmoke.ts",
+          "snippet": "576756fd"
+        },
+        {
+          "contains": "import { Database } from \"bun:sqlite\";",
           "line": 1,
-          "path": "apps/remote/src/config.ts",
-          "snippet": "69ee6f37"
+          "path": "apps/remote/src/hostedStore.ts",
+          "snippet": "25915cec"
         }
       ],
       "repo_8c5967fd8486f3": [
@@ -1589,13 +1553,13 @@
           "snippet": "c21cb2cb"
         },
         {
-          "contains": "import { mkdir, cp, writeFile, readFile, rm } from 'node:fs/promises';",
+          "contains": "'node:fs/promises'",
           "line": 2,
           "path": "scripts/build-connector.ts",
           "snippet": "a304ace4"
         },
         {
-          "contains": "import { resolve, join, dirname, basename } from 'node:path';",
+          "contains": "'node:path'",
           "line": 3,
           "path": "scripts/build-connector.ts",
           "snippet": "b76f8a88"
@@ -1607,10 +1571,10 @@
           "snippet": "2ca3ea61"
         },
         {
-          "contains": "\"\"\"Reject runtime/private files from the public Git index. Does not inspect secret contents.\"\"\"",
-          "line": 2,
-          "path": "scripts/check-publication.py",
-          "snippet": "0ce3f8d2"
+          "contains": "import assert from 'node:assert/strict';",
+          "line": 1,
+          "path": "scripts/check-repository-parsers.ts",
+          "snippet": "561766da"
         },
         {
           "contains": "#!/usr/bin/env python3",
@@ -1619,10 +1583,10 @@
           "snippet": "15ce1090"
         },
         {
-          "contains": "\"\"\"Run the verified Gitleaks binary without trusting repository-provided suppressions.\"\"\"",
-          "line": 2,
-          "path": "scripts/check-secrets.py",
-          "snippet": "1f6fe826"
+          "contains": "/** Functional checks always run; timing gates run separately on an otherwise idle CI runner. */",
+          "line": 1,
+          "path": "scripts/performance.ts",
+          "snippet": "85813cbb"
         },
         {
           "contains": "import assert from 'node:assert/strict';",
@@ -1631,16 +1595,10 @@
           "snippet": "32bfdd15"
         },
         {
-          "contains": "import { execFileSync } from 'node:child_process';",
+          "contains": "'node:child_process'",
           "line": 2,
           "path": "scripts/smoke-container.ts",
           "snippet": "99d9c44e"
-        },
-        {
-          "contains": "import { randomUUID } from 'node:crypto';",
-          "line": 3,
-          "path": "scripts/smoke-container.ts",
-          "snippet": "73bd35e4"
         },
         {
           "contains": "import importlib.util",
@@ -1653,6 +1611,12 @@
           "line": 1,
           "path": "scripts/test_secret_scanner.py",
           "snippet": "a959e518"
+        },
+        {
+          "contains": "#!/usr/bin/env python3",
+          "line": 1,
+          "path": "scripts/update-repository-grammars.py",
+          "snippet": "20c43395"
         }
       ],
       "repo_bde7b76204809a": [
@@ -1729,7 +1693,7 @@
           "snippet": "ff1dbf58"
         },
         {
-          "contains": "import { resolve } from 'node:path';",
+          "contains": "'node:path'",
           "line": 2,
           "path": "apps/cli/src/commands/importCloud.ts",
           "snippet": "d2d3ecbf"
@@ -1779,60 +1743,6 @@
       ],
       "repo_d4ff4b28356bed": [
         {
-          "contains": "import { parseStage } from '@strukt/workspace';",
-          "line": 1,
-          "path": "apps/cli/src/args.ts",
-          "snippet": "3509beb1"
-        },
-        {
-          "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
-          "line": 5,
-          "path": "apps/cli/src/cloudDrift.ts",
-          "snippet": "1981f21e"
-        },
-        {
-          "contains": "import { SOURCES_PATH, diagramPath, openConcerns, parseSources, validateSourceTargets } from '@strukt/workspace';",
-          "line": 1,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "d233100c"
-        },
-        {
-          "contains": "import { checkEvidence, checkWorkspaceDrift } from '@strukt/workspace/health';",
-          "line": 2,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "22f467a0"
-        },
-        {
-          "contains": "import type { EvidenceIssue } from '@strukt/workspace/health';",
-          "line": 3,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "a2042fdf"
-        },
-        {
-          "contains": "import type { DriftFinding, SourceDiagnostic } from '@strukt/workspace';",
-          "line": 4,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "9ef917b8"
-        },
-        {
-          "contains": "import { openWorkspaceAt } from '@strukt/workspace/fs';",
-          "line": 7,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "611a71ce"
-        },
-        {
-          "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
-          "line": 8,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "84f79a6a"
-        },
-        {
-          "contains": "import { inspectContext, writeGeneratedContext } from '@strukt/workspace/context-storage';",
-          "line": 2,
-          "path": "apps/cli/src/commands/context.ts",
-          "snippet": "d80e1a5e"
-        },
-        {
           "contains": "\"name\": \"@strukt/workspace\",",
           "line": 2,
           "path": "packages/workspace/package.json",
@@ -1869,19 +1779,73 @@
           "snippet": "4952f8df"
         },
         {
+          "contains": "import { parseManifest } from './manifest';",
+          "line": 1,
+          "path": "packages/workspace/src/beta.ts",
+          "snippet": "5053aeb9"
+        },
+        {
+          "contains": "import { RESERVED_NAME, own } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/workspace/src/board.ts",
+          "snippet": "d37368b1"
+        },
+        {
+          "contains": "import * as Y from 'yjs';",
+          "line": 1,
+          "path": "packages/workspace/src/collaboration.ts",
+          "snippet": "00d1c5b0"
+        },
+        {
+          "contains": "export * from './collaboration';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationEntry.ts",
+          "snippet": "e689c402"
+        },
+        {
+          "contains": "import * as Y from 'yjs';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationFiles.ts",
+          "snippet": "cfad178e"
+        },
+        {
+          "contains": "/**",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationPresence.ts",
+          "snippet": "7ea61292"
+        },
+        {
+          "contains": "import * as Y from 'yjs';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationRoom.ts",
+          "snippet": "a7738644"
+        },
+        {
+          "contains": "import { CARDINALITIES, validTableFields, LAYOUT_ROLES, PRESENTATIONS, PORTS, COLOR_MODES, CONNECTORS, DEFAULT_STYLE, DIRECTIONS, RESERVED_NAME, SHAPES, STYLE_MODES, TYPEFACES, own, validParents } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationSanitize.ts",
+          "snippet": "ec7a4d0f"
+        },
+        {
           "contains": "import type { Database } from 'bun:sqlite';",
           "line": 1,
           "path": "packages/workspace/src/collaborationSqlite.ts",
           "snippet": "1b6d2440"
         },
         {
-          "contains": "import { mkdir, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';",
+          "contains": "import { writeBatch } from './repository/transaction';",
+          "line": 1,
+          "path": "packages/workspace/src/collaborationStore.ts",
+          "snippet": "2942bd32"
+        },
+        {
+          "contains": "'node:fs/promises'",
           "line": 3,
           "path": "packages/workspace/src/fs.ts",
           "snippet": "ee45d521"
         },
         {
-          "contains": "import { basename, dirname, join, relative, resolve, sep } from 'node:path';",
+          "contains": "'node:path'",
           "line": 4,
           "path": "packages/workspace/src/fs.ts",
           "snippet": "92934ec9"
@@ -1893,55 +1857,13 @@
           "snippet": "59f35e8f"
         },
         {
-          "contains": "import { join, sep } from 'node:path';",
+          "contains": "'node:path'",
           "line": 2,
           "path": "packages/workspace/src/health.ts",
           "snippet": "4030ff0e"
         }
       ],
       "repo_d5a16586640c40": [
-        {
-          "contains": "import { planSnapshot } from '@strukt/ops';",
-          "line": 3,
-          "path": "apps/cli/src/commands/sync.ts",
-          "snippet": "16e5030b"
-        },
-        {
-          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
-          "line": 9,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "f6df6743"
-        },
-        {
-          "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
-          "line": 6,
-          "path": "apps/server/src/chatEdit.ts",
-          "snippet": "4f6d00ed"
-        },
-        {
-          "contains": "import { TOOL_INPUT_SCHEMA, TOOL_NAME, checkProposal } from '@strukt/ops';",
-          "line": 3,
-          "path": "apps/server/src/diagram.ts",
-          "snippet": "46bcc5ad"
-        },
-        {
-          "contains": "import { TOOL_NAME } from '@strukt/ops';",
-          "line": 4,
-          "path": "apps/server/src/prompt.ts",
-          "snippet": "4d45fb7b"
-        },
-        {
-          "contains": "import type { AiOp } from '@strukt/ops';",
-          "line": 5,
-          "path": "apps/server/src/prompt.ts",
-          "snippet": "7f085284"
-        },
-        {
-          "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
-          "line": 2,
-          "path": "apps/server/src/repositoryReview.ts",
-          "snippet": "5b067fde"
-        },
         {
           "contains": "\"name\": \"@strukt/ops\",",
           "line": 2,
@@ -1981,90 +1903,6 @@
       ],
       "repo_e27f3faa9152db": [
         {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/cli/src/cloudDrift.ts",
-          "snippet": "eeb426e3"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 2,
-          "path": "apps/cli/src/commands/export.ts",
-          "snippet": "c15101ac"
-        },
-        {
-          "contains": "import { CLOUD_ICONS } from '@strukt/core/cloud';",
-          "line": 3,
-          "path": "apps/cli/src/commands/importCloud.ts",
-          "snippet": "eb8ec3d6"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/cli/src/commands/list.ts",
-          "snippet": "c2a0c1ba"
-        },
-        {
-          "contains": "import { own, syncLayout } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/cli/src/commands/sync.ts",
-          "snippet": "179271c6"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/mcp/src/comments.ts",
-          "snippet": "fd421b26"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/mcp/src/perspectives.ts",
-          "snippet": "746eed27"
-        },
-        {
-          "contains": "import {readWorkspaceOps} from '@strukt/core';",
-          "line": 3,
-          "path": "apps/mcp/src/repositoryKnowledge.ts",
-          "snippet": "5d8ad01f"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/mcp/src/resources.ts",
-          "snippet": "c299497a"
-        },
-        {
-          "contains": "import { own } from '@strukt/core';",
-          "line": 1,
-          "path": "apps/mcp/src/timelineTool.ts",
-          "snippet": "7013aec4"
-        },
-        {
-          "contains": "import { COMPONENT_LIBRARIES, COMPONENT_PRESETS } from '@strukt/core/catalog';",
-          "line": 1,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "b79be95a"
-        },
-        {
-          "contains": "import { catalogMatches } from '@strukt/core';",
-          "line": 2,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "0ac2c4e9"
-        },
-        {
-          "contains": "import { BASIC_SHAPES, applyOps, computeRects, defaultSize, emptyModel, labelBox, labelLines, nodeVariant, own, shapeGeometry, syncLayout, visualBox, tableSize, participantSize } from '@strukt/core';",
-          "line": 4,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "6616bea8"
-        },
-        {
-          "contains": "import { CLOUD_COMPONENT_PRESETS } from '@strukt/core/cloud';",
-          "line": 5,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "d334fe20"
-        },
-        {
           "contains": "\"name\": \"@strukt/core\",",
           "line": 2,
           "path": "packages/core/package.json",
@@ -2099,93 +1937,93 @@
           "line": 1,
           "path": "packages/core/src/chatEdit.ts",
           "snippet": "8d7366e6"
+        },
+        {
+          "contains": "import { isAiProvider } from './aiProviders';",
+          "line": 1,
+          "path": "packages/core/src/chatModel.ts",
+          "snippet": "ccfd5cb0"
+        },
+        {
+          "contains": "import { own, uniqueName } from './ids';",
+          "line": 1,
+          "path": "packages/core/src/clipboard.ts",
+          "snippet": "dbb5b78b"
+        },
+        {
+          "contains": "import metadata from './cloudIcons.json' with { type: 'json' };",
+          "line": 1,
+          "path": "packages/core/src/cloudComponents.ts",
+          "snippet": "ee15bd3d"
+        },
+        {
+          "contains": "import { own } from './ids';",
+          "line": 1,
+          "path": "packages/core/src/compare.ts",
+          "snippet": "3d7a9954"
+        },
+        {
+          "contains": "import { BASIC_COMPONENT_PRESETS } from './components';",
+          "line": 1,
+          "path": "packages/core/src/componentCatalog.ts",
+          "snippet": "d681e5ab"
+        },
+        {
+          "contains": "import type { LayoutRole, Presentation, Shape, TableField } from './model';",
+          "line": 1,
+          "path": "packages/core/src/components.ts",
+          "snippet": "320c5472"
+        },
+        {
+          "contains": "import type { Cardinality, Connector } from './model';",
+          "line": 1,
+          "path": "packages/core/src/connector.ts",
+          "snippet": "993a7a64"
+        },
+        {
+          "contains": "import { applyOps } from './applyOps';",
+          "line": 1,
+          "path": "packages/core/src/diff.ts",
+          "snippet": "8571922f"
+        },
+        {
+          "contains": "import { own } from './ids';",
+          "line": 1,
+          "path": "packages/core/src/geometry.ts",
+          "snippet": "bc8ed598"
+        },
+        {
+          "contains": "import type { ID } from './model';",
+          "line": 1,
+          "path": "packages/core/src/ids.ts",
+          "snippet": "6350e6da"
+        },
+        {
+          "contains": "export const STRUKT_FORMAT_VERSION = 1;",
+          "line": 1,
+          "path": "packages/core/src/index.ts",
+          "snippet": "d795539b"
+        },
+        {
+          "contains": "export type ID = string;",
+          "line": 1,
+          "path": "packages/core/src/model.ts",
+          "snippet": "6f3c2423"
+        },
+        {
+          "contains": "import type { Rect, Size } from './geometry';",
+          "line": 1,
+          "path": "packages/core/src/placement.ts",
+          "snippet": "4429e336"
+        },
+        {
+          "contains": "import { drawingShape } from './model';",
+          "line": 1,
+          "path": "packages/core/src/shapes.ts",
+          "snippet": "fc308cc5"
         }
       ],
       "repo_e86a0d465b5caa": [
-        {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 5,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "f731a6a7"
-        },
-        {
-          "contains": "import type { JsonDiagnostic } from '@strukt/json';",
-          "line": 6,
-          "path": "apps/cli/src/commands/check.ts",
-          "snippet": "77076d23"
-        },
-        {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/mcp/src/resources.ts",
-          "snippet": "31f5cc5f"
-        },
-        {
-          "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
-          "line": 7,
-          "path": "apps/mcp/src/tools.ts",
-          "snippet": "ebdf4da0"
-        },
-        {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 5,
-          "path": "apps/server/src/chatEdit.ts",
-          "snippet": "e9df8490"
-        },
-        {
-          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
-          "line": 7,
-          "path": "apps/server/src/collaborationHttp.ts",
-          "snippet": "3d348b5d"
-        },
-        {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/server/src/diagram.ts",
-          "snippet": "4af0ce29"
-        },
-        {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 1,
-          "path": "apps/server/src/doc.ts",
-          "snippet": "ea01783e"
-        },
-        {
-          "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/vscode/scripts/write-schema.ts",
-          "snippet": "73af2f15"
-        },
-        {
-          "contains": "import { parseDiagramJson } from '@strukt/json';",
-          "line": 1,
-          "path": "apps/vscode/src/diagnostics.ts",
-          "snippet": "f88e2ddc"
-        },
-        {
-          "contains": "import type { JsonDiagnostic } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/vscode/src/diagnostics.ts",
-          "snippet": "9955268a"
-        },
-        {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/web/src/ai/aiStore.ts",
-          "snippet": "08bb11bf"
-        },
-        {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 2,
-          "path": "apps/web/src/ai/doc.ts",
-          "snippet": "9d0a9bc9"
-        },
-        {
-          "contains": "import { printDiagramJson } from '@strukt/json';",
-          "line": 5,
-          "path": "apps/web/src/chat/edit.ts",
-          "snippet": "2c288d6c"
-        },
         {
           "contains": "\"name\": \"@strukt/json\",",
           "line": 2,
@@ -2221,10 +2059,17 @@
           "line": 1,
           "path": "packages/json/src/schema.ts",
           "snippet": "e1e73765"
+        },
+        {
+          "contains": "import type { Span } from '@strukt/core';",
+          "line": 1,
+          "path": "packages/json/src/validate.ts",
+          "snippet": "2d8436fe"
         }
       ]
     }
   },
+  "extractionVersion": "syntax-v1-evidence-v2",
   "generatedLayouts": {
     "dependencies": {
       "edges": {},
@@ -2512,6 +2357,12 @@
         "label": "Referência",
         "to": "doc:joinlet-para-vs-code"
       },
+      "repo_link_2ee255cf29778432": {
+        "from": "diagram:sincronizacao-de-repositorios",
+        "id": "repo_link_2ee255cf29778432",
+        "label": "Referência",
+        "to": "doc:confiabilidade-analise-sintatica-e-onboarding"
+      },
       "repo_link_36d1cd35cad2a407": {
         "from": "doc:open-source-and-hosted-service",
         "id": "repo_link_36d1cd35cad2a407",
@@ -2535,6 +2386,12 @@
         "id": "repo_link_59035d2ec69e9f11",
         "label": "Referência",
         "to": "doc:ignore-md"
+      },
+      "repo_link_5f43897bb307336d": {
+        "from": "doc:agentes-mcp-cli",
+        "id": "repo_link_5f43897bb307336d",
+        "label": "Referência",
+        "to": "doc:conexao-e-sincronizacao-de-repositorios"
       },
       "repo_link_649696e18a22de0b": {
         "from": "doc:readme",
@@ -2654,16 +2511,16 @@
     "documents": {
       "CONTRIBUTING.md": {
         "folder": "Repositório",
-        "hash": "a6fcdfc2168713b6a59b50dbeccfc737f95f929ab1aecbdeed4157fe152b3534",
+        "hash": "187403a2ffdc66f5eecac76327da5b0faf1e04a5d8c41868b26fda1b02acf301",
         "slug": "contributing-to-joinlet",
-        "sourceHash": "b19c70e594199f48e8e8c3e7bc1a751a66314248927c203c97e450fb33f3b0ef",
+        "sourceHash": "533f077a692d447456855163a9401cdc205daf6a2226e3d4032dbc88233d3872",
         "title": "Contributing to Joinlet"
       },
       "README.md": {
         "folder": "Repositório",
-        "hash": "87f448351b9a04e3fbbed3abcda61dd8a70a0948c5406097f767899a72ea0683",
+        "hash": "d55b5af186e54c8f0cbe2a86ee488f4b625d9c361d07486046c817c51158b031",
         "slug": "readme",
-        "sourceHash": "70d3b776037ec4eee8446ef406578f6c25539ffe72b551d2ebcbf033e547d42d",
+        "sourceHash": "1da85ca47024b4e84c13f8fdfdd62adbcd13dc92c50c21e1bb319665946b5d29",
         "title": "README — ."
       },
       "SECURITY.md": {
@@ -2682,9 +2539,9 @@
       },
       "THIRD_PARTY_NOTICES.md": {
         "folder": "Repositório",
-        "hash": "03f21e2f38f4209cbec763575e0f919eeb725538e2bd72bb1b9ca0c35e0d99ce",
+        "hash": "5556365c982d80283fffde9adac1d15a6d92b05ce3b8a69b8b0ec91e579857ec",
         "slug": "third-party-notices",
-        "sourceHash": "339c90520d483d74e0ce82df0604550204b1637c19f93db176c18deda3b2d9b0",
+        "sourceHash": "1cb3bfbf492dc74a21a5f5750167355628945ae5238db9aaaefdf98071196d9f",
         "title": "Third-party notices"
       },
       "TRADEMARKS.md": {
@@ -2717,16 +2574,16 @@
       },
       "deploy/README.md": {
         "folder": "Repositório/deploy",
-        "hash": "71de7393acaec02bda7c9012014cebaa41ef1fcff0f85abc649e34bb8be81648",
+        "hash": "d6a87a43f03ace9e57e2a26cd3f198048f4f80a9af664a16c4e70d3d410b19f3",
         "slug": "publicacao-do-joinlet",
-        "sourceHash": "6af31da1e76faddced6a5823040cd99fa461d4482b31cf6189de7751b2d031d5",
+        "sourceHash": "c9d4872bdbcc3a8cf9f66ae4ac9c0d1afa98538a59b05cf035a4db1f8fa0d49b",
         "title": "Publicação do Joinlet"
       },
       "docs/agents.md": {
         "folder": "Repositório/docs",
-        "hash": "5e1dc87ce75457aaefd3c607e8911845f1b3eb667a14429d9e3457453ec9beae",
+        "hash": "e9b421f80a74b9d8b01abccdc428a853640577340100f25001fa472e6c7b51bc",
         "slug": "agentes-mcp-cli",
-        "sourceHash": "70a7b41c3c64a40e95919b019e61955fb881ff7082ac06716fdb848e32207c7e",
+        "sourceHash": "e44f7844b9fc2018c998dbc02dd592a747118d02140ed5f9919e262bb57fbd21",
         "title": "Agentes: MCP + CLI"
       },
       "docs/idiomas.md": {
@@ -2815,9 +2672,17 @@
       "analysis": "dompurify",
       "source": "dompurify"
     },
+    "repo_10b0f86dd82efd": {
+      "analysis": "@playwright/test",
+      "source": "@playwright/test"
+    },
     "repo_11eaccb1592f3a": {
       "analysis": "@fontsource-variable/geist-mono",
       "source": "@fontsource-variable/geist-mono"
+    },
+    "repo_1a31c9f9df35cd": {
+      "analysis": "importlib",
+      "source": "importlib"
     },
     "repo_1eaad0baed4750": {
       "analysis": "@iconify-json/logos",
@@ -2826,6 +2691,10 @@
     "repo_21c42f64c2fbfe": {
       "analysis": "vitest",
       "source": "vitest"
+    },
+    "repo_228b92be80cca4": {
+      "analysis": "hashlib",
+      "source": "hashlib"
     },
     "repo_23af5b5699c1a2": {
       "analysis": "@codemirror/view",
@@ -2862,6 +2731,10 @@
     "repo_3b4e3efd29cd13": {
       "analysis": "@strukt/web",
       "source": "@strukt/web"
+    },
+    "repo_3d8971dcd14234": {
+      "analysis": "web-tree-sitter",
+      "source": "web-tree-sitter"
     },
     "repo_41ba823706ed42": {
       "analysis": "@strukt/layout",
@@ -2903,6 +2776,10 @@
       "analysis": "ajv",
       "source": "ajv"
     },
+    "repo_693239008fc924": {
+      "analysis": "",
+      "source": ""
+    },
     "repo_6ccd209c3439f9": {
       "analysis": "express",
       "source": "express"
@@ -2911,13 +2788,25 @@
       "analysis": "fflate",
       "source": "fflate"
     },
+    "repo_6fd4c95f1f155c": {
+      "analysis": "base64",
+      "source": "base64"
+    },
     "repo_71391bfad4e6b4": {
       "analysis": "@strukt/git",
       "source": "@strukt/git"
     },
+    "repo_72f088cd3e751b": {
+      "analysis": "subprocess",
+      "source": "subprocess"
+    },
     "repo_86104d06094ed0": {
       "analysis": "@strukt/remote",
       "source": "@strukt/remote"
+    },
+    "repo_8661c935b81923": {
+      "analysis": "vite",
+      "source": "vite"
     },
     "repo_8749826de7bff8": {
       "analysis": "simple-icons",
@@ -2927,9 +2816,17 @@
       "analysis": "scripts",
       "source": "scripts"
     },
+    "repo_8d811517fc4d9f": {
+      "analysis": "argparse",
+      "source": "argparse"
+    },
     "repo_90da7cc929ad46": {
       "analysis": "zustand",
       "source": "zustand"
+    },
+    "repo_91b70137ac5e35": {
+      "analysis": "xml",
+      "source": "xml"
     },
     "repo_996d8c76f1effb": {
       "analysis": "@fontsource-variable/shantell-sans",
@@ -2951,6 +2848,10 @@
       "analysis": "@codemirror/lang-json",
       "source": "@codemirror/lang-json"
     },
+    "repo_abcd8990e0cd9a": {
+      "analysis": "@vitejs/plugin-react",
+      "source": "@vitejs/plugin-react"
+    },
     "repo_ad9f261e20093d": {
       "analysis": "yaml",
       "source": "yaml"
@@ -2963,6 +2864,10 @@
       "analysis": "@codemirror/state",
       "source": "@codemirror/state"
     },
+    "repo_b6e874a3c0512e": {
+      "analysis": "tempfile",
+      "source": "tempfile"
+    },
     "repo_bde7b76204809a": {
       "analysis": "@strukt/cli",
       "source": "@strukt/cli"
@@ -2974,6 +2879,10 @@
     "repo_c4867bba3a1c87": {
       "analysis": "@anthropic-ai/sdk",
       "source": "@anthropic-ai/sdk"
+    },
+    "repo_c6d5752db24a05": {
+      "analysis": "tarfile",
+      "source": "tarfile"
     },
     "repo_cc4c3b901ef9a1": {
       "analysis": "radix-ui",
@@ -3015,6 +2924,14 @@
       "analysis": "@strukt/json",
       "source": "@strukt/json"
     },
+    "repo_f2dea9d4cb3be1": {
+      "analysis": "@tailwindcss/vite",
+      "source": "@tailwindcss/vite"
+    },
+    "repo_f52e12650ad722": {
+      "analysis": "secrets",
+      "source": "secrets"
+    },
     "repo_f67e61755f494b": {
       "analysis": "@codemirror/autocomplete",
       "source": "@codemirror/autocomplete"
@@ -3022,6 +2939,14 @@
     "repo_f71cc4d7fe389e": {
       "analysis": "@modelcontextprotocol/sdk",
       "source": "@modelcontextprotocol/sdk"
+    },
+    "repo_f76fb341119726": {
+      "analysis": "io",
+      "source": "io"
+    },
+    "repo_face2e61d73540": {
+      "analysis": "urllib",
+      "source": "urllib"
     },
     "repo_febb4e65d49258": {
       "analysis": "@codemirror/lint",

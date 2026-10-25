@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
+import {readFile} from './storage';
 
 const chip = (page: Page) => page.getByRole('status', { name: 'Primeiro acesso' });
 const nodes = (page: Page) => page.locator('.react-flow__node');
@@ -118,15 +119,25 @@ test('empty documents get a formatting toolbar and a link action', async ({ page
   await nav.getByRole('button', { name: 'Novo documento' }).click();
   await page.getByRole('textbox', { name: /documento/i }).fill('Notas');
   await page.keyboard.press('Enter');
-  const toolbar = page.getByRole('toolbar', { name: 'Formatação' });
+  await page.getByRole('button',{name:'Mostrar formatação'}).click();
+  const toolbar = page.getByRole('toolbar', { name: 'Formatação',exact:true });
   await expect(toolbar).toBeVisible();
   await page.locator('.cm-content').click();
   await page.keyboard.press('ControlOrMeta+a');
   await page.keyboard.press('Delete');
-  await expect(page.getByText('Documento em branco')).toBeVisible();
+  await expect.poll(()=>readFile(page,'docs/notas.md')).toBe('');
   await toolbar.getByRole('button', { name: 'Negrito' }).click();
   await expect(page.getByLabel('Editor do documento')).toContainText('**texto**');
+  await page.getByRole('button',{name:'Vínculos do documento'}).click();
   await page.getByRole('button', { name: 'Vincular a um nó' }).click();
   await page.getByRole('menuitem', { name: 'Kafka' }).click();
   await expect(page.getByRole('region', { name: 'Referenciado por' }).getByRole('button', { name: /Kafka/ })).toBeVisible();
+});
+
+test('opening and cancelling an action does not complete it; a successfully saved version does',async({page})=>{
+ await page.goto('/app/');await expect(chip(page)).toBeVisible();await chip(page).getByRole('button',{name:'Dispensar aviso'}).click();
+ const steps=checklist(page);await expect(steps).toContainText('Começando · 0/4');
+ await steps.getByRole('button',{name:'Salvar uma versão'}).click();const dialog=page.getByRole('dialog',{name:'Salvar versão'});await expect(dialog).toBeVisible();await page.keyboard.press('Escape');await expect(steps).toContainText('Começando · 0/4');
+ await steps.getByRole('button',{name:'Salvar uma versão'}).click();await dialog.getByLabel('Descrição da versão').fill('Onboarding confirmed save');await dialog.getByRole('button',{name:'Salvar',exact:true}).click();await expect(dialog).toHaveCount(0);await expect(steps).toContainText('Começando · 1/4');
+ await page.reload();await expect(steps).toContainText('Começando · 1/4');
 });

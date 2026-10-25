@@ -175,7 +175,7 @@ export function Sidebar({ divider }: { divider?: ReactNode }) {
   const [editing, setEditing] = useState<Editing>(null);
   const [folderEditing, setFolderEditing] = useState<FolderEditing>(null);
   return (
-    <nav aria-label={"Workspace"} inert={!open || undefined} aria-hidden={!open || undefined} onKeyDown={walkRows} className="pointer-events-auto group/sidebar flex h-full w-full flex-col overflow-hidden bg-bg">
+    <nav data-tour="workspace" aria-label={"Workspace"} inert={!open || undefined} aria-hidden={!open || undefined} onKeyDown={walkRows} className="pointer-events-auto group/sidebar flex h-full w-full flex-col overflow-hidden bg-bg">
       <a href={siteUrl()} aria-label={uiText("Joinlet, início")} className="flex h-12 shrink-0 items-center gap-2.5 px-5 text-[20px] font-semibold tracking-[-0.06em] text-ink"><Logo size={22} />{"Joinlet"}</a>
       <div className="flex h-(--sk-header-height) shrink-0 items-center gap-1 px-3">
         <div className="min-w-0 flex-1"><WorkspaceHeader /></div>

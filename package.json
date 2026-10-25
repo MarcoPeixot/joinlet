@@ -16,14 +16,17 @@
     "start:collab": "bun run --filter @strukt/server start:collab",
     "start:remote": "bun run --filter @strukt/remote start",
     "build": "bun run --filter @strukt/web build",
-    "test": "bun run --filter '*' test",
+    "test": "bun run --sequential --filter '*' test",
+    "test:performance": "bun run --sequential --filter @strukt/dsl --filter @strukt/workspace test:performance",
+    "check:links": "bun test scripts/links.test.ts && bun apps/web/build/checkLinks.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "e2e": "bun run --filter @strukt/web e2e",
-    "verify:knowledge": "bun apps/cli/src/main.ts verify --strict",
+    "verify:knowledge": "bun run check:links && bun apps/cli/src/main.ts verify --strict",
     "test:remote-smoke": "bun apps/remote/src/deploymentSmoke.ts",
     "backup:remote": "bun apps/remote/src/backup.ts",
     "build:connector": "bun run build && bun scripts/build-connector.ts",
-    "start:repository-worker": "bun apps/remote/src/repositoryWorker.ts"
+    "start:repository-worker": "bun apps/remote/src/repositoryWorker.ts",
+    "check:parsers": "node --experimental-strip-types scripts/check-repository-parsers.ts && bun scripts/check-repository-parsers.ts"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

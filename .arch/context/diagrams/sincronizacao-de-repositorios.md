@@ -2,7 +2,7 @@
 
 > Parte da arquitetura de “Joinlet” (visão completa em [ARCHITECTURE.md](../ARCHITECTURE.md)). Gerado pelo Joinlet: não edite à mão.
 
-`.arch/diagrams/sincronizacao-de-repositorios.strukt.json` · 13 componentes, 16 conexões
+`.arch/diagrams/sincronizacao-de-repositorios.strukt.json` · 14 componentes, 17 conexões
 
 ```json
 {
@@ -73,7 +73,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "layers",
-      "description": "Inventário, fatos de módulos e bibliotecas, tecnologias e ícones por manifestos/imports/tipos de arquivo, IA com evidências, mesclagem e contexto. Visão compacta de módulos agrupados para repositórios grandes. README da raiz prioritário; diagnóstico sem IA. Conteúdo e ícones manuais preservados.",
+      "description": "Extração sintática, propriedade de arquivos, classificação de dependências e mesclagem de três versões. Descrições de IA exigem referências do próprio módulo; inferências cruzadas viram propostas. Diagnósticos sem chamadas de IA preservam metadados e ignoram providers quando ai=false.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -129,6 +129,15 @@
       "tech": "Markdown · pastas · vínculos",
       "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Syntax",
+      "label": "Parsers sintáticos",
+      "presentation": "card",
+      "icon": "code",
+      "tech": "Tree-sitter · WASM",
+      "description": "Gramáticas locais verificadas para 18 linguagens e formatos. Scripts/frontmatter preservam linhas. Não executa fontes; tipos/desenvolvimento e limitações ficam separados do mapa principal. Assets acompanham conectores e imagem.",
+      "link": "doc:confiabilidade-analise-sintatica-e-onboarding"
     }
   ],
   "connections": [
@@ -211,6 +220,11 @@
       "from": "Knowledge",
       "to": "Architecture",
       "label": "documentos, pastas e vínculos"
+    },
+    {
+      "from": "Engine",
+      "to": "Syntax",
+      "label": "declarações e referências"
     }
   ]
 }
@@ -226,13 +240,14 @@
 | Serviço local (`Local`) | nó | — | Conexões limitadas à pasta, diagnóstico Git, tarefas, eventos e acompanhamento incremental. Mantém blocos de referência ao contexto em AGENTS.md e CLAUDE.md, preservando conteúdo manual e sinalizando conflitos. | — |
 | API hospedada (`Hub`) | nó | — | Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem. | — |
 | Worker GitHub (`Worker`) | nó | — | Tarefas com lease; snapshots SHA, revisão antes de publicação e um PR atualizado. Inclui as instruções de agentes no mesmo commit da arquitetura e do contexto. | — |
-| Análise e mesclagem (`Engine`) | nó | — | Inventário, fatos de módulos e bibliotecas, tecnologias e ícones por manifestos/imports/tipos de arquivo, IA com evidências, mesclagem e contexto. Visão compacta de módulos agrupados para repositórios grandes. README da raiz prioritário; diagnóstico sem IA. Conteúdo e ícones manuais preservados. | — |
+| Análise e mesclagem (`Engine`) | nó | — | Extração sintática, propriedade de arquivos, classificação de dependências e mesclagem de três versões. Descrições de IA exigem referências do próprio módulo; inferências cruzadas viram propostas. Diagnósticos sem chamadas de IA preservam metadados e ignoram providers quando ai=false. | — |
 | Importadores (`Importers`) | nó | — | Detecta fontes reconhecidas e mantém mapeamentos e bases. | — |
 | IA BYOK (`AI`) | nó | — | Interpretação BYOK de responsabilidades com referências verificadas. A mesma chamada pode escolher a tecnologia principal entre sinais comprovados no próprio módulo. O motor valida o catálogo e as evidências; inferências de componentes e relações vão para revisão. | — |
 | .arch (`Architecture`) | nó | — | Modelo, layout, docs, evidências, fontes, base gerenciada e contexto. Gravações com versões esperadas. | — |
 | Estado de execução (`Runtime`) | nó | — | SQLite, tarefas, outbox e leases. API, worker e colaboração aguardam locks por até 5 segundos antes das migrações/WAL. Segredos e journals ficam fora do Git. | — |
 | `GitHub` | nó | — | Árvores/blobs imutáveis, branch de trabalho e PR; sem execução de código do projeto. | — |
 | Documentação e Overview (`Knowledge`) | nó | Markdown · pastas · vínculos | Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita. | — |
+| Parsers sintáticos (`Syntax`) | nó | Tree-sitter · WASM | Gramáticas locais verificadas para 18 linguagens e formatos. Scripts/frontmatter preservam linhas. Não executa fontes; tipos/desenvolvimento e limitações ficam separados do mapa principal. Assets acompanham conectores e imagem. | — |
 
 ## Evidências no código
 
@@ -253,14 +268,14 @@
 - `edge:CLI→Engine`: `apps/cli/src/commands/repository.ts#L26` — trecho esperado: `locale: repositoryLocale(Intl.DateTimeFormat()`
 - `edge:Connector→Hub`: `apps/server/src/connector.ts#L79` — trecho esperado: `post('/api/repository-connector/update'`
 - `edge:Connector→Local`: `apps/server/src/connector.ts#L69` — trecho esperado: `service=createRepositoryService`
-- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L62` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
-- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L43` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
-- `edge:Engine→AI`: `packages/workspace/src/repository/engine.ts#L186` — trecho esperado: `this.analyzer!.analyze`
+- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L43` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
+- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L24` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
+- `edge:Engine→AI`: `packages/workspace/src/repository/engine.ts#L137` — trecho esperado: `analyzer!.analyze`
 - `edge:Engine→AI`: `apps/server/src/connector.ts#L64` — trecho esperado: `path==='/api/repository-connector/analyze'`
 - `edge:Engine→AI`: `apps/remote/src/repositoryConnectorSmoke.ts#L30` — trecho esperado: `assert.equal(initial.connections[0]!.phase,'paused')`
-- `edge:Engine→Architecture`: `packages/workspace/src/repository/engine.ts#L286` — trecho esperado: `await writeBatch(this.adapter`
-- `edge:Engine→Importers`: `packages/workspace/src/repository/engine.ts#L272` — trecho esperado: `await synchronizeDiscoveredSources`
-- `edge:Engine→Knowledge`: `packages/workspace/src/repository/engine.ts#L217` — trecho esperado: `const projected=projectRepositoryDocuments`
+- `edge:Engine→Architecture`: `packages/workspace/src/repository/engine.ts#L238` — trecho esperado: `await writeBatch(this.adapter`
+- `edge:Engine→Importers`: `packages/workspace/src/repository/engine.ts#L224` — trecho esperado: `await synchronizeDiscoveredSources`
+- `edge:Engine→Knowledge`: `packages/workspace/src/repository/engine.ts#L168` — trecho esperado: `const projected=projectRepositoryDocuments`
 - `edge:Hub→Runtime`: `apps/remote/src/repositoryHub.ts#L280` — trecho esperado: `queue.command(c.id,{type:'apply'`
 - `edge:Knowledge→Architecture`: `packages/workspace/src/repository/knowledge.ts#L55` — trecho esperado: `export function connectRepositoryKnowledge`
 - `edge:Local→Engine`: `apps/server/src/repositories.ts#L53` — trecho esperado: `new RepositoryEngine(reader, storage, analyzer())`
@@ -268,7 +283,7 @@
 - `edge:Worker→Engine`: `apps/remote/src/repositoryHub.ts#L260` — trecho esperado: `const instructions=target.syncAgentInstructions()`
 - `edge:Worker→GitHub`: `apps/remote/src/repositoryHub.ts#L266` — trecho esperado: `const pullRequest=await target.flush()`
 - `edge:Worker→Runtime`: `apps/remote/src/repositoryHub.ts#L242` — trecho esperado: `const job=queue.claim()`
-- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L36` — trecho esperado: `export function RepositoryConnection`
+- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L17` — trecho esperado: `export function RepositoryConnection`
 - `Editor`: `apps/web/src/workspace/remote.ts#L22` — trecho esperado: `export function matchesRemoteSource`
 - `Editor`: `apps/web/src/app/CollaborationBridge.tsx#L27` — trecho esperado: `!matchesRemoteSource(session, source)`
 - `Editor`: `apps/web/src/docs/DocView.tsx#L174` — trecho esperado: `matchesRemoteSource(session, source)`
@@ -278,18 +293,19 @@
 - `Editor`: `apps/web/e2e/cloud-workspaces-real.spec.ts#L23` — trecho esperado: `test('uses real Cloud sessions`
 - `Editor`: `apps/web/src/app/AppShell.tsx#L120` — trecho esperado: `function RepositoryDock()`
 - `Editor`: `apps/web/src/github/session.ts#L42` — trecho esperado: `if(catalogStore.getState().cloud)`
-- `Editor`: `apps/web/e2e/repository-real.spec.ts#L43` — trecho esperado: `test('opens a compact monorepo overview`
+- `Editor`: `apps/web/e2e/repository-real.spec.ts#L59` — trecho esperado: `test('opens a compact monorepo overview`
 - `Editor`: `apps/web/src/panels/RepositoryEnrichmentNotice.tsx#L19` — trecho esperado: `export function RepositoryEnrichmentNotice`
 - `Editor`: `apps/web/src/workspace/repositoryAnalysis.ts#L14` — trecho esperado: `export async function verifyRepositoryAnalysisContext`
-- `Editor`: `apps/web/e2e/repository-real.spec.ts#L65` — trecho esperado: `test('offers source-backed enrichment`
-- `Editor`: `apps/web/e2e/repository-real.spec.ts#L84` — trecho esperado: `test('rejects a delayed AI edit`
-- `Engine`: `packages/workspace/src/repository/engine.ts#L107` — trecho esperado: `export class RepositoryEngine`
-- `Engine`: `packages/workspace/src/repository/presentation.ts#L10` — trecho esperado: `export function repositoryPresentation`
-- `Engine`: `packages/workspace/src/repository/presentation.ts#L38` — trecho esperado: `export function repositoryReadme`
+- `Editor`: `apps/web/e2e/repository-real.spec.ts#L81` — trecho esperado: `test('offers source-backed enrichment`
+- `Editor`: `apps/web/e2e/repository-real.spec.ts#L100` — trecho esperado: `test('rejects a delayed AI edit`
+- `Engine`: `packages/workspace/src/repository/engine.ts#L53` — trecho esperado: `export class RepositoryEngine`
+- `Engine`: `packages/workspace/src/repository/presentation.ts#L11` — trecho esperado: `export function repositoryPresentation`
+- `Engine`: `packages/workspace/src/repository/presentation.ts#L40` — trecho esperado: `export function repositoryReadme`
 - `Engine`: `packages/workspace/src/repository/layout.ts#L31` — trecho esperado: `export async function repositoryLayout`
 - `Engine`: `packages/workspace/src/repository/presentation.test.ts#L23` — trecho esperado: `it('defaults to grouped modules`
-- `Engine`: `packages/workspace/src/repository/technologies.ts#L58` — trecho esperado: `export function detectRepositoryTechnologies`
+- `Engine`: `packages/workspace/src/repository/technologies.ts#L59` — trecho esperado: `export function detectRepositoryTechnologies`
 - `Engine`: `packages/workspace/src/repository/technologies.test.ts#L21` — trecho esperado: `it('detects frameworks`
+- `Engine`: `packages/workspace/src/repository/facts.ts#L23` — trecho esperado: `export async function extractRepositoryFacts`
 - `GitHub`: `apps/remote/src/repositorySnapshot.ts#L9` — trecho esperado: `export async function githubSnapshot(token: string, repo: string, branch: string, fetcher?: typeof fetch): Promise\<RepositoryReader & { sha: string }\> {`
 - `Hub`: `apps/remote/src/repositoryHub.ts#L30` — trecho esperado: `export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {`
 - `Hub`: `apps/remote/src/hostedStore.ts#L189` — trecho esperado: `const createWorkspace = db.transaction`
@@ -312,6 +328,7 @@
 - `Runtime`: `apps/remote/src/collaboration.ts#L20` — trecho esperado: `configureRuntimeDatabase(db)`
 - `Runtime`: `apps/remote/src/database.ts#L5` — trecho esperado: `db.exec('PRAGMA busy_timeout=5000')`
 - `Runtime`: `apps/remote/src/repositoryStartupSmoke.ts#L29` — trecho esperado: `for(let round=0;round\<3;round++)`
+- `Syntax`: `packages/workspace/src/repository/syntax.ts#L44` — trecho esperado: `export async function parseSource`
 - `Worker`: `apps/remote/src/repositoryHub.ts#L240` — trecho esperado: `async function runNext() {`
 
 ## Conexões
@@ -334,6 +351,7 @@
 | `CLI` | `Architecture` | `>` seta | MCP e revisão CAS |
 | `Engine` | `Knowledge` | `>` seta | Markdown e metadados |
 | `Knowledge` | `Architecture` | `>` seta | documentos, pastas e vínculos |
+| `Engine` | `Syntax` | `>` seta | declarações e referências |
 
 ## Documentos ligados
 
@@ -346,5 +364,17 @@
 > Implementação disponível no código. A ativação do serviço oficial e a homologação com GitHub real dependem do operador; os testes locais não comprovam publicação em produção.
 >
 > ## Conectar uma pasta
+>
+> […]
+
+### Confiabilidade, análise sintática e onboarding
+
+`.arch/docs/confiabilidade-analise-sintatica-e-onboarding.md` · ligado a: `Syntax`
+
+> # Confiabilidade, análise sintática e onboarding
+>
+> O Joinlet extrai declarações sintáticas com Tree-sitter WebAssembly nos processos locais, CLI/MCP e worker hospedado. Os assets são locais, verificados por SHA-256 e acompanham conectores e imagem; não são carregados no frontend nem baixados durante a análise. O manifesto registra versão, integridade dos pacotes e avisos das gramáticas. Fontes analisadas nunca são executadas.
+>
+> ## Cobertura
 >
 > […]

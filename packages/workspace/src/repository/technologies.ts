@@ -1,5 +1,6 @@
 import type { RepositoryFact, SourceRef } from './contracts';
 import { developmentSource } from './sourceKinds';
+import type { SyntaxResult } from './contracts';
 
 interface TechnologyDefinition { id:string; name:string; icon:string; priority:number; packages?:string[]; extensions?:string[]; development?:boolean }
 /** Browser-safe, bounded catalogue. Icon names resolve through the editor's existing bundled registry. */
@@ -55,7 +56,7 @@ export const repositoryTechnology=(id:string|undefined)=>id?definitions.get(id):
 const uniqueRefs=(refs:SourceRef[])=>[...new Map(refs.map(ref=>[ref.path+'\0'+ref.line,ref])).values()].sort((a,b)=>a.path.localeCompare(b.path)||a.line-b.line).slice(0,5);
 
 /** Reuses the inventory and parsed import facts. No filesystem reads, network calls or directory-name guesses. */
-export function detectRepositoryTechnologies(facts:RepositoryFact[],files:Map<string,string>,moduleFor:(path:string)=>string) {
+export function detectRepositoryTechnologies(facts:RepositoryFact[],files:Map<string,string>,moduleFor:(path:string)=>string, parsed?:Map<string,SyntaxResult>) {
   const byPath=new Map(facts.filter(f=>f.path!==undefined).map(f=>[f.path!,f]));
   const byId=new Map(facts.map(f=>[f.id,f]));
   const sourceCounts=new Map<string,Map<string,number>>();
@@ -69,7 +70,7 @@ export function detectRepositoryTechnologies(facts:RepositoryFact[],files:Map<st
     const library=fact.kind==='dependency'?packages.get(fact.label):undefined;
     if(library)for(const ref of fact.refs)add(fact,library.id,ref);
     if(!fact.path){const definition=REPOSITORY_TECHNOLOGIES.find(t=>t.name===fact.tech);if(definition)for(const ref of fact.refs)add(fact,definition.id,ref);}
-    for(const dependency of fact.dependencies){const target=byId.get(dependency.target);const technology=target?.kind==='dependency'?packages.get(target.label):undefined;if(technology)add(fact,technology.id,dependency.ref);}
+    for(const dependency of fact.dependencies.filter(d=>d.scope!=='development'&&d.usage!=='type')){const target=byId.get(dependency.target);const technology=target?.kind==='dependency'?packages.get(target.label):undefined;if(technology)add(fact,technology.id,dependency.ref);}
   }
   for(const [path,text]of files){
     const fact=byPath.get(moduleFor(path));if(!fact)continue;
@@ -81,10 +82,11 @@ export function detectRepositoryTechnologies(facts:RepositoryFact[],files:Map<st
     const ref=(needle?:string):SourceRef=>{const index=needle?lines.findIndex(line=>line.includes(needle)):first;return {path,line:Math.max(0,index)+1,contains:lines[Math.max(0,index)]!.trim().slice(0,400)};};
     if(!developmentSource(path)){
       if(language){add(fact,language.id,ref());const counts=sourceCounts.get(fact.id)??new Map<string,number>();counts.set(language.id,(counts.get(language.id)??0)+1);sourceCounts.set(fact.id,counts);}
-      if(/^[cm]?[jt]sx?$/.test(extension))for(let i=0;i<lines.length;i++){
-        const match=lines[i]!.match(/^\s*(?:import\s+(?:.*?\s+from\s+)?|export\s+.*?\s+from\s+)["'](bun(?::[^"']+)?|node:[^"']+)["']/);
-        if(match)add(fact,match[1]!.startsWith('bun')?'bun':'nodejs',{path,line:i+1,contains:lines[i]!.trim().slice(0,400)});
-        if(match?.[1]==='bun:sqlite')add(fact,'sqlite',{path,line:i+1,contains:lines[i]!.trim().slice(0,400)});
+      for(const entry of parsed?.get(path)?.imports??[])if(entry.usage!=='type'){
+        const anchor={path,line:entry.line,contains:entry.contains};
+        if(entry.name.startsWith('bun:')||entry.name==='bun')add(fact,'bun',anchor);
+        if(entry.name.startsWith('node:'))add(fact,'nodejs',anchor);
+        if(entry.name==='bun:sqlite')add(fact,'sqlite',anchor);
       }
       if(dockerfile)add(fact,'docker',ref());
     }

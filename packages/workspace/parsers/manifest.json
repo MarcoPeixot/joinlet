@@ -1,0 +1,381 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "upstream": {
+        "package": "tree-sitter-javascript",
+        "declaredVersion": "^0.20.3",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-javascript.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-javascript@0.20.3-LICENSE"
+      },
+      "file": "tree-sitter-javascript.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "63812b9e275d26851264734868d27a1656bd44a2ef6eb3e85e6b03728c595ab5",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-typescript",
+        "declaredVersion": "^0.20.5",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-typescript.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-typescript@0.20.5-LICENSE"
+      },
+      "file": "tree-sitter-typescript.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "8515404dceed38e1ed86aa34b09fcf3379fff1b4ff9dd3967bcd6d1eb5ac3d8f",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-typescript",
+        "declaredVersion": "^0.20.5",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-typescript.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-typescript@0.20.5-LICENSE"
+      },
+      "file": "tree-sitter-tsx.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "6aa3b2c70e76f5d48eafef1093e9c4de383e13f2fdde2f4e9b98a378f6a8f1b6",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-python",
+        "declaredVersion": "^0.21.0",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-python.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-python@0.21.0-LICENSE"
+      },
+      "file": "tree-sitter-python.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "9056d0fb0c337810d019fae350e8167786119da98f0f282aceae7ab89ee8253b",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-java",
+        "declaredVersion": "^0.20.2",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-java.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-java@0.20.2-LICENSE"
+      },
+      "file": "tree-sitter-java.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "637aac4415fb39a211a4f4292d63c66b5ce9c32fa2cd35464af4f681d91b9a1f",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-go",
+        "declaredVersion": "^0.20.0",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-go.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-go@0.20.0-LICENSE"
+      },
+      "file": "tree-sitter-go.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "9963ca89b616eaf04b08a43bc1fb0f07b85395bec313330851f1f1ead2f755b6",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-rust",
+        "declaredVersion": "^0.20.4",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-rust.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-rust@0.20.4-LICENSE"
+      },
+      "file": "tree-sitter-rust.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "4409921a70d0aa5bec7d1d7ce809a557a8ee1cf6ace901e3ac6a76e62cfea903",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-ruby",
+        "declaredVersion": "^0.20.1",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-ruby.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-ruby@0.20.1-LICENSE"
+      },
+      "file": "tree-sitter-ruby.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "93a5022855314cdb45458c7bb026a24a0ebc3a5ff6439e542e881f14dfa13a39",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-php",
+        "declaredVersion": "^0.22.0",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-php.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-php@0.22.0-LICENSE"
+      },
+      "file": "tree-sitter-php.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "55bb617b6f01e14bab997861f0b20a2420cf6ba3199ffeb295b9ec398966d8a3",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-c-sharp",
+        "declaredVersion": "^0.20.0",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-c-sharp.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-c-sharp@0.20.0-LICENSE"
+      },
+      "file": "tree-sitter-c_sharp.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "6266a7e32d68a3459104d994dc848df15d5672b0ea8e86d327274b694f8e6991",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-c",
+        "declaredVersion": "^0.20.7",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-c.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-c@0.20.7-LICENSE"
+      },
+      "file": "tree-sitter-c.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "056b25072382f72deee2c64ec238ffc4bb8cf42844ef21502c0e70f03a8a0d66",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-kotlin",
+        "declaredVersion": "^0.3.1",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/fwcd/tree-sitter-kotlin.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-kotlin@0.3.1-LICENSE"
+      },
+      "file": "tree-sitter-kotlin.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "b5cb00c8d06ed0f10f1dbe497205b437809d7e87db1f638721a8cfb30e044449",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-scala",
+        "declaredVersion": "^0.19.0",
+        "license": "MIT",
+        "repository": null,
+        "notice": "tree-sitter-scala@0.19.0-LICENSE"
+      },
+      "file": "tree-sitter-scala.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "160cfbb8ff7220886e99ed9699abceb6d837b4cd28993b9282c7f445a0554abd",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-html",
+        "declaredVersion": "^0.20.0",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-html.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-html@0.20.0-LICENSE"
+      },
+      "file": "tree-sitter-html.wasm",
+      "package": "tree-sitter-wasms",
+      "version": "0.1.13",
+      "integrity": "sha512-wT+cR6DwaIz80/vho3AvSF0N4txuNx/5bcRKoXouOfClpxh/qqrF4URNLQXbbt8MaAxeksZcZd1j8gcGjc+QxQ==",
+      "sha256": "11b3405c1543fb012f5ed7f8ee73125076dce8b168301e1e787e4c717da6b456",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/Gregoor/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-swift",
+        "declaredVersion": "^0.7.1",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/alex-pinkus/tree-sitter-swift.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-swift@0.7.1-LICENSE"
+      },
+      "file": "tree-sitter-swift.wasm",
+      "package": "@repomix/tree-sitter-wasms",
+      "version": "0.1.17",
+      "integrity": "sha512-tc3HnFqdMF1pXhIMzG3aTaBDpIiHK2tPfn3fwqA6P3WTbHa+1EuuTubbKshvmN7xCHP5Ojz0/VW4R+XvR88KOw==",
+      "sha256": "d084eceba50e9a83319f5d171051b53179bd22b6ea6419014900c602d52cfa28",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/repomix/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": {
+        "package": "tree-sitter-cpp",
+        "declaredVersion": "^0.23.4",
+        "license": "MIT",
+        "repository": {
+          "url": "git+https://github.com/tree-sitter/tree-sitter-cpp.git",
+          "type": "git"
+        },
+        "notice": "tree-sitter-cpp@0.23.4-LICENSE"
+      },
+      "file": "tree-sitter-cpp.wasm",
+      "package": "@repomix/tree-sitter-wasms",
+      "version": "0.1.17",
+      "integrity": "sha512-tc3HnFqdMF1pXhIMzG3aTaBDpIiHK2tPfn3fwqA6P3WTbHa+1EuuTubbKshvmN7xCHP5Ojz0/VW4R+XvR88KOw==",
+      "sha256": "212ed7c04c7a6e25702edf3148c2e65a096193fd8154f77a1c1ad1b940216d08",
+      "license": "Unlicense",
+      "repository": {
+        "url": "git+https://github.com/repomix/tree-sitter-wasms.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": null,
+      "file": "tree-sitter-fsharp.wasm",
+      "package": "tree-sitter-fsharp",
+      "version": "0.0.1",
+      "integrity": "sha512-1i/qG+wXzUwjypwIoWXWNoYm8+EUbWb6W0vl15UJ5PoApJt/iovE3wmM/aaftJc/WXZBT++gO2ksPMABXMye7Q==",
+      "sha256": "5311d67e1af4860f8b0de6f66f9916b501e974fc721ed4da5b2473fdaa669e40",
+      "license": "MIT",
+      "repository": {
+        "url": "git+https://github.com/tree-sitter/tree-sitter-fsharp.git",
+        "type": "git"
+      }
+    },
+    {
+      "upstream": null,
+      "file": "web-tree-sitter.wasm",
+      "package": "web-tree-sitter",
+      "version": "0.25.10",
+      "integrity": "sha512-Y09sF44/13XvgVKgO2cNDw5rGk6s26MgoZPXLESvMXeefBf7i6/73eFurre0IsTW6E14Y0ArIzhUMmjoc7xyzA==",
+      "sha256": "f38dcc4b43b818f9a0785bc1c6d5611a75ac4cdd428ff3f02757c34ca4e46d7f",
+      "license": "MIT",
+      "repository": {
+        "url": "git+https://github.com/tree-sitter/tree-sitter.git",
+        "type": "git",
+        "directory": "lib/binding_web"
+      }
+    }
+  ]
+}

@@ -26,6 +26,7 @@ export async function runVerify(args: CliArgs, io: CliIo): Promise<number> {
   const errors = [
     ...(repository?.changed.length ? ['Repository architecture synchronization is pending. Run joinlet sync.'] : []),
     ...(args.strict && repository?.reviewRequired ? ['Repository code and desired architecture differ; implementation review is required.'] : []),
+    ...(args.strict && repository?.status.proposals.length ? ['Repository proposals require explicit review.'] : []),
     ...(args.strict && repository?.status.pending.length ? repository.status.pending : []),
     ...(validation.errors ? ['Workspace validation or anchored code evidence failed.'] : []),
     ...opened.warnings.map(w => `Workspace load: ${w}`),

@@ -175,6 +175,10 @@
       "slug": "configuracoes-do-workspace",
       "source": "docs/workspace-settings.md",
       "title": "Configurações do workspace"
+    },
+    {
+      "slug": "confiabilidade-analise-sintatica-e-onboarding",
+      "title": "Confiabilidade, análise sintática e onboarding"
     }
   ],
   "name": "Joinlet",

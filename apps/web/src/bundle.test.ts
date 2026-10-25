@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { INITIAL_JS_BYTES } from '../build/loadingBudget';
 import { sourceHash, staleReason } from '../build/sourceStamp.mjs';
 
 // Read through Vite's glob (no Node types in this package). Needs `bun run build` first.
@@ -59,9 +60,9 @@ describe.skipIf(html === undefined || (stale !== null && !allowStale))('initial 
     }
   });
 
-  it('stay lean', async () => {
+  it('preloads fit the shared production budget; the network test also covers lazy modules and workers', async () => {
     const sizes = await Promise.all(files.map(async (file) => (await load(file)).length));
-    expect(sizes.reduce((a, b) => a + b, 0)).toBeLessThan(1_300_000);
+    expect(sizes.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(INITIAL_JS_BYTES);
   });
 });
 

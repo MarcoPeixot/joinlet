@@ -108,8 +108,8 @@
           "label": "workspace",
           "presentation": "card",
           "icon": "si:typescript",
-          "tech": "TypeScript · Bun",
-          "description": "@strukt/workspace · packages/workspace · TypeScript · Bun · Node.js · SQLite"
+          "tech": "TypeScript · Node.js",
+          "description": "@strukt/workspace · packages/workspace · TypeScript · Node.js"
         },
         {
           "id": "repo_d5a16586640c40",
@@ -298,6 +298,22 @@
     {
       "from": "repo_d4ff4b28356bed",
       "to": "repo_e86a0d465b5caa"
+    },
+    {
+      "from": "repo_bde7b76204809a",
+      "to": "repo_484fb1e9cea553"
+    },
+    {
+      "from": "repo_4c5a34d0f0b789",
+      "to": "repo_484fb1e9cea553"
+    },
+    {
+      "from": "repo_86104d06094ed0",
+      "to": "repo_e27f3faa9152db"
+    },
+    {
+      "from": "repo_8c5967fd8486f3",
+      "to": "repo_d4ff4b28356bed"
     }
   ]
 }

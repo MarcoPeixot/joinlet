@@ -1,3 +1,4 @@
+import { journey } from '../onboarding/journey';
 import { uiText } from '../i18n';
 import { createStore } from 'zustand/vanilla';
 import type { GitChange, GitRepo, GithubClient } from './client';
@@ -151,6 +152,7 @@ export function createGithubStore(deps: GithubDeps) {
     },
 
     async publish() {
+      const captured=journey.token();
       const epoch = generation;
       const { repoPath, title, body, branch, draft } = get();
       if (!repoPath || !title.trim() || get().publishing) return;
@@ -159,6 +161,7 @@ export function createGithubStore(deps: GithubDeps) {
       if (epoch !== generation) return;
       if (reply.kind === 'ok') {
         set({ publishing: false, publishedUrl: reply.url });
+        journey.complete('publish',captured);
         deps.notify(uiText("PR aberto: {0}", [reply.url]));
         await get().refresh();
         await get().loadDiff();

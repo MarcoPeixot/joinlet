@@ -29,7 +29,7 @@ it('defaults to grouped modules for a large graph and keeps library detail in th
  expect(model.edges.every(e=>e.from!==e.to&&!e.label)).toBe(true);
  const document=first.files['docs/repository-architecture.md']!;
  expect(document).toContain('Fonte: `README.md`');expect(document).toContain('The whole project.');expect(document).not.toContain('An extension only.');
- expect(document).toContain('## Dependências por módulo');expect(document).toContain('library-29');expect(document).not.toContain('test-only-library');expect(document).not.toContain('bun:sqlite');
+ expect(document).toContain('## Dependências por módulo');expect(document).toContain('library-29');expect(document).toContain('#### Desenvolvimento');expect(document).toContain('test-only-library');expect(document).not.toContain('bun:sqlite');
  const positions=modulePositions(model),boxes=Object.values(positions);
  expect(Math.max(...boxes.map(b=>b.x+b.w!))).toBeLessThan(1500);expect(Math.max(...boxes.map(b=>b.y+b.h!))).toBeLessThan(800);
  for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++) {const a=boxes[i]!,b=boxes[j]!;expect(a.x+a.w!<=b.x||b.x+b.w!<=a.x||a.y+a.h!<=b.y||b.y+b.h!<=a.y).toBe(true);}
@@ -68,13 +68,13 @@ it('upgrades an untouched generated dependency layout and remains incremental af
  const changed=await engine.run();expect(changed.status.metrics.reads).toBe(1);expect(printDiagramJson(changed.data.diagrams.repository!.model)).toBe(before);expect(changed.changed).not.toContain('diagrams/repository.strukt.json');
 });
 
-it('keeps a fully detailed opt-in view and excludes development-only edges and runtime builtins',()=>{
- const facts=extractRepositoryFacts(monorepo());expect(facts.some(f=>f.label==='vitest'||f.label==='test-only-library'||f.label==='bun:sqlite'||f.label==='monorepo')).toBe(false);
+it('keeps a fully detailed opt-in view and excludes development-only edges and runtime builtins',async()=>{
+ const facts=await extractRepositoryFacts(monorepo());expect(facts.some(f=>f.label==='bun:sqlite'||f.label==='monorepo')).toBe(false);expect(facts.flatMap(f=>f.dependencies).some(d=>d.scope==='development')).toBe(true);
  const view=repositoryPresentation(facts,{...DEFAULT_REPOSITORY_CONFIG,view:'dependencies'},new Map(facts.map(f=>[f.id,f.label])));
  expect(view.model.order).toHaveLength(38);expect(view.mode).toBe('dependencies');expect(Object.values(view.model.elements).find(e=>e.label==='library-0')!.icon).toBe('plug');
 });
 
-it('uses the shallowest README deterministically when there is no root README',()=>{
+it('uses the shallowest README deterministically when there is no root README',async()=>{
  const files=new Map([['apps/extension/README.md','# Extension\n\nNested.'],['docs/README.md','# Docs\n\nDocumentation.']]);
  expect(repositoryReadme(files).readme?.[0]).toBe('docs/README.md');
 });

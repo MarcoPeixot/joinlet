@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "test:performance": "JOINLET_PERFORMANCE_TESTS=1 vitest run src/import/adversarial.test.ts --maxWorkers 1 --no-file-parallelism"
   },
   "dependencies": {
     "@strukt/core": "workspace:*",

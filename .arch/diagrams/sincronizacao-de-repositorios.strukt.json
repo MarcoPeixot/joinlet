@@ -66,7 +66,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "layers",
-      "description": "Inventário, fatos de módulos e bibliotecas, tecnologias e ícones por manifestos/imports/tipos de arquivo, IA com evidências, mesclagem e contexto. Visão compacta de módulos agrupados para repositórios grandes. README da raiz prioritário; diagnóstico sem IA. Conteúdo e ícones manuais preservados.",
+      "description": "Extração sintática, propriedade de arquivos, classificação de dependências e mesclagem de três versões. Descrições de IA exigem referências do próprio módulo; inferências cruzadas viram propostas. Diagnósticos sem chamadas de IA preservam metadados e ignoram providers quando ai=false.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -122,6 +122,15 @@
       "tech": "Markdown · pastas · vínculos",
       "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "id": "Syntax",
+      "label": "Parsers sintáticos",
+      "presentation": "card",
+      "icon": "code",
+      "tech": "Tree-sitter · WASM",
+      "description": "Gramáticas locais verificadas para 18 linguagens e formatos. Scripts/frontmatter preservam linhas. Não executa fontes; tipos/desenvolvimento e limitações ficam separados do mapa principal. Assets acompanham conectores e imagem.",
+      "link": "doc:confiabilidade-analise-sintatica-e-onboarding"
     }
   ],
   "connections": [
@@ -204,6 +213,11 @@
       "from": "Knowledge",
       "to": "Architecture",
       "label": "documentos, pastas e vínculos"
+    },
+    {
+      "from": "Engine",
+      "to": "Syntax",
+      "label": "declarações e referências"
     }
   ]
 }

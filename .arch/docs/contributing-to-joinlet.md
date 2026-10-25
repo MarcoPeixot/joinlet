@@ -25,6 +25,9 @@ Keep pull requests focused. Describe the affected behavior and the validation pe
 bun run typecheck
 bun run build
 bun run test
+bun run test:performance
+bun run check:parsers
+bun run check:links
 bun apps/cli/src/main.ts sync
 bun apps/cli/src/main.ts context
 bun run verify:knowledge

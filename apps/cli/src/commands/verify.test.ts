@@ -58,3 +58,39 @@ it('does not report unconfigured code coverage as verified in strict mode, and d
   expect(JSON.parse(out.outText)).toMatchObject({ ok: false, coverage: 'none' });
   expect(await runVerify(argsOf('verify', '--dir', root), fakeIo())).toBe(0);
 });
+
+it('keeps repository diagnostics consistent across CLI checks and both MCP views without provider calls',async()=>{
+ const {RepositoryEngine}=await import('@strukt/workspace/repository');
+ const {DEFAULT_REPOSITORY_CONFIG}=await import('@strukt/workspace/repository-contracts');
+ const {createFsAdapter}=await import('@strukt/workspace/fs');
+ const {localReader}=await import('@strukt/workspace/repository-reader');
+ for(const ai of [false,true]){
+  const root=await tempDir();await mkdir(join(root,'.arch'));await mkdir(join(root,'src'));
+  await writeFile(join(root,'package.json'),'{"name":"diagnostic-fixture"}');await writeFile(join(root,'src/main.ts'),'export const api=true;\n');
+  const adapter=createFsAdapter(join(root,'.arch')),reader=await localReader(root);
+  await new RepositoryEngine(reader,adapter,{identity:'completed-provider',analyze:async()=>({facts:[],proposals:[]})}).run();
+  await adapter.write('repository.json',JSON.stringify({...DEFAULT_REPOSITORY_CONFIG,ai}));
+  await new RepositoryEngine(reader,adapter,{identity:'completed-provider',analyze:async()=>({facts:[],proposals:[]})}).run();
+  const ws=await openMcpWorkspace(root);if('error'in ws)throw Error(ws.error);
+  const connection=await connectClient(ws);
+  try{
+   for(const analyzer of [undefined,{identity:'different-provider',analyze:async()=>{throw Error('Diagnostic invoked provider');}}]){
+    ws.repositoryAnalyzer=analyzer;
+    const baseline=await adapter.read('repository-state.json');
+    const sync=fakeIo(),verify=fakeIo();
+    expect(await runSync(argsOf('sync','--dir',root,'--check','--json'),sync)).toBe(0);
+    expect(await runVerify(argsOf('verify','--dir',root,'--strict','--json'),verify)).toBe(0);
+    const cli=JSON.parse(sync.outText),strict=JSON.parse(verify.outText).repository;
+    for(const name of ['get_sync_status','get_implementation_plan']){
+     const result=await connection.client.callTool({name,arguments:{}});expect(result.isError).not.toBe(true);
+     const report=JSON.parse(textOf(result));expect(report.changed).toEqual(cli.changed);expect(report.status.pending).toEqual(cli.pending);expect(report.status.metrics.aiCalls).toBe(0);
+    }
+    expect(strict.changed).toEqual(cli.changed);expect(await adapter.read('repository-state.json')).toBe(baseline);
+   }
+   await writeFile(join(root,'src/main.ts'),'import redis from "redis";\nexport const api=redis;\n');
+   const sync=fakeIo(),verify=fakeIo();expect(await runSync(argsOf('sync','--dir',root,'--check','--json'),sync)).toBe(1);expect(await runVerify(argsOf('verify','--dir',root,'--strict','--json'),verify)).toBe(1);
+   const cli=JSON.parse(sync.outText);expect(JSON.parse(verify.outText).repository.changed).toEqual(cli.changed);
+   for(const name of ['get_sync_status','get_implementation_plan']){const report=JSON.parse(textOf(await connection.client.callTool({name,arguments:{}})));expect(report.changed).toEqual(cli.changed);expect(report.status.pending).toEqual(cli.pending);}
+  }finally{await connection.close();}
+ }
+},20_000);
