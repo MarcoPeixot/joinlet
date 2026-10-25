@@ -84,3 +84,7 @@ axe-core (MPL-2.0, accessibility checks in the e2e suite; used unmodified).
 ## yaml — ISC
 Copyright (c) Eemeli Aro. Used unmodified by `packages/dsl` to parse OpenAPI and Kubernetes YAML on import
 (alias count capped, no custom tags). https://github.com/eemeli/yaml/blob/main/LICENSE
+
+## ignore — MIT
+
+Copyright (c) 2013 Kael Zhang and contributors. Used unmodified to honor `.gitignore` rules for folders without Git. Source: https://github.com/kaelzhang/node-ignore. The copyright and permission notice is reproduced in [docs/third-party/ignore.md](docs/third-party/ignore.md).

@@ -9,6 +9,20 @@ export type SectionNode = Node<{ section: BoardSection }, 'section'>;
 export type BoardNode = CardNode | SectionNode;
 export type BoardEdge = Edge<{ connection: BoardConnection }, 'float'>;
 
+/** A reading filter only: hidden items, positions and manual connections stay in the workspace. */
+export function boardInFolder(board:Board,manifest:WorkspaceData['manifest'],folder:string):Board{
+  if(!folder)return board;
+  if(folder==='__main__'){
+    const sourceDocs=new Set(manifest.docs.filter(d=>d.source).map(d=>'doc:'+d.slug));
+    const visible=new Set(board.cards.filter(c=>!sourceDocs.has(c.id)).map(c=>c.id));
+    for(const edge of board.connections){if(edge.from.startsWith('diagram:'))visible.add(edge.to);if(edge.to.startsWith('diagram:'))visible.add(edge.from);}
+    const sections=board.sections.filter(section=>{const members=board.cards.filter(c=>c.x>=section.x&&c.y>=section.y&&c.x+c.w<=section.x+section.w&&c.y+c.h<=section.y+section.h);return members.length>0&&members.every(c=>visible.has(c.id));});
+    return {...board,cards:board.cards.filter(c=>visible.has(c.id)),sections,connections:board.connections.filter(c=>visible.has(c.from)&&visible.has(c.to))};
+  }
+  const visible=new Set(['diagram','doc','sketch'].flatMap(kind=>manifest[kind==='diagram'?'diagrams':kind==='doc'?'docs':'sketches'].filter(item=>folder==='__root__'?!item.folder:item.folder===folder||item.folder?.startsWith(folder+'/')).map(item=>kind+':'+item.slug)));
+  return {...board,cards:board.cards.filter(card=>visible.has(card.id)),sections:[],connections:board.connections.filter(c=>visible.has(c.from)&&visible.has(c.to))};
+}
+
 /**
  * The Overview as React Flow nodes: sections behind cards, sizes fixed by `board.json`. `measured` is set
  * too, so nodes rebuilt on every board change never count as "not initialized" mid-drag.

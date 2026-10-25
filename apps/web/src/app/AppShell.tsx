@@ -12,7 +12,6 @@ import { ChunkBoundary } from '../ui/ChunkBoundary';
 import { lazyWithRetry } from '../ui/lazyWithRetry';
 import { DiagramCanvas } from '../canvas/DiagramCanvas';
 import { AiComposer } from '../panels/AiPanel';
-import { ContextModalMount } from '../context/ContextModalMount';
 import { DocModal } from '../panels/DocModal';
 import { closeSettings, openSettings, useSettings } from '../settings/store';
 import { SketchView } from '../sketch/SketchView';
@@ -43,6 +42,7 @@ const DocumentsWorkspace = lazyWithRetry(() => import('../docs/DocumentsWorkspac
 const BoardView = lazyWithRetry(() => import('../board/BoardView').then((m) => ({ default: m.BoardView })));
 /** Configurações (with the AI and GitHub sections) load the first time the dialog opens, then stay mounted for its exit animation. */
 const ChatPanel = lazyWithRetry(() => import('../chat/ChatPanel').then((m) => ({ default: m.ChatPanel })));
+const GithubPanel = lazyWithRetry(() => import('../panels/GithubPanel').then(m=>({default:m.GithubPanel})));
 const ShareDialog = lazyWithRetry(() => import('../share/ShareDialog').then((m) => ({ default: m.ShareDialog })));
 const SettingsModal = lazyWithRetry(() => import('../settings/SettingsModal').then((m) => ({ default: m.SettingsModal })));
 const CollaborationBridge = lazyWithRetry(() => import('./CollaborationBridge').then((m) => ({ default: m.CollaborationBridge })));
@@ -114,6 +114,14 @@ function ChatDock() {
       <ChunkBoundary key="chat" panel="chat"><Suspense fallback={<PanelSkeleton label={"Chat"} />}><ChatPanel /></Suspense></ChunkBoundary>
     </AnimatePresence>
   );
+}
+
+/** Repository setup must be reachable from an empty workspace, documents and Overview. */
+function RepositoryDock() {
+  const open=useUi(state=>state.rightPanel==='github');
+  const onDiagram=useWorkspace(state=>state.view.kind==='diagram');
+  if(!open||onDiagram)return null;
+  return <ChunkBoundary panel="github"><Suspense fallback={<PanelSkeleton label="GitHub"/>}><GithubPanel/></Suspense></ChunkBoundary>;
 }
 
 function SidebarDock() {
@@ -219,10 +227,10 @@ export function AppShell() {
           <MainView />
           {!presenting && <RightDock />}
           {!presenting && <ChatDock />}
+          {!presenting && <RepositoryDock />}
           {!presenting && <ExternalChangesBanner />}
         </div>
         <DocModal />
-        <ContextModalMount />
         {templatesOpen && <ChunkBoundary overlay onError={closeTemplateGallery}><Suspense fallback={null}><TemplateGallery /></Suspense></ChunkBoundary>}
         {libraryEditorOpen && <ChunkBoundary overlay><Suspense fallback={null}><WorkspaceLibraryEditor /></Suspense></ChunkBoundary>}
         {shareSeen && <ChunkBoundary overlay onError={closeShare}><Suspense fallback={null}><ShareDialog /></Suspense></ChunkBoundary>}

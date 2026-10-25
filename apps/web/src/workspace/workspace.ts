@@ -42,7 +42,7 @@ export type WorkspaceStore = ReturnType<typeof createWorkspaceStore>;
 /** `diagramStore.load` silently refuses while an AI draft locks it (`readOnly`); the workspace must not pretend the switch happened. */
 const PREVIOUS_UNSAVED = uiText("Algumas mudanças do workspace anterior não puderam ser salvas.");
 /** Storage whose diagrams and docs are edited through collaboration rooms (the remote adapters' labels). */
-const SHARED = /^(GitHub:|Rede local:|Local network:)/;
+const SHARED = /^(GitHub:|Rede local:|Local network:|Joinlet Cloud$)/;
 
 /**
  * One opened workspace: its in-memory data and the storage it saves to. Every queued write keeps

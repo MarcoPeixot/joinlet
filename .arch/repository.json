@@ -1,0 +1,15 @@
+{
+  "ai": false,
+  "diagram": "repository",
+  "exclude": [
+    "apps/web/src/diagram/icons/cloud/**"
+  ],
+  "include": [
+    "**/*"
+  ],
+  "locale": "pt-BR",
+  "maxAiCalls": 20,
+  "maxBytes": 20000000,
+  "maxFiles": 20000,
+  "version": 1
+}

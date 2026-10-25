@@ -25,6 +25,7 @@ describe('runContext', () => {
     const architecture = await readFile(join(root, '.arch', 'context', 'ARCHITECTURE.md'), 'utf8');
     expect(architecture).toContain('```json');
     expect(architecture).toContain('| `API` | nó |');
+    for(const name of ['AGENTS.md','CLAUDE.md'])expect(await readFile(join(root,name),'utf8')).toContain('.arch/context/ARCHITECTURE.md');
 
     const again = fakeIo();
     expect(await runContext(argsOf('context', '--dir', root), again)).toBe(0);
@@ -36,6 +37,7 @@ describe('runContext', () => {
     const missing = fakeIo();
     expect(await runContext(argsOf('context', '--dir', root, '--check'), missing)).toBe(1);
     expect(missing.errText).toContain('ausente');
+    for(const name of ['AGENTS.md','CLAUDE.md'])await expect(readFile(join(root,name),'utf8')).rejects.toMatchObject({code:'ENOENT'});
 
     await runContext(argsOf('context', '--dir', root), fakeIo());
     const fresh = fakeIo();

@@ -3,6 +3,7 @@ import { inspectContext, writeGeneratedContext } from '@strukt/workspace/context
 import { openWorkspaceAt } from '@strukt/workspace/fs';
 import type { CliArgs } from '../args';
 import type { CliIo } from '../io';
+import { syncAgentInstructions } from '@strukt/workspace/repository-agents';
 
 /** `--out` (default `.arch/context`) resolved to a path inside `.arch/`, as the adapter expects. */
 export function contextOutDir(root: string, archDir: string, out: string | undefined): string | { error: string } {
@@ -33,6 +34,8 @@ export async function runContext(args: CliArgs, io: CliIo): Promise<number> {
     return 0;
   }
   const touched = await writeGeneratedContext(opened.adapter, opened.data, out);
+  const instructions=await syncAgentInstructions(opened.root);
+  if(instructions.conflicts.length){io.err('Agent instructions need review: '+instructions.conflicts.join(', '));return 1;}
   io.out(touched.length ? `Contexto atualizado: ${touched.join(', ')}.` : 'O contexto já estava atualizado.');
   return 0;
 }

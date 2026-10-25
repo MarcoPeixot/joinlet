@@ -8,6 +8,14 @@ describe('parseArgs', () => {
     expect(parseArgs(['check', '--help'])).toMatchObject({ command: 'check', help: true });
   });
 
+  it('accepts repository initialization, watch and paired connector options without dropping their values', () => {
+    expect(parseArgs(['init','--check','--dir','/repo'])).toMatchObject({command:'init',check:true,dir:'/repo',dirExplicit:true});
+    expect(parseArgs(['watch','--dir=/repo'])).toMatchObject({command:'watch',dir:'/repo'});
+    expect(parseArgs(['connect','--cloud-url','https://app.joinlet.co','--pair=ABC','--dir','/repo'])).toMatchObject({command:'connect',cloudUrl:'https://app.joinlet.co',pair:'ABC',dir:'/repo'});
+    expect(parseArgs(['connect','--cloud-url','https://app.joinlet.co'])).toMatchObject({command:'connect',cloudUrl:'https://app.joinlet.co'});
+    expect(parseArgs(['init','--pair','ABC'])).toHaveProperty('error');
+  });
+
   it('parses flags, values and refs', () => {
     expect(parseArgs(['check', '--dir', '/repo', '--json'])).toMatchObject({ command: 'check', dir: '/repo', json: true });
     expect(parseArgs(['context', '--dir=/repo', '--out=.arch/ctx', '--check'])).toMatchObject({ command: 'context', dir: '/repo', out: '.arch/ctx', check: true });

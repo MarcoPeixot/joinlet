@@ -25,6 +25,31 @@ services:
     cpus: "2"
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
+  repository-worker:
+    image: joinlet-remote:${JOINLET_RELEASE:-beta}
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      STRUKT_REMOTE_DB: /data/remote.sqlite
+      JOINLET_REPOSITORY_WORKER: "1"
+    command: ["bun", "apps/remote/src/repositoryWorker.ts"]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    volumes:
+      - joinlet_data:/data
+    stop_grace_period: 30s
+    mem_limit: 2g
+    cpus: "2"
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      disable: true
+    depends_on:
+      joinlet:
+        condition: service_healthy
   caddy:
     image: caddy:2-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f
     environment:

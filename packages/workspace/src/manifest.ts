@@ -1,6 +1,7 @@
 import { STRUKT_FORMAT_VERSION } from '@strukt/core';
 import { normalizeFolder } from './folders';
 import { stableStringify } from './json';
+import {validEvidencePath} from './evidence';
 
 export const ITEM_KINDS = ['diagram', 'doc', 'sketch'] as const;
 export type ItemKind = (typeof ITEM_KINDS)[number];
@@ -12,6 +13,8 @@ export interface ItemEntry {
   title: string;
   /** Sidebar folder as a slash path ("Backend/Dados"); absent = the root. Not a directory on disk. */
   folder?: string;
+  /** Original repository Markdown path for an imported document projection. */
+  source?: string;
 }
 
 /** `.arch/strukt.json` (spec §9). List order is the sidebar order. */
@@ -78,7 +81,9 @@ function entries(value: unknown, key: ItemListKey, warnings: string[]): ItemEntr
     seen.add(entry.slug);
     const folder = typeof entry.folder === 'string' ? normalizeFolder(entry.folder) : null;
     if (entry.folder !== undefined && !folder) warnings.push(`strukt.json: uma pasta inválida de ${key} foi ignorada.`);
-    out.push(folder ? { slug: entry.slug, title: entry.title, folder } : { slug: entry.slug, title: entry.title });
+    const source=key==='docs'&&typeof entry.source==='string'&&validEvidencePath(entry.source)?entry.source:undefined;
+    if(entry.source!==undefined&&!source)warnings.push(`strukt.json: uma fonte inválida de ${key} foi ignorada.`);
+    out.push({slug:entry.slug,title:entry.title,...(folder?{folder}:{}),...(source?{source}:{})});
   }
   return out;
 }

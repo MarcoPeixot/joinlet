@@ -37,8 +37,13 @@ export function toggleGithub(): void {
   toggleRightPanel('github');
 }
 
-/** The panel lives in the diagram view: from a board/doc/sketch we go back to the diagram first. */
+/** Cloud connections are also available before the first diagram is created. */
 export function openGithub(): void {
+  if(catalogStore.getState().cloud) {
+    catalogStore.setState({open:false,repositoryOpen:false});
+    githubStore.getState().setOpen(true);
+    return;
+  }
   const { view, diagram } = workspace.store.getState();
   if (view.kind === 'diagram') {
     githubStore.getState().setOpen(true);

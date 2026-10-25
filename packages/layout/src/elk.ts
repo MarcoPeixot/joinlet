@@ -31,7 +31,10 @@ async function createWorkerEngine(): Promise<WorkerEngine> {
   failed.catch(() => {}); // only observed while a layout is racing it
   const elk = new ELK({
     workerFactory: () => {
-      const worker = new Worker(new URL('../node_modules/elkjs/lib/elk-worker.min.js', import.meta.url));
+      const executable = (globalThis as { process?: { execPath?: string } }).process?.execPath;
+      const worker = new Worker(import.meta.url.includes('/$bunfs/') && executable ? executable.replace(/[^\\/]+$/, 'elk-worker.js') : new URL('../node_modules/elkjs/lib/elk-worker.min.js', import.meta.url));
+      // Bun workers otherwise keep short-lived CLI commands alive after layout completes.
+      (worker as Worker & { unref?: () => void }).unref?.();
       worker.addEventListener('error', (event) => fail(new WorkerFailure(`ELK worker failed: ${(event as ErrorEvent).message ?? 'unknown error'}`)));
       return worker;
     },

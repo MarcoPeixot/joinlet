@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import subset from './logos-subset.json';
+import simpleSubset from './simple-subset.json';
 import { CLOUD_COMPONENT_PRESETS, CLOUD_ICONS } from '@strukt/core/cloud';
 import { ALIASES, ICON_SUGGESTIONS, iconSvg, loadIcon, peekIcon } from './registry';
+import { REPOSITORY_TECHNOLOGIES } from '@strukt/workspace/repository-technologies';
 
 describe('icon registry', () => {
+  it('renders every technology the repository scan can assign without an unknown-icon fallback',async()=>{
+    for(const technology of REPOSITORY_TECHNOLOGIES){
+      if(technology.icon.startsWith('si:'))expect(Object.hasOwn(simpleSubset,technology.icon.slice(3)),technology.id).toBe(true);
+      expect(await loadIcon(technology.icon),technology.id).toMatchObject({body:expect.any(String)});
+    }
+  });
   it('resolves every official cloud icon and component without a provider fallback', async () => {
     expect(CLOUD_ICONS.length).toBeGreaterThan(1700);
     const unresolved: string[] = [];

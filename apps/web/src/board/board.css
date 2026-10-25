@@ -267,4 +267,5 @@
 /* Fit the available canvas, including docked chat and inspector. */
 .strukt-board { container-type: inline-size; container-name: overview; }
 @container overview (max-width: 650px) { .sk-overview-hint { display: none; } }
+@container overview (max-width: 650px) { .sk-overview-spacing-text { display: none; } }
 @container overview (max-width: 420px) { .sk-overview-status.react-flow__panel { bottom: 56px; } }

@@ -8,7 +8,9 @@ A arquitetura deste projeto fica em `.arch/`. Antes de alterar a arquitetura, co
 <!-- joinlet:knowledge-harness:start -->
 ### Code and architecture workflow
 
+- Read `.arch/context/llms.txt` and `.arch/context/ARCHITECTURE.md` for the generated project context. These files follow architecture and documentation changes automatically; never paste a stale copy into agent instructions.
 - Before changing code or architecture, read get_architecture, list_diagrams, related documents and evidence. Use get_sync_status and get_implementation_plan on a local checkout to inspect mapped source changes and architecture changes separately.
+- After repository initialization, an explicitly requested deeper analysis can use get_repository_analysis_plan, list_repository_files and read_repository_file to inspect authorized sources by revision. Refine existing diagrams/docs, use organize_workspace for folders and get_overview/connect_overview for grounded item relationships. Imported Markdown documents are source projections: preserve originals and review conflicting edits. Report unread files and remaining batches; initial preparation is not complete semantic analysis.
 - Code → Joinlet: update mapped sources and run joinlet sync; review merge notes. For code without an importer, update diagrams through apply_ops and link evidence to actual repository files. Update authored explanations with write_doc.
 - Joinlet → code: inspect the desired diagram and source files, implement the intended behavior using the coding agent and add appropriate tests. Diagram edits do not automatically rewrite application code. Keep planned architecture distinct from implemented behavior.
 - Finish with joinlet sync, joinlet context, the project tests, and joinlet verify --strict. Resolve stale evidence and source/diagram disagreements; do not refresh evidence merely to hide drift.

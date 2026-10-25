@@ -21,7 +21,7 @@
       "layoutRole": "entry",
       "icon": "browser",
       "tech": "React · Vite",
-      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres. A entrada hospedada oferece cadastro, login e troca de senha; GitHub aparece apenas quando configurado. A tela de login exporta rascunhos antigos em IndexedDB sem apagá-los. O formulário é carregado sob demanda sem introduzir importação dinâmica do barrel completo de workspace, evitando ciclos de inicialização no build. Contas hospedadas podem editar nome e foto rasterizada em Configurações, com telas em português e inglês carregadas sob demanda. Em browser-preview, abre um workspace local sem login/cadastro; workspaces adicionais mostram indisponibilidade temporária sem oferecer autenticação. Contas hospedadas não são acessadas ou migradas por essa modalidade."
+      "description": "Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres. A entrada hospedada oferece cadastro, login e troca de senha; GitHub aparece apenas quando configurado. A tela de login exporta rascunhos antigos em IndexedDB sem apagá-los. O formulário é carregado sob demanda sem introduzir importação dinâmica do barrel completo de workspace, evitando ciclos de inicialização no build. Contas hospedadas podem editar nome e foto rasterizada em Configurações, com telas em português e inglês carregadas sob demanda. Em browser-preview, abre um workspace local sem login/cadastro; workspaces adicionais mostram indisponibilidade temporária sem oferecer autenticação. Contas hospedadas não são acessadas ou migradas por essa modalidade. Dono Cloud dispõe de catálogo com vários workspaces e escopo independente por aba; prévia sem conta continua limitada a um. Abrir pasta encaminha ao conector e comandos permitem seleção e cópia. Contexto é automático, sem modal manual."
     },
     {
       "id": "Local",
@@ -30,7 +30,8 @@
       "layoutRole": "peer",
       "icon": "terminal",
       "tech": "Hono · Bun",
-      "description": "IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local."
+      "description": "IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. Serviço de repositório, diagnóstico Git, init e acompanhamento incremental; conector local ou pareado por conexão de saída.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
       "id": "Remote",
@@ -39,7 +40,8 @@
       "layoutRole": "peer",
       "icon": "server",
       "tech": "Express · Bun",
-      "description": "OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. A autenticação por e-mail/senha usa Argon2id assíncrono, limites por IP/identificador, CSRF e sessões revogáveis por versão. O modo senha inicia sem credenciais GitHub. Confirmação, recuperação por e-mail e vínculo entre métodos ficam fora desta primeira entrega; o endereço não é identidade verificada. Analytics do HTML remoto permanece opcional por configuração explícita. Perfil pessoal exige sessão e CSRF, sem alterar e-mail ou privilégios. Diretório de contas é somente leitura, desabilitado sem credencial dedicada de serviço; o proxy público bloqueia /api/internal. A projeção paginada contém cadastro e métodos de acesso, sem senhas, sessões, chaves ou conteúdo de projetos. O painel administrativo do operador permanece separado."
+      "description": "OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. A autenticação por e-mail/senha usa Argon2id assíncrono, limites por IP/identificador, CSRF e sessões revogáveis por versão. O modo senha inicia sem credenciais GitHub. Confirmação, recuperação por e-mail e vínculo entre métodos ficam fora desta primeira entrega; o endereço não é identidade verificada. Analytics do HTML remoto permanece opcional por configuração explícita. Perfil pessoal exige sessão e CSRF, sem alterar e-mail ou privilégios. Diretório de contas é somente leitura, desabilitado sem credencial dedicada de serviço; o proxy público bloqueia /api/internal. A projeção paginada contém cadastro e métodos de acesso, sem senhas, sessões, chaves ou conteúdo de projetos. O painel administrativo do operador permanece separado. Conexões locais/GitHub, autorização vinculada à conta existente, fila SQLite, snapshots SHA e worker separado com publicação por lote em um PR. Múltiplos workspaces por dono, migração de IDs e convites preservados e autorização de escopo por requisição.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
       "id": "Agents",
@@ -47,7 +49,8 @@
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "bot",
-      "description": "Leitura e escrita de arquitetura, contexto, evidências, importação e validação."
+      "description": "Leitura e escrita de arquitetura, contexto, evidências, importação e validação. CLI init/connect/watch e request_repository_sync; fontes autorizadas ampliam diagnóstico e encaminhamento, preservando o limite de não reescrever a aplicação. Blocos gerenciados em AGENTS.md e CLAUDE.md apontam ao contexto vivo, preservando instruções humanas.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
       "id": "Extension",
@@ -71,7 +74,8 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "folder",
-      "description": "Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição."
+      "description": "Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição. Motor compartilhado de repositório com fatos, propostas, evidências ancoradas e base gerenciada; gravação por lote e recuperação fora do Git.",
+      "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
       "id": "Browser",
@@ -187,13 +191,13 @@
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres. A entrada hospedada oferece cadastro, login e troca de senha; GitHub aparece apenas quando configurado. A tela de login exporta rascunhos antigos em IndexedDB sem apagá-los. O formulário é carregado sob demanda sem introduzir importação dinâmica do barrel completo de workspace, evitando ciclos de inicialização no build. Contas hospedadas podem editar nome e foto rasterizada em Configurações, com telas em português e inglês carregadas sob demanda. Em browser-preview, abre um workspace local sem login/cadastro; workspaces adicionais mostram indisponibilidade temporária sem oferecer autenticação. Contas hospedadas não são acessadas ou migradas por essa modalidade. | — |
-| API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. | — |
-| Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. A autenticação por e-mail/senha usa Argon2id assíncrono, limites por IP/identificador, CSRF e sessões revogáveis por versão. O modo senha inicia sem credenciais GitHub. Confirmação, recuperação por e-mail e vínculo entre métodos ficam fora desta primeira entrega; o endereço não é identidade verificada. Analytics do HTML remoto permanece opcional por configuração explícita. Perfil pessoal exige sessão e CSRF, sem alterar e-mail ou privilégios. Diretório de contas é somente leitura, desabilitado sem credencial dedicada de serviço; o proxy público bloqueia /api/internal. A projeção paginada contém cadastro e métodos de acesso, sem senhas, sessões, chaves ou conteúdo de projetos. O painel administrativo do operador permanece separado. | — |
-| CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. | — |
+| Editor web (`Web`) | nó | React · Vite | Canvas, documentos, sketches e adaptadores; prévia pública browser-preview abre um workspace sem conta em IndexedDB, com contas adicionais futuras. O modo remoto autenticado permanece separado. Landing e documentação estática bilíngue oferecem acesso ao repositório público; guias seguem os grupos do menu também na paginação. Tema escuro e inglês por padrão, preservando escolhas salvas. A configuração de IA na prévia pública explica a limitação e orienta a execução local sem tentar carregar provedores indisponíveis. Métricas opcionais e explícitas dependem da configuração do operador e consentimento do visitante, sem conteúdo dos projetos. Analytics opcional v2 cobre landing, guias e editor com consentimento versionado, contexto categórico, IDs idempotentes e atribuição consentida entre origens do operador. Ativação exige alteração significativa seguida de gravação concluída; exportações têm formato explícito. Não envia conteúdo, nomes, caminhos ou erros livres. A entrada hospedada oferece cadastro, login e troca de senha; GitHub aparece apenas quando configurado. A tela de login exporta rascunhos antigos em IndexedDB sem apagá-los. O formulário é carregado sob demanda sem introduzir importação dinâmica do barrel completo de workspace, evitando ciclos de inicialização no build. Contas hospedadas podem editar nome e foto rasterizada em Configurações, com telas em português e inglês carregadas sob demanda. Em browser-preview, abre um workspace local sem login/cadastro; workspaces adicionais mostram indisponibilidade temporária sem oferecer autenticação. Contas hospedadas não são acessadas ou migradas por essa modalidade. Dono Cloud dispõe de catálogo com vários workspaces e escopo independente por aba; prévia sem conta continua limitada a um. Abrir pasta encaminha ao conector e comandos permitem seleção e cópia. Contexto é automático, sem modal manual. | — |
+| API local (`Local`) | nó | Hono · Bun | IA, Git, filesystem e integrações locais; self-hosted sem cotas comerciais, com limites técnicos e origem local. Serviço de repositório, diagnóstico Git, init e acompanhamento incremental; conector local ou pareado por conexão de saída. | — |
+| Backend hospedável (`Remote`) | nó | Express · Bun | OAuth, contas, workspaces hospedados, convites, MCP remoto e admissão; política self-hosted por padrão ou Cloud escolhida no ambiente confiável. A autenticação por e-mail/senha usa Argon2id assíncrono, limites por IP/identificador, CSRF e sessões revogáveis por versão. O modo senha inicia sem credenciais GitHub. Confirmação, recuperação por e-mail e vínculo entre métodos ficam fora desta primeira entrega; o endereço não é identidade verificada. Analytics do HTML remoto permanece opcional por configuração explícita. Perfil pessoal exige sessão e CSRF, sem alterar e-mail ou privilégios. Diretório de contas é somente leitura, desabilitado sem credencial dedicada de serviço; o proxy público bloqueia /api/internal. A projeção paginada contém cadastro e métodos de acesso, sem senhas, sessões, chaves ou conteúdo de projetos. O painel administrativo do operador permanece separado. Conexões locais/GitHub, autorização vinculada à conta existente, fila SQLite, snapshots SHA e worker separado com publicação por lote em um PR. Múltiplos workspaces por dono, migração de IDs e convites preservados e autorização de escopo por requisição. | — |
+| CLI e MCP (`Agents`) | nó | — | Leitura e escrita de arquitetura, contexto, evidências, importação e validação. CLI init/connect/watch e request\_repository\_sync; fontes autorizadas ampliam diagnóstico e encaminhamento, preservando o limite de não reescrever a aplicação. Blocos gerenciados em AGENTS.md e CLAUDE.md apontam ao contexto vivo, preservando instruções humanas. | — |
 | Extensão VS Code (`Extension`) | nó | — | Comandos e diagnósticos de diagramas no editor. | — |
 | Modelo e operações (`Domain`) | nó | — | Core, formatos JSON/DSL, operações validadas, layout e Git. | — |
-| `Workspace` | nó | — | Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição. | — |
+| `Workspace` | nó | — | Manifesto, versões, contexto, evidências e Yjs; política self-hosted separada das cotas da Cloud, isoladas por requisição. Motor compartilhado de repositório com fatos, propostas, evidências ancoradas e base gerenciada; gravação por lote e recuperação fora do Git. | — |
 | Armazenamento local (`Browser`) | nó | IndexedDB · File System Access | Persistência em IndexedDB ou pasta do usuário. O salvador distingue gravação efetiva, erro terminal, cancelamento e dados já conhecidos; telemetria de conteúdo salvo só acompanha gravações reais após interação significativa. Memória volátil não é tratada como persistência. | — |
 | Persistência hospedada (`SQLite`) | nó | SQLite | Dados e segredos de runtime pertencem ao operador e ficam fora do Git. Contas têm IDs internos independentes de subjects GitHub; migração versionada reserva IDs legados e preserva dados. Senhas são hashes; trocar senha invalida sessões antigas. A ferramenta recovery invalida acessos e convites em snapshots restaurados sem apagar workspaces. Migração v2 adiciona foto e datas sem inventar datas históricas. Nome/foto pertencem ao ID interno; sessões existentes leem o nome atual. Cadastros novos e logins passam a registrar seus instantes. | — |
 | `GitHub` | nó | — | OAuth e workspace por branch/PR quando um repositório está conectado. | — |
@@ -201,26 +205,28 @@
 
 ## Evidências no código
 
+- `Agents`: `apps/mcp/src/server.ts#L41` — trecho esperado: `export function createStruktServer`
 - `AI`: `apps/remote/src/hostedAi.ts#L149` — trecho esperado: `export function createHostedAi`
-- `Agents`: `apps/mcp/src/server.ts#L39` — trecho esperado: `export function createStruktServer`
 - `Browser`: `apps/web/src/workspace/idb.ts#L56` — trecho esperado: `createIdbAdapter`
 - `Browser`: `packages/workspace/src/saver.ts` — trecho esperado: `onSettled`
 - `Browser`: `packages/workspace/src/saver.test.ts` — trecho esperado: `reports completed writes`
 - `Domain`: `packages/core/src/model.ts#L127` — trecho esperado: `export interface DiagramModel`
 - `Extension`: `apps/vscode/src/extension.ts#L22` — trecho esperado: `export function activate`
-- `GitHub`: `apps/remote/src/githubWorkspace.ts#L54` — trecho esperado: `export async function openGithubWorkspace`
-- `Local`: `apps/server/src/app.ts#L163` — trecho esperado: `export function createApp`
-- `Remote`: `apps/remote/src/app.ts#L23` — trecho esperado: `export function createRemoteApp`
+- `GitHub`: `apps/remote/src/githubWorkspace.ts#L57` — trecho esperado: `export async function openGithubWorkspace`
+- `Local`: `apps/server/src/app.ts#L168` — trecho esperado: `export function createApp`
+- `Remote`: `apps/remote/src/app.ts#L24` — trecho esperado: `export function createRemoteApp`
 - `Remote`: `apps/remote/src/config.ts#L40` — trecho esperado: `JOINLET_DEPLOYMENT_MODE`
-- `Remote`: `apps/remote/src/passwordAuth.ts` — trecho esperado: `export function createPasswordAuth`
-- `Remote`: `apps/remote/src/passwordSmoke.ts` — trecho esperado: `Joinlet password smoke passed:`
-- `Remote`: `apps/remote/src/accountDirectory.ts` — trecho esperado: `export function accountDirectory`
-- `Remote`: `apps/remote/src/profileSmoke.ts` — trecho esperado: `Joinlet profile smoke passed:`
-- `SQLite`: `apps/remote/src/hostedStore.ts#L51` — trecho esperado: `export function createHostedStore`
+- `Remote`: `apps/remote/src/passwordAuth.ts#L7` — trecho esperado: `export function createPasswordAuth`
+- `Remote`: `apps/remote/src/passwordSmoke.ts#L130` — trecho esperado: `Joinlet password smoke passed:`
+- `Remote`: `apps/remote/src/accountDirectory.ts#L7` — trecho esperado: `export function accountDirectory`
+- `Remote`: `apps/remote/src/profileSmoke.ts#L57` — trecho esperado: `Joinlet profile smoke passed:`
+- `Remote`: `apps/remote/src/hostedWorkspacesSmoke.ts#L79` — trecho esperado: `Joinlet multiple workspaces smoke passed`
+- `Remote`: `apps/remote/src/hostedStore.ts#L189` — trecho esperado: `const createWorkspace = db.transaction`
+- `SQLite`: `apps/remote/src/hostedStore.ts#L53` — trecho esperado: `export function createHostedStore`
 - `SQLite`: `apps/remote/src/accounts.ts` — trecho esperado: `export function createAccounts`
 - `SQLite`: `apps/remote/src/recovery.ts` — trecho esperado: `export function invalidateRestoredAccess`
 - `SQLite`: `apps/remote/src/profile.ts` — trecho esperado: `export function validateProfile`
-- `Web`: `apps/web/src/workspace/workspace.ts#L28` — trecho esperado: `export interface Workspace`
+- `Web`: `apps/web/src/workspace/workspace.ts#L28` — trecho esperado: `export interface WorkspaceState {`
 - `Web`: `apps/web/src/settings/publicAccess.ts#L2` — trecho esperado: `export function isBrowserPreview`
 - `Web`: `apps/web/src/analytics/client.ts` — trecho esperado: `export function trackAnalytics`
 - `Web`: `apps/web/src/landing/Nav.tsx` — trecho esperado: `export function SiteNav`
@@ -243,7 +249,7 @@
 - `Web`: `apps/web/src/workspace/ProjectsView.tsx` — trecho esperado: `Um workspace por enquanto`
 - `Web`: `apps/web/e2e/publicPreview.spec.ts` — trecho esperado: `name: 'One workspace for now'`
 - `Workspace`: `packages/workspace/src/workspace.ts#L32` — trecho esperado: `export interface WorkspaceData`
-- `Workspace`: `packages/workspace/src/beta.ts#L24` — trecho esperado: `SELF_HOSTED_PLAN`
+- `Workspace`: `packages/workspace/src/beta.ts#L29` — trecho esperado: `SELF_HOSTED_PLAN`
 
 ## Conexões
 
@@ -263,3 +269,17 @@
 | `Local` | `AI` | `>` seta | credenciais do operador |
 | `Remote` | `AI` | `>` seta | credenciais pessoais |
 | `Local` | `Workspace` | `>` seta | pasta local |
+
+## Documentos ligados
+
+### Conexão e sincronização de repositórios
+
+`.arch/docs/conexao-e-sincronizacao-de-repositorios.md` · ligado a: `Local`, `Remote`, `Agents`, `Workspace`
+
+> # Conexão e sincronização de repositórios
+>
+> Implementação disponível no código. A ativação do serviço oficial e a homologação com GitHub real dependem do operador; os testes locais não comprovam publicação em produção.
+>
+> ## Conectar uma pasta
+>
+> […]

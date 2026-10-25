@@ -11,7 +11,7 @@
     "Agents": [
       {
         "contains": "export function createStruktServer",
-        "line": 39,
+        "line": 41,
         "path": "apps/mcp/src/server.ts",
         "snippet": "9cd3748e"
       }
@@ -51,7 +51,7 @@
     "GitHub": [
       {
         "contains": "export async function openGithubWorkspace",
-        "line": 54,
+        "line": 57,
         "path": "apps/remote/src/githubWorkspace.ts",
         "snippet": "93ac10ab"
       }
@@ -59,7 +59,7 @@
     "Local": [
       {
         "contains": "export function createApp",
-        "line": 163,
+        "line": 168,
         "path": "apps/server/src/app.ts",
         "snippet": "e272ac4d"
       }
@@ -67,7 +67,7 @@
     "Remote": [
       {
         "contains": "export function createRemoteApp",
-        "line": 23,
+        "line": 24,
         "path": "apps/remote/src/app.ts",
         "snippet": "7f9209e9"
       },
@@ -79,25 +79,45 @@
       },
       {
         "contains": "export function createPasswordAuth",
-        "path": "apps/remote/src/passwordAuth.ts"
+        "line": 7,
+        "path": "apps/remote/src/passwordAuth.ts",
+        "snippet": "a37598ae"
       },
       {
         "contains": "Joinlet password smoke passed:",
-        "path": "apps/remote/src/passwordSmoke.ts"
+        "line": 130,
+        "path": "apps/remote/src/passwordSmoke.ts",
+        "snippet": "4b3f3b78"
       },
       {
         "contains": "export function accountDirectory",
-        "path": "apps/remote/src/accountDirectory.ts"
+        "line": 7,
+        "path": "apps/remote/src/accountDirectory.ts",
+        "snippet": "515b2759"
       },
       {
         "contains": "Joinlet profile smoke passed:",
-        "path": "apps/remote/src/profileSmoke.ts"
+        "line": 57,
+        "path": "apps/remote/src/profileSmoke.ts",
+        "snippet": "b4c582aa"
+      },
+      {
+        "contains": "Joinlet multiple workspaces smoke passed",
+        "line": 79,
+        "path": "apps/remote/src/hostedWorkspacesSmoke.ts",
+        "snippet": "0af2dd87"
+      },
+      {
+        "contains": "const createWorkspace = db.transaction",
+        "line": 189,
+        "path": "apps/remote/src/hostedStore.ts",
+        "snippet": "88e1727e"
       }
     ],
     "SQLite": [
       {
         "contains": "export function createHostedStore",
-        "line": 51,
+        "line": 53,
         "path": "apps/remote/src/hostedStore.ts",
         "snippet": "d87adde2"
       },
@@ -116,7 +136,7 @@
     ],
     "Web": [
       {
-        "contains": "export interface Workspace",
+        "contains": "export interface WorkspaceState {",
         "line": 28,
         "path": "apps/web/src/workspace/workspace.ts",
         "snippet": "14ff4c74"
@@ -217,7 +237,7 @@
       },
       {
         "contains": "SELF_HOSTED_PLAN",
-        "line": 24,
+        "line": 29,
         "path": "packages/workspace/src/beta.ts",
         "snippet": "35c75d2c"
       }
@@ -258,6 +278,2444 @@
         "line": 2,
         "path": "package.json",
         "snippet": "46840b99"
+      }
+    ]
+  },
+  "repository": {
+    "edge:repo_09e11a52066c67→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/vscode/scripts/write-schema.ts",
+        "snippet": "73af2f15"
+      }
+    ],
+    "edge:repo_3b4e3efd29cd13→repo_41ba823706ed42": [
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 4,
+        "path": "apps/web/src/actions/canvasDiagrams.ts",
+        "snippet": "38f9c857"
+      }
+    ],
+    "edge:repo_3b4e3efd29cd13→repo_5c1ab4b7e80ad1": [
+      {
+        "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+        "line": 2,
+        "path": "apps/web/src/code/importFormats.ts",
+        "snippet": "2336042f"
+      }
+    ],
+    "edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed": [
+      {
+        "contains": "import type { ItemKind } from '@strukt/workspace';",
+        "line": 2,
+        "path": "apps/web/src/actions/commands.ts",
+        "snippet": "8319b8ce"
+      }
+    ],
+    "edge:repo_3b4e3efd29cd13→repo_e27f3faa9152db": [
+      {
+        "contains": "import { addCanvasDiagram, canvasFrameModel, canvasFrames, computeRects, emptyLayout, emptyModel, unionRect } from '@strukt/core';",
+        "line": 2,
+        "path": "apps/web/src/actions/canvasDiagrams.ts",
+        "snippet": "978597c8"
+      }
+    ],
+    "edge:repo_3b4e3efd29cd13→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/web/src/ai/aiStore.ts",
+        "snippet": "08bb11bf"
+      }
+    ],
+    "edge:repo_41ba823706ed42→repo_e27f3faa9152db": [
+      {
+        "contains": "import { canvasFrameModel, canvasFrames, computeRects, copyElements, unionRect, visualBox } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/layout/src/canvasFrames.ts",
+        "snippet": "d9233034"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_4c5a34d0f0b789": [
+      {
+        "contains": "import { createStruktServer, openMcpWorkspace, writeContext } from '@strukt/mcp';",
+        "line": 27,
+        "path": "apps/server/src/app.ts",
+        "snippet": "f813dc3e"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_71391bfad4e6b4": [
+      {
+        "contains": "import { createProcessRunner } from '@strukt/git';",
+        "line": 23,
+        "path": "apps/server/src/app.ts",
+        "snippet": "ed654773"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_d4ff4b28356bed": [
+      {
+        "contains": "import { withKnowledgeHarness } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/server/src/agentSetup.ts",
+        "snippet": "e5684ff8"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_d5a16586640c40": [
+      {
+        "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
+        "line": 6,
+        "path": "apps/server/src/chatEdit.ts",
+        "snippet": "4f6d00ed"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_e27f3faa9152db": [
+      {
+        "contains": "import { isAiProvider, isCompatibleProvider, readChatModel } from '@strukt/core';",
+        "line": 17,
+        "path": "apps/server/src/app.ts",
+        "snippet": "ca5bd477"
+      }
+    ],
+    "edge:repo_484fb1e9cea553→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 5,
+        "path": "apps/server/src/chatEdit.ts",
+        "snippet": "e9df8490"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_41ba823706ed42": [
+      {
+        "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
+        "line": 8,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "93c130d6"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_71391bfad4e6b4": [
+      {
+        "contains": "import { publish, prStatus } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/mcp/src/github.ts",
+        "snippet": "c3616889"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_d4ff4b28356bed": [
+      {
+        "contains": "import { isMentioned, listCommentFiles, liveMessages, liveThreads, parseComments, resolveTextAnchor } from '@strukt/workspace';",
+        "line": 2,
+        "path": "apps/mcp/src/comments.ts",
+        "snippet": "27c52cee"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_d5a16586640c40": [
+      {
+        "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+        "line": 9,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "f6df6743"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_e27f3faa9152db": [
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/comments.ts",
+        "snippet": "fd421b26"
+      }
+    ],
+    "edge:repo_4c5a34d0f0b789→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/mcp/src/resources.ts",
+        "snippet": "31f5cc5f"
+      }
+    ],
+    "edge:repo_5c1ab4b7e80ad1→repo_e27f3faa9152db": [
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/dsl/src/diagramTree.ts",
+        "snippet": "58f1ea78"
+      }
+    ],
+    "edge:repo_5c1ab4b7e80ad1→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "packages/dsl/src/import/testkit.ts",
+        "snippet": "59af61c7"
+      }
+    ],
+    "edge:repo_71391bfad4e6b4→repo_d4ff4b28356bed": [
+      {
+        "contains": "import { createMemoryAdapter, loadWorkspace, openConcerns, stableStringify } from '@strukt/workspace';",
+        "line": 3,
+        "path": "packages/git/src/diff.ts",
+        "snippet": "954d4337"
+      }
+    ],
+    "edge:repo_71391bfad4e6b4→repo_e27f3faa9152db": [
+      {
+        "contains": "import { compareModels, emptyModel, own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/git/src/diff.ts",
+        "snippet": "c55217d1"
+      }
+    ],
+    "edge:repo_86104d06094ed0→repo_484fb1e9cea553": [
+      {
+        "contains": "import { serializeWorkspaceWrite } from \"../../server/src/workspaceWrite\";",
+        "line": 5,
+        "path": "apps/remote/src/hosted.ts",
+        "snippet": "faeda951"
+      }
+    ],
+    "edge:repo_86104d06094ed0→repo_4c5a34d0f0b789": [
+      {
+        "contains": "import { createStruktServer } from '@strukt/mcp';",
+        "line": 10,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "afefa2d9"
+      }
+    ],
+    "edge:repo_86104d06094ed0→repo_d4ff4b28356bed": [
+      {
+        "contains": "import { withAccessPlan, setRequestPlans } from '@strukt/workspace/access-context';",
+        "line": 2,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "64a8deb8"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_41ba823706ed42": [
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 8,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "a27b8b02"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_5c1ab4b7e80ad1": [
+      {
+        "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+        "line": 1,
+        "path": "apps/cli/src/cloudCollect.ts",
+        "snippet": "6743fe48"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_71391bfad4e6b4": [
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/cli/src/cloudAllowlist.ts",
+        "snippet": "1ded471c"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_d4ff4b28356bed": [
+      {
+        "contains": "import { parseStage } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/args.ts",
+        "snippet": "3509beb1"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_d5a16586640c40": [
+      {
+        "contains": "import { planSnapshot } from '@strukt/ops';",
+        "line": 3,
+        "path": "apps/cli/src/commands/sync.ts",
+        "snippet": "16e5030b"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_e27f3faa9152db": [
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "eeb426e3"
+      }
+    ],
+    "edge:repo_bde7b76204809a→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 5,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "f731a6a7"
+      }
+    ],
+    "edge:repo_d4ff4b28356bed→repo_41ba823706ed42": [
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 1,
+        "path": "packages/workspace/src/repository/importers.ts",
+        "snippet": "9d2b13a1"
+      }
+    ],
+    "edge:repo_d4ff4b28356bed→repo_5c1ab4b7e80ad1": [
+      {
+        "contains": "import { parseDsl } from '@strukt/dsl/lite';",
+        "line": 3,
+        "path": "packages/workspace/src/diagram.ts",
+        "snippet": "cda7f69a"
+      }
+    ],
+    "edge:repo_d4ff4b28356bed→repo_e27f3faa9152db": [
+      {
+        "contains": "import { RESERVED_NAME, own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/workspace/src/board.ts",
+        "snippet": "d37368b1"
+      }
+    ],
+    "edge:repo_d4ff4b28356bed→repo_e86a0d465b5caa": [
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "packages/workspace/src/collaborationFiles.ts",
+        "snippet": "46fa7cac"
+      }
+    ],
+    "edge:repo_d5a16586640c40→repo_41ba823706ed42": [
+      {
+        "contains": "import { placeBatch } from '@strukt/layout';",
+        "line": 3,
+        "path": "packages/ops/src/plan.ts",
+        "snippet": "6b2bc1e8"
+      }
+    ],
+    "edge:repo_d5a16586640c40→repo_e27f3faa9152db": [
+      {
+        "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/ops/src/check.ts",
+        "snippet": "2f9f9eaf"
+      }
+    ],
+    "edge:repo_e86a0d465b5caa→repo_e27f3faa9152db": [
+      {
+        "contains": "import type { Connector, DiagramElement, DiagramModel, EdgeEl, ID, Shape, Span } from '@strukt/core';",
+        "line": 4,
+        "path": "packages/json/src/parse.ts",
+        "snippet": "76a7c95f"
+      }
+    ],
+    "repo_09e11a52066c67": [
+      {
+        "contains": "\"name\": \"strukt-vscode\",",
+        "line": 2,
+        "path": "apps/vscode/package.json",
+        "snippet": "4eace2eb"
+      },
+      {
+        "contains": "\"node\": \">=22.4\"",
+        "line": 13,
+        "path": "apps/vscode/package.json",
+        "snippet": "83259d7f"
+      },
+      {
+        "contains": "import { writeFile } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/vscode/scripts/write-schema.ts",
+        "snippet": "a80dd405"
+      },
+      {
+        "contains": "export const DEFAULT_APP_URL = 'http://localhost:5178';",
+        "line": 1,
+        "path": "apps/vscode/src/appUrl.ts",
+        "snippet": "8ede0e25"
+      },
+      {
+        "contains": "import type { EditorDiagnostic } from './diagnostics';",
+        "line": 1,
+        "path": "apps/vscode/src/checkReport.ts",
+        "snippet": "794ea933"
+      },
+      {
+        "contains": "/** How to launch the Joinlet CLI: a binary plus arguments placed before the command (e.g. `bun` + `main.ts`). */",
+        "line": 1,
+        "path": "apps/vscode/src/cli.ts",
+        "snippet": "58035c97"
+      },
+      {
+        "contains": "export interface CliSettings {",
+        "line": 2,
+        "path": "apps/vscode/src/cli.ts",
+        "snippet": "01711360"
+      },
+      {
+        "contains": "import { join } from 'node:path';",
+        "line": 1,
+        "path": "apps/vscode/src/commands.ts",
+        "snippet": "a73c4cef"
+      },
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 1,
+        "path": "apps/vscode/src/diagnostics.ts",
+        "snippet": "f88e2ddc"
+      },
+      {
+        "contains": "export function diffMarkdown(ref: string, stdout: string): string {",
+        "line": 2,
+        "path": "apps/vscode/src/diffView.ts",
+        "snippet": "970c0849"
+      },
+      {
+        "contains": "import * as vscode from 'vscode';",
+        "line": 1,
+        "path": "apps/vscode/src/extension.ts",
+        "snippet": "63d712b0"
+      },
+      {
+        "contains": "import { execFile } from 'node:child_process';",
+        "line": 1,
+        "path": "apps/vscode/src/nodeExec.ts",
+        "snippet": "7bdfdf3f"
+      },
+      {
+        "contains": "import type { CliInvocation, CliSettings } from './cli';",
+        "line": 1,
+        "path": "apps/vscode/src/run.ts",
+        "snippet": "ef1bd4a9"
+      },
+      {
+        "contains": "export const DIAGRAM_FILE_MATCH = ['*.strukt.json'];",
+        "line": 2,
+        "path": "apps/vscode/src/schema.ts",
+        "snippet": "9aaf6a03"
+      },
+      {
+        "contains": "declare module 'vscode' {",
+        "line": 5,
+        "path": "apps/vscode/src/vscode.d.ts",
+        "snippet": "beda3385"
+      },
+      {
+        "contains": "export function rootOfManifest(manifestPath: string): string | null {",
+        "line": 2,
+        "path": "apps/vscode/src/workspaceRoots.ts",
+        "snippet": "e88da156"
+      }
+    ],
+    "repo_3b4e3efd29cd13": [
+      {
+        "contains": "(() => {",
+        "line": 1,
+        "path": "apps/web/docs/client.js",
+        "snippet": "91c4805a"
+      },
+      {
+        "contains": "import { readFileSync } from 'node:fs';",
+        "line": 1,
+        "path": "apps/web/docs/site.mjs",
+        "snippet": "910cb5f7"
+      },
+      {
+        "contains": "\"name\": \"@strukt/web\",",
+        "line": 2,
+        "path": "apps/web/package.json",
+        "snippet": "4790cef6"
+      },
+      {
+        "contains": "\"dev\": \"vite\",",
+        "line": 6,
+        "path": "apps/web/package.json",
+        "snippet": "87994331"
+      },
+      {
+        "contains": "\"react\": \"^19.3.0\",",
+        "line": 42,
+        "path": "apps/web/package.json",
+        "snippet": "09526953"
+      },
+      {
+        "contains": "\"react-dom\": \"^19.3.0\",",
+        "line": 43,
+        "path": "apps/web/package.json",
+        "snippet": "b6c5e60d"
+      },
+      {
+        "contains": "\"tailwindcss\": \"^4.3.3\",",
+        "line": 56,
+        "path": "apps/web/package.json",
+        "snippet": "6cd7782a"
+      },
+      {
+        "contains": "\"\"\"Import official cloud SVG packs from an extracted directory (see docs/third-party/cloud-icons.md).\"\"\"",
+        "line": 1,
+        "path": "apps/web/scripts/build-cloud-icons.py",
+        "snippet": "f17faed5"
+      },
+      {
+        "contains": "/**",
+        "line": 1,
+        "path": "apps/web/scripts/build-icon-subset.ts",
+        "snippet": "7727f016"
+      },
+      {
+        "contains": "import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';",
+        "line": 15,
+        "path": "apps/web/scripts/build-icon-subset.ts",
+        "snippet": "2cbc1e50"
+      },
+      {
+        "contains": "import { join } from 'node:path';",
+        "line": 16,
+        "path": "apps/web/scripts/build-icon-subset.ts",
+        "snippet": "8805b5d8"
+      },
+      {
+        "contains": "/**",
+        "line": 1,
+        "path": "apps/web/scripts/build-logos-subset.ts",
+        "snippet": "eaba0b5a"
+      },
+      {
+        "contains": "import { writeFileSync } from 'node:fs';",
+        "line": 8,
+        "path": "apps/web/scripts/build-logos-subset.ts",
+        "snippet": "31fddfe1"
+      },
+      {
+        "contains": "/**",
+        "line": 1,
+        "path": "apps/web/scripts/build-lucide-categories.ts",
+        "snippet": "652cd845"
+      },
+      {
+        "contains": "import { readdirSync, writeFileSync } from 'node:fs';",
+        "line": 11,
+        "path": "apps/web/scripts/build-lucide-categories.ts",
+        "snippet": "4102b53f"
+      },
+      {
+        "contains": "import { uiText } from '../i18n';",
+        "line": 1,
+        "path": "apps/web/src/actions/canvasDiagrams.ts",
+        "snippet": "3678bd34"
+      },
+      {
+        "contains": "import { copyElements, pasteOps, topLevel } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/web/src/actions/clipboard.ts",
+        "snippet": "96b3954d"
+      },
+      {
+        "contains": "import { uiText } from '../i18n';",
+        "line": 1,
+        "path": "apps/web/src/actions/commands.ts",
+        "snippet": "28c261b7"
+      },
+      {
+        "contains": "import {lazy,Suspense} from 'react';",
+        "line": 1,
+        "path": "apps/web/src/analytics/AnalyticsConsent.tsx",
+        "snippet": "e3c3f2b3"
+      },
+      {
+        "contains": "import { createPortal } from 'react-dom';",
+        "line": 6,
+        "path": "apps/web/src/comments/CommentsHost.tsx",
+        "snippet": "1f8b1495"
+      }
+    ],
+    "repo_41ba823706ed42": [
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 8,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "a27b8b02"
+      },
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 2,
+        "path": "apps/cli/src/commands/sync.ts",
+        "snippet": "1b7752ab"
+      },
+      {
+        "contains": "import { autoLayout, compositionOps, suggestComposition, sequenceMessages } from '@strukt/layout';",
+        "line": 8,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "93c130d6"
+      },
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 4,
+        "path": "apps/web/src/actions/canvasDiagrams.ts",
+        "snippet": "38f9c857"
+      },
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 4,
+        "path": "apps/web/src/actions/layout.ts",
+        "snippet": "acb5b01b"
+      },
+      {
+        "contains": "import { autoLayout } from '@strukt/layout';",
+        "line": 3,
+        "path": "apps/web/src/actions/templates.ts",
+        "snippet": "6b3a1474"
+      },
+      {
+        "contains": "import type { EdgeRouter } from '@strukt/layout';",
+        "line": 3,
+        "path": "apps/web/src/ai/aiStore.ts",
+        "snippet": "95695a33"
+      },
+      {
+        "contains": "import { autoLayout, placeBatch } from '@strukt/layout';",
+        "line": 4,
+        "path": "apps/web/src/ai/draft.ts",
+        "snippet": "d3a51715"
+      },
+      {
+        "contains": "import type { EdgeRouter } from '@strukt/layout';",
+        "line": 5,
+        "path": "apps/web/src/ai/draft.ts",
+        "snippet": "c260640e"
+      },
+      {
+        "contains": "import { cachedLabel, cachedRoute } from '@strukt/layout';",
+        "line": 3,
+        "path": "apps/web/src/ai/overlay.ts",
+        "snippet": "cb466cf7"
+      },
+      {
+        "contains": "import { nudgeParallels, placeLabels, pointAtHalf, routeCorridors, routeKey, textWidth } from '@strukt/layout';",
+        "line": 1,
+        "path": "apps/web/src/board/boardRoutes.ts",
+        "snippet": "861e5de3"
+      },
+      {
+        "contains": "import type { Point } from '@strukt/layout';",
+        "line": 2,
+        "path": "apps/web/src/board/boardRoutes.ts",
+        "snippet": "1d617307"
+      },
+      {
+        "contains": "import type { Point } from '@strukt/layout';",
+        "line": 1,
+        "path": "apps/web/src/board/connectionPath.ts",
+        "snippet": "5534686a"
+      },
+      {
+        "contains": "import { arrowHead, roundedPath, trimEnd } from '@strukt/layout';",
+        "line": 2,
+        "path": "apps/web/src/board/FloatingEdge.tsx",
+        "snippet": "7d62c403"
+      },
+      {
+        "contains": "\"name\": \"@strukt/layout\",",
+        "line": 2,
+        "path": "packages/layout/package.json",
+        "snippet": "ae0c120d"
+      },
+      {
+        "contains": "import { canvasFrameModel, canvasFrames, computeRects, copyElements, unionRect, visualBox } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/layout/src/canvasFrames.ts",
+        "snippet": "d9233034"
+      },
+      {
+        "contains": "import { cardSize, defaultSize, own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/layout/src/composition.ts",
+        "snippet": "0c4ce1ed"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/layout/src/compositionRoutes.ts",
+        "snippet": "a539dcf1"
+      },
+      {
+        "contains": "import { GROUP_PADDING, defaultSize, own, visualBox } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/layout/src/elk.ts",
+        "snippet": "5fdf2b79"
+      },
+      {
+        "contains": "import { LayoutManager, routeCorridorConnectionBatch } from '@eraserlabs/layout';",
+        "line": 1,
+        "path": "packages/layout/src/eraserRouter.ts",
+        "snippet": "cad86e08"
+      }
+    ],
+    "repo_484fb1e9cea553": [
+      {
+        "contains": "\"name\": \"@strukt/server\",",
+        "line": 2,
+        "path": "apps/server/package.json",
+        "snippet": "ca1cfff4"
+      },
+      {
+        "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+        "line": 14,
+        "path": "apps/server/package.json",
+        "snippet": "85452e00"
+      },
+      {
+        "contains": "\"hono\": \"^4.13.8\"",
+        "line": 24,
+        "path": "apps/server/package.json",
+        "snippet": "aed8b4db"
+      },
+      {
+        "contains": "import { withKnowledgeHarness } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/server/src/agentSetup.ts",
+        "snippet": "e5684ff8"
+      },
+      {
+        "contains": "import { mkdir, readFile, writeFile } from 'node:fs/promises';",
+        "line": 2,
+        "path": "apps/server/src/agentSetup.ts",
+        "snippet": "ae73ddf3"
+      },
+      {
+        "contains": "import { randomUUID } from 'node:crypto';",
+        "line": 3,
+        "path": "apps/server/src/agentSetup.ts",
+        "snippet": "797b047f"
+      },
+      {
+        "contains": "import { dirname, join } from 'node:path';",
+        "line": 4,
+        "path": "apps/server/src/agentSetup.ts",
+        "snippet": "262bc43b"
+      },
+      {
+        "contains": "import type Anthropic from '@anthropic-ai/sdk';",
+        "line": 1,
+        "path": "apps/server/src/anthropic.ts",
+        "snippet": "776bd9c3"
+      },
+      {
+        "contains": "import { streamSSE } from 'hono/streaming';",
+        "line": 1,
+        "path": "apps/server/src/app.ts",
+        "snippet": "8bf9dfe7"
+      },
+      {
+        "contains": "import { homedir } from 'node:os';",
+        "line": 12,
+        "path": "apps/server/src/app.ts",
+        "snippet": "93e8c3cd"
+      },
+      {
+        "contains": "import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';",
+        "line": 26,
+        "path": "apps/server/src/app.ts",
+        "snippet": "f6b21515"
+      },
+      {
+        "contains": "import { lstat, stat, mkdir, mkdtemp, rm, realpath } from 'node:fs/promises';",
+        "line": 29,
+        "path": "apps/server/src/app.ts",
+        "snippet": "c1eebae6"
+      },
+      {
+        "contains": "import { createHash, randomBytes } from 'node:crypto';",
+        "line": 1,
+        "path": "apps/server/src/audit.ts",
+        "snippet": "015d31a5"
+      },
+      {
+        "contains": "import { MODELS } from './anthropic';",
+        "line": 1,
+        "path": "apps/server/src/chat.ts",
+        "snippet": "5077b60c"
+      },
+      {
+        "contains": "import { Database } from 'bun:sqlite';",
+        "line": 7,
+        "path": "apps/server/src/collaborationHost.ts",
+        "snippet": "c79e0e90"
+      },
+      {
+        "contains": "import { file as bunFile, serve } from 'bun';",
+        "line": 8,
+        "path": "apps/server/src/collaborationHost.ts",
+        "snippet": "a7b3bc3c"
+      },
+      {
+        "contains": "import { serve, file } from 'bun';",
+        "line": 1,
+        "path": "apps/server/src/connector.ts",
+        "snippet": "fb65ca87"
+      },
+      {
+        "contains": "import { file } from 'bun';",
+        "line": 1,
+        "path": "apps/server/src/shareStack.ts",
+        "snippet": "0c670cb6"
+      },
+      {
+        "contains": "import { serve } from 'bun';",
+        "line": 11,
+        "path": "apps/server/src/shareStack.ts",
+        "snippet": "ca98b18b"
+      },
+      {
+        "contains": "export { coordinateWrite as serializeWorkspaceWrite } from '@strukt/workspace/repository-transaction';",
+        "line": 1,
+        "path": "apps/server/src/workspaceWrite.ts",
+        "snippet": "b30ef814"
+      }
+    ],
+    "repo_4c5a34d0f0b789": [
+      {
+        "contains": "\"name\": \"@strukt/mcp\",",
+        "line": 2,
+        "path": "apps/mcp/package.json",
+        "snippet": "a10dfa91"
+      },
+      {
+        "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+        "line": 18,
+        "path": "apps/mcp/package.json",
+        "snippet": "1a8702e3"
+      },
+      {
+        "contains": "export const USAGE = `joinlet-mcp — servidor MCP do Joinlet (stdio)",
+        "line": 1,
+        "path": "apps/mcp/src/args.ts",
+        "snippet": "3cd1fa1a"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/comments.ts",
+        "snippet": "fd421b26"
+      },
+      {
+        "contains": "import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';",
+        "line": 4,
+        "path": "apps/mcp/src/comments.ts",
+        "snippet": "84431ca6"
+      },
+      {
+        "contains": "import { publish, prStatus } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/mcp/src/github.ts",
+        "snippet": "c3616889"
+      },
+      {
+        "contains": "export { createStruktServer, SERVER_INFO } from './server';",
+        "line": 1,
+        "path": "apps/mcp/src/index.ts",
+        "snippet": "cca6297b"
+      },
+      {
+        "contains": "#!/usr/bin/env bun",
+        "line": 1,
+        "path": "apps/mcp/src/main.ts",
+        "snippet": "ce2091ae"
+      },
+      {
+        "contains": "import { ADMIN_PLAN, SELF_HOSTED_PLAN, setAccessPlanResolver } from '@strukt/workspace';",
+        "line": 2,
+        "path": "apps/mcp/src/main.ts",
+        "snippet": "e96f3f03"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/perspectives.ts",
+        "snippet": "746eed27"
+      },
+      {
+        "contains": "import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';",
+        "line": 1,
+        "path": "apps/mcp/src/prompts.ts",
+        "snippet": "76e45bd4"
+      },
+      {
+        "contains": "import {z} from 'zod';",
+        "line": 1,
+        "path": "apps/mcp/src/repositoryKnowledge.ts",
+        "snippet": "05848396"
+      },
+      {
+        "contains": "import {isAbsolute} from 'node:path';",
+        "line": 2,
+        "path": "apps/mcp/src/repositoryKnowledge.ts",
+        "snippet": "9a5d3698"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/resources.ts",
+        "snippet": "c299497a"
+      },
+      {
+        "contains": "import { KNOWLEDGE_HARNESS } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/mcp/src/server.ts",
+        "snippet": "c2608568"
+      },
+      {
+        "contains": "import { RepositoryEngine, inspectRepository } from '@strukt/workspace/repository';",
+        "line": 1,
+        "path": "apps/mcp/src/sync.ts",
+        "snippet": "a6066a95"
+      },
+      {
+        "contains": "import { isAbsolute } from 'node:path';",
+        "line": 4,
+        "path": "apps/mcp/src/sync.ts",
+        "snippet": "66c2bf88"
+      },
+      {
+        "contains": "import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/mcp/src/testing.ts",
+        "snippet": "0f53c358"
+      },
+      {
+        "contains": "import { tmpdir } from 'node:os';",
+        "line": 2,
+        "path": "apps/mcp/src/testing.ts",
+        "snippet": "d7f12089"
+      },
+      {
+        "contains": "import { dirname, join } from 'node:path';",
+        "line": 3,
+        "path": "apps/mcp/src/testing.ts",
+        "snippet": "eb1516cb"
+      }
+    ],
+    "repo_5c1ab4b7e80ad1": [
+      {
+        "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+        "line": 1,
+        "path": "apps/cli/src/cloudCollect.ts",
+        "snippet": "6743fe48"
+      },
+      {
+        "contains": "import type { AwsInputs, CloudGraph, CloudProvider, CloudScope } from '@strukt/dsl/import';",
+        "line": 2,
+        "path": "apps/cli/src/cloudCollect.ts",
+        "snippet": "263e1c7b"
+      },
+      {
+        "contains": "import { CLOUD_STATE_PATH, compareCloud, parseCloudState } from '@strukt/dsl/import';",
+        "line": 2,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "df3e1fae"
+      },
+      {
+        "contains": "import type { CloudDriftFinding, CloudGraph, CloudProvider, CloudSource } from '@strukt/dsl/import';",
+        "line": 3,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "321723d6"
+      },
+      {
+        "contains": "import { awsOutputs, azureListingJson, gcpListingJson } from '@strukt/dsl/cloud-fixtures';",
+        "line": 1,
+        "path": "apps/cli/src/cloudTesting.ts",
+        "snippet": "2df4b0a8"
+      },
+      {
+        "contains": "import { printMermaid, printPlantUml } from '@strukt/dsl';",
+        "line": 3,
+        "path": "apps/cli/src/commands/export.ts",
+        "snippet": "6a7f501e"
+      },
+      {
+        "contains": "import { CLOUD_STATE_PATH, graphToModel, parseCloudState, parseTerraformShow, printCloudState, trackResources, withSource } from '@strukt/dsl/import';",
+        "line": 4,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "74138260"
+      },
+      {
+        "contains": "import type { CloudGraph, CloudOrigin, CloudProvider } from '@strukt/dsl/import';",
+        "line": 5,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "76ff0782"
+      },
+      {
+        "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+        "line": 2,
+        "path": "apps/web/src/code/importFormats.ts",
+        "snippet": "2336042f"
+      },
+      {
+        "contains": "import { detectImportFormat, parseDsl, printDsl } from '@strukt/dsl/lite';",
+        "line": 10,
+        "path": "apps/web/src/panels/CodePanel.tsx",
+        "snippet": "dc1badce"
+      },
+      {
+        "contains": "import type { ImportFormat } from '@strukt/dsl/lite';",
+        "line": 11,
+        "path": "apps/web/src/panels/CodePanel.tsx",
+        "snippet": "64c16b09"
+      },
+      {
+        "contains": "\"name\": \"@strukt/dsl\",",
+        "line": 2,
+        "path": "packages/dsl/package.json",
+        "snippet": "8cd60776"
+      },
+      {
+        "contains": "// Format sniffing, kept apart from the importers so the app can offer a conversion without loading them (or `yaml`).",
+        "line": 1,
+        "path": "packages/dsl/src/detect.ts",
+        "snippet": "ef289a14"
+      },
+      {
+        "contains": "export type ImportFormat = 'mermaid' | 'likec4' | 'structurizr' | 'd2' | 'terraform' | 'openapi' | 'kubernetes';",
+        "line": 2,
+        "path": "packages/dsl/src/detect.ts",
+        "snippet": "3ef6fc72"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/dsl/src/diagramTree.ts",
+        "snippet": "58f1ea78"
+      },
+      {
+        "contains": "export { printMermaid } from './mermaid';",
+        "line": 1,
+        "path": "packages/dsl/src/export.ts",
+        "snippet": "8ad53fe1"
+      },
+      {
+        "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/dsl/src/import.ts",
+        "snippet": "9b475dd6"
+      },
+      {
+        "contains": "import { asArray, asString, pick, pickPath } from '../common';",
+        "line": 1,
+        "path": "packages/dsl/src/import/cloud/aws.ts",
+        "snippet": "507c7499"
+      },
+      {
+        "contains": "import { asArray, asString, pick } from '../common';",
+        "line": 1,
+        "path": "packages/dsl/src/import/cloud/azure.ts",
+        "snippet": "d9ac3107"
+      },
+      {
+        "contains": "import { cleanText } from '../common';",
+        "line": 1,
+        "path": "packages/dsl/src/import/cloud/collector.ts",
+        "snippet": "d1336f37"
+      }
+    ],
+    "repo_71391bfad4e6b4": [
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/cli/src/cloudAllowlist.ts",
+        "snippet": "1ded471c"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 3,
+        "path": "apps/cli/src/cloudCollect.ts",
+        "snippet": "0c47c30e"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 4,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "7a010636"
+      },
+      {
+        "contains": "import type { CommandResult, CommandRunner } from '@strukt/git';",
+        "line": 2,
+        "path": "apps/cli/src/cloudTesting.ts",
+        "snippet": "ccb31bfe"
+      },
+      {
+        "contains": "import { createProcessRunner } from '@strukt/git';",
+        "line": 9,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "fe155c1e"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 10,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "ac0a3da4"
+      },
+      {
+        "contains": "import { assignDiffSvgNames, diffSides, diffWorkspaces, renderDiffMarkdown, renderDiffSvgs, renderDiffText } from '@strukt/git';",
+        "line": 3,
+        "path": "apps/cli/src/commands/diff.ts",
+        "snippet": "d73ff074"
+      },
+      {
+        "contains": "import type { CommandRunner, DiagramSvg } from '@strukt/git';",
+        "line": 4,
+        "path": "apps/cli/src/commands/diff.ts",
+        "snippet": "7c4f2ead"
+      },
+      {
+        "contains": "import { createProcessRunner } from '@strukt/git';",
+        "line": 6,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "59c98df8"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 7,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "ef7cd70c"
+      },
+      {
+        "contains": "import { prComment } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/cli/src/commands/pr-comment.ts",
+        "snippet": "1b33a1c1"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 2,
+        "path": "apps/cli/src/commands/pr-comment.ts",
+        "snippet": "d04c9a9c"
+      },
+      {
+        "contains": "import { publish } from '@strukt/git';",
+        "line": 2,
+        "path": "apps/cli/src/commands/publish.ts",
+        "snippet": "e8d3a519"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 3,
+        "path": "apps/cli/src/commands/publish.ts",
+        "snippet": "dab6b91c"
+      },
+      {
+        "contains": "\"name\": \"@strukt/git\",",
+        "line": 2,
+        "path": "packages/git/package.json",
+        "snippet": "df4465e9"
+      },
+      {
+        "contains": "import { compareModels, emptyModel, own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/git/src/diff.ts",
+        "snippet": "c55217d1"
+      },
+      {
+        "contains": "import { compareModels, computeRects, defaultSize, emptyModel, own } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/git/src/diffSvg.ts",
+        "snippet": "2ce9d8d3"
+      },
+      {
+        "contains": "export { createProcessRunner, readArchAtRef } from './run';",
+        "line": 1,
+        "path": "packages/git/src/index.ts",
+        "snippet": "55b590d7"
+      },
+      {
+        "contains": "import { anyChange, diffRefs, diffWorktree, renderDiffMarkdown } from './diff';",
+        "line": 1,
+        "path": "packages/git/src/publish.ts",
+        "snippet": "1b818389"
+      },
+      {
+        "contains": "import { execFile } from 'node:child_process';",
+        "line": 1,
+        "path": "packages/git/src/run.ts",
+        "snippet": "21428736"
+      }
+    ],
+    "repo_86104d06094ed0": [
+      {
+        "contains": "FROM oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 AS build",
+        "line": 1,
+        "path": "apps/remote/Dockerfile",
+        "snippet": "7d4ca376"
+      },
+      {
+        "contains": "\"name\": \"@strukt/remote\",",
+        "line": 2,
+        "path": "apps/remote/package.json",
+        "snippet": "4692a641"
+      },
+      {
+        "contains": "\"@modelcontextprotocol/sdk\": \"^1.31.0\",",
+        "line": 13,
+        "path": "apps/remote/package.json",
+        "snippet": "266fa85c"
+      },
+      {
+        "contains": "\"express\": \"^5.1.0\",",
+        "line": 16,
+        "path": "apps/remote/package.json",
+        "snippet": "88e0db3e"
+      },
+      {
+        "contains": "import type { RequestHandler } from 'express';",
+        "line": 1,
+        "path": "apps/remote/src/accountDirectory.ts",
+        "snippet": "55cf799c"
+      },
+      {
+        "contains": "import { timingSafeEqual } from 'node:crypto';",
+        "line": 2,
+        "path": "apps/remote/src/accountDirectory.ts",
+        "snippet": "da51c840"
+      },
+      {
+        "contains": "import type { Database } from 'bun:sqlite';",
+        "line": 1,
+        "path": "apps/remote/src/accounts.ts",
+        "snippet": "e9ed8c7a"
+      },
+      {
+        "contains": "import { createHash, randomBytes } from 'node:crypto';",
+        "line": 2,
+        "path": "apps/remote/src/accounts.ts",
+        "snippet": "8c140a18"
+      },
+      {
+        "contains": "import { createRepositoryHub } from './repositoryHub';",
+        "line": 1,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "53091f46"
+      },
+      {
+        "contains": "import { access } from 'node:fs/promises';",
+        "line": 5,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "e037f9a1"
+      },
+      {
+        "contains": "import { fileURLToPath } from 'node:url';",
+        "line": 6,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "422dcf9a"
+      },
+      {
+        "contains": "import { getOAuthProtectedResourceMetadataUrl, mcpAuthRouter } from '@modelcontextprotocol/sdk/server/auth/router.js';",
+        "line": 7,
+        "path": "apps/remote/src/app.ts",
+        "snippet": "582863ca"
+      },
+      {
+        "contains": "import { configureRuntimeDatabase } from './database';",
+        "line": 1,
+        "path": "apps/remote/src/auth.ts",
+        "snippet": "14e8030d"
+      },
+      {
+        "contains": "import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from 'node:crypto';",
+        "line": 5,
+        "path": "apps/remote/src/auth.ts",
+        "snippet": "2f1e7663"
+      },
+      {
+        "contains": "import { Database } from 'bun:sqlite';",
+        "line": 7,
+        "path": "apps/remote/src/auth.ts",
+        "snippet": "c3a0e62f"
+      },
+      {
+        "contains": "import { Database } from 'bun:sqlite';",
+        "line": 1,
+        "path": "apps/remote/src/backup.ts",
+        "snippet": "87215990"
+      },
+      {
+        "contains": "import type { Database } from 'bun:sqlite';",
+        "line": 1,
+        "path": "apps/remote/src/betaAccounts.ts",
+        "snippet": "b0df6a8c"
+      },
+      {
+        "contains": "import { configureRuntimeDatabase } from './database';",
+        "line": 1,
+        "path": "apps/remote/src/collaboration.ts",
+        "snippet": "e3d06c04"
+      },
+      {
+        "contains": "import { Database } from 'bun:sqlite';",
+        "line": 6,
+        "path": "apps/remote/src/collaboration.ts",
+        "snippet": "881940b6"
+      },
+      {
+        "contains": "import { parseAdminGithubIds } from '@strukt/workspace/access-context';",
+        "line": 1,
+        "path": "apps/remote/src/config.ts",
+        "snippet": "69ee6f37"
+      }
+    ],
+    "repo_8c5967fd8486f3": [
+      {
+        "contains": "#!/usr/bin/env bun",
+        "line": 1,
+        "path": "scripts/build-connector.ts",
+        "snippet": "c21cb2cb"
+      },
+      {
+        "contains": "import { mkdir, cp, writeFile, readFile, rm } from 'node:fs/promises';",
+        "line": 2,
+        "path": "scripts/build-connector.ts",
+        "snippet": "a304ace4"
+      },
+      {
+        "contains": "import { resolve, join, dirname, basename } from 'node:path';",
+        "line": 3,
+        "path": "scripts/build-connector.ts",
+        "snippet": "b76f8a88"
+      },
+      {
+        "contains": "#!/usr/bin/env python3",
+        "line": 1,
+        "path": "scripts/check-publication.py",
+        "snippet": "2ca3ea61"
+      },
+      {
+        "contains": "\"\"\"Reject runtime/private files from the public Git index. Does not inspect secret contents.\"\"\"",
+        "line": 2,
+        "path": "scripts/check-publication.py",
+        "snippet": "0ce3f8d2"
+      },
+      {
+        "contains": "#!/usr/bin/env python3",
+        "line": 1,
+        "path": "scripts/check-secrets.py",
+        "snippet": "15ce1090"
+      },
+      {
+        "contains": "\"\"\"Run the verified Gitleaks binary without trusting repository-provided suppressions.\"\"\"",
+        "line": 2,
+        "path": "scripts/check-secrets.py",
+        "snippet": "1f6fe826"
+      },
+      {
+        "contains": "import assert from 'node:assert/strict';",
+        "line": 1,
+        "path": "scripts/smoke-container.ts",
+        "snippet": "32bfdd15"
+      },
+      {
+        "contains": "import { execFileSync } from 'node:child_process';",
+        "line": 2,
+        "path": "scripts/smoke-container.ts",
+        "snippet": "99d9c44e"
+      },
+      {
+        "contains": "import { randomUUID } from 'node:crypto';",
+        "line": 3,
+        "path": "scripts/smoke-container.ts",
+        "snippet": "73bd35e4"
+      },
+      {
+        "contains": "import importlib.util",
+        "line": 1,
+        "path": "scripts/test_publication.py",
+        "snippet": "774ea1ba"
+      },
+      {
+        "contains": "\"\"\"Integration regression: repository config, ignore files and comments cannot hide a fake token.\"\"\"",
+        "line": 1,
+        "path": "scripts/test_secret_scanner.py",
+        "snippet": "a959e518"
+      }
+    ],
+    "repo_bde7b76204809a": [
+      {
+        "contains": "\"name\": \"@strukt/cli\",",
+        "line": 2,
+        "path": "apps/cli/package.json",
+        "snippet": "c4e7bb07"
+      },
+      {
+        "contains": "import { parseStage } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/args.ts",
+        "snippet": "3509beb1"
+      },
+      {
+        "contains": "import type { CommandRunner } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/cli/src/cloudAllowlist.ts",
+        "snippet": "1ded471c"
+      },
+      {
+        "contains": "import { normalizeAws, normalizeAzure, normalizeGcp } from '@strukt/dsl/import';",
+        "line": 1,
+        "path": "apps/cli/src/cloudCollect.ts",
+        "snippet": "6743fe48"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "eeb426e3"
+      },
+      {
+        "contains": "import { awsOutputs, azureListingJson, gcpListingJson } from '@strukt/dsl/cloud-fixtures';",
+        "line": 1,
+        "path": "apps/cli/src/cloudTesting.ts",
+        "snippet": "2df4b0a8"
+      },
+      {
+        "contains": "import { SOURCES_PATH, diagramPath, openConcerns, parseSources, validateSourceTargets } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "d233100c"
+      },
+      {
+        "contains": "import { relative, resolve, sep } from 'node:path';",
+        "line": 1,
+        "path": "apps/cli/src/commands/context.ts",
+        "snippet": "59950f65"
+      },
+      {
+        "contains": "import { dirname, join, resolve } from 'node:path';",
+        "line": 1,
+        "path": "apps/cli/src/commands/diff.ts",
+        "snippet": "b14c885f"
+      },
+      {
+        "contains": "import { EVIDENCE_PATH, printEvidence } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/commands/evidence.ts",
+        "snippet": "50368b81"
+      },
+      {
+        "contains": "import { basename, dirname, join, resolve } from 'node:path';",
+        "line": 1,
+        "path": "apps/cli/src/commands/export.ts",
+        "snippet": "2686827f"
+      },
+      {
+        "contains": "import { readFile, stat } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "ff1dbf58"
+      },
+      {
+        "contains": "import { resolve } from 'node:path';",
+        "line": 2,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "d2d3ecbf"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/commands/list.ts",
+        "snippet": "c2a0c1ba"
+      },
+      {
+        "contains": "import { prComment } from '@strukt/git';",
+        "line": 1,
+        "path": "apps/cli/src/commands/pr-comment.ts",
+        "snippet": "1b33a1c1"
+      },
+      {
+        "contains": "import { readFile } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/cli/src/commands/publish.ts",
+        "snippet": "b1ef218e"
+      },
+      {
+        "contains": "import { mkdir, stat } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/cli/src/commands/repository.ts",
+        "snippet": "182ccb11"
+      },
+      {
+        "contains": "import { lstat, readFile, readdir, rmdir, unlink } from 'node:fs/promises';",
+        "line": 1,
+        "path": "apps/cli/src/commands/site.ts",
+        "snippet": "0a8455ee"
+      },
+      {
+        "contains": "import { addItem, slugify } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/commands/sources.ts",
+        "snippet": "724e21af"
+      },
+      {
+        "contains": "import { own, syncLayout } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/commands/sync.ts",
+        "snippet": "179271c6"
+      }
+    ],
+    "repo_d4ff4b28356bed": [
+      {
+        "contains": "import { parseStage } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/args.ts",
+        "snippet": "3509beb1"
+      },
+      {
+        "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
+        "line": 5,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "1981f21e"
+      },
+      {
+        "contains": "import { SOURCES_PATH, diagramPath, openConcerns, parseSources, validateSourceTargets } from '@strukt/workspace';",
+        "line": 1,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "d233100c"
+      },
+      {
+        "contains": "import { checkEvidence, checkWorkspaceDrift } from '@strukt/workspace/health';",
+        "line": 2,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "22f467a0"
+      },
+      {
+        "contains": "import type { EvidenceIssue } from '@strukt/workspace/health';",
+        "line": 3,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "a2042fdf"
+      },
+      {
+        "contains": "import type { DriftFinding, SourceDiagnostic } from '@strukt/workspace';",
+        "line": 4,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "9ef917b8"
+      },
+      {
+        "contains": "import { openWorkspaceAt } from '@strukt/workspace/fs';",
+        "line": 7,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "611a71ce"
+      },
+      {
+        "contains": "import type { OpenedWorkspace } from '@strukt/workspace/fs';",
+        "line": 8,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "84f79a6a"
+      },
+      {
+        "contains": "import { inspectContext, writeGeneratedContext } from '@strukt/workspace/context-storage';",
+        "line": 2,
+        "path": "apps/cli/src/commands/context.ts",
+        "snippet": "d80e1a5e"
+      },
+      {
+        "contains": "\"name\": \"@strukt/workspace\",",
+        "line": 2,
+        "path": "packages/workspace/package.json",
+        "snippet": "40258c68"
+      },
+      {
+        "contains": "import { AsyncLocalStorage } from 'node:async_hooks';",
+        "line": 1,
+        "path": "packages/workspace/src/accessContext.ts",
+        "snippet": "d9b1c21a"
+      },
+      {
+        "contains": "const START = '<!-- joinlet:knowledge-harness:start -->';",
+        "line": 1,
+        "path": "packages/workspace/src/agentHarness.ts",
+        "snippet": "1d3837dd"
+      },
+      {
+        "contains": "import { stableStringify } from './json';",
+        "line": 1,
+        "path": "packages/workspace/src/assistants.ts",
+        "snippet": "87f019b2"
+      },
+      {
+        "contains": "import type { Assistant } from './assistants';",
+        "line": 1,
+        "path": "packages/workspace/src/assistantsBuiltin.ts",
+        "snippet": "40b45d67"
+      },
+      {
+        "contains": "import { slugify } from './slug';",
+        "line": 1,
+        "path": "packages/workspace/src/assistantsParse.ts",
+        "snippet": "4952f8df"
+      },
+      {
+        "contains": "import type { Database } from 'bun:sqlite';",
+        "line": 1,
+        "path": "packages/workspace/src/collaborationSqlite.ts",
+        "snippet": "1b6d2440"
+      },
+      {
+        "contains": "import { mkdir, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';",
+        "line": 3,
+        "path": "packages/workspace/src/fs.ts",
+        "snippet": "ee45d521"
+      },
+      {
+        "contains": "import { basename, dirname, join, relative, resolve, sep } from 'node:path';",
+        "line": 4,
+        "path": "packages/workspace/src/fs.ts",
+        "snippet": "92934ec9"
+      },
+      {
+        "contains": "import { open, readFile, realpath, stat } from 'node:fs/promises';",
+        "line": 1,
+        "path": "packages/workspace/src/health.ts",
+        "snippet": "59f35e8f"
+      },
+      {
+        "contains": "import { join, sep } from 'node:path';",
+        "line": 2,
+        "path": "packages/workspace/src/health.ts",
+        "snippet": "4030ff0e"
+      }
+    ],
+    "repo_d5a16586640c40": [
+      {
+        "contains": "import { planSnapshot } from '@strukt/ops';",
+        "line": 3,
+        "path": "apps/cli/src/commands/sync.ts",
+        "snippet": "16e5030b"
+      },
+      {
+        "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+        "line": 9,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "f6df6743"
+      },
+      {
+        "contains": "import { checkProposal, TOOL_INPUT_SCHEMA } from '@strukt/ops';",
+        "line": 6,
+        "path": "apps/server/src/chatEdit.ts",
+        "snippet": "4f6d00ed"
+      },
+      {
+        "contains": "import { TOOL_INPUT_SCHEMA, TOOL_NAME, checkProposal } from '@strukt/ops';",
+        "line": 3,
+        "path": "apps/server/src/diagram.ts",
+        "snippet": "46bcc5ad"
+      },
+      {
+        "contains": "import { TOOL_NAME } from '@strukt/ops';",
+        "line": 4,
+        "path": "apps/server/src/prompt.ts",
+        "snippet": "4d45fb7b"
+      },
+      {
+        "contains": "import type { AiOp } from '@strukt/ops';",
+        "line": 5,
+        "path": "apps/server/src/prompt.ts",
+        "snippet": "7f085284"
+      },
+      {
+        "contains": "import { checkProposal, planSnapshot } from '@strukt/ops';",
+        "line": 2,
+        "path": "apps/server/src/repositoryReview.ts",
+        "snippet": "5b067fde"
+      },
+      {
+        "contains": "\"name\": \"@strukt/ops\",",
+        "line": 2,
+        "path": "packages/ops/package.json",
+        "snippet": "5c65f039"
+      },
+      {
+        "contains": "import { applyOps, emptyModel } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/ops/src/check.ts",
+        "snippet": "2f9f9eaf"
+      },
+      {
+        "contains": "export {",
+        "line": 1,
+        "path": "packages/ops/src/index.ts",
+        "snippet": "d7b63798"
+      },
+      {
+        "contains": "import { applyOps, syncLayout } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/ops/src/plan.ts",
+        "snippet": "7c76c3f7"
+      },
+      {
+        "contains": "import { CARDINALITIES, LAYOUT_ROLES, PRESENTATIONS, PORTS, COLOR_MODES, CONNECTORS, DIRECTIONS, SHAPES, STYLE_MODES, TYPEFACES } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/ops/src/schema.ts",
+        "snippet": "fc825b21"
+      },
+      {
+        "contains": "{ \"extends\": \"../../tsconfig.base.json\", \"include\": [\"src\"] }",
+        "line": 1,
+        "path": "packages/ops/tsconfig.json",
+        "snippet": "06dcc4a0"
+      }
+    ],
+    "repo_e27f3faa9152db": [
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/cloudDrift.ts",
+        "snippet": "eeb426e3"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 2,
+        "path": "apps/cli/src/commands/export.ts",
+        "snippet": "c15101ac"
+      },
+      {
+        "contains": "import { CLOUD_ICONS } from '@strukt/core/cloud';",
+        "line": 3,
+        "path": "apps/cli/src/commands/importCloud.ts",
+        "snippet": "eb8ec3d6"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/commands/list.ts",
+        "snippet": "c2a0c1ba"
+      },
+      {
+        "contains": "import { own, syncLayout } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/cli/src/commands/sync.ts",
+        "snippet": "179271c6"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/comments.ts",
+        "snippet": "fd421b26"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/perspectives.ts",
+        "snippet": "746eed27"
+      },
+      {
+        "contains": "import {readWorkspaceOps} from '@strukt/core';",
+        "line": 3,
+        "path": "apps/mcp/src/repositoryKnowledge.ts",
+        "snippet": "5d8ad01f"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/resources.ts",
+        "snippet": "c299497a"
+      },
+      {
+        "contains": "import { own } from '@strukt/core';",
+        "line": 1,
+        "path": "apps/mcp/src/timelineTool.ts",
+        "snippet": "7013aec4"
+      },
+      {
+        "contains": "import { COMPONENT_LIBRARIES, COMPONENT_PRESETS } from '@strukt/core/catalog';",
+        "line": 1,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "b79be95a"
+      },
+      {
+        "contains": "import { catalogMatches } from '@strukt/core';",
+        "line": 2,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "0ac2c4e9"
+      },
+      {
+        "contains": "import { BASIC_SHAPES, applyOps, computeRects, defaultSize, emptyModel, labelBox, labelLines, nodeVariant, own, shapeGeometry, syncLayout, visualBox, tableSize, participantSize } from '@strukt/core';",
+        "line": 4,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "6616bea8"
+      },
+      {
+        "contains": "import { CLOUD_COMPONENT_PRESETS } from '@strukt/core/cloud';",
+        "line": 5,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "d334fe20"
+      },
+      {
+        "contains": "\"name\": \"@strukt/core\",",
+        "line": 2,
+        "path": "packages/core/package.json",
+        "snippet": "24d5ad60"
+      },
+      {
+        "contains": "/** Named connections use fixed endpoints; keys never cross between providers. */",
+        "line": 1,
+        "path": "packages/core/src/aiProviders.ts",
+        "snippet": "7e14fb93"
+      },
+      {
+        "contains": "import { RESERVED_NAME, edgeId, own } from './ids';",
+        "line": 1,
+        "path": "packages/core/src/applyOps.ts",
+        "snippet": "d0e44d6c"
+      },
+      {
+        "contains": "import { applyOps } from './applyOps';",
+        "line": 1,
+        "path": "packages/core/src/canvasDiagrams.ts",
+        "snippet": "f35576fe"
+      },
+      {
+        "contains": "/** Search metadata is bilingual and remains independent of the labels painted on the canvas. */",
+        "line": 1,
+        "path": "packages/core/src/catalogSearch.ts",
+        "snippet": "08a790c1"
+      },
+      {
+        "contains": "import { readWorkspaceOps } from './workspaceEdit';",
+        "line": 1,
+        "path": "packages/core/src/chatEdit.ts",
+        "snippet": "8d7366e6"
+      }
+    ],
+    "repo_e86a0d465b5caa": [
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 5,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "f731a6a7"
+      },
+      {
+        "contains": "import type { JsonDiagnostic } from '@strukt/json';",
+        "line": 6,
+        "path": "apps/cli/src/commands/check.ts",
+        "snippet": "77076d23"
+      },
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/mcp/src/resources.ts",
+        "snippet": "31f5cc5f"
+      },
+      {
+        "contains": "import { parseDiagramJson, printDiagramJson } from '@strukt/json';",
+        "line": 7,
+        "path": "apps/mcp/src/tools.ts",
+        "snippet": "ebdf4da0"
+      },
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 5,
+        "path": "apps/server/src/chatEdit.ts",
+        "snippet": "e9df8490"
+      },
+      {
+        "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+        "line": 7,
+        "path": "apps/server/src/collaborationHttp.ts",
+        "snippet": "3d348b5d"
+      },
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/server/src/diagram.ts",
+        "snippet": "4af0ce29"
+      },
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 1,
+        "path": "apps/server/src/doc.ts",
+        "snippet": "ea01783e"
+      },
+      {
+        "contains": "import { printDiagramJsonSchema } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/vscode/scripts/write-schema.ts",
+        "snippet": "73af2f15"
+      },
+      {
+        "contains": "import { parseDiagramJson } from '@strukt/json';",
+        "line": 1,
+        "path": "apps/vscode/src/diagnostics.ts",
+        "snippet": "f88e2ddc"
+      },
+      {
+        "contains": "import type { JsonDiagnostic } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/vscode/src/diagnostics.ts",
+        "snippet": "9955268a"
+      },
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/web/src/ai/aiStore.ts",
+        "snippet": "08bb11bf"
+      },
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 2,
+        "path": "apps/web/src/ai/doc.ts",
+        "snippet": "9d0a9bc9"
+      },
+      {
+        "contains": "import { printDiagramJson } from '@strukt/json';",
+        "line": 5,
+        "path": "apps/web/src/chat/edit.ts",
+        "snippet": "2c288d6c"
+      },
+      {
+        "contains": "\"name\": \"@strukt/json\",",
+        "line": 2,
+        "path": "packages/json/package.json",
+        "snippet": "bc15a3a1"
+      },
+      {
+        "contains": "export { printDiagramJson, DIAGRAM_JSON_VERSION, SCHEMA_REF } from './print';",
+        "line": 1,
+        "path": "packages/json/src/index.ts",
+        "snippet": "aa870540"
+      },
+      {
+        "contains": "import {",
+        "line": 1,
+        "path": "packages/json/src/parse.ts",
+        "snippet": "a73d9b3e"
+      },
+      {
+        "contains": "import type { Span } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/json/src/parseJson.ts",
+        "snippet": "a628cfe4"
+      },
+      {
+        "contains": "import { DEFAULT_STYLE, own, validParents } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/json/src/print.ts",
+        "snippet": "b1053040"
+      },
+      {
+        "contains": "import { CARDINALITIES, LAYOUT_ROLES, PRESENTATIONS, PORTS, COLOR_MODES, CONNECTORS, DIRECTIONS, SHAPES, STYLE_MODES, TYPEFACES } from '@strukt/core';",
+        "line": 1,
+        "path": "packages/json/src/schema.ts",
+        "snippet": "e1e73765"
+      }
+    ]
+  },
+  "sincronizacao-de-repositorios": {
+    "AI": [
+      {
+        "contains": "export function repositoryAnalyzer(client: AiClient, model: string): RepositoryAnalyzer {",
+        "line": 6,
+        "path": "apps/server/src/repositoryAi.ts",
+        "snippet": "334b511d"
+      },
+      {
+        "contains": "it('sends detected stack",
+        "line": 5,
+        "path": "apps/server/src/repositoryAi.test.ts",
+        "snippet": "39b4aa01"
+      }
+    ],
+    "Architecture": [
+      {
+        "contains": "export async function writeBatch(adapter: StorageAdapter, changes: FileMutation[]): Promise<void> {",
+        "line": 14,
+        "path": "packages/workspace/src/repository/transaction.ts",
+        "snippet": "1a7b6b4f"
+      }
+    ],
+    "CLI": [
+      {
+        "contains": "export async function runRepository(args: CliArgs, io: CliIo): Promise<number> {",
+        "line": 12,
+        "path": "apps/cli/src/commands/repository.ts",
+        "snippet": "f49fea3a"
+      },
+      {
+        "contains": "export function registerRepositoryKnowledge",
+        "line": 13,
+        "path": "apps/mcp/src/repositoryKnowledge.ts",
+        "snippet": "3d2fa947"
+      },
+      {
+        "contains": "it('offers grounded analysis",
+        "line": 9,
+        "path": "apps/mcp/src/repositoryKnowledge.test.ts",
+        "snippet": "744346f1"
+      }
+    ],
+    "Connector": [
+      {
+        "contains": "async function connectCloud(cloud:string,pair:string|undefined,directory:string|null,io:Io) {",
+        "line": 47,
+        "path": "apps/server/src/connector.ts",
+        "snippet": "8880f25a"
+      },
+      {
+        "contains": "export async function loadConnectorCredentials",
+        "line": 28,
+        "path": "apps/server/src/connectorCredentials.ts",
+        "snippet": "e97f1317"
+      },
+      {
+        "contains": "it('resumes the connection",
+        "line": 8,
+        "path": "apps/server/src/connectorCredentials.test.ts",
+        "snippet": "ca14cf50"
+      },
+      {
+        "contains": "export async function repositorySourceContext",
+        "line": 31,
+        "path": "packages/workspace/src/repository/sourceAccess.ts",
+        "snippet": "7c96dc80"
+      },
+      {
+        "contains": "it('respects shared include/exclude",
+        "line": 12,
+        "path": "packages/workspace/src/repository/sourceAccess.test.ts",
+        "snippet": "172b35e4"
+      }
+    ],
+    "Editor": [
+      {
+        "contains": "export function RepositoryConnection",
+        "line": 36,
+        "path": "apps/web/src/panels/RepositoryConnection.tsx",
+        "snippet": "5db0abac"
+      },
+      {
+        "contains": "export function matchesRemoteSource",
+        "line": 22,
+        "path": "apps/web/src/workspace/remote.ts",
+        "snippet": "e741e1e6"
+      },
+      {
+        "contains": "!matchesRemoteSource(session, source)",
+        "line": 27,
+        "path": "apps/web/src/app/CollaborationBridge.tsx",
+        "snippet": "fe37e8fc"
+      },
+      {
+        "contains": "matchesRemoteSource(session, source)",
+        "line": 174,
+        "path": "apps/web/src/docs/DocView.tsx",
+        "snippet": "ea97b026"
+      },
+      {
+        "contains": "'Joinlet Cloud'])('loads",
+        "line": 905,
+        "path": "apps/web/src/workspace/workspace.test.ts",
+        "snippet": "d8e8366e"
+      },
+      {
+        "contains": "export async function openRepositoryFolder",
+        "line": 11,
+        "path": "apps/web/src/workspace/openRepositoryFolder.ts",
+        "snippet": "153f2344"
+      },
+      {
+        "contains": "export function CopyCode",
+        "line": 8,
+        "path": "apps/web/src/ui/CopyCode.tsx",
+        "snippet": "79470c47"
+      },
+      {
+        "contains": "test('uses real Cloud sessions",
+        "line": 23,
+        "path": "apps/web/e2e/cloud-workspaces-real.spec.ts",
+        "snippet": "34697cfb"
+      },
+      {
+        "contains": "function RepositoryDock()",
+        "line": 120,
+        "path": "apps/web/src/app/AppShell.tsx",
+        "snippet": "fc521353"
+      },
+      {
+        "contains": "if(catalogStore.getState().cloud)",
+        "line": 42,
+        "path": "apps/web/src/github/session.ts",
+        "snippet": "e7ea850b"
+      },
+      {
+        "contains": "test('opens a compact monorepo overview",
+        "line": 43,
+        "path": "apps/web/e2e/repository-real.spec.ts",
+        "snippet": "2bd379e3"
+      },
+      {
+        "contains": "export function RepositoryEnrichmentNotice",
+        "line": 19,
+        "path": "apps/web/src/panels/RepositoryEnrichmentNotice.tsx",
+        "snippet": "20f9aa33"
+      },
+      {
+        "contains": "export async function verifyRepositoryAnalysisContext",
+        "line": 14,
+        "path": "apps/web/src/workspace/repositoryAnalysis.ts",
+        "snippet": "854830e4"
+      },
+      {
+        "contains": "test('offers source-backed enrichment",
+        "line": 65,
+        "path": "apps/web/e2e/repository-real.spec.ts",
+        "snippet": "2c59fc37"
+      },
+      {
+        "contains": "test('rejects a delayed AI edit",
+        "line": 84,
+        "path": "apps/web/e2e/repository-real.spec.ts",
+        "snippet": "9686ab47"
+      }
+    ],
+    "Engine": [
+      {
+        "contains": "export class RepositoryEngine",
+        "line": 107,
+        "path": "packages/workspace/src/repository/engine.ts",
+        "snippet": "00fab3c2"
+      },
+      {
+        "contains": "export function repositoryPresentation",
+        "line": 10,
+        "path": "packages/workspace/src/repository/presentation.ts",
+        "snippet": "3c1483f3"
+      },
+      {
+        "contains": "export function repositoryReadme",
+        "line": 38,
+        "path": "packages/workspace/src/repository/presentation.ts",
+        "snippet": "9fb8bc07"
+      },
+      {
+        "contains": "export async function repositoryLayout",
+        "line": 31,
+        "path": "packages/workspace/src/repository/layout.ts",
+        "snippet": "d93b6e3e"
+      },
+      {
+        "contains": "it('defaults to grouped modules",
+        "line": 23,
+        "path": "packages/workspace/src/repository/presentation.test.ts",
+        "snippet": "37ffd1e0"
+      },
+      {
+        "contains": "export function detectRepositoryTechnologies",
+        "line": 58,
+        "path": "packages/workspace/src/repository/technologies.ts",
+        "snippet": "a749cca6"
+      },
+      {
+        "contains": "it('detects frameworks",
+        "line": 21,
+        "path": "packages/workspace/src/repository/technologies.test.ts",
+        "snippet": "27faf9d1"
+      }
+    ],
+    "GitHub": [
+      {
+        "contains": "export async function githubSnapshot(token: string, repo: string, branch: string, fetcher?: typeof fetch): Promise<RepositoryReader & { sha: string }> {",
+        "line": 9,
+        "path": "apps/remote/src/repositorySnapshot.ts",
+        "snippet": "bdeed614"
+      }
+    ],
+    "Hub": [
+      {
+        "contains": "export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {",
+        "line": 30,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "6cb2f676"
+      },
+      {
+        "contains": "const createWorkspace = db.transaction",
+        "line": 189,
+        "path": "apps/remote/src/hostedStore.ts",
+        "snippet": "88e1727e"
+      },
+      {
+        "contains": "session.workspace;res.json({connections:",
+        "line": 91,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "44f73a49"
+      }
+    ],
+    "Importers": [
+      {
+        "contains": "export async function synchronizeDiscoveredSources(texts: Map<string,string>, data: WorkspaceData, before: Map<string,string|null>) {",
+        "line": 13,
+        "path": "packages/workspace/src/repository/importers.ts",
+        "snippet": "a689e277"
+      }
+    ],
+    "Knowledge": [
+      {
+        "contains": "export function projectRepositoryDocuments",
+        "line": 21,
+        "path": "packages/workspace/src/repository/knowledge.ts",
+        "snippet": "8adb9cf6"
+      },
+      {
+        "contains": "export function connectRepositoryKnowledge",
+        "line": 55,
+        "path": "packages/workspace/src/repository/knowledge.ts",
+        "snippet": "dc92c8dc"
+      },
+      {
+        "contains": "it('imports every recognized Markdown",
+        "line": 7,
+        "path": "packages/workspace/src/repository/knowledge.test.ts",
+        "snippet": "eda72301"
+      },
+      {
+        "contains": "export function boardInFolder",
+        "line": 13,
+        "path": "apps/web/src/board/boardFlow.ts",
+        "snippet": "137bc429"
+      },
+      {
+        "contains": "export function spaceBoard",
+        "line": 208,
+        "path": "packages/workspace/src/board.ts",
+        "snippet": "b0d3d3dc"
+      },
+      {
+        "contains": "export function separateEndpoints",
+        "line": 34,
+        "path": "apps/web/src/board/boardRoutes.ts",
+        "snippet": "c6782faf"
+      },
+      {
+        "contains": "const spaceOverview",
+        "line": 147,
+        "path": "apps/web/src/board/BoardView.tsx",
+        "snippet": "24627c0a"
+      },
+      {
+        "contains": "server.registerTool('space_overview'",
+        "line": 28,
+        "path": "apps/mcp/src/repositoryKnowledge.ts",
+        "snippet": "528c1d0d"
+      },
+      {
+        "contains": "test('spaces existing Overview cards",
+        "line": 3,
+        "path": "apps/web/e2e/overview-spacing.spec.ts",
+        "snippet": "0053a267"
+      }
+    ],
+    "Local": [
+      {
+        "contains": "export function createRepositoryService",
+        "line": 24,
+        "path": "apps/server/src/repositories.ts",
+        "snippet": "8df14ebb"
+      },
+      {
+        "contains": "export async function syncAgentInstructions",
+        "line": 17,
+        "path": "packages/workspace/src/repository/agentInstructions.ts",
+        "snippet": "dfac1abb"
+      },
+      {
+        "contains": "it('preserves malformed markers",
+        "line": 21,
+        "path": "packages/workspace/src/repository/agentInstructions.test.ts",
+        "snippet": "d2bfbbfa"
+      }
+    ],
+    "Runtime": [
+      {
+        "contains": "export function repositoryQueue",
+        "line": 5,
+        "path": "apps/remote/src/repositoryQueue.ts",
+        "snippet": "a5455679"
+      },
+      {
+        "contains": "configureRuntimeDatabase(db)",
+        "line": 93,
+        "path": "apps/remote/src/auth.ts",
+        "snippet": "9305744d"
+      },
+      {
+        "contains": "configureRuntimeDatabase(db)",
+        "line": 20,
+        "path": "apps/remote/src/collaboration.ts",
+        "snippet": "e6cd1d54"
+      },
+      {
+        "contains": "db.exec('PRAGMA busy_timeout=5000')",
+        "line": 5,
+        "path": "apps/remote/src/database.ts",
+        "snippet": "ce141c13"
+      },
+      {
+        "contains": "for(let round=0;round<3;round++)",
+        "line": 29,
+        "path": "apps/remote/src/repositoryStartupSmoke.ts",
+        "snippet": "4f4d0e66"
+      }
+    ],
+    "Worker": [
+      {
+        "contains": "async function runNext() {",
+        "line": 240,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "3bb67179"
+      }
+    ],
+    "edge:CLI→Architecture": [
+      {
+        "contains": "await writeBatch(ws.adapter",
+        "line": 71,
+        "path": "apps/mcp/src/workspace.ts",
+        "snippet": "1445915e"
+      }
+    ],
+    "edge:CLI→Engine": [
+      {
+        "contains": "new RepositoryEngine(reader, adapter, analyzer)",
+        "line": 23,
+        "path": "apps/cli/src/commands/repository.ts",
+        "snippet": "b851c109"
+      },
+      {
+        "contains": "const instructions=args.check?",
+        "line": 25,
+        "path": "apps/cli/src/commands/repository.ts",
+        "snippet": "cd3cb9d1"
+      },
+      {
+        "contains": "locale: repositoryLocale(Intl.DateTimeFormat()",
+        "line": 26,
+        "path": "apps/cli/src/commands/repository.ts",
+        "snippet": "a3faee15"
+      }
+    ],
+    "edge:Connector→Hub": [
+      {
+        "contains": "post('/api/repository-connector/update'",
+        "line": 79,
+        "path": "apps/server/src/connector.ts",
+        "snippet": "0ddd5ebc"
+      }
+    ],
+    "edge:Connector→Local": [
+      {
+        "contains": "service=createRepositoryService",
+        "line": 69,
+        "path": "apps/server/src/connector.ts",
+        "snippet": "f05629f8"
+      }
+    ],
+    "edge:Editor→Hub": [
+      {
+        "contains": "request('/api/repositories/github',{repo,branch,locale:getLocale()})",
+        "line": 62,
+        "path": "apps/web/src/panels/RepositoryConnection.tsx",
+        "snippet": "a047c5a9"
+      }
+    ],
+    "edge:Editor→Local": [
+      {
+        "contains": "request('/api/repositories',{dir,locale:getLocale()})",
+        "line": 43,
+        "path": "apps/web/src/panels/RepositoryConnection.tsx",
+        "snippet": "e08a82af"
+      }
+    ],
+    "edge:Engine→AI": [
+      {
+        "contains": "this.analyzer!.analyze",
+        "line": 186,
+        "path": "packages/workspace/src/repository/engine.ts",
+        "snippet": "dec83d66"
+      },
+      {
+        "contains": "path==='/api/repository-connector/analyze'",
+        "line": 64,
+        "path": "apps/server/src/connector.ts",
+        "snippet": "cc070261"
+      },
+      {
+        "contains": "assert.equal(initial.connections[0]!.phase,'paused')",
+        "line": 30,
+        "path": "apps/remote/src/repositoryConnectorSmoke.ts",
+        "snippet": "7f2cb29e"
+      }
+    ],
+    "edge:Engine→Architecture": [
+      {
+        "contains": "await writeBatch(this.adapter",
+        "line": 286,
+        "path": "packages/workspace/src/repository/engine.ts",
+        "snippet": "61b1817f"
+      }
+    ],
+    "edge:Engine→Importers": [
+      {
+        "contains": "await synchronizeDiscoveredSources",
+        "line": 272,
+        "path": "packages/workspace/src/repository/engine.ts",
+        "snippet": "2bfdfe7c"
+      }
+    ],
+    "edge:Engine→Knowledge": [
+      {
+        "contains": "const projected=projectRepositoryDocuments",
+        "line": 217,
+        "path": "packages/workspace/src/repository/engine.ts",
+        "snippet": "4e69ae9b"
+      }
+    ],
+    "edge:Hub→Runtime": [
+      {
+        "contains": "queue.command(c.id,{type:'apply'",
+        "line": 280,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "306c5e00"
+      }
+    ],
+    "edge:Knowledge→Architecture": [
+      {
+        "contains": "export function connectRepositoryKnowledge",
+        "line": 55,
+        "path": "packages/workspace/src/repository/knowledge.ts",
+        "snippet": "dc92c8dc"
+      }
+    ],
+    "edge:Local→Engine": [
+      {
+        "contains": "new RepositoryEngine(reader, storage, analyzer())",
+        "line": 53,
+        "path": "apps/server/src/repositories.ts",
+        "snippet": "e6b93475"
+      }
+    ],
+    "edge:Worker→Engine": [
+      {
+        "contains": "new RepositoryEngine(source,adapter,analyzer)",
+        "line": 259,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "a34f0271"
+      },
+      {
+        "contains": "const instructions=target.syncAgentInstructions()",
+        "line": 260,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "e5714f98"
+      }
+    ],
+    "edge:Worker→GitHub": [
+      {
+        "contains": "const pullRequest=await target.flush()",
+        "line": 266,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "39d40dc0"
+      }
+    ],
+    "edge:Worker→Runtime": [
+      {
+        "contains": "const job=queue.claim()",
+        "line": 242,
+        "path": "apps/remote/src/repositoryHub.ts",
+        "snippet": "dc66051a"
       }
     ]
   }

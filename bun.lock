@@ -217,7 +217,9 @@
         "@strukt/core": "workspace:*",
         "@strukt/dsl": "workspace:*",
         "@strukt/json": "workspace:*",
+        "@strukt/layout": "workspace:*",
         "fflate": "^0.8.3",
+        "ignore": "7.0.5",
         "yjs": "^13.6.32",
       },
       "devDependencies": {
@@ -560,6 +562,7 @@
     "@strukt/remote": ["@strukt/remote@workspace:apps/remote"],
 
     "@strukt/server": ["@strukt/server@workspace:apps/server"],
+
 
     "@strukt/web": ["@strukt/web@workspace:apps/web"],
 
@@ -964,6 +967,8 @@
     "http-errors": ["http-errors@2.0.1", "", { "dependencies": { "depd": "~2.0.0", "inherits": "~2.0.4", "setprototypeof": "~1.2.0", "statuses": "~2.0.2", "toidentifier": "~1.0.1" } }, "sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ=="],
 
     "iconv-lite": ["iconv-lite@0.7.3", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ=="],
+
+    "ignore": ["ignore@7.0.5", "", {}, "sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg=="],
 
     "image-blob-reduce": ["image-blob-reduce@3.0.1", "", { "dependencies": { "pica": "^7.1.0" } }, "sha512-/VmmWgIryG/wcn4TVrV7cC4mlfUC/oyiKIfSg5eVM3Ten/c1c34RJhMYKCWTnoSMHSqXLt3tsrBR4Q2HInvN+Q=="],
 

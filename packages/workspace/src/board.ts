@@ -53,7 +53,9 @@ export const NOTE_COLORS = ['#fdf3b5', '#d9f2c5', '#cfe4ff', '#ffd9e0', '#e6dcff
 export const CARD_SIZE = { w: 280, h: 200 };
 export const NOTE_SIZE = { w: 200, h: 160 };
 export const SECTION_SIZE = { w: 640, h: 420 };
-const GRID = { x: 40, y: 40, gap: 40, columns: 4 };
+/** Room for connector lanes and their labels between Overview cards. */
+export const BOARD_CARD_GAP = 120;
+const GRID = { x: 40, y: 40, gap: BOARD_CARD_GAP, columns: 4 };
 /** Bounds for a hand-edited or hostile `board.json` (sizes and coordinates, and entries per list). */
 export const BOARD_MAX_COORD = 1_000_000;
 export const BOARD_MAX_SIZE = 100_000;
@@ -162,7 +164,7 @@ const inside = (box: Box, bounds: Box) =>
  * no card and, when `bounds` is given (the visible pane), fits inside it; `at` itself when none does.
  */
 export function freeSpot(board: Board, at: Point, size: { w: number; h: number }, bounds?: Box): Point {
-  const step = { x: size.w + GRID.gap / 2, y: size.h + GRID.gap / 2 };
+  const step = { x: size.w + 20, y: size.h + 20 };
   const candidates = RING_ORDER.flatMap((row) => RING_ORDER.map((col) => ({ col, row, distance: Math.hypot(col * step.x, row * step.y) })));
   candidates.sort((a, b) => a.distance - b.distance);
   for (const { col, row } of candidates) {
@@ -196,6 +198,44 @@ export function moveBoard(board: Board, boxes: Readonly<Record<string, Partial<B
     return box ? { ...item, ...box } : item;
   };
   return { ...board, cards: board.cards.map(place), sections: board.sections.map(place) };
+}
+
+/**
+ * Widen empty lanes without rearranging cards or shrinking existing space. Overlapping projections
+ * stay together; notes, sizes, links and manual bends survive. Sections expand with their contents.
+ * Explicit action only: opening/synchronizing a workspace never moves existing cards.
+ */
+export function spaceBoard(board: Board): Board {
+  const mapper = (axis: 'x' | 'y', size: 'w' | 'h') => {
+    const intervals = board.cards.map(c => ({ start: c[axis], end: c[axis] + c[size] })).sort((a, b) => a.start - b.start);
+    const lanes: { at: number; shift: number }[] = [];
+    let end = intervals[0]?.end ?? 0;
+    let shift = 0;
+    for (let i = 1; i < intervals.length; i++) {
+      const next = intervals[i]!;
+      if (next.start >= end && next.start - end < BOARD_CARD_GAP) {
+        shift += BOARD_CARD_GAP - (next.start - end);
+        lanes.push({ at: (end + next.start) / 2, shift });
+      }
+      end = Math.max(end, next.end);
+    }
+    return (at: number, farEdge = false) => {
+      let lo = 0, hi = lanes.length;
+      while (lo < hi) {
+        const mid = (lo + hi) >>> 1;
+        if (lanes[mid]!.at < at || (!farEdge && lanes[mid]!.at === at)) lo = mid + 1;
+        else hi = mid;
+      }
+      return at + (lo ? lanes[lo - 1]!.shift : 0);
+    };
+  };
+  const x = mapper('x', 'w'), y = mapper('y', 'h');
+  const cards = board.cards.map(c => ({ ...c, x: x(c.x), y: y(c.y) }));
+  const sections = board.sections.map(s => ({ ...s, x: x(s.x), y: y(s.y), w: x(s.x + s.w, true) - x(s.x), h: y(s.y + s.h, true) - y(s.y) }));
+  // Keep the serialized board valid, including frames spanning many widened lanes.
+  if ([...cards, ...sections].some(b => Math.abs(b.x) > BOARD_MAX_COORD || Math.abs(b.y) > BOARD_MAX_COORD || b.w > BOARD_MAX_SIZE || b.h > BOARD_MAX_SIZE)) return board;
+  if (cards.every((c, i) => c.x === board.cards[i]!.x && c.y === board.cards[i]!.y)) return board;
+  return { ...board, cards, sections };
 }
 
 export function updateCard(board: Board, id: string, patch: Pick<Partial<BoardCard>, 'text' | 'color'>): Board {

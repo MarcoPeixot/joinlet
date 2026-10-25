@@ -15,7 +15,7 @@
       "kind": "doc",
       "slug": "funcionamento-do-joinlet",
       "w": 280,
-      "x": 360,
+      "x": 440,
       "y": 40
     },
     {
@@ -24,7 +24,7 @@
       "kind": "doc",
       "slug": "codigo-aberto-e-limites-de-publicacao",
       "w": 280,
-      "x": 680,
+      "x": 840,
       "y": 40
     },
     {
@@ -33,7 +33,7 @@
       "kind": "diagram",
       "slug": "distribuicao-do-codigo-joinlet",
       "w": 280,
-      "x": 1000,
+      "x": 1240,
       "y": 40
     },
     {
@@ -43,7 +43,7 @@
       "slug": "distribuicao-e-operacao",
       "w": 280,
       "x": 40,
-      "y": 280
+      "y": 360
     },
     {
       "h": 200,
@@ -51,8 +51,8 @@
       "kind": "doc",
       "slug": "release-do-joinlet",
       "w": 280,
-      "x": 360,
-      "y": 280
+      "x": 440,
+      "y": 360
     },
     {
       "h": 200,
@@ -60,8 +60,8 @@
       "kind": "diagram",
       "slug": "fluxo-de-release-proposto",
       "w": 280,
-      "x": 680,
-      "y": 280
+      "x": 840,
+      "y": 360
     },
     {
       "h": 200,
@@ -69,8 +69,8 @@
       "kind": "doc",
       "slug": "site-publico-e-documentacao",
       "w": 280,
-      "x": 1000,
-      "y": 280
+      "x": 1240,
+      "y": 360
     },
     {
       "h": 200,
@@ -79,10 +79,383 @@
       "slug": "analytics-opcional-do-joinlet",
       "w": 280,
       "x": 40,
-      "y": 520
+      "y": 680
+    },
+    {
+      "h": 200,
+      "id": "doc:conexao-e-sincronizacao-de-repositorios",
+      "kind": "doc",
+      "slug": "conexao-e-sincronizacao-de-repositorios",
+      "w": 280,
+      "x": 840,
+      "y": 680
+    },
+    {
+      "h": 200,
+      "id": "diagram:sincronizacao-de-repositorios",
+      "kind": "diagram",
+      "slug": "sincronizacao-de-repositorios",
+      "w": 280,
+      "x": 1240,
+      "y": 680
+    },
+    {
+      "h": 200,
+      "id": "diagram:repository",
+      "kind": "diagram",
+      "slug": "repository",
+      "w": 280,
+      "x": 440,
+      "y": 1000
+    },
+    {
+      "h": 200,
+      "id": "doc:repository-architecture",
+      "kind": "doc",
+      "slug": "repository-architecture",
+      "w": 280,
+      "x": 840,
+      "y": 1000
+    },
+    {
+      "h": 200,
+      "id": "doc:contributing-to-joinlet",
+      "kind": "doc",
+      "slug": "contributing-to-joinlet",
+      "w": 280,
+      "x": 440,
+      "y": 680
+    },
+    {
+      "h": 200,
+      "id": "doc:readme",
+      "kind": "doc",
+      "slug": "readme",
+      "w": 280,
+      "x": 40,
+      "y": 1000
+    },
+    {
+      "h": 200,
+      "id": "doc:security-policy",
+      "kind": "doc",
+      "slug": "security-policy",
+      "w": 280,
+      "x": 1240,
+      "y": 1000
+    },
+    {
+      "h": 200,
+      "id": "doc:corresponding-source",
+      "kind": "doc",
+      "slug": "corresponding-source",
+      "w": 280,
+      "x": 40,
+      "y": 1320
+    },
+    {
+      "h": 200,
+      "id": "doc:third-party-notices",
+      "kind": "doc",
+      "slug": "third-party-notices",
+      "w": 280,
+      "x": 440,
+      "y": 1320
+    },
+    {
+      "h": 200,
+      "id": "doc:joinlet-name-and-visual-identity",
+      "kind": "doc",
+      "slug": "joinlet-name-and-visual-identity",
+      "w": 280,
+      "x": 840,
+      "y": 1320
+    },
+    {
+      "h": 200,
+      "id": "doc:joinlet-para-vs-code",
+      "kind": "doc",
+      "slug": "joinlet-para-vs-code",
+      "w": 280,
+      "x": 1240,
+      "y": 1320
+    },
+    {
+      "h": 200,
+      "id": "doc:joinlet-interface",
+      "kind": "doc",
+      "slug": "joinlet-interface",
+      "w": 280,
+      "x": 40,
+      "y": 1640
+    },
+    {
+      "h": 200,
+      "id": "doc:joinlet",
+      "kind": "doc",
+      "slug": "joinlet",
+      "w": 280,
+      "x": 440,
+      "y": 1640
+    },
+    {
+      "h": 200,
+      "id": "doc:publicacao-do-joinlet",
+      "kind": "doc",
+      "slug": "publicacao-do-joinlet",
+      "w": 280,
+      "x": 840,
+      "y": 1640
+    },
+    {
+      "h": 200,
+      "id": "doc:agentes-mcp-cli",
+      "kind": "doc",
+      "slug": "agentes-mcp-cli",
+      "w": 280,
+      "x": 1240,
+      "y": 1640
+    },
+    {
+      "h": 200,
+      "id": "doc:idiomas-da-interface",
+      "kind": "doc",
+      "slug": "idiomas-da-interface",
+      "w": 280,
+      "x": 40,
+      "y": 1960
+    },
+    {
+      "h": 200,
+      "id": "doc:joinlet-demonstracoes-visuais",
+      "kind": "doc",
+      "slug": "joinlet-demonstracoes-visuais",
+      "w": 280,
+      "x": 440,
+      "y": 1960
+    },
+    {
+      "h": 200,
+      "id": "doc:open-source-and-hosted-service",
+      "kind": "doc",
+      "slug": "open-source-and-hosted-service",
+      "w": 280,
+      "x": 840,
+      "y": 1960
+    },
+    {
+      "h": 200,
+      "id": "doc:provedores-de-ia-do-joinlet",
+      "kind": "doc",
+      "slug": "provedores-de-ia-do-joinlet",
+      "w": 280,
+      "x": 1240,
+      "y": 1960
+    },
+    {
+      "h": 200,
+      "id": "doc:contributions-releases-and-the-official-service",
+      "kind": "doc",
+      "slug": "contributions-releases-and-the-official-service",
+      "w": 280,
+      "x": 40,
+      "y": 2280
+    },
+    {
+      "h": 200,
+      "id": "doc:icones-oficiais-de-arquitetura-cloud",
+      "kind": "doc",
+      "slug": "icones-oficiais-de-arquitetura-cloud",
+      "w": 280,
+      "x": 440,
+      "y": 2280
+    },
+    {
+      "h": 200,
+      "id": "doc:eraser-diagrams",
+      "kind": "doc",
+      "slug": "eraser-diagrams",
+      "w": 280,
+      "x": 840,
+      "y": 2280
+    },
+    {
+      "h": 200,
+      "id": "doc:ignore-md",
+      "kind": "doc",
+      "slug": "ignore-md",
+      "w": 280,
+      "x": 1240,
+      "y": 2280
+    },
+    {
+      "h": 200,
+      "id": "doc:configuracoes-do-workspace",
+      "kind": "doc",
+      "slug": "configuracoes-do-workspace",
+      "w": 280,
+      "x": 40,
+      "y": 2600
     }
   ],
-  "connections": [],
+  "connections": [
+    {
+      "from": "diagram:repository",
+      "id": "repo_link_d7131f17111cf5a8",
+      "label": "Documentação",
+      "to": "doc:repository-architecture"
+    },
+    {
+      "from": "diagram:arquitetura-do-joinlet",
+      "id": "repo_link_fe0641aee617da79",
+      "label": "Referência",
+      "to": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "from": "diagram:sincronizacao-de-repositorios",
+      "id": "repo_link_7986b2c4b0fe61dc",
+      "label": "Referência",
+      "to": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "from": "diagram:repository",
+      "id": "repo_link_28877d53273c5dfc",
+      "label": "Referência",
+      "to": "doc:joinlet-para-vs-code"
+    },
+    {
+      "from": "doc:contributing-to-joinlet",
+      "id": "repo_link_4ad519b582195d59",
+      "label": "Referência",
+      "to": "doc:security-policy"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_d44f4f7296f7922b",
+      "label": "Referência",
+      "to": "doc:agentes-mcp-cli"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_73e97fa7e0ce84c2",
+      "label": "Referência",
+      "to": "doc:publicacao-do-joinlet"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_e4382f559fbfebba",
+      "label": "Referência",
+      "to": "doc:open-source-and-hosted-service"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_53c5ecfd408bf6df",
+      "label": "Referência",
+      "to": "doc:contributions-releases-and-the-official-service"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_e51d8f9aa6731a98",
+      "label": "Referência",
+      "to": "doc:contributing-to-joinlet"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_649696e18a22de0b",
+      "label": "Referência",
+      "to": "doc:security-policy"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_f014ac58c61ad27c",
+      "label": "Referência",
+      "to": "doc:third-party-notices"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_6f5d4172b3bacfb2",
+      "label": "Referência",
+      "to": "doc:joinlet-name-and-visual-identity"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_acb8c9d84e0ff32e",
+      "label": "Referência",
+      "to": "doc:corresponding-source"
+    },
+    {
+      "from": "doc:readme",
+      "id": "repo_link_25ce40c94ec54977",
+      "label": "Referência",
+      "to": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "from": "doc:security-policy",
+      "id": "repo_link_7de7226af72097f8",
+      "label": "Referência",
+      "to": "doc:contributions-releases-and-the-official-service"
+    },
+    {
+      "from": "doc:third-party-notices",
+      "id": "repo_link_e12f9f10d29c1abb",
+      "label": "Referência",
+      "to": "doc:eraser-diagrams"
+    },
+    {
+      "from": "doc:third-party-notices",
+      "id": "repo_link_9569b6653c44c472",
+      "label": "Referência",
+      "to": "doc:icones-oficiais-de-arquitetura-cloud"
+    },
+    {
+      "from": "doc:third-party-notices",
+      "id": "repo_link_59035d2ec69e9f11",
+      "label": "Referência",
+      "to": "doc:ignore-md"
+    },
+    {
+      "from": "doc:publicacao-do-joinlet",
+      "id": "repo_link_d74ad36d50f67e35",
+      "label": "Referência",
+      "to": "doc:open-source-and-hosted-service"
+    },
+    {
+      "from": "doc:publicacao-do-joinlet",
+      "id": "repo_link_c2725ea7f73945ba",
+      "label": "Referência",
+      "to": "doc:contributions-releases-and-the-official-service"
+    },
+    {
+      "from": "doc:publicacao-do-joinlet",
+      "id": "repo_link_72b34e83521b6492",
+      "label": "Referência",
+      "to": "doc:conexao-e-sincronizacao-de-repositorios"
+    },
+    {
+      "from": "doc:open-source-and-hosted-service",
+      "id": "repo_link_ca9de4a9fafaaee2",
+      "label": "Referência",
+      "to": "doc:joinlet-name-and-visual-identity"
+    },
+    {
+      "from": "doc:open-source-and-hosted-service",
+      "id": "repo_link_f33cef0f23cfa6e9",
+      "label": "Referência",
+      "to": "doc:corresponding-source"
+    },
+    {
+      "from": "doc:open-source-and-hosted-service",
+      "id": "repo_link_36d1cd35cad2a407",
+      "label": "Referência",
+      "to": "doc:contributions-releases-and-the-official-service"
+    },
+    {
+      "from": "diagram:repository",
+      "id": "repo_link_11e417eb6b2a3693",
+      "label": "Contexto do projeto",
+      "to": "doc:readme"
+    }
+  ],
   "sections": [],
   "version": 1
 }

@@ -61,14 +61,14 @@ const reason = (err: unknown) => (err instanceof Error ? err.message : String(er
 
 /** Versions and the generated context sit next to the workspace files: zips and folder copies carry them too. */
 function extraFiles(from: StorageAdapter): Promise<Record<string, string>> {
-  return readFiles(from, (path) => path.startsWith(`${VERSIONS_DIR}/`) || path.startsWith(`${CONTEXT_DIR}/`) || parseCommentsPath(path) !== null);
+  return readFiles(from, (path) => ['repository.json', 'repository-state.json', 'sources.json', 'sync.json'].includes(path) || path.startsWith(`${VERSIONS_DIR}/`) || path.startsWith(`${CONTEXT_DIR}/`) || parseCommentsPath(path) !== null);
 }
 
 /** Opens `next` and returns its load warnings; the caller shows them with `announce`. */
 export async function openWith(next: StorageAdapter, init: () => WorkspaceData, nextFolder: DirHandleLike | null = null): Promise<string[]> {
   const warnings = await workspace.open(next, init, { requireSaved: true });
   if (adapter && adapter !== next && sharedSession) (await import('./collaboration')).closeCollaborationClients();
-  if (adapter !== next) setManifestSync(null);
+  if (adapter !== next) { setManifestSync(null); (await import('./repositoryEvents')).stopFollowingRepository(); }
   if (!next.label.startsWith('GitHub:') && !next.label.startsWith(uiText("Rede local:")) && next.label !== 'Joinlet Cloud') sharedSession = null;
   adapter = next;
   folder = nextFolder;
@@ -192,6 +192,7 @@ export async function bootWorkspace(): Promise<void> {
       const conflicts = await initializeRemote(remote.session);
       folder = null;
       sharedSession = remote.session;
+      catalogStore.setState({cloud:remote.session.mode==='cloud'&&remote.session.owner===true});
       // The invite may be revoked or expire while this tab is open: the workspace turns read-only and says why.
       setAccessEndedHandler((message) => {
         enforceViewOnly(diagramStore);
@@ -205,6 +206,7 @@ export async function bootWorkspace(): Promise<void> {
       // The list of items is one file every guest writes: keep this sidebar in step with the others'.
       setManifestSync(createManifestSync(remoteAdapter, { apply: (update) => workspace.applyRemoteManifest(update), say: showToast }));
       announce([remote.session.mode === 'cloud' ? uiText('Workspace salvo no Joinlet Cloud.') : remote.session.mode === 'lan' ? uiText("Workspace compartilhado na rede local.") : uiText("Workspace conectado ao GitHub: {0}.", [remote.session.repo]), ...(conflicts.length ? [uiText("Confira a configuração MCP existente: {0}.", [conflicts.join(', ')])] : [])], warnings);
+      if(catalogStore.getState().cloud)await loadCatalog().catch(error=>catalogStore.setState({error:reason(error),available:false}));
       return;
     }
     if (hosted) {
@@ -212,6 +214,17 @@ export async function bootWorkspace(): Promise<void> {
     }
     if (preview) acceptAccessPlan({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } });
     else await loadAccessPlan('/api/plan', false, SELF_HOSTED_PLAN);
+    const requestedConnection = new URLSearchParams(location.search).get('connection');
+    if(requestedConnection) {
+      for(let attempt=0;attempt<240;attempt++) {
+        const response=await fetch(`/api/repositories/${encodeURIComponent(requestedConnection)}`);
+        if(!response.ok) break;
+        const status=await response.json() as {root?:string;persistedRevision?:string;phase:string;error?:string};
+        if(status.persistedRevision&&status.root) { await fetch(`/api/repositories/${encodeURIComponent(requestedConnection)}/open`,{method:'POST',headers:{'content-type':'application/json'},body:'{}'}); await openConnectedRepositoryNow(status.root); return; }
+        if(status.phase==='error'||status.phase==='conflict')throw Error(status.error??'Repository initialization failed.');
+        await new Promise(done=>setTimeout(done,500));
+      }
+    }
     let catalog = null;
     try { catalog = await loadCatalog(); }
     catch (error) {
@@ -266,6 +279,9 @@ export function connectRepository(dir: string, options: { allowInitialize?: bool
 }
 
 export async function connectRepositoryNow(dir: string, options: { allowInitialize?: boolean; projectId?: string; quiet?: boolean } = {}): Promise<{ changed: string[]; conflicts: string[]; initialized: boolean }> {
+  const native=await fetch('/api/repositories/open',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({dir})}).catch(()=>null);
+  if(native?.ok) { const result=await native.json() as {root:string}; await openConnectedRepositoryNow(result.root,options.projectId); return {changed:[],conflicts:[],initialized:false}; }
+  if(native && native.headers.get('content-type')?.includes('application/json') && ![404,503].includes(native.status)) {const result=await native.json().catch(()=>({}));throw Error(result.error??uiText("Falha ao acessar o repositório."));}
   const catalog = catalogStore.getState().catalog;
   const previous = catalog?.entries.find((entry) => entry.id === catalogStore.getState().activeId)?.location;
   const connect = async (files?: Record<string, string>) => {
@@ -390,17 +406,19 @@ workspace.store.subscribe((state, previous) => {
   if (!state.data || state.source !== previous.source || (state.data.manifest.name === previous.data?.manifest.name && state.data.manifest.logo === previous.data?.manifest.logo)) return;
   const activeId = catalogStore.getState().activeId;
   if (!activeId) return;
+  if(catalogStore.getState().cloud) {
+    void workspace.flush().then(()=>loadCatalog()).catch(()=>catalogStore.setState({error:uiText('O nome foi salvo no workspace, mas não foi atualizado na lista de projetos.')}));
+    return;
+  }
   void updateCatalog((catalog) => catalog ? { ...catalog, entries: catalog.entries.map((entry) => entry.id === activeId ? { ...entry, name: state.data!.manifest.name, logo: state.data!.manifest.logo } : entry) } : { version: 1, activeId: null, entries: [] })
     .catch(() => catalogStore.setState({ error: uiText("O nome foi salvo no workspace, mas não foi atualizado na lista de projetos.") }));
 });
 
 /** "Abrir pasta…": opens `<pasta>/.arch`, or copies the current workspace there when it has none. */
 export async function openFolderPicker(): Promise<void> {
-  if (!canPickFolder()) {
-    showToast(uiText("Este navegador não escreve direto na pasta. Conecte o repositório pelo painel GitHub informando o caminho."));
-    return;
-  }
   try {
+    if(await (await import('./openRepositoryFolder')).openRepositoryFolder())return;
+    if(!canPickFolder())throw Error(uiText('Execute joinlet connect no computador para escolher uma pasta.'));
     const handle = await pickFolder();
     if (!handle) return;
     await changeProject(async () => {
@@ -521,4 +539,19 @@ export function guardUnsavedChanges(): void {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') void workspace.flush();
   });
+}
+
+/** Opens an initialized repository, including folders without Git, without importing browser content. */
+export function openConnectedRepository(root: string): Promise<void> {
+  return changeProject(() => openConnectedRepositoryNow(root));
+}
+async function openConnectedRepositoryNow(root: string, projectId?: string): Promise<void> {
+  const warnings = await openWith(createRepositoryAdapter(root), () => { throw new Error(uiText("O repositório não tem um workspace do Joinlet.")); });
+  const catalog=catalogStore.getState().catalog;
+  const existing=catalog?.entries.find(entry=>entry.location.kind==='repository'&&entry.location.root===root);
+  await rememberOpened({ kind: 'repository', root },projectId??existing?.id);
+  await resetProjectContext(root);
+  void import('./repositoryEvents').then(m=>m.followRepository(root));
+  announce([uiText("Workspace conectado a {0}/.arch.", [root])], warnings);
+  catalogStore.setState({ open: false });
 }

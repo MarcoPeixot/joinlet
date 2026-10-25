@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
-  BOARD_MAX_ITEMS, CARD_SIZE, NOTE_COLORS, NOTE_SIZE, addNote, addSection, cardsInSection, connectCards, emptyBoard, freeSpot, itemCardId,
-  moveBoard, parseBoard, printBoard, reconcileBoard, removeFromBoard, updateCard, updateConnection, updateSection,
+  BOARD_MAX_ITEMS, BOARD_CARD_GAP, CARD_SIZE, NOTE_COLORS, NOTE_SIZE, addNote, addSection, cardsInSection, connectCards, emptyBoard, freeSpot, itemCardId,
+  moveBoard, parseBoard, printBoard, reconcileBoard, removeFromBoard, spaceBoard, updateCard, updateConnection, updateSection,
 } from './board';
 import type { Board } from './board';
 import { emptyManifest } from './manifest';
@@ -18,7 +18,7 @@ describe('reconcileBoard', () => {
     const board = reconcileBoard(emptyBoard(), manifest);
     expect(board.cards.map((c) => c.id)).toEqual(['diagram:loja', 'doc:api', 'sketch:ideias']);
     expect(board.cards[0]).toEqual({ id: 'diagram:loja', kind: 'diagram', slug: 'loja', x: 40, y: 40, ...CARD_SIZE });
-    expect(board.cards[1]!.x).toBe(40 + CARD_SIZE.w + 40);
+    expect(board.cards[1]!.x).toBe(40 + CARD_SIZE.w + BOARD_CARD_GAP);
     expect(new Set(board.cards.map((c) => `${c.x},${c.y}`)).size).toBe(3);
   });
 
@@ -27,7 +27,7 @@ describe('reconcileBoard', () => {
     const big: Board = { ...emptyBoard(), sections: [{ id: 's', title: 'Enorme', x: 0, y: 0, w: 100_000, h: 100_000 }] };
     expect(reconcileBoard(big, one).cards[0]!.y).toBeGreaterThanOrEqual(100_040);
     const taller: Board = { ...big, sections: [...big.sections, { id: 't', title: 'Outra', x: 0, y: 100_000, w: 100_000, h: 100_000 }] };
-    expect(reconcileBoard(taller, one).cards[0]).toMatchObject({ x: 40, y: 200_040 });
+    expect(reconcileBoard(taller, one).cards[0]).toMatchObject({ x: 40, y: 200_000 + BOARD_CARD_GAP });
   });
 
   describe('in linear time', () => {
@@ -62,12 +62,12 @@ describe('reconcileBoard', () => {
       expect(new Set(added.map((c) => c.id)).size).toBe(400);
       expect(overlapping(added)).toBeNull();
       // Below everything, the far notes included (lowest note: y 509800 + h 160).
-      expect(added[0]).toMatchObject({ x: 40, y: 510_000 });
+      expect(added[0]).toMatchObject({ x: 40, y: 509_960 + BOARD_CARD_GAP });
     });
 
     /** The placement before the linear rewrite: one full grid scan per missing item (reference for equivalence). */
     function reference(board: Board, manifest: ReturnType<typeof docs>): Board['cards'] {
-      const grid = { x: 40, y: 40, gap: 40, columns: 4 };
+      const grid = { x: 40, y: 40, gap: BOARD_CARD_GAP, columns: 4 };
       const cards = board.cards.filter((c) => c.kind === 'note');
       for (const { slug } of manifest.docs) {
         const taken = [...cards, ...board.sections];
@@ -108,7 +108,7 @@ describe('reconcileBoard', () => {
   it('skips cells taken by existing cards and sections', () => {
     const start: Board = { ...emptyBoard(), sections: [{ id: 's', title: 'Seção', x: 0, y: 0, w: 330, h: 260 }] };
     const board = reconcileBoard(start, { ...emptyManifest('x'), docs: [{ slug: 'api', title: 'API' }] });
-    expect(board.cards[0]).toMatchObject({ x: 40 + CARD_SIZE.w + 40, y: 40 });
+    expect(board.cards[0]).toMatchObject({ x: 40 + CARD_SIZE.w + BOARD_CARD_GAP, y: 40 });
   });
 
   it('drops cards (and their connections) whose item is gone, and returns the same board when nothing changes', () => {
@@ -120,6 +120,43 @@ describe('reconcileBoard', () => {
     const next = reconcileBoard(board, { ...manifest, docs: [] });
     expect(next.cards.map((c) => c.id)).toEqual(['diagram:loja', 'sketch:ideias', 'n1']);
     expect(next.connections.map((c) => c.id)).toEqual(['c2']);
+  });
+});
+
+describe('spaceBoard', () => {
+  it('widens a legacy grid once, preserving card order, content, sizes, links and manual bends', () => {
+    const original: Board = { ...emptyBoard(), cards: [
+      { id: 'a', kind: 'note', x: 40, y: 40, w: 280, h: 200, text: 'Keep me', color: '#fdf3b5' },
+      { id: 'b', kind: 'note', x: 360, y: 40, w: 280, h: 200 },
+      { id: 'c', kind: 'note', x: 40, y: 280, w: 280, h: 200 },
+      { id: 'd', kind: 'note', x: 360, y: 280, w: 280, h: 200 },
+    ], connections: [{ id: 'ab', from: 'a', to: 'b', label: 'Manual', bend: .3 }] };
+    const spaced = spaceBoard(original);
+    expect(spaced.cards.map(c => [c.x, c.y])).toEqual([[40, 40], [440, 40], [40, 360], [440, 360]]);
+    expect(spaced.cards.map(({x,y,...rest}) => rest)).toEqual(original.cards.map(({x,y,...rest}) => rest));
+    expect(spaced.connections).toBe(original.connections);
+    expect(spaceBoard(spaced)).toBe(spaced);
+    expect(original.cards[1]!.x).toBe(360);
+  });
+
+  it('keeps overlapping clusters together, leaves wide gaps alone and expands containing sections', () => {
+    const original: Board = { ...emptyBoard(), cards: [
+      { id: 'a', kind: 'note', x: -100, y: 0, w: 200, h: 160 },
+      { id: 'b', kind: 'note', x: -80, y: 20, w: 200, h: 160 },
+      { id: 'c', kind: 'note', x: 140, y: 400, w: 200, h: 160 },
+    ], sections: [{id:'s', title:'Group', x:-120,y:-20,w:480,h:600}] };
+    const spaced = spaceBoard(original);
+    expect(spaced.cards.map(c => [c.x, c.y])).toEqual([[-100, 0], [-80, 20], [240, 400]]);
+    expect(spaced.sections[0]).toEqual({...original.sections[0],w:580});
+    expect(cardsInSection(spaced, 's')).toEqual(cardsInSection(original, 's'));
+    expect(spaceBoard(emptyBoard())).toEqual(emptyBoard());
+  });
+
+  it('spaces touching cards without resizing them and refuses to exceed board bounds', () => {
+    let board = addNote(addNote(emptyBoard(), 'a', {x:0,y:0}), 'b', {x:200,y:0});
+    expect(spaceBoard(board).cards[1]!.x).toBe(320);
+    board = moveBoard(board, {a:{x:999_780},b:{x:1_000_000}});
+    expect(spaceBoard(board)).toBe(board);
   });
 });
 

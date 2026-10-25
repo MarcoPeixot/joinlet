@@ -20,11 +20,11 @@ async function setup(adapter = createMemoryAdapter()) {
 const contextOf = (files: Map<string, string>) => [...files.keys()].filter((path) => path.startsWith('context/')).sort();
 
 describe('context sync', () => {
-  it('stays off until generated, then writes context/ and follows every change of meaning', async () => {
+  it('generates context automatically and follows every change of meaning', async () => {
     const { diagram, workspace, sync, adapter } = await setup();
     diagram.getState().apply([{ op: 'add_node', id: 'Fila' }], { Fila: { x: 0, y: 600 } });
     await workspace.flush();
-    expect(contextOf(adapter.files)).toEqual([]);
+    expect(contextOf(adapter.files)).toContain('context/ARCHITECTURE.md');
 
     const files = await sync.generate();
     expect(sync.enabled()).toBe(true);
@@ -97,7 +97,9 @@ describe('context sync', () => {
 
     expect(adapter.files.get('context/ARCHITECTURE.md')).toContain('Barramento');
     expect(adapter.files.get('context/ARCHITECTURE.md')).not.toContain('Outra loja');
-    expect(second.files.has('context/ARCHITECTURE.md')).toBe(false);
+    await sync.ready();await workspace.flush();
+    expect(second.files.get('context/ARCHITECTURE.md')).toContain('Outra loja');
+    expect(second.files.get('context/ARCHITECTURE.md')).not.toContain('Barramento');
   });
 
   it('does not schedule any context write for position-only changes', async () => {

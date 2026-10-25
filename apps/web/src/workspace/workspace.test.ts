@@ -902,7 +902,7 @@ describe('shared sessions (collaboration): the diagram waits for its room', () =
     return { diagram, workspace, adapter };
   }
 
-  it.each(['Rede local: repo', 'Local network: repo', 'GitHub: org/repo'])('loads %s locked until the bridge syncs it, and never saves it through REST', async (label) => {
+  it.each(['Rede local: repo', 'Local network: repo', 'GitHub: org/repo', 'Joinlet Cloud'])('loads %s locked until the bridge syncs it, and never saves it through REST', async (label) => {
     const { diagram, workspace, adapter } = await shared(label);
     expect(diagram.getState().readOnly).toBe(COLLAB_WAITING_LOCK);
     const before = diagram.getState().model;

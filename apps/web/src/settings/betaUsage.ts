@@ -18,7 +18,7 @@ export function trackBetaUsage(session: RemoteSession): () => void {
     if (pending || stopped) return;
     pending = true;
     try {
-      const response = await fetch(`${session.apiBase ?? '/api'}/remote/plan`, { signal: controller.signal, cache: 'no-store' });
+      const response = await fetch(`${session.apiBase ?? '/api'}/remote/plan`, { headers:session.mode==='cloud'?{'x-joinlet-workspace':session.repo}:{},signal: controller.signal, cache: 'no-store' });
       const value = await response.json();
       if (stopped) return;
       if (response.status === 403 && value.code === 'PARTICIPANT_LIMIT_REACHED') {

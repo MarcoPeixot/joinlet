@@ -2,11 +2,11 @@ import { BoardMiniMap } from './BoardMiniMap';
 import { uiText } from '../i18n';
 import { isViewOnly } from '../workspace/boot';
 import { own } from '@strukt/core';
-import { addNote, addSection, connectCards, freeSpot, moveBoard, NOTE_SIZE, removeFromBoard, SECTION_SIZE } from '@strukt/workspace';
+import { addNote, addSection, connectCards, freeSpot, moveBoard, NOTE_SIZE, removeFromBoard, SECTION_SIZE, knownFolders, spaceBoard } from '@strukt/workspace';
 import type { Board } from '@strukt/workspace';
 import { Background, BackgroundVariant, ConnectionMode, Panel, ReactFlow, ReactFlowProvider, useReactFlow } from '@xyflow/react';
 import type { EdgeChange, NodeChange, OnBeforeDelete, OnConnect, OnConnectEnd, OnNodeDrag } from '@xyflow/react';
-import { Square, StickyNote } from 'lucide-react';
+import { Expand, Square, StickyNote } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EmptyState } from '../ui/EmptyState';
 import { FlowToggle } from '../ui/FlowToggle';
@@ -16,7 +16,8 @@ import { ZoomControls } from '../ui/ZoomControls';
 import { showToast, toggleMinimap, useUi } from '../ui/uiStore';
 import { openItem } from '../workspace/actions';
 import { useWorkspace, workspace } from '../workspace/appWorkspace';
-import { boardToFlow, deletePlan, followSection, startSectionDrag } from './boardFlow';
+import { boardToFlow, boardInFolder, deletePlan, followSection, startSectionDrag } from './boardFlow';
+import {RepositoryEnrichmentNotice} from '../panels/RepositoryEnrichmentNotice';
 import type { BoardEdge, BoardNode, SectionDrag } from './boardFlow';
 import { startBoardRouting } from './boardRoutes';
 import { CardNodeView } from './CardNode';
@@ -36,6 +37,13 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 function BoardCanvas() {
   const viewOnly = isViewOnly();
   const current = useWorkspace((s) => s.data?.board);
+  const manifest=useWorkspace(s=>s.data?.manifest);
+  const [folder,setFolder]=useState('');
+  const choseFolder=useRef(false);
+  const folders=useMemo(()=>manifest?knownFolders([...manifest.diagrams,...manifest.docs,...manifest.sketches]):[],[manifest]);
+  const visible=useMemo(()=>current&&manifest?boardInFolder(current,manifest,folder):current,[current,manifest,folder]);
+  useEffect(()=>{if(!choseFolder.current&&(manifest?.docs.filter(d=>d.source).length??0)>12){choseFolder.current=true;setFolder('__main__');}},[manifest]);
+  useEffect(()=>{if(folder&&folder!=='__root__'&&folder!=='__main__'&&!folders.includes(folder))setFolder('');},[folder,folders]);
   const theme = useUi((s) => s.theme);
   const flow = useReactFlow();
   const [selected, setSelected] = useState<ReadonlySet<string>>(EMPTY);
@@ -46,9 +54,10 @@ function BoardCanvas() {
   const drag = useRef<SectionDrag | null>(null);
   useEffect(() => startBoardRouting(workspace.store), []);
   const { nodes, edges } = useMemo(
-    () => (current ? boardToFlow(current, selected, focusId) : { nodes: [], edges: [] }),
-    [current, selected, focusId],
+    () => (visible ? boardToFlow(visible, selected, focusId) : { nodes: [], edges: [] }),
+    [visible, selected, focusId],
   );
+  useEffect(()=>{setSelected(EMPTY);const frame=requestAnimationFrame(()=>void flow.fitView({...FIT,duration:200}));return()=>cancelAnimationFrame(frame);},[folder,flow]);
 
   const select = useCallback((changes: { id: string; selected: boolean }[]) => {
     const next = new Set(selectedRef.current);
@@ -135,6 +144,10 @@ function BoardCanvas() {
     setFocusId(id);
   };
   const addSectionHere = () => workspace.updateBoard((b) => addSection(b, crypto.randomUUID(), center(SECTION_SIZE), uiText("Nova seção")));
+  const spaceOverview = () => {
+    workspace.updateBoard(spaceBoard);
+    requestAnimationFrame(() => void flow.fitView({ ...FIT, duration: 250 }));
+  };
 
   const canvas = CANVAS[theme];
   const minimap = useUi((s) => s.minimap);
@@ -163,6 +176,7 @@ function BoardCanvas() {
         maxZoom={2.5}
         fitView
         fitViewOptions={FIT}
+        onlyRenderVisibleElements={(current?.cards.length??0)>80}
         colorMode={theme}
         nodesDraggable={!viewOnly}
         nodesConnectable={!viewOnly}
@@ -180,14 +194,20 @@ function BoardCanvas() {
             <Square />
             <span className="text-caption font-medium">{uiText("Seção")}</span>
           </IconButton>
+          <IconButton label={uiText("Espaçar Overview")} title={uiText("Aumentar o espaço entre os cards e as conexões do Overview")} onClick={spaceOverview} disabled={(current?.cards.length ?? 0) < 2}>
+            <Expand />
+            <span className="sk-overview-spacing-text text-caption font-medium">{uiText("Espaçar")}</span>
+          </IconButton>
           <span className="mx-1 h-5 w-px bg-line" />
           </>}
           <FlowToggle>
             <span className="text-caption font-medium">{uiText("Fluxo")}</span>
           </FlowToggle>
+          {folders.length>0&&<select aria-label={uiText('Filtrar Overview por pasta')} className="max-w-44 rounded bg-panel px-2 py-1 text-caption" value={folder} onChange={event=>{choseFolder.current=true;setFolder(event.target.value);}}><option value="">{uiText('Todos os itens')}</option><option value="__main__">{uiText('Visão principal')}</option><option value="__root__">{uiText('Sem pasta')}</option>{folders.map(path=><option key={path} value={path}>{path}</option>)}</select>}
         </Panel>
+        {!viewOnly&&<Panel position="top-left" style={{top:52}}><RepositoryEnrichmentNotice/></Panel>}
         <Panel position="bottom-right" className="sk-overview-status sk-corner rounded-full border border-line bg-panel px-3 py-1.5 font-mono text-meta text-muted">
-          {plural(current?.cards.length ?? 0, 'card', 'cards')} {"·"} {plural(current?.connections.length ?? 0, uiText("conexão"), uiText("conexões"))} <span className="sk-overview-hint">{uiText("· duplo clique abre ou rotula")}</span></Panel>
+          {plural(visible?.cards.length ?? 0, 'card', 'cards')} {"·"} {plural(visible?.connections.length ?? 0, uiText("conexão"), uiText("conexões"))} <span className="sk-overview-hint">{uiText("· duplo clique abre ou rotula")}</span></Panel>
         {(current?.cards.length ?? 0) === 0 && (
           <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
             <EmptyState className="pointer-events-auto" illustration="board" title={uiText("O overview está vazio")} text={uiText("Reúna diagramas, documentos e notas num só lugar e ligue as ideias.")} action={viewOnly ? undefined : { label: uiText("Nova nota"), icon: <StickyNote size={14} />, onClick: addNoteHere }} />

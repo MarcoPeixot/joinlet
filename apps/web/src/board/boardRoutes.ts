@@ -21,11 +21,36 @@ export interface BoardRoute {
 
 /** The label pill (`.strukt-link__label`): 12 px text, 10 px padding and a 1 px border each side, 22 px tall. */
 export function linkLabelSize(text: string): { w: number; h: number } {
-  return { w: textWidth(text, 12) + 22, h: 22 };
+  return { w: Math.min(240, textWidth(text, 12) + 22), h: 22 };
 }
 
-/** How far routes keep from the cards: room for a label pill (22 px tall) on a run passing a card. */
-const CLEARANCE = 12;
+/** Room for the label pill and visible breathing space alongside cards. */
+const CLEARANCE = 28;
+const LABEL_CLEARANCE = 12;
+export const ENDPOINT_GAP = 12;
+const grow = (box: Box, by: number): Box => ({ x: box.x - by, y: box.y - by, w: box.w + by * 2, h: box.h + by * 2 });
+
+/** Shorten both ends along the polyline, consuming tiny leads without leaving duplicate vertices. */
+export function separateEndpoints(points: readonly Point[]): Point[] {
+  const length = points.slice(1).reduce((sum, p, i) => sum + Math.hypot(p[0] - points[i]![0], p[1] - points[i]![1]), 0);
+  const gap = Math.min(ENDPOINT_GAP, length / 4);
+  const trim = (input: readonly Point[]): Point[] => {
+    const out = input.map(p => [...p] as Point);
+    let remaining = gap;
+    while (out.length > 1) {
+      const a = out[0]!, b = out[1]!;
+      const segment = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (segment > remaining) {
+        out[0] = [a[0] + (b[0] - a[0]) * remaining / segment, a[1] + (b[1] - a[1]) * remaining / segment];
+        break;
+      }
+      remaining -= segment;
+      out.shift();
+    }
+    return out;
+  };
+  return trim(trim(points).reverse()).reverse();
+}
 
 /**
  * A card as the router sees it: grown by `CLEARANCE` so routes keep that far from it, with the card
@@ -57,15 +82,17 @@ export function computeBoardRoutes(board: Board): Record<string, BoardRoute> {
   const entities = board.cards.map(clearanceEntity);
   const routed = nudgeParallels(
     routeCorridors(entities, auto.map((c) => ({ id: c.id, from: c.from, to: c.to, toArrowhead: true }))),
-    board.cards,
+    board.cards.map(card => grow(card, CLEARANCE)),
+    18,
   );
   const out: Record<string, BoardRoute> = {};
   for (const c of auto) {
     const points = routed[c.id];
-    if (points) out[c.id] = { points, key: routeKey(cards.get(c.from)!, cards.get(c.to)!) };
+    if (points) out[c.id] = { points: separateEndpoints(points), key: routeKey(cards.get(c.from)!, cards.get(c.to)!) };
   }
   const requests = auto.flatMap((c) => (c.label && out[c.id] ? [{ id: c.id, points: out[c.id]!.points, ...linkLabelSize(c.label) }] : []));
-  for (const [id, label] of Object.entries(placeLabels(requests, { boxes: board.cards }))) out[id]!.label = label;
+  const routes = Object.fromEntries(Object.entries(out).map(([id, route]) => [id, route.points]));
+  for (const [id, label] of Object.entries(placeLabels(requests, { boxes: board.cards.map(card => grow(card, LABEL_CLEARANCE)), routes }))) out[id]!.label = label;
   return out;
 }
 
@@ -107,7 +134,7 @@ export function connectionView(connection: BoardConnection, a: Box, b: Box, cach
     const labelAt = cached.label ?? pointAtHalf(cached.points);
     return { points: cached.points, labelAt, run: runAt(cached.points, labelAt), axis: plain.axis, bendable };
   }
-  return { points: plain.points, labelAt: plain.handle, run: plain.axis === 'x' ? 'v' : 'h', axis: plain.axis, bendable };
+  return { points: separateEndpoints(plain.points), labelAt: plain.handle, run: plain.axis === 'x' ? 'v' : 'h', axis: plain.axis, bendable };
 }
 
 /** Routes of the Overview on screen, by connection id. */

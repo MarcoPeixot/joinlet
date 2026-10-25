@@ -21,7 +21,9 @@
     "e2e": "bun run --filter @strukt/web e2e",
     "verify:knowledge": "bun apps/cli/src/main.ts verify --strict",
     "test:remote-smoke": "bun apps/remote/src/deploymentSmoke.ts",
-    "backup:remote": "bun apps/remote/src/backup.ts"
+    "backup:remote": "bun apps/remote/src/backup.ts",
+    "build:connector": "bun run build && bun scripts/build-connector.ts",
+    "start:repository-worker": "bun apps/remote/src/repositoryWorker.ts"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

@@ -3,6 +3,12 @@ import { inspectContext, writeGeneratedContext, refreshGeneratedContext } from '
 import { createMemoryAdapter } from './storage';
 import { newWorkspace, addItem, workspaceFiles } from './workspace';
 
+it('does not block standalone files before a workspace manifest exists',async()=>{
+  const adapter=createMemoryAdapter({'docs/note.md':'# Standalone document'});
+  expect(await refreshGeneratedContext(adapter)).toEqual([]);
+  expect(await adapter.list()).toEqual(['docs/note.md']);
+});
+
 it('fails on missing/obsolete context, removes only generated files, and is idempotent', async () => {
   const data = addItem(newWorkspace('Knowledge'), 'diagram', 'API').data;
   const adapter = createMemoryAdapter(workspaceFiles(data));
@@ -22,8 +28,7 @@ it('refreshes persisted document edits and never publishes incomplete manifests 
     data.diagrams.api!.model.elements.API = { kind: 'node', id: 'API', link: 'doc:decisions' };
     data.diagrams.api!.model.order = ['API'];
   const adapter = createMemoryAdapter(workspaceFiles(data));
-  expect(await refreshGeneratedContext(adapter)).toEqual([]);
-  await refreshGeneratedContext(adapter, true);
+  expect(await refreshGeneratedContext(adapter)).toContain('context/ARCHITECTURE.md');
   await adapter.write('docs/decisions.md', '# Decisions\n\nUse a queue for asynchronous notifications.');
   await Promise.all([refreshGeneratedContext(adapter), refreshGeneratedContext(adapter)]);
   expect(await adapter.read('context/ARCHITECTURE.md')).toContain('asynchronous notifications');

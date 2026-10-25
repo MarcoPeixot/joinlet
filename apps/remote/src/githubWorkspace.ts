@@ -3,6 +3,7 @@ import { refreshGeneratedContext } from '@strukt/workspace/context-storage';
 import { assertBetaManifest, MANIFEST_PATH } from '@strukt/workspace';
 import { randomBytes } from 'node:crypto';
 import type { StorageAdapter } from '@strukt/workspace';
+import { AGENT_INSTRUCTION_FILES, agentInstructionText } from '@strukt/workspace/repository-agents';
 
 const API = 'https://api.github.com';
 const HEADERS = { accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' };
@@ -12,7 +13,9 @@ export interface GithubWorkspace extends StorageAdapter {
   readonly repo: string;
   readonly branch: string;
   readonly revision: number;
+  readonly commit: string;
   setupAgents(url: string): { changed: string[]; conflicts: string[] };
+  syncAgentInstructions(): { changed: string[]; conflicts: string[] };
   flush(): Promise<string | null>;
 }
 
@@ -39,14 +42,14 @@ type Pull = { html_url: string; body: string | null; head: { ref: string; repo: 
 
 export const agentBranchPrefix = (userId: number) => userId === 0 ? 'strukt/shared' : `strukt/agent-${userId}`;
 
-export async function openAgentPull(api: ReturnType<typeof githubApi>, repo: string, userId: number): Promise<Pull | null> {
+export async function openAgentPull(api: ReturnType<typeof githubApi>, repo: string, userId: number, branchPrefix?: string): Promise<Pull | null> {
   const pulls = await api<Pull[]>(`/repos/${repo}/pulls?state=open&per_page=100`);
-  const prefix = agentBranchPrefix(userId);
+  const prefix = branchPrefix ?? agentBranchPrefix(userId);
   return pulls.find((pull) => (pull.head.ref === prefix || pull.head.ref.startsWith(`${prefix}-`)) && pull.head.repo?.full_name === repo && pull.body?.includes('<!-- strukt:remote -->')) ?? null;
 }
 
 const b64 = (text: string) => Buffer.from(text, 'utf8').toString('base64');
-const CONFIGS = ['.mcp.json', '.cursor/mcp.json', '.vscode/mcp.json', '.codex/config.toml', 'AGENTS.md'] as const;
+const CONFIGS = ['.mcp.json', '.cursor/mcp.json', '.vscode/mcp.json', '.codex/config.toml', ...AGENT_INSTRUCTION_FILES] as const;
 const AGENT_TEXT = '\n## Joinlet\n\nA arquitetura deste projeto fica em `.arch/`. Consulte `get_architecture` e `list_diagrams` antes de alterá-la. Use as ferramentas MCP do Joinlet para criar diagramas e documentos e mantenha ambos atualizados com o código.\n';
 const isLocalStrukt = (value: unknown) => typeof value === 'object' && value !== null && typeof (value as { url?: unknown }).url === 'string' && /^http:\/\/(localhost|127\.0\.0\.1):8787\/mcp(?:\/|$)/.test((value as { url: string }).url);
 
@@ -56,6 +59,9 @@ export async function openGithubWorkspace(options: {
   repo: string;
   userId: number;
   fetch?: typeof fetch;
+  baseBranch?: string;
+  workBranch?: string;
+  beforeCommit?: () => Promise<void>;
 }): Promise<GithubWorkspace> {
   const { repo, token, userId } = options;
   if (!REPO.test(repo) || repo.includes('..')) throw new Error('Repositório GitHub inválido.');
@@ -63,15 +69,15 @@ export async function openGithubWorkspace(options: {
   const base = `/repos/${repo}`;
   const info = await api<{ default_branch: string; permissions?: { push?: boolean } }>(base);
   if (!info.permissions?.push) throw new Error('A conta não tem permissão de escrita neste repositório.');
-  const openPull = await openAgentPull(api, repo, userId);
+  const openPull = await openAgentPull(api, repo, userId, options.workBranch);
   let legacyBranch: string | null = null;
-  if (userId === 0 && !openPull) {
+  if (userId === 0 && !openPull && !options.workBranch) {
     const pulls = await api<Pull[]>(`${base}/pulls?state=open&per_page=100`);
     const legacy = pulls.filter((pull) => /^strukt\/agent-\d+(?:-[a-f0-9]+)?$/.test(pull.head.ref) && pull.head.repo?.full_name === repo && pull.body?.includes('<!-- strukt:remote -->'));
     if (legacy.length > 1) throw new Error('Há vários PRs anteriores do Joinlet. Revise-os antes de iniciar a branch compartilhada.');
     legacyBranch = legacy[0]?.head.ref ?? null;
   }
-  let branch = openPull?.head.ref ?? agentBranchPrefix(userId);
+  let branch = openPull?.head.ref ?? options.workBranch ?? agentBranchPrefix(userId);
   const getRef = (name: string) => api<Ref>(`${base}/git/ref/heads/${encodeURIComponent(name)}`);
   let branchExists = true;
   let head: Ref;
@@ -79,7 +85,7 @@ export async function openGithubWorkspace(options: {
   catch (error) {
     if (!(error instanceof GithubHttpError) || error.status !== 404) throw error;
     branchExists = false;
-    head = await getRef(legacyBranch ?? info.default_branch);
+    head = await getRef(legacyBranch ?? options.baseBranch ?? info.default_branch);
   }
   // A commit may have succeeded while creating its PR failed. Reuse that branch
   // on the next request; only rotate a branch that already had a closed/merged PR.
@@ -89,9 +95,9 @@ export async function openGithubWorkspace(options: {
     recoveringPull = previous.length === 0;
   }
   if (!openPull && branchExists && !recoveringPull) {
-    branch = `${agentBranchPrefix(userId)}-${randomBytes(4).toString('hex')}`;
+    branch = `${options.workBranch ?? agentBranchPrefix(userId)}-${randomBytes(4).toString('hex')}`;
     branchExists = false;
-    head = await getRef(legacyBranch ?? info.default_branch);
+    head = await getRef(legacyBranch ?? options.baseBranch ?? info.default_branch);
   }
   let headSha = head.object.sha;
   let treeSha = (await api<Commit>(`${base}/git/commits/${headSha}`)).tree.sha;
@@ -153,7 +159,13 @@ export async function openGithubWorkspace(options: {
     label: `GitHub: ${repo}/${branch}`,
     repo,
     branch,
+    get commit() { return headSha; },
     get revision() { return Number.parseInt(headSha.slice(0, 12), 16); },
+    syncAgentInstructions() {
+      const changed:string[]=[],conflicts:string[]=[];
+      for(const path of AGENT_INSTRUCTION_FILES){const before=projectFiles.get(path)??null,text=agentInstructionText(before);if(text===null){conflicts.push(path);continue;}if(text!==before){projectFiles.set(path,text);dirty.set(path,text);changed.push(path);}}
+      return {changed,conflicts};
+    },
     setupAgents(url) {
       const changed: string[] = [];
       const conflicts: string[] = [];
@@ -223,6 +235,7 @@ export async function openGithubWorkspace(options: {
           await refreshGeneratedContext(this, dirty.has('AGENTS.md'));
           // Network awaits must not consume mutations staged after this snapshot.
           const batch = new Map(dirty);
+          await options.beforeCommit?.();
           if (!branchExists) {
             await api(`${base}/git/refs`, { method: 'POST', body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: headSha }) });
             branchExists = true;
@@ -257,7 +270,7 @@ export async function openGithubWorkspace(options: {
           // The previous POST may have succeeded even when its response was lost.
           const existing = await api<Pull[]>(`${base}/pulls?state=open&head=${encodeURIComponent(`${repo.split('/')[0]}:${branch}`)}&per_page=100`);
           const pull = existing.find(p => p.head.ref === branch && p.head.repo?.full_name === repo) ?? await api<Pull>(`${base}/pulls`, {
-            method: 'POST', body: JSON.stringify({ title: 'Atualiza arquitetura no Joinlet', head: branch, base: info.default_branch, body: 'Mudanças em `.arch/` criadas por um agente via Joinlet MCP.\n\n<!-- strukt:remote -->' }),
+            method: 'POST', body: JSON.stringify({ title: 'Atualiza arquitetura no Joinlet', head: branch, base: options.baseBranch ?? info.default_branch, body: 'Mudanças em `.arch/` criadas por um agente via Joinlet MCP.\n\n<!-- strukt:remote -->' }),
           });
           pullUrl = pull.html_url;
           pullPending = false;

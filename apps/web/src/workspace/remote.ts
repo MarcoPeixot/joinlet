@@ -1,5 +1,5 @@
 import { identifyNavigation } from './navigation';
-import { setRequestCsrf } from './requestAuth';
+import { setRequestCsrf, setRequestWorkspace } from './requestAuth';
 import { systemMessage, uiText } from '../i18n';
 import { MANIFEST_PATH, StorageConflict } from '@strukt/workspace';
 import type { StorageAdapter } from '@strukt/workspace';
@@ -18,9 +18,16 @@ export interface RemoteSession {
 }
 export type RemoteConnection = { kind: 'ready'; session: RemoteSession } | { kind: 'login'; mcpUrl: string } | { kind: 'ended'; message: string } | null;
 
+/** Cloud storage has a display label rather than the workspace's private scope ID. */
+export function matchesRemoteSource(session: RemoteSession, label?: string): boolean {
+  return session.mode === 'cloud' ? label === 'Joinlet Cloud' : !!label?.includes(session.repo);
+}
+
 export async function remoteSession(): Promise<RemoteConnection> {
   setRequestCsrf(undefined);
-  const response = await fetch('/api/remote/session').catch(() => null);
+  setRequestWorkspace(undefined);
+  const requested=typeof location==='undefined'?null:new URLSearchParams(location.search).get('workspace');
+  const response = await fetch('/api/remote/session'+(requested?'?workspace='+encodeURIComponent(requested):'')).catch(() => null);
   if (!response) return null;
   if (response.status === 401) {
     const body = await response.json().catch(() => ({})) as { mcpUrl?: string; code?: string; error?: string };
@@ -34,6 +41,7 @@ export async function remoteSession(): Promise<RemoteConnection> {
   if (!response.ok) return null;
   const body = await response.json() as Partial<RemoteSession>;
   if (typeof body.csrf === 'string') setRequestCsrf(body.csrf);
+  if(body.mode==='cloud'&&typeof body.repo==='string')setRequestWorkspace(body.repo);
   return typeof body.repo === 'string' && typeof body.csrf === 'string' && typeof body.mcpUrl === 'string' ? { kind: 'ready', session: body as RemoteSession } : null;
 }
 
@@ -63,7 +71,7 @@ export function createRemoteAdapter(session: RemoteSession): RemoteAdapter {
   let manifestWrites = 0;
   const mergedListeners = new Set<(update: ManifestUpdate) => void>();
   async function request(url: string, init?: RequestInit): Promise<Record<string, unknown>> {
-    const response = await fetch(url.startsWith('/api/remote/') ? api + url.slice(4) : url, init);
+    const response = await fetch(url.startsWith('/api/remote/') ? api + url.slice(4) : url, {...init,headers:{...(session.mode==='cloud'?{'x-joinlet-workspace':session.repo}:{}),...init?.headers}});
     const data = await response.json() as Record<string, unknown>;
     if (!response.ok) {
       if (response.status === 401 && data.code === 'invite_ended') accessEnded();
@@ -130,6 +138,35 @@ export function createRemoteAdapter(session: RemoteSession): RemoteAdapter {
       baseline.set(path, text);
       if (!knownFiles.includes(path)) knownFiles.push(path);
     },
+    ...(session.mode === 'cloud' && !session.readOnly ? { async batch(changes: {path:string;text:string|null;expected:string|null}[]) {
+      const writable = changes.filter(change => !(session.mode === 'cloud' && change.path.startsWith('context/')) && !blocked(change.path));
+      if (!writable.length) return;
+      const manifest = writable.find(change => change.path === MANIFEST_PATH);
+      let mergedBase: string | null | undefined;
+      if(manifest)manifestWrites++;
+      try {
+        for(let attempt=0;;attempt++) {
+          try {
+            await post('/api/remote/workspace', {changes:writable.map(change=>({...change,expected:baseline.get(change.path)??change.expected}))});
+            break;
+          } catch(error) {
+            if(!(error instanceof StorageConflict)||!manifest?.text||attempt>=MANIFEST_RETRIES)throw error;
+            const base=baseline.get(MANIFEST_PATH)??null;
+            const theirs=(await request(`${endpoint}&path=${encodeURIComponent(MANIFEST_PATH)}`)).text as string|null;
+            if(theirs===base)throw error;
+            mergedBase??=base;baseline.set(MANIFEST_PATH,theirs);
+            if(theirs!==null)manifest.text=mergeManifestTexts(base,manifest.text,theirs);
+          }
+        }
+        for(const change of writable) {
+          baseline.set(change.path,change.text);
+          if(change.text===null)knownFiles=knownFiles.filter(path=>path!==change.path);
+          else if(!knownFiles.includes(change.path))knownFiles.push(change.path);
+        }
+        if(manifest)seenManifest=manifest.text;
+      } finally {if(manifest)manifestWrites++;}
+      if(mergedBase!==undefined && manifest?.text)for(const listener of [...mergedListeners])listener({base:mergedBase,theirs:manifest.text});
+    } } : {}),
     async remove(path) {
       if (blocked(path)) return;
       await post('/api/remote/workspace', { path, remove: true, ...(!path.startsWith('context/') ? { expected: baseline.get(path) ?? null } : {}) });

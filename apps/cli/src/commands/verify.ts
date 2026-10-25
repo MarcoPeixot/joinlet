@@ -15,9 +15,18 @@ export async function runVerify(args: CliArgs, io: CliIo): Promise<number> {
     planSync({ root: opened.root, adapter: opened.adapter, data: opened.data }),
   ]);
   const handoff = implementationPlan(sync, opened.data);
+  let repository: Awaited<ReturnType<typeof import('@strukt/workspace/repository').inspectRepository>> | undefined;
+  if(await opened.adapter.read('repository.json')) {
+    const {inspectRepository}=await import('@strukt/workspace/repository');
+    const {localReader}=await import('@strukt/workspace/repository-reader');
+    repository=await inspectRepository(await localReader(opened.root),opened.adapter);
+  }
   const coverage = sync.sources.length || validation.anchored ? 'partial' : 'none';
   const review = handoff.diagrams.filter(d => d.reviewRequired).map(d => d.diagram);
   const errors = [
+    ...(repository?.changed.length ? ['Repository architecture synchronization is pending. Run joinlet sync.'] : []),
+    ...(args.strict && repository?.reviewRequired ? ['Repository code and desired architecture differ; implementation review is required.'] : []),
+    ...(args.strict && repository?.status.pending.length ? repository.status.pending : []),
     ...(validation.errors ? ['Workspace validation or anchored code evidence failed.'] : []),
     ...opened.warnings.map(w => `Workspace load: ${w}`),
     ...sync.errors, ...sync.stateWarnings,
@@ -30,7 +39,7 @@ export async function runVerify(args: CliArgs, io: CliIo): Promise<number> {
   const report = {
     ok: !errors.length, coverage, errors,
     limitations: ['Checks cover configured source formats and anchored evidence only. They do not prove semantic equivalence of arbitrary code or authored documents.'],
-    validation, context: { missingInputs: context.missingInputs, missing: context.missing, changed: context.changed, obsolete: context.obsolete },
+    repository, validation, context: { missingInputs: context.missingInputs, missing: context.missing, changed: context.changed, obsolete: context.obsolete },
     sync: { configured: sync.configured, stale: sync.stale, sources: sync.sources }, handoff,
   };
   if (args.json) io.out(JSON.stringify(report, null, 2));

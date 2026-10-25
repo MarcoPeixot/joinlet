@@ -205,8 +205,7 @@ try {
   assert.equal(again.repo, owner.repo);
   const ownerId = remote.auth.accounts.github(101, 'user-101').id;
   assert.equal(remote.auth.beta.accountPlan(ownerId).id, options.deploymentMode === 'cloud' ? 'free-beta' : 'self-hosted');
-  if (options.deploymentMode === 'cloud') assert.throws(() => remote.auth.beta.claim(ownerId, "org/second"), /workspace/);
-  else assert.doesNotThrow(() => remote.auth.beta.claim(ownerId, "org/second"));
+  assert.doesNotThrow(() => remote.auth.beta.claim(ownerId, "org/second"));
   const write = (path: string, text: string | null, expected: string | null) =>
     request(
       "/api/remote/workspace",
@@ -258,11 +257,8 @@ try {
       title: `Map ${i}`,
     })),
   };
-  assert.equal(
-    (await write("strukt.json", JSON.stringify(tooMany), JSON.stringify(next)))
-      .status,
-    options.deploymentMode === 'cloud' ? 403 : 200,
-  );
+  const quotaResponse=await write("strukt.json",JSON.stringify(tooMany),JSON.stringify(next));
+  assert.equal(quotaResponse.status,options.deploymentMode === 'cloud' ? 403 : 200,await quotaResponse.clone().text());
   if (options.deploymentMode === 'self-hosted') assert.equal((await write('strukt.json', JSON.stringify(next), JSON.stringify(tooMany))).status, 200);
   const inviteResponse = await request(
     "/api/share/invites",

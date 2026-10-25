@@ -151,7 +151,7 @@ function diagramSection(data: WorkspaceData, entry: ItemEntry, depth: number, in
   const evidence = own(data.evidence ?? {}, entry.slug) ?? {};
   if (Object.keys(evidence).length) {
     lines.push('', `${h(1)} Evidências no código`, '');
-    for (const [id, refs] of Object.entries(evidence)) for (const ref of refs) {
+    for (const [id, refs] of Object.entries(evidence).sort(([a],[b])=>a.localeCompare(b))) for (const ref of refs) {
       lines.push(`- ${codeSpan(id)}: ${codeSpan(`${ref.path}${ref.line ? `#L${ref.line}` : ''}`)}${ref.contains ? ` — trecho esperado: ${codeSpan(ref.contains)}` : ''}`);
     }
   }

@@ -13,6 +13,7 @@ import {
 import { guestWriteRule } from "../../server/src/collaborationHttp";
 import { privateValues } from "./secrets";
 import type { RemoteAuth } from "./auth";
+import { contextFiles } from '@strukt/workspace/context';
 
 export type HostedRole = "edit" | "comment" | "view";
 export interface HostedAccess {
@@ -44,7 +45,8 @@ const validPath = (path: string) =>
   !path.startsWith("/") &&
   !path.includes("\\") &&
   !/[\x00-\x1f]/.test(path) &&
-  (!!guestWriteRule(path) ||
+  (["repository.json", "repository-state.json", "sources.json", "sync.json"].includes(path) || !!guestWriteRule(path) ||
+    /^diagrams\/[a-z0-9][a-z0-9-]*\.strukt(?:\.bak)?$/.test(path) ||
     /^context\/[A-Za-z0-9_./-]+\.(md|txt|json)$/.test(path));
 const MAX_BYTES = 25 * 1024 * 1024;
 
@@ -54,13 +56,26 @@ export function createHostedStore(
   encryptionKey: string,
   now = Date.now,
 ) {
-  db.exec(`CREATE TABLE IF NOT EXISTS hosted_workspaces(id TEXT PRIMARY KEY, owner INTEGER NOT NULL UNIQUE, created INTEGER NOT NULL, revision INTEGER NOT NULL DEFAULT 1);
+  db.exec(`CREATE TABLE IF NOT EXISTS hosted_workspaces(id TEXT PRIMARY KEY, owner INTEGER NOT NULL, created INTEGER NOT NULL, revision INTEGER NOT NULL DEFAULT 1, opened INTEGER NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS hosted_files(workspace TEXT NOT NULL, path TEXT NOT NULL, text TEXT NOT NULL, PRIMARY KEY(workspace,path));
     CREATE TABLE IF NOT EXISTS hosted_invites(id TEXT PRIMARY KEY, workspace TEXT NOT NULL, value TEXT NOT NULL, role TEXT NOT NULL, name TEXT NOT NULL, created INTEGER NOT NULL, expires INTEGER, revoked INTEGER NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS hosted_guests(id TEXT PRIMARY KEY, invite TEXT NOT NULL, csrf TEXT NOT NULL, expires INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS hosted_settings(user INTEGER PRIMARY KEY, value TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS hosted_audit(id INTEGER PRIMARY KEY AUTOINCREMENT, workspace TEXT NOT NULL, value TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS hosted_invites_workspace ON hosted_invites(workspace);`);
+  // SQLite cannot drop a UNIQUE column constraint in place. Preserve IDs and revisions atomically.
+  db.transaction(() => {
+    const schema=(db.query("SELECT sql FROM sqlite_master WHERE name='hosted_workspaces'").get() as {sql:string}).sql;
+    if (/\bowner\b[^,)]*\bUNIQUE\b/i.test(schema)) {
+      db.exec(`CREATE TABLE hosted_workspaces_multi(id TEXT PRIMARY KEY, owner INTEGER NOT NULL, created INTEGER NOT NULL, revision INTEGER NOT NULL DEFAULT 1, opened INTEGER NOT NULL DEFAULT 0);
+        INSERT INTO hosted_workspaces_multi(id,owner,created,revision) SELECT id,owner,created,revision FROM hosted_workspaces ORDER BY rowid;
+        DROP TABLE hosted_workspaces;
+        ALTER TABLE hosted_workspaces_multi RENAME TO hosted_workspaces;`);
+    }
+    const columns=db.query('PRAGMA table_info(hosted_workspaces)').all() as {name:string}[];
+    if(!columns.some(c=>c.name==='opened'))db.exec('ALTER TABLE hosted_workspaces ADD COLUMN opened INTEGER NOT NULL DEFAULT 0');
+    db.exec('CREATE INDEX IF NOT EXISTS hosted_workspaces_owner ON hosted_workspaces(owner)');
+  }).immediate();
   const crypto = privateValues(encryptionKey);
   const audit = (
     workspace: string,
@@ -138,6 +153,24 @@ export function createHostedStore(
           ).run(workspace);
         }).immediate();
       },
+      batch: async changes => {
+        db.transaction(() => {
+          let bytes = (db.query("SELECT COALESCE(SUM(length(CAST(text AS BLOB))),0) AS bytes FROM hosted_files WHERE workspace=?").get(workspace) as {bytes:number}).bytes;
+          for(const change of changes) {
+            if(!validPath(change.path) || (change.text !== null && Buffer.byteLength(change.text)>1_000_000) || (change.text===null && change.path===MANIFEST_PATH)) throw new HostedError(400,'Invalid workspace batch.');
+            const before=read(change.path);
+            if(before!==change.expected) throw new HostedError(409,'Workspace changed during the batch.');
+            if(change.path===MANIFEST_PATH && change.text!==null) assertBetaManifest(before,change.text,auth.beta.accountPlan(ownerId));
+            bytes += Buffer.byteLength(change.text??'')-Buffer.byteLength(before??'');
+          }
+          if(auth.beta.accountPlan(ownerId).id!=='administrator' && bytes>MAX_BYTES) throw new HostedError(413,'Workspace storage limit reached.');
+          for(const change of changes) {
+            if(change.text===null) db.query('DELETE FROM hosted_files WHERE workspace=? AND path=?').run(workspace,change.path);
+            else db.query('INSERT OR REPLACE INTO hosted_files(workspace,path,text) VALUES (?,?,?)').run(workspace,change.path,change.text);
+          }
+          if(changes.length) db.query('UPDATE hosted_workspaces SET revision=revision+1 WHERE id=?').run(workspace);
+        }).immediate();
+      },
       remove: async (path) => {
         if (!validPath(path) || path === MANIFEST_PATH)
           throw new HostedError(400, "Invalid workspace path.");
@@ -153,23 +186,23 @@ export function createHostedStore(
       },
     };
   };
-  const workspaceFor = db.transaction((userId: number) => {
-    const row = db
-      .query("SELECT id FROM hosted_workspaces WHERE owner=?")
-      .get(userId) as { id: string } | null;
-    if (row) return row.id;
+  const createWorkspace = db.transaction((userId: number, name: string) => {
+    if(typeof name!=='string'||!name.trim()||name.trim().length>120||/[\x00-\x1f]/.test(name))throw new HostedError(400,'Invalid workspace name.');
     const id = `cloud:${randomUUID()}`;
     auth.beta.claim(userId, id);
-    db.query(
-      "INSERT INTO hosted_workspaces(id,owner,created) VALUES (?,?,?)",
-    ).run(id, userId, now());
-    for (const [path, text] of Object.entries(
-      workspaceFiles(newWorkspace("My workspace")),
-    ))
-      db.query(
-        "INSERT INTO hosted_files(workspace,path,text) VALUES (?,?,?)",
-      ).run(id, path, text);
+    db.query('INSERT INTO hosted_workspaces(id,owner,created,opened) VALUES (?,?,?,?)').run(id,userId,now(),now());
+    const data=newWorkspace(name.trim());
+    for(const [path,text] of Object.entries({...workspaceFiles(data),...contextFiles(data)}))
+      db.query('INSERT INTO hosted_files(workspace,path,text) VALUES (?,?,?)').run(id,path,text);
+    audit(id,'workspace.created');
     return id;
+  }).immediate;
+  const workspaceFor = db.transaction((userId: number) => {
+    const row = db
+      .query("SELECT id FROM hosted_workspaces WHERE owner=? ORDER BY created,rowid LIMIT 1")
+      .get(userId) as { id: string } | null;
+    if (row) return row.id;
+    return createWorkspace(userId,'My workspace');
   }).immediate;
   const inviteRow = (id: string) =>
     db.query("SELECT * FROM hosted_invites WHERE id=?").get(id) as {
@@ -193,6 +226,16 @@ export function createHostedStore(
   const api = {
     adapter,
     workspaceFor,
+    createWorkspace,
+    listWorkspaces(userId: number) {
+      workspaceFor(userId);
+      const rows=db.query("SELECT w.id,w.created,w.opened,f.text FROM hosted_workspaces w LEFT JOIN hosted_files f ON f.workspace=w.id AND f.path='strukt.json' WHERE w.owner=? ORDER BY w.opened DESC,w.created DESC,w.id").all(userId) as {id:string;created:number;opened:number;text:string|null}[];
+      return rows.map(row=>{
+        let manifest:{name?:string;logo?:string}={};try{manifest=JSON.parse(row.text??'{}');}catch{}
+        return {id:row.id,name:typeof manifest.name==='string'?manifest.name:'Workspace',...(manifest.logo?{logo:manifest.logo}:{}),createdAt:row.created,lastOpenedAt:row.opened};
+      });
+    },
+    opened(workspace: string) { db.query('UPDATE hosted_workspaces SET opened=? WHERE id=?').run(now(),workspace); },
     owner,
     audit,
     touch(access: HostedAccess) {
@@ -217,8 +260,9 @@ export function createHostedStore(
       userId: number;
       csrf: string;
       login?: string;
-    }): HostedAccess {
-      const workspace = workspaceFor(user.userId);
+    }, requestedWorkspace?: string): HostedAccess {
+      const workspace = requestedWorkspace ?? workspaceFor(user.userId);
+      if(owner(workspace)!==user.userId)throw new HostedError(403,'This account cannot access that workspace.');
       return {
         workspace,
         ownerId: user.userId,

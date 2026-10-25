@@ -6,7 +6,8 @@
   "scripts": {
     "start": "bun src/main.ts",
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "start:worker": "bun src/repositoryWorker.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.31.0",

@@ -1,3 +1,4 @@
+import { writeBatch } from '@strukt/workspace/repository-transaction';
 import type { Request, Response, NextFunction } from "express";
 import { BetaLimitError } from "@strukt/workspace";
 import { refreshGeneratedContext } from "@strukt/workspace/context-storage";
@@ -53,7 +54,7 @@ export function createHostedBackend(
         "Too many sign-in attempts. Try again in a minute.",
       );
   };
-  const context = (cookies: string | undefined): HostedAccess | null => {
+  const context = (cookies: string | undefined, requestedWorkspace?: string): HostedAccess | null => {
     const guest = heldCookie(cookies, "joinlet_guest");
     if (guest) {
       const access = store.guest(guest);
@@ -63,13 +64,14 @@ export function createHostedBackend(
           "This invitation has expired or was revoked. Ask for a new link.",
           "invite_ended",
         );
+      if(requestedWorkspace && requestedWorkspace!==access.workspace)throw new HostedError(403,'This invitation cannot access that workspace.');
       return access;
     }
     const token = heldCookie(cookies, "joinlet_session"),
       session = token ? auth.webSession(token) : null;
     if (!session) return null;
     if (session.repo) return null;
-    const access = store.access(session);
+    const access = store.access(session, requestedWorkspace);
     access.valid = () => !!auth.webSession(token!);
     return access;
   };
@@ -180,7 +182,8 @@ export function createHostedBackend(
         for (const [id, row] of writeRates)
           if (row.at + 60_000 < Date.now()) writeRates.delete(id);
       }
-      const access = context(req.headers.cookie);
+      const requestedWorkspace=req.header('x-joinlet-workspace') ?? (typeof req.query.workspace==='string'?req.query.workspace:typeof req.query.repo==='string'&&req.query.repo.startsWith('cloud:')?req.query.repo:typeof req.body?.repo==='string'&&req.body.repo.startsWith('cloud:')?req.body.repo:undefined);
+      const access = context(req.headers.cookie, requestedWorkspace);
       const personal =
         req.path.startsWith("/api/settings") || req.path.startsWith("/api/ai/");
       if (personal) {
@@ -220,6 +223,12 @@ export function createHostedBackend(
           );
       }
       if (!access.valid()) throw new HostedError(401, "Sign in again.");
+      if(req.path==='/api/remote/workspaces') {
+        if(!access.owner||!access.userId)throw new HostedError(403,'Sign in to manage your workspaces.');
+        if(req.method==='GET')return res.json({workspaces:store.listWorkspaces(access.userId),activeId:access.workspace});
+        if(req.method==='POST')return res.status(201).json({id:store.createWorkspace(access.userId,req.body?.name)});
+        throw new HostedError(405,'Method not allowed.');
+      }
       const presence = auth.beta.presence(access.workspace);
       store.touch(access);
       const plan = () => ({
@@ -230,7 +239,10 @@ export function createHostedBackend(
           ? auth.beta.accountPlan(access.userId)
           : undefined,
       });
-      if (req.path === "/api/remote/session" && req.method === "GET")
+      if (req.path === "/api/remote/session" && req.method === "GET") {
+        store.opened(access.workspace);
+        const storage=store.adapter(access.workspace);
+        if(await storage.read('context/ARCHITECTURE.md')===null)await refreshGeneratedContext(storage);
         return res.json({
           repo: access.workspace,
           csrf: access.csrf,
@@ -242,6 +254,7 @@ export function createHostedBackend(
           member: access.member,
           beta: plan(),
         });
+      }
       if (req.path === "/api/remote/plan" && req.method === "GET")
         return res.json(plan());
       if (req.path === "/api/remote/disconnect" && req.method === "POST") {
@@ -283,6 +296,14 @@ export function createHostedBackend(
           );
         if (req.method !== "POST")
           throw new HostedError(405, "Method not allowed.");
+        if (Array.isArray(req.body?.changes)) {
+          if(access.role !== 'edit' || req.body.changes.length > 2000) throw new HostedError(403,'Batch editing is unavailable.');
+          const changes=req.body.changes as {path:string;text:string|null;expected:string|null}[];
+          if(changes.some(c=>!c || typeof c.path!=='string' || (c.text!==null&&typeof c.text!=='string') || (c.expected!==null&&typeof c.expected!=='string'))) throw new HostedError(400,'Invalid workspace batch.');
+          await writeBatch(storage,changes); await refreshGeneratedContext(storage);
+          for(const change of changes) changed(access.workspace,change.path);
+          return res.json({ok:true,revision:store.revision(access.workspace)});
+        }
         if (
           typeof req.body?.path !== "string" ||
           (req.body.remove !== true && typeof req.body.text !== "string")
@@ -355,8 +376,10 @@ export function createHostedBackend(
     middleware,
     store,
     context,
+    notify(workspace: string, path: string) { changed(workspace, path); },
     onChanged(listener: typeof changed) {
-      changed = listener;
+      const previous = changed;
+      changed = (workspace, path) => { previous(workspace, path); listener(workspace, path); };
     },
     onAccessChanged(listener: typeof accessChanged) {
       accessChanged = listener;

@@ -18,6 +18,7 @@ export interface StorageAdapter {
    * on disk. Adapters without it (memory, IndexedDB) disable the external-change watcher.
    */
   stamps?(): Promise<Record<string, number>>;
+  batch?(changes: { path: string; text: string | null; expected: string | null }[]): Promise<void>;
 }
 
 /** A write refused because the file changed since it was read (an adapter that checks, like the host's REST surface). */

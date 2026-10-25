@@ -88,7 +88,7 @@ export const FloatingEdge = memo(function FloatingEdge({ id, source, target, sel
       {last > 0 && <path d={arrowHead(points[last]!, points[last - 1]!, ARROW)} style={{ fill: color }} />}
       {flowing && <FlowPulses tracks={pulseTracks(points, ['forward'])} color={color} />}
       <EdgeLabelRenderer>
-        {/* HTML, like the label: edges paint below the cards, which would hide half of a dot on the border. */}
+        {/* Keep overlays aligned with the route's detached endpoints. */}
         <div className="strukt-link__dot" style={{ transform: at(points[0]!), background: color }} />
         {(label || editing || showGrip) && (
           <div

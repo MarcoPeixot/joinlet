@@ -102,7 +102,16 @@ export function createSaver(adapter: StorageAdapter, options: SaverOptions = {})
       }
     }
     batch.sort((a, b) => a.rank - b.rank);
-    for (const { path, content, text, rank: order } of batch) {
+    if (adapter.batch && failed) for (const item of batch) requeue(item.path,item.content);
+    if (adapter.batch && !failed) {
+      const effective = batch.filter(({path,text}) => text === null || known.get(path) !== text);
+      try {
+        if (effective.length) await adapter.batch(effective.map(({path,text}) => ({path,text,expected:known.get(path) ?? null})));
+        for (const {path,text} of effective) { if (text === null) known.delete(path); else known.set(path,text); }
+        written = effective.length > 0;
+      } catch (err) { for (const item of effective) requeue(item.path,item.content); failed = failure(effective[0]?.path ?? 'workspace',err); }
+    }
+    for (const { path, content, text, rank: order } of adapter.batch ? [] : batch) {
       if (order > blocked) {
         requeue(path, content);
         continue;
