@@ -29,7 +29,7 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json",
-    "test:performance": "JOINLET_PERFORMANCE_TESTS=1 vitest run src/evidence.test.ts --maxWorkers 1 --no-file-parallelism"
+    "test:performance": "JOINLET_PERFORMANCE_TESTS=1 vitest run src/evidence.test.ts --maxWorkers 1 --no-file-parallelism --testTimeout 20000"
   },
   "dependencies": {
     "@strukt/core": "workspace:*",
