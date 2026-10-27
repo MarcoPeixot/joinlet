@@ -4,6 +4,8 @@ import { authText as uiText } from './messages';
 import { Button } from '../ui/Button';
 import { BrowserDraftBackup } from './BrowserDraftBackup';
 import { authFieldClass, authRequest } from './client';
+import { allowsOptionalLogin } from '../settings/publicAccess';
+import { continueWithoutAccount } from '../workspace/boot';
 
 export function AuthForm({ mcpUrl }: { mcpUrl: string }) {
   const [methods, setMethods] = useState<{ password: boolean; github: boolean } | null>(null);
@@ -49,6 +51,7 @@ export function AuthForm({ mcpUrl }: { mcpUrl: string }) {
       <Button onClick={() => location.assign('/auth/login')}>{uiText('Continuar com GitHub')}</Button>
       <details className="w-full text-caption text-muted"><summary>{uiText('Conectar um agente MCP')}</summary><code className="mt-3 block break-all">{mcpUrl}</code><Button onClick={() => void import('../workspace/boot').then(module => module.bootWorkspace())}>{uiText('Já autorizei, abrir workspace')}</Button></details>
     </>}
+    {allowsOptionalLogin() && <Button variant="secondary" disabled={busy} onClick={continueWithoutAccount}>{uiText('Continuar sem conta')}</Button>}
     <BrowserDraftBackup />
   </div>;
 }

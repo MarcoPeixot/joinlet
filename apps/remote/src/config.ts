@@ -41,6 +41,7 @@ export function remoteConfig(env: Record<string, string | undefined>): RemoteAut
   if (deploymentMode !== 'self-hosted' && deploymentMode !== 'cloud') throw new Error('JOINLET_DEPLOYMENT_MODE must be self-hosted or cloud.');
   return {
     deploymentMode,
+    optionalLogin: env.JOINLET_OPTIONAL_LOGIN === '1',
     repositoryWorker: env.JOINLET_REPOSITORY_WORKER === '1',
     repositoryWebhookSecret: env.JOINLET_REPOSITORY_WEBHOOK_SECRET?.trim() || undefined,
     publicUrl, siteUrl, analyticsPath, encryptionKey, accountDirectoryToken,

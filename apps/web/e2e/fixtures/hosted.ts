@@ -13,6 +13,7 @@ const dir = await mkdtemp(join(tmpdir(), "joinlet-hosted-browser-"));
 const origin = `http://127.0.0.1:${port}`;
 const options = {
   deploymentMode: 'cloud' as const,
+  optionalLogin: process.env.JOINLET_BROWSER_OPTIONAL_LOGIN === '1',
   publicUrl: origin,
   ...(process.env.JOINLET_BROWSER_PASSWORD_ONLY === '1' ? {} : {
     githubClientId: "browser-test", githubClientSecret: "browser-test",

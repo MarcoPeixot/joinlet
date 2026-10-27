@@ -3,7 +3,7 @@ import { SELF_HOSTED_PLAN } from '@strukt/workspace';
 import { trackAnalytics } from '../analytics/client';
 import { identifyNavigation, navigationPersistence } from './navigation';
 import { acceptAccessPlan, loadAccessPlan } from '../settings/accessPlan';
-import { isBrowserPreview } from '../settings/publicAccess';
+import { allowsOptionalLogin, isBrowserGuest, isBrowserPreview, setBrowserGuest } from '../settings/publicAccess';
 import { assertBetaGrowth } from '@strukt/workspace';
 import { systemMessage, uiText } from '../i18n';
 import {
@@ -143,7 +143,7 @@ async function openBrowser(): Promise<void> {
     announce([uiText("O navegador bloqueou o armazenamento local: as mudanças desta sessão não serão salvas.")], warnings);
     return;
   }
-  announce(isBrowserPreview() ? [uiText("Este workspace fica salvo apenas neste navegador. Exporte um ZIP para manter uma cópia.")] : [], await openWith(idb, init));
+  announce(isBrowserPreview() || isBrowserGuest() ? [uiText("Este workspace fica salvo apenas neste navegador. Exporte um ZIP para manter uma cópia.")] : [], await openWith(idb, init));
   await rememberOpened({ kind: 'browser', namespace: null }, LEGACY_WORKSPACE);
   if (migrated) clearSnapshot();
 }
@@ -172,13 +172,49 @@ async function openFolder(handle: DirHandleLike, init: () => WorkspaceData, done
   await rememberOpened({ kind: 'folder', handle }, projectId);
 }
 
+export async function signInToCloud(): Promise<void> {
+  await flushCodeEdits();
+  await workspace.flush();
+  const url = new URL(location.href);
+  url.searchParams.set('account', 'login');
+  url.searchParams.delete('workspace');
+  location.assign(url.href);
+}
+
+export function continueWithoutAccount(): void {
+  const url = new URL(location.href);
+  url.searchParams.set('account', 'local');
+  url.searchParams.delete('workspace');
+  location.assign(url.href);
+}
+
+async function openBrowserGuest(): Promise<void> {
+  setBrowserGuest(true);
+  catalogStore.setState({ cloud: false });
+  acceptAccessPlan({ plan: { id: 'free-beta' }, accountPlan: { id: 'free-beta' } });
+  let catalog = null;
+  try { catalog = await loadCatalog(); }
+  catch (error) {
+    catalogStore.setState({ available: false });
+    if (reason(error).includes(uiText("lista de projetos está inválida"))) throw error;
+  }
+  const active = catalog?.entries.find(entry => entry.id === catalog.activeId && entry.location.kind === 'browser');
+  if (active) await openRegisteredWorkspace(active.id);
+  else await openBrowser();
+}
+
 /** Picks the storage remembered from the last session (spec §9: folder via File System Access, else IndexedDB). */
 export async function bootWorkspace(): Promise<void> {
+  setBrowserGuest(false);
   const preview = isBrowserPreview();
   const hosted = globalThis.document?.querySelector('meta[name="strukt-mode"]')?.getAttribute('content') === 'remote';
+  const optional = hosted && allowsOptionalLogin();
+  const query = new URLSearchParams(location.search);
   try {
+    if (optional && query.get('account') === 'local') return await openBrowserGuest();
     const remote = preview ? null : await remoteSession();
     if (remote?.kind === 'login') {
+      if (optional && query.get('account') !== 'login' && !query.has('workspace')) return await openBrowserGuest();
       bootStore.setState({ phase: { kind: 'needs-remote-auth', mcpUrl: remote.mcpUrl } });
       return;
     }
@@ -187,6 +223,7 @@ export async function bootWorkspace(): Promise<void> {
       return;
     }
     if (remote?.kind === 'ready') {
+      if (optional && query.has('account')) { const url = new URL(location.href); url.searchParams.delete('account'); history.replaceState(null, '', url.href); }
       await loadAccessPlan('/api/remote/plan');
       // The shared diagram stays locked until the bridge mounts: fetch its chunk while the workspace loads.
       void import('../app/CollaborationBridge').catch(() => {});

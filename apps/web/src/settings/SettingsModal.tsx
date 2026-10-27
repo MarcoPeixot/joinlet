@@ -1,3 +1,5 @@
+import { isBrowserGuest } from './publicAccess';
+import { GuestCloudPrompt } from '../auth/GuestCloudPrompt';
 import {CloudAccount} from './CloudAccount';
 import { PlanSection } from './PlanSection';
 import { uiText } from '../i18n';
@@ -111,7 +113,7 @@ export function SettingsModal() {
                 exit={{ opacity: 0, y: -4, transition: { duration: 0.1 } }}
               >
                 <CloudAccount />
-                <Body />
+                {isBrowserGuest() && ['ai', 'integrations', 'github'].includes(section) ? <GuestCloudPrompt /> : <>{isBrowserGuest() && section === 'general' && <GuestCloudPrompt />}<Body /></>}
               </m.div>
             </AnimatePresence>
           </div>

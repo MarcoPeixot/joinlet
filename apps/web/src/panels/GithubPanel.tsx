@@ -1,4 +1,6 @@
 import { RepositoryConnection } from './RepositoryConnection';
+import { isBrowserGuest } from '../settings/publicAccess';
+import { GuestCloudPrompt } from '../auth/GuestCloudPrompt';
 import {collaborationSession} from '../workspace/boot';
 import { uiText } from '../i18n';
 import { Check, GitBranch, GitCompareArrows, GitPullRequest, LoaderCircle, RefreshCw } from 'lucide-react';
@@ -62,6 +64,7 @@ export function GithubPanel() {
       window.location.reload();
     } catch (error) { showToast(error instanceof Error ? error.message : uiText("Não foi possível desconectar.")); }
   };
+  if (isBrowserGuest()) return <SidePanel label="GitHub"><PanelHeader icon={<GitBranch size={14}/>} title={uiText('Repositório e sincronização')} onClose={closeGithub}/><div className="p-3"><GuestCloudPrompt /></div></SidePanel>;
   if (collaborationSession()?.mode === 'cloud') return <SidePanel label="GitHub"><PanelHeader icon={<GitBranch size={14}/>} title={uiText('Repositório e sincronização')} onClose={closeGithub}/><div className="overflow-y-auto p-3"><RepositoryConnection cloud/></div></SidePanel>;
   return source?.label.startsWith('GitHub: ') ? (
     <SidePanel label={"GitHub"}>

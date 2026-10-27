@@ -60,6 +60,7 @@ interface BrowserGrant extends Grant { csrf: string; }
 export interface RemoteAuthOptions {
   /** Trusted operator setting, never read from request bodies or workspace files. */
   deploymentMode?: 'self-hosted' | 'cloud';
+  optionalLogin?: boolean;
   adminGithubIds?: ReadonlySet<number>;
   trustProxyHops?: number;
   publicUrl: string;
