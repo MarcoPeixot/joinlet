@@ -69,7 +69,7 @@
         "contains": "export function createRemoteApp",
         "line": 24,
         "path": "apps/remote/src/app.ts",
-        "snippet": "7f9209e9"
+        "snippet": "34134826"
       },
       {
         "contains": "JOINLET_DEPLOYMENT_MODE",
@@ -232,6 +232,36 @@
         "line": 10,
         "path": "apps/web/src/onboarding/journey.ts",
         "snippet": "fd345f7a"
+      },
+      {
+        "contains": "if (optional && query.get('account') === 'local')",
+        "line": 214,
+        "path": "apps/web/src/workspace/boot.ts",
+        "snippet": "fdf03f67"
+      },
+      {
+        "contains": "if (optional && query.get('account') !== 'login'",
+        "line": 217,
+        "path": "apps/web/src/workspace/boot.ts",
+        "snippet": "b12a3e4e"
+      },
+      {
+        "contains": "optionalLogin: env.JOINLET_OPTIONAL_LOGIN === '1'",
+        "line": 44,
+        "path": "apps/remote/src/config.ts",
+        "snippet": "db4932fb"
+      },
+      {
+        "contains": "{allowsOptionalLogin() && <Button",
+        "line": 54,
+        "path": "apps/web/src/auth/AuthForm.tsx",
+        "snippet": "e0e428dd"
+      },
+      {
+        "contains": "test('opens without login",
+        "line": 13,
+        "path": "apps/web/e2e/optional-login.spec.ts",
+        "snippet": "a81c9a4f"
       }
     ],
     "Workspace": [
@@ -2369,7 +2399,7 @@
       },
       {
         "contains": "configureRuntimeDatabase(db)",
-        "line": 93,
+        "line": 94,
         "path": "apps/remote/src/auth.ts",
         "snippet": "9305744d"
       },

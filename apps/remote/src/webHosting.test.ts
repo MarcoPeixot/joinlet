@@ -58,3 +58,5 @@ it('adds hosted analytics only when explicitly configured and identifies the app
   expect(configured).toContain('name="joinlet-analytics" content="/telemetry"');
   expect(configured).toContain('name="joinlet-analytics-source" content="editor"');
 });
+
+it("marks optional editor entry without changing site pages or default hosting",async()=>{const root=new URL("../../web/",import.meta.url).pathname;const optional=webHosting("http://localhost:8788",undefined,undefined,true);expect(await optional.page(root,"app/index.html")).toContain('name="joinlet-optional-login" content="true"');expect(await optional.page(root,"index.html")).not.toContain("joinlet-optional-login");expect(await webHosting("http://localhost:8788").page(root,"app/index.html")).not.toContain("joinlet-optional-login");});

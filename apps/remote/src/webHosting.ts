@@ -5,7 +5,7 @@ import { resolve, sep } from 'node:path';
 const escape = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 
 /** Origins come from validated configuration, never from forwarded request headers. */
-export function webHosting(publicUrl: string, siteUrl?: string, analyticsPath?: string) {
+export function webHosting(publicUrl: string, siteUrl?: string, analyticsPath?: string, optionalLogin = false) {
   const split = !!siteUrl;
   const appHost = new URL(publicUrl).host;
   const siteHost = siteUrl ? new URL(siteUrl).host : null;
@@ -37,7 +37,10 @@ export function webHosting(publicUrl: string, siteUrl?: string, analyticsPath?: 
     .replaceAll('https://joinlet.co', escape(siteUrl ?? publicUrl))
     .replace(/href="\/app\/(\?[^"]*)?"/g, (_match, query = '') => `href="${escape(appBase)}${query}"`)
     .replace('</head>', `<meta name="strukt-mode" content="remote"><meta name="joinlet-app-url" content="${escape(appBase)}"><meta name="joinlet-site-url" content="${escape(siteBase)}">${analyticsPath ? `<meta name="joinlet-analytics" content="${escape(analyticsPath)}"><meta name="joinlet-analytics-source" content="${surface}">` : ''}</head>`);
-  const page = async (dist: string, file: string) => render(await readFile(resolve(dist, file), 'utf8'), file === 'app/index.html' ? 'editor' : 'site');
+  const page = async (dist: string, file: string) => {
+    const html = render(await readFile(resolve(dist, file), 'utf8'), file === 'app/index.html' ? 'editor' : 'site');
+    return optionalLogin && file === 'app/index.html' ? html.replace('</head>', '<meta name="joinlet-optional-login" content="true"></head>') : html;
+  };
   const docs = (dist: string): RequestHandler => async (req, res, next) => {
     if (!/^\/docs(?:\/|$)/.test(req.path)) return next();
     let path: string;

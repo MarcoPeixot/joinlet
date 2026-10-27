@@ -3083,5 +3083,9 @@
   "Copiar comando de conexão": "Copy connection command",
   "As instruções dos agentes precisam de revisão: {0}": "Agent instructions need review: {0}",
   "Salvo no Joinlet Cloud. Você pode conectar uma pasta ou repositório depois.": "Saved in Joinlet Cloud. You can connect a folder or repository later.",
-  "Execute joinlet connect no computador para escolher uma pasta.": "Run joinlet connect on your computer to choose a folder."
+  "Execute joinlet connect no computador para escolher uma pasta.": "Run joinlet connect on your computer to choose a folder.",
+  "Entrar na conta": "Sign in to your account",
+  "Continuar sem conta": "Continue without an account",
+  "Você está usando o editor sem conta. Seu trabalho fica salvo neste navegador.": "You are using the editor without an account. Your work is saved in this browser.",
+  "Entre na conta para salvar online, parear seu computador e usar seus provedores de IA.": "Sign in to save online, pair your computer and use your AI providers."
 }

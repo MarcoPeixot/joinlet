@@ -1,4 +1,6 @@
 import { siteUrl } from '../ui/urls';
+import { isBrowserGuest } from '../settings/publicAccess';
+import { CloudSignIn } from '../auth/GuestCloudPrompt';
 import { openSettings } from '../settings/store';
 import { LanguagePicker } from '../i18n/LanguagePicker';
 import { uiText } from '../i18n';
@@ -99,6 +101,7 @@ function WorkspaceHeader() {
           <MenuSeparator />
         </>}
         <MenuLabel>{"Workspace"}</MenuLabel>
+        {isBrowserGuest() && <MenuItem onSelect={() => void import('../workspace/boot').then(m => m.signInToCloud()).catch(error => showToast(String(error)))}>{uiText('Entrar na conta')}</MenuItem>}
         <MenuItem icon={<Settings2 size={15} />} onSelect={() => openSettings('workspace')}>{uiText("Configurações do workspace")}</MenuItem>
         {!isViewOnly() && <>
           <MenuItem icon={<Pencil size={14} />} onSelect={() => setEditing(true)}>{uiText("Renomear workspace")}</MenuItem>
@@ -129,12 +132,13 @@ function WorkspaceHeader() {
 function StorageFooter() {
   const source = useWorkspace((s) => s.source);
   const Icon = source?.kind === 'folder' ? FolderOpen : source?.kind === 'memory' ? TriangleAlert : HardDrive;
-  return (
+  return (<>
+    {isBrowserGuest() && <div className="px-3 pb-2"><CloudSignIn /></div>}
     <div className="flex h-10 shrink-0 items-center gap-2 px-3.5 text-caption text-faint" title={uiText("Salvo em: {0}", [source?.label ?? ''])}>
       <Icon size={13} className={source?.kind === 'memory' ? 'text-danger' : ''} />
       <span className="min-w-0 flex-1 truncate">{source?.label}</span>
       <SaveIndicator />
-    </div>
+    </div></>
   );
 }
 

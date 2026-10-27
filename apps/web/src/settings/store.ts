@@ -1,7 +1,7 @@
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 import { settingsApi } from './client';
-import { isBrowserPreview } from './publicAccess';
+import { isBrowserGuest, isBrowserPreview } from './publicAccess';
 import type { OpenRouterModel, ProviderId, SettingsPatch, SettingsView } from './client';
 
 export type SettingsSection = 'general' | 'plan' | 'workspace' | 'ai' | 'integrations' | 'shortcuts' | 'github';
@@ -39,7 +39,7 @@ export function useSettings<T>(selector: (state: SettingsState) => T): T {
 }
 
 export async function refreshSettings(): Promise<void> {
-  if (isBrowserPreview()) {
+  if (isBrowserPreview() || isBrowserGuest()) {
     settingsStore.setState({ view: null, loading: false, error: null });
     return;
   }

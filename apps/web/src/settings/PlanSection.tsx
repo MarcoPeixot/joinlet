@@ -1,5 +1,5 @@
 import { useAccessPlan } from './accessPlan';
-import { isBrowserPreview } from './publicAccess';
+import { isBrowserGuest, isBrowserPreview } from './publicAccess';
 import { Check, FlaskConical, Folder, Network, Users } from 'lucide-react';
 import { uiText } from '../i18n';
 import { useCatalog } from '../workspace/catalog';
@@ -9,7 +9,8 @@ import { useBetaUsage } from './betaUsage';
 
 export function PlanSection() {
   const { plan, accountPlan } = useAccessPlan();
-  const preview = isBrowserPreview();
+  const guest = isBrowserGuest();
+  const preview = isBrowserPreview() || guest;
   const localWorkspaces = useCatalog(s => s.catalog?.entries.length ?? 0);
   const diagrams = useWorkspace(s => s.data?.manifest.diagrams.length ?? 0);
   const { usage, unavailable } = useBetaUsage();
@@ -26,7 +27,7 @@ export function PlanSection() {
     <div className="rounded-2xl border border-accent/25 bg-accent-soft p-5">
       <div className="flex items-center gap-3"><FlaskConical size={23} className="text-accent" /><h3 className="text-xl font-semibold">{plan.name}</h3><span className="ml-auto rounded-full border border-accent/30 px-3 py-1 text-caption text-accent">{uiText(plan.id === 'self-hosted' ? 'Instalação própria' : accountPlan.id === 'administrator' ? 'Administrador' : plan.id === 'administrator' ? 'Workspace sem cotas' : 'Gratuito')}</span></div>
       <p className="mt-3 text-body leading-relaxed text-muted">{uiText(preview ? 'Editor e documentação liberados' : plan.id === 'self-hosted' ? 'Sem cotas comerciais de workspaces, diagramas ou participantes. A capacidade depende da sua infraestrutura; permissões e limites de segurança continuam ativos.' : plan.id === 'administrator' ? accountPlan.id === 'administrator' ? 'Acesso de administrador: sem cotas de workspaces, diagramas ou participantes nos seus workspaces.' : 'Este workspace tem diagramas e participantes sem limite de plano. Sua cota pessoal de workspaces permanece igual.' : 'Todos os recursos essenciais para testar, construir e colaborar. Sem cobrança durante o beta.')}</p>
-      {preview && <p className="mt-3 text-body leading-relaxed text-muted">{uiText('Nesta prévia, seus dados ficam neste navegador. Contas, sincronização online, IA e colaboração ainda não estão disponíveis.')}</p>}
+      {preview && <p className="mt-3 text-body leading-relaxed text-muted">{uiText(guest ? 'Você está usando o editor sem conta. Seu trabalho fica salvo neste navegador.' : 'Nesta prévia, seus dados ficam neste navegador. Contas, sincronização online, IA e colaboração ainda não estão disponíveis.')}</p>}
     </div>
     <div className="grid gap-4">
       {rows.map(({ label, value, limit, icon: Icon }) => <div key={label} className="rounded-xl border border-line bg-panel-2/40 p-4">

@@ -40,3 +40,5 @@ it('keeps analytics opt-in and validates the local collector path', () => {
   expect(remoteConfig({ ...env, JOINLET_ANALYTICS_PATH: '/telemetry' }).analyticsPath).toBe('/telemetry');
   expect(() => remoteConfig({ ...env, JOINLET_ANALYTICS_PATH: 'https://unexpected.test' })).toThrow('JOINLET_ANALYTICS_PATH');
 });
+
+it("enables optional editor entry only through the operator configuration",()=>{expect(remoteConfig(env).optionalLogin).toBe(false);expect(remoteConfig({...env,JOINLET_OPTIONAL_LOGIN:"1"}).optionalLogin).toBe(true);});

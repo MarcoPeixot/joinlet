@@ -1,5 +1,6 @@
+import { GuestCloudPrompt } from '../auth/GuestCloudPrompt';
 import { useAccessPlan } from '../settings/accessPlan';
-import { isBrowserPreview } from '../settings/publicAccess';
+import { isBrowserGuest, isBrowserPreview } from '../settings/publicAccess';
 import { getLocale, systemMessage, uiText } from '../i18n';
 import { ArrowLeft, ArrowUpRight, Check, Cloud, FolderOpen, GitPullRequest, HardDrive, LoaderCircle, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ export function CreateWorkspaceDialog() {
   const count = useCatalog(state => state.catalog?.entries.length ?? 0);
   const full = plan.limits.workspaces !== null && count >= plan.limits.workspaces;
   const previewFull = isBrowserPreview() && full;
+  const guestFull = isBrowserGuest() && full;
   useEffect(() => { if (open && previewFull) trackAnalytics('workspace_limit_viewed'); }, [open, previewFull]);
   const busy = useCatalog((state) => state.busy);
   const [name, setName] = useState('');
@@ -29,7 +31,7 @@ export function CreateWorkspaceDialog() {
   const close = () => { if (!busy) { catalogStore.setState({ creating: false }); setName(''); setError(null); } };
   return (
     <Modal open={open} onClose={close} label={previewFull ? uiText("Um workspace por enquanto") : uiText("Novo workspace")} width={440} icon={<Plus size={17} />} closeLabel={busy ? null : uiText("Fechar")}>
-      {previewFull ? <div className="flex flex-col gap-5 p-5">
+      {guestFull ? <div className="p-5"><GuestCloudPrompt /><Button variant="ghost" onClick={close}>{uiText('Continuar no meu workspace')}</Button></div> : previewFull ? <div className="flex flex-col gap-5 p-5">
         <p className="text-body leading-relaxed text-muted">{uiText("Seu primeiro workspace está liberado sem conta e fica salvo neste navegador.")}</p>
         <p className="text-body leading-relaxed text-muted">{uiText("Login, cadastro e novos workspaces estão pausados. Continue editando e exportando seu workspace.")}</p>
         <Button variant="primary" onClick={close}>{uiText("Continuar no meu workspace")}</Button>
@@ -86,7 +88,7 @@ export function ProjectsView() {
             <h1 className="text-2xl font-semibold tracking-tight">{uiText("Meus projetos")}</h1>
             <p className="mt-2 text-body text-muted">{uiText("Uma arquitetura por workspace. Abra um projeto ou comece outro.")}</p>
           </div>
-          <Button variant="primary" disabled={busy || !available || (!isBrowserPreview() && plan.limits.workspaces !== null && entries.length >= plan.limits.workspaces)} icon={<Plus size={16} />} onClick={showCreateWorkspace}>{uiText("Novo workspace")}</Button>
+          <Button variant="primary" disabled={busy || !available || (!isBrowserPreview() && !isBrowserGuest() && plan.limits.workspaces !== null && entries.length >= plan.limits.workspaces)} icon={<Plus size={16} />} onClick={showCreateWorkspace}>{uiText("Novo workspace")}</Button>
         </div>
         <p className="text-caption text-muted">{plan.name} · {plan.limits.workspaces === null ? uiText('Sem limite') : uiText('{0} de {1} workspace próprio', [entries.length, plan.limits.workspaces])}. {uiText('Participar de workspaces compartilhados não consome essa cota.')}</p>
         <div className="flex flex-wrap items-center gap-3">

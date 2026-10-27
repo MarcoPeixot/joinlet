@@ -359,7 +359,7 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - @strukt/remote — `apps/remote` — `apps/web/e2e/fixtures/hosted.ts:6`
 - @strukt/server — `apps/server` — `apps/web/src/integrations/svgCompat.test.ts:7`
 - @strukt/workspace — `packages/workspace` — `apps/web/src/actions/templates.test.ts:3`
-- @strukt/workspace — `packages/workspace` — `apps/web/e2e/password.spec.ts:5`
+- @strukt/workspace — `packages/workspace` — `apps/web/e2e/optional-login.spec.ts:5`
 - @tailwindcss/vite — `apps/web/vite.config.ts:1`
 - @vitejs/plugin-react — `apps/web/vite.config.ts:2`
 - marked — `apps/web/src/context/contextMarkdown.test.ts:3`
@@ -388,7 +388,7 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - ./styles/app.css — `apps/web/src/main.tsx:7`
 - ./styles/diagram.css — `apps/web/src/main.tsx:8`
 - ./inspector.css — `apps/web/src/panels/Inspector.tsx:5`
-- ./settings.css — `apps/web/src/settings/SettingsModal.tsx:19`
+- ./settings.css — `apps/web/src/settings/SettingsModal.tsx:21`
 - ../build/sourceStamp.mjs — `apps/web/src/sourceStamp.test.ts:5`
 - ./build/sourceStamp.mjs — `apps/web/vite.config.ts:4`
 
@@ -400,7 +400,7 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - apps/web/src/code/sync.test.ts: Invalid syntax at line 17.
 - apps/web/src/code/sync.test.ts: Invalid syntax at line 22.
 - apps/web/src/panels/ComponentLibrary.tsx: Invalid syntax at line 24.
-- apps/web/src/settings/PlanSection.tsx: Invalid syntax at line 34.
+- apps/web/src/settings/PlanSection.tsx: Invalid syntax at line 35.
 - apps/web/src/state/routing.test.ts: Invalid syntax at line 14.
 - apps/web/src/workspace/workspace.ts: Invalid syntax at line 98.
 - apps/web/src/workspace/workspace.ts: Invalid syntax at line 186.

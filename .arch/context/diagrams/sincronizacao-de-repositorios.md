@@ -324,7 +324,7 @@
 - `Local`: `packages/workspace/src/repository/agentInstructions.ts#L17` — trecho esperado: `export async function syncAgentInstructions`
 - `Local`: `packages/workspace/src/repository/agentInstructions.test.ts#L21` — trecho esperado: `it('preserves malformed markers`
 - `Runtime`: `apps/remote/src/repositoryQueue.ts#L5` — trecho esperado: `export function repositoryQueue`
-- `Runtime`: `apps/remote/src/auth.ts#L93` — trecho esperado: `configureRuntimeDatabase(db)`
+- `Runtime`: `apps/remote/src/auth.ts#L94` — trecho esperado: `configureRuntimeDatabase(db)`
 - `Runtime`: `apps/remote/src/collaboration.ts#L20` — trecho esperado: `configureRuntimeDatabase(db)`
 - `Runtime`: `apps/remote/src/database.ts#L5` — trecho esperado: `db.exec('PRAGMA busy_timeout=5000')`
 - `Runtime`: `apps/remote/src/repositoryStartupSmoke.ts#L29` — trecho esperado: `for(let round=0;round\<3;round++)`
