@@ -1,5 +1,6 @@
 import type { Database } from 'bun:sqlite';
 import { createHash, randomBytes } from 'node:crypto';
+import { isNewPassword } from '@strukt/workspace/password-policy';
 
 export interface Account {
   id: number;
@@ -24,7 +25,7 @@ export function normalizeEmail(value: unknown): string {
   return value.trim().toLowerCase();
 }
 export function validatePassword(value: unknown): asserts value is string {
-  if (typeof value !== 'string' || value.length > 256 || [...value].length < 15 || [...value].length > 128) throw new AccountError(400, 'invalid_password');
+  if (!isNewPassword(value)) throw new AccountError(400, 'invalid_password');
 }
 
 /** Internal IDs are independent of provider subjects. Legacy IDs are reserved once, never guessed at login. */

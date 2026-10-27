@@ -2,7 +2,7 @@ import { authText as uiText } from './messages';
 
 const errors: Record<string, string> = {
   invalid_email: 'Informe um e-mail válido.',
-  invalid_password: 'Use uma senha de 15 a 128 caracteres.',
+  invalid_password: 'Use uma senha de 8 a 128 caracteres, com pelo menos um caractere especial.',
   invalid_credentials: 'E-mail ou senha incorretos.',
   sign_in_again: 'Entre novamente para continuar.',
   try_later: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.',

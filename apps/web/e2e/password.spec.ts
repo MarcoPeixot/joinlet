@@ -27,7 +27,7 @@ test.afterAll(async () => {
 const secret = () => '  test-only-' + randomUUID() + '  ';
 
 test('signs up without GitHub, saves online, signs in from another browser and changes the password', async ({ page, browser }) => {
-  const email = `${randomUUID()}@example.test`, password = secret(), next = secret();
+  const email = `${randomUUID()}@example.test`, password = secret(), next = '1234567!';
   await page.goto(`${origin}/app/?lang=en`);
   await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Continue with GitHub' })).toHaveCount(0);
@@ -92,6 +92,25 @@ test('signs up without GitHub, saves online, signs in from another browser and c
     await settings.getByRole('button', { name: 'Sign out', exact: true }).click();
     await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeVisible();
   } finally { await context.close(); }
+});
+
+test('requires a special character for signup and accepts an eight-character password', async ({ page }) => {
+  let registrations = 0;
+  page.on('request', request => { if (new URL(request.url()).pathname === '/api/auth/register') registrations++; });
+  await page.goto(`${origin}/app/?lang=en`);
+  await page.getByRole('button', { name: 'Create an account', exact: true }).click();
+  await expect(page.getByText(/Use 8 to 128 characters and at least one special character/)).toBeVisible();
+  await page.getByLabel('Email', { exact: true }).fill(`${randomUUID()}@example.test`);
+  await page.getByLabel('Password', { exact: true }).fill('12345678');
+  await page.getByLabel('Confirm password', { exact: true }).fill('12345678');
+  await page.getByRole('button', { name: 'Create account', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('including at least one special character');
+  expect(registrations).toBe(0);
+  await page.getByLabel('Password', { exact: true }).fill('1234567!');
+  await page.getByLabel('Confirm password', { exact: true }).fill('1234567!');
+  await page.getByRole('button', { name: 'Create account', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Share workspace', exact: true })).toBeVisible();
+  expect(registrations).toBe(1);
 });
 
 test('exports the existing preview draft from the login screen and keeps it intact', async ({ page }) => {

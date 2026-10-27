@@ -7,6 +7,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./access-context": "./src/accessContext.ts",
+    "./password-policy": "./src/passwordPolicy.ts",
     "./context-storage": "./src/contextStorage.ts",
     "./context": "./src/context.ts",
     "./fs": "./src/fs.ts",

@@ -79,13 +79,13 @@
       },
       {
         "contains": "export function createPasswordAuth",
-        "line": 7,
+        "line": 8,
         "path": "apps/remote/src/passwordAuth.ts",
         "snippet": "a37598ae"
       },
       {
         "contains": "Joinlet password smoke passed:",
-        "line": 130,
+        "line": 143,
         "path": "apps/remote/src/passwordSmoke.ts",
         "snippet": "4b3f3b78"
       },
@@ -112,6 +112,36 @@
         "line": 189,
         "path": "apps/remote/src/hostedStore.ts",
         "snippet": "88e1727e"
+      },
+      {
+        "contains": "export function isNewPassword",
+        "line": 11,
+        "path": "packages/workspace/src/passwordPolicy.ts",
+        "snippet": "e3e65be0"
+      },
+      {
+        "contains": "if (req.path === '/api/auth/register') validatePassword",
+        "line": 79,
+        "path": "apps/remote/src/passwordAuth.ts",
+        "snippet": "6ed45653"
+      },
+      {
+        "contains": "const legacyPassword = 'ExistingPasswordWithoutPunctuation'",
+        "line": 120,
+        "path": "apps/remote/src/passwordSmoke.ts",
+        "snippet": "59cf31d6"
+      },
+      {
+        "contains": "if (mode === 'register' && !isNewPassword(password))",
+        "line": 23,
+        "path": "apps/web/src/auth/AuthForm.tsx",
+        "snippet": "7e415cf2"
+      },
+      {
+        "contains": "if (!isNewPassword(password))",
+        "line": 20,
+        "path": "apps/web/src/auth/AccountPassword.tsx",
+        "snippet": "a7ee2976"
       }
     ],
     "SQLite": [
@@ -253,7 +283,7 @@
       },
       {
         "contains": "{allowsOptionalLogin() && <Button",
-        "line": 54,
+        "line": 56,
         "path": "apps/web/src/auth/AuthForm.tsx",
         "snippet": "e0e428dd"
       },
@@ -1463,7 +1493,7 @@
         "contains": "'node:crypto'",
         "line": 2,
         "path": "apps/remote/src/accounts.ts",
-        "snippet": "8c140a18"
+        "snippet": "94499e4b"
       },
       {
         "contains": "import { createRepositoryHub } from './repositoryHub';",
