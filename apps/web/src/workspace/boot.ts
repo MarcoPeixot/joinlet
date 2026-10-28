@@ -172,6 +172,18 @@ async function openFolder(handle: DirHandleLike, init: () => WorkspaceData, done
   await rememberOpened({ kind: 'folder', handle }, projectId);
 }
 
+/** Dev only (`?mock`, `?mock=<slug>`): ready diagrams in memory for UI work; nothing is saved or remembered. */
+async function openMock(slug: string): Promise<void> {
+  const { mockWorkspace } = await import('../samples/mock');
+  folder = null;
+  await openWith(createMemoryAdapter({}, 'Mock (não salvo)'), mockWorkspace);
+  const diagrams = workspace.store.getState().data?.diagrams;
+  if (slug && diagrams && Object.hasOwn(diagrams, slug)) {
+    await workspace.openDiagram(slug);
+    requestFit();
+  }
+}
+
 export async function signInToCloud(): Promise<void> {
   await flushCodeEdits();
   await workspace.flush();
@@ -211,6 +223,7 @@ export async function bootWorkspace(): Promise<void> {
   const optional = hosted && allowsOptionalLogin();
   const query = new URLSearchParams(location.search);
   try {
+    if (import.meta.env.DEV && query.has('mock')) return await openMock(query.get('mock') ?? '');
     if (optional && query.get('account') === 'local') return await openBrowserGuest();
     const remote = preview ? null : await remoteSession();
     if (remote?.kind === 'login') {
