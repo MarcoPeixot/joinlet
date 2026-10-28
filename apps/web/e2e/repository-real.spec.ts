@@ -97,6 +97,31 @@ test('offers source-backed enrichment after sync, exposes the agent task and per
  await chat.getByRole('textbox',{name:'Mensagem para a IA'}).fill('Olá');await chat.getByRole('button',{name:'Enviar',exact:true}).click();await expect(chat.getByText('Nova conversa sem fontes anexadas.',{exact:true})).toBeVisible();
 });
 
+test('waits for a completed analysis and retries a pending repository open',async({page})=>{
+ let connection='',readySeen=false,opens=0,premature=0;
+ await page.route('**/api/**',async route=>{
+  const request=route.request(),url=new URL(request.url());
+  if(url.pathname.endsWith('/events'))return route.fulfill({status:503,body:'Polling fallback.'});
+  if(url.pathname===`/api/repositories/${connection}/open`){
+   opens++;if(!readySeen)premature++;
+   if(opens===1)return route.fulfill({status:409,json:{error:'Repository initialization is pending.'}});
+  }
+  const response=await fetch(api+url.pathname+url.search,{method:request.method(),headers:{'content-type':'application/json'},body:request.method()==='GET'?undefined:request.postData()??'{}'});
+  let body=await response.text();
+  if(url.pathname==='/api/repositories'&&request.method()==='POST'){
+   const status=JSON.parse(body);connection=status.id;
+   // Reconnecting can retain the previous revision while its next analysis is still running.
+   body=JSON.stringify({...status,phase:'git',persistedRevision:'previous-revision'});
+  }else if(url.pathname==='/api/repositories'&&request.method()==='GET'){
+   readySeen=JSON.parse(body).connections.some((c:any)=>c.id===connection&&c.persistedRevision&&['ready','paused','review'].includes(c.phase));
+  }
+  await route.fulfill({status:response.status,headers:{'content-type':response.headers.get('content-type')??'application/json'},body});
+ });
+ await page.goto('/app/');await togglePanel(page,'GitHub');await page.getByRole('textbox',{name:'Pasta local',exact:true}).fill(root);await page.getByRole('button',{name:'Conectar',exact:true}).click();
+ await expect(page.locator('.strukt-scene-card').getByText('repository-browser-test',{exact:true})).toBeVisible({timeout:20000});
+ expect(premature).toBe(0);expect(opens).toBe(2);
+});
+
 test('rejects a delayed AI edit when the repository source revision changed during the response',async({page})=>{
  let stale=false,connectionId='',snapshotRevision='';
  await page.route('**/api/**',async route=>{const request=route.request(),url=new URL(request.url());if(url.pathname.endsWith('/events'))return route.fulfill({status:503,body:'Polling fallback.'});

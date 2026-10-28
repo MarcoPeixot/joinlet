@@ -587,7 +587,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "browser",
-      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria.",
+      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -802,7 +802,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Editor`) | nó | — | Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. | — |
+| Editor web (`Editor`) | nó | — | Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas. | — |
 | CLI e MCP (`CLI`) | nó | — | init/connect/watch/sync/context/verify e MCP. Aprofundamento por inventário/leitura paginados, plano de análise, organização de pastas e vínculos no Overview, com revisão explícita e escrita coordenada. | — |
 | Conector pareado (`Connector`) | nó | — | Pasta confinada, Git, observação e conexão autenticada de saída com o Cloud. Encaminha snapshots de contexto, revisão/política e páginas de fontes ao editor e MCP sem endpoints privilegiados públicos em localhost. | — |
 | Serviço local (`Local`) | nó | — | Conexões limitadas à pasta, diagnóstico Git, tarefas, eventos e acompanhamento incremental. Mantém blocos de referência ao contexto em AGENTS.md e CLAUDE.md, preservando conteúdo manual e sinalizando conflitos. | — |
@@ -836,8 +836,8 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `edge:CLI→Engine`: `apps/cli/src/commands/repository.ts#L26` — trecho esperado: `locale: repositoryLocale(Intl.DateTimeFormat()`
 - `edge:Connector→Hub`: `apps/server/src/connector.ts#L79` — trecho esperado: `post('/api/repository-connector/update'`
 - `edge:Connector→Local`: `apps/server/src/connector.ts#L69` — trecho esperado: `service=createRepositoryService`
-- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L43` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
-- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L24` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
+- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L62` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
+- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L25` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
 - `edge:Engine→AI`: `packages/workspace/src/repository/engine.ts#L137` — trecho esperado: `analyzer!.analyze`
 - `edge:Engine→AI`: `apps/server/src/connector.ts#L64` — trecho esperado: `path==='/api/repository-connector/analyze'`
 - `edge:Engine→AI`: `apps/remote/src/repositoryConnectorSmoke.ts#L30` — trecho esperado: `assert.equal(initial.connections[0]!.phase,'paused')`
@@ -865,7 +865,10 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Editor`: `apps/web/src/panels/RepositoryEnrichmentNotice.tsx#L19` — trecho esperado: `export function RepositoryEnrichmentNotice`
 - `Editor`: `apps/web/src/workspace/repositoryAnalysis.ts#L14` — trecho esperado: `export async function verifyRepositoryAnalysisContext`
 - `Editor`: `apps/web/e2e/repository-real.spec.ts#L81` — trecho esperado: `test('offers source-backed enrichment`
-- `Editor`: `apps/web/e2e/repository-real.spec.ts#L100` — trecho esperado: `test('rejects a delayed AI edit`
+- `Editor`: `apps/web/e2e/repository-real.spec.ts#L125` — trecho esperado: `test('rejects a delayed AI edit`
+- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L27` — trecho esperado: `const job=connections.find(c=\>c.id===pendingOpen.current`
+- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L36` — trecho esperado: `if((error as {status?:number}).status===409)return;`
+- `Editor`: `apps/web/e2e/repository-real.spec.ts#L100` — trecho esperado: `test('waits for a completed analysis`
 - `Engine`: `packages/workspace/src/repository/engine.ts#L53` — trecho esperado: `export class RepositoryEngine`
 - `Engine`: `packages/workspace/src/repository/presentation.ts#L11` — trecho esperado: `export function repositoryPresentation`
 - `Engine`: `packages/workspace/src/repository/presentation.ts#L40` — trecho esperado: `export function repositoryReadme`

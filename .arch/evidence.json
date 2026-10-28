@@ -2253,9 +2253,27 @@
       },
       {
         "contains": "test('rejects a delayed AI edit",
-        "line": 100,
+        "line": 125,
         "path": "apps/web/e2e/repository-real.spec.ts",
         "snippet": "9686ab47"
+      },
+      {
+        "contains": "const job=connections.find(c=>c.id===pendingOpen.current",
+        "line": 27,
+        "path": "apps/web/src/panels/RepositoryConnection.tsx",
+        "snippet": "2d1d8175"
+      },
+      {
+        "contains": "if((error as {status?:number}).status===409)return;",
+        "line": 36,
+        "path": "apps/web/src/panels/RepositoryConnection.tsx",
+        "snippet": "7e4d388b"
+      },
+      {
+        "contains": "test('waits for a completed analysis",
+        "line": 100,
+        "path": "apps/web/e2e/repository-real.spec.ts",
+        "snippet": "5acdcc00"
       }
     ],
     "Engine": [
@@ -2515,7 +2533,7 @@
     "edge:Editor→Hub": [
       {
         "contains": "request('/api/repositories/github',{repo,branch,locale:getLocale()})",
-        "line": 43,
+        "line": 62,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
         "snippet": "a047c5a9"
       }
@@ -2523,9 +2541,9 @@
     "edge:Editor→Local": [
       {
         "contains": "request('/api/repositories',{dir,locale:getLocale()})",
-        "line": 24,
+        "line": 25,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
-        "snippet": "e08a82af"
+        "snippet": "4709a4f2"
       }
     ],
     "edge:Engine→AI": [
