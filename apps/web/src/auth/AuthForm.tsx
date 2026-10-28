@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isNewPassword, PASSWORD_MIN_LENGTH, PASSWORD_MAX_INPUT_LENGTH } from '@strukt/workspace/password-policy';
 import type { FormEvent } from 'react';
 import { authText as uiText } from './messages';
 import { Button } from '../ui/Button';
@@ -19,6 +20,7 @@ export function AuthForm({ mcpUrl }: { mcpUrl: string }) {
   useEffect(load, []);
   const submit = async (event: FormEvent) => {
     event.preventDefault(); setError('');
+    if (mode === 'register' && !isNewPassword(password)) { setError(uiText('Use uma senha de 8 a 128 caracteres, com pelo menos um caractere especial.')); return; }
     if (mode === 'register' && password !== confirmation) { setError(uiText('As senhas não coincidem.')); return; }
     setBusy(true);
     try {
@@ -37,10 +39,10 @@ export function AuthForm({ mcpUrl }: { mcpUrl: string }) {
     {!methods && !error && <p role="status" className="text-caption text-muted">{uiText('Carregando…')}</p>}
     {methods?.password && <form aria-label={uiText(mode === 'login' ? 'Entrar na conta' : 'Criar conta')} className="flex w-full flex-col gap-4" onSubmit={event => void submit(event)}>
       <label className="flex flex-col gap-1.5 text-body">{uiText('E-mail')}<input className={authFieldClass} type="email" autoComplete="username" required maxLength={254} value={email} onChange={event => setEmail(event.target.value)} disabled={busy} /></label>
-      <label className="flex flex-col gap-1.5 text-body">{uiText('Senha')}<input className={authFieldClass} type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} required minLength={15} maxLength={256} value={password} onChange={event => setPassword(event.target.value)} disabled={busy} aria-describedby={mode === 'register' ? 'password-help' : undefined} /></label>
+      <label className="flex flex-col gap-1.5 text-body">{uiText('Senha')}<input className={authFieldClass} type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} required minLength={mode === 'register' ? PASSWORD_MIN_LENGTH : undefined} maxLength={PASSWORD_MAX_INPUT_LENGTH} value={password} onChange={event => setPassword(event.target.value)} disabled={busy} aria-describedby={mode === 'register' ? 'password-help' : undefined} /></label>
       {mode === 'register' && <>
-        <label className="flex flex-col gap-1.5 text-body">{uiText('Confirmar senha')}<input className={authFieldClass} type="password" autoComplete="new-password" required minLength={15} maxLength={256} value={confirmation} onChange={event => setConfirmation(event.target.value)} disabled={busy} /></label>
-        <p id="password-help" className="text-caption leading-relaxed text-muted">{uiText('Use de 15 a 128 caracteres. Guarde sua senha: a recuperação por e-mail ainda não está disponível.')}</p>
+        <label className="flex flex-col gap-1.5 text-body">{uiText('Confirmar senha')}<input className={authFieldClass} type="password" autoComplete="new-password" required minLength={PASSWORD_MIN_LENGTH} maxLength={PASSWORD_MAX_INPUT_LENGTH} value={confirmation} onChange={event => setConfirmation(event.target.value)} disabled={busy} /></label>
+        <p id="password-help" className="text-caption leading-relaxed text-muted">{uiText('Use de 8 a 128 caracteres e pelo menos um caractere especial. Guarde sua senha: a recuperação por e-mail ainda não está disponível.')}</p>
       </>}
       <Button variant="primary" type="submit" className="w-full" disabled={busy}>{uiText(busy ? 'Aguarde…' : mode === 'login' ? 'Entrar' : 'Criar conta')}</Button>
       <Button variant="ghost" disabled={busy} onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); setPassword(''); setConfirmation(''); }}>{uiText(mode === 'login' ? 'Criar uma conta' : 'Já tenho uma conta')}</Button>

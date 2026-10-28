@@ -18,11 +18,30 @@ export function RepositoryConnection({ cloud = false }: { cloud?: boolean }) {
   const [connections,setConnections]=useState<Connection[]>([]),[available,setAvailable]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState<string|null>(null),[path,setPath]=useState(''),[pair,setPair]=useState<string|null>(null),[repos,setRepos]=useState<{name:string;branch:string}[]>([]),[repo,setRepo]=useState(''),[branch,setBranch]=useState(''),[branches,setBranches]=useState<string[]>([]);
   const [instructions,setInstructions]=useState(false),[mcp,setMcp]=useState<{url:string;token?:string}|null>(null);
   const pendingOpen=useRef<string|null>(null);
-  const request=async(path:string,body?:unknown)=>{const response=await fetch(path,body===undefined?{headers:requestAuthHeaders()}:{method:'POST',headers:{'content-type':'application/json',...requestAuthHeaders()},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error(data.error??uiText('Não foi possível conectar o repositório.'));return data;};
+  const opening=useRef<string|null>(null);
+  const request=async(path:string,body?:unknown)=>{const response=await fetch(path,body===undefined?{headers:requestAuthHeaders()}:{method:'POST',headers:{'content-type':'application/json',...requestAuthHeaders()},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Object.assign(Error(data.error??uiText('Não foi possível conectar o repositório.')),{status:response.status});return data;};
   useEffect(()=>{let active=true;const poll=async()=>{try{const data=await request('/api/repositories');if(active){setAvailable(true);setConnections(data.connections);}}catch{if(active)setAvailable(false);}};void poll();const timer=setInterval(()=>void poll(),1500);return()=>{active=false;clearInterval(timer);};},[]);
   const run=async(work:()=>Promise<void>)=>{setBusy(true);setError(null);try{await work();}catch(error){setError(String(error instanceof Error?error.message:error));}finally{setBusy(false);}};
   const connect=async(dir:string)=>{const job=await request('/api/repositories',{dir,locale:getLocale()});pendingOpen.current=job.id;setConnections([job]);};
-  useEffect(()=>{const job=connections.find(c=>c.id===pendingOpen.current&&c.persistedRevision);if(!cloud&&job){pendingOpen.current=null;void run(async()=>{const opened=await request(`/api/repositories/${job.id}/open`,{});await openConnectedRepository(opened.root);});}},[connections,cloud]);
+  useEffect(()=>{
+    const job=connections.find(c=>c.id===pendingOpen.current&&c.persistedRevision&&['ready','paused','review'].includes(c.phase));
+    if(cloud||!job||opening.current)return;
+    opening.current=job.id;
+    void run(async()=>{
+      try{
+        let opened;
+        try{opened=await request(`/api/repositories/${job.id}/open`,{});}
+        catch(error){
+          // A stale poll may precede a new analysis; retry only after another completed status.
+          if((error as {status?:number}).status===409)return;
+          pendingOpen.current=null;throw error;
+        }
+        if(pendingOpen.current!==job.id)return;
+        pendingOpen.current=null;
+        await openConnectedRepository(opened.root);
+      }finally{opening.current=null;}
+    });
+  },[connections,cloud]);
   const pick=()=>run(async()=>{if(!available){setInstructions(true);return;}const result=await request('/api/repositories/pick',{});if(result.path){setPath(result.path);await connect(result.path);}});
   const loadRepos=()=>run(async()=>{try{const data=await request('/api/repositories/github/repos');setRepos(data.repos);}catch{const auth=await request('/api/repositories/github/authorize',{});window.location.assign(auth.url);}});
   const chooseRepo=async(name:string)=>{setRepo(name);setBranch(repos.find(r=>r.name===name)?.branch??'');const data=await request(`/api/repositories/github/branches?repo=${encodeURIComponent(name)}`);setBranches(data.branches);};

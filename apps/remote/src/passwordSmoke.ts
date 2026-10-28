@@ -13,8 +13,8 @@ import { WebSocket } from 'ws';
 
 const dir = await mkdtemp(join(tmpdir(), 'joinlet-password-test-'));
 let time = Date.now();
-const password = `  ${authToken()}  `;
-const replacement = `  ${authToken()}  `;
+const password = `  ${authToken()}!  `;
+const replacement = '1234567!';
 const options = { publicUrl: 'https://app.joinlet.test', siteUrl: 'https://joinlet.test', deploymentMode: 'cloud' as const,
   encryptionKey: 'a'.repeat(64), databasePath: join(dir, 'accounts.sqlite'), now: () => time, adminGithubIds: new Set([1]) };
 const remote = createRemoteApp(options);
@@ -47,6 +47,8 @@ try {
   assert.equal((await request('/api/auth/register', { email: 'owner@example.test', password }, undefined, undefined, 'https://attacker.test')).status, 403);
   assert.equal((await request('/api/auth/register', { email: 'owner@example.test', password: 'short' })).status, 400);
   assert.equal((await request('/api/auth/register', { email: 'owner@example.test', password: 'a'.repeat(129) })).status, 400);
+  for (const invalid of ['123456!', '12345678', 'abcdefgh ']) assert.equal((await request('/api/auth/register', { email: 'owner@example.test', password: invalid })).status, 400, 'new password policy');
+  time += 60_001;
   assert.equal((await request('/api/auth/register', { email: ' Owner@Example.Test ', password })).status, 200);
   const account = remote.auth.accounts.byEmail('owner@example.test')!;
   assert(account); assert.equal(account.github_id, null); assert.equal(account.verified, 0);
@@ -112,6 +114,17 @@ try {
     assert.match((restored.query('SELECT text FROM hosted_files WHERE workspace=? AND path=?').get(owner.repo, 'docs/notes.md') as { text: string }).text, /Password owner/);
     assert(restored.query('SELECT value FROM hosted_settings WHERE user=?').get(account.id));
   } finally { restored.close(); }
+  time += 16 * 60_000;
+  assert.equal((await request('/api/auth/register', { email: 'short@example.test', password: replacement })).status, 200, 'eight-character signup');
+  await login('short@example.test', replacement);
+  const legacyPassword = 'ExistingPasswordWithoutPunctuation';
+  remote.auth.accounts.register('legacy@example.test', await Bun.password.hash(legacyPassword, { algorithm: 'argon2id', memoryCost: 65536, timeCost: 2 }));
+  const legacySession = await login('legacy@example.test', legacyPassword);
+  assert.equal((await request('/api/auth/change-password', { currentPassword: legacyPassword, password: '12345678' }, legacySession.cookie, legacySession.csrf)).status, 400);
+  assert.equal((await request('/api/remote/session', undefined, legacySession.cookie)).status, 200, 'invalid replacement preserves sessions');
+  assert.equal((await request('/api/auth/change-password', { currentPassword: legacyPassword, password: replacement }, legacySession.cookie, legacySession.csrf)).status, 200, 'old password remains usable for change confirmation');
+  assert.equal((await request('/api/remote/session', undefined, legacySession.cookie)).status, 401);
+  await login('legacy@example.test', replacement);
   const legacy = new Database(':memory:');
   try {
     legacy.exec("CREATE TABLE records(kind TEXT,id TEXT,value TEXT,expires INTEGER); CREATE TABLE beta_workspaces(repo TEXT,owner TEXT,created INTEGER); CREATE TABLE hosted_workspaces(owner INTEGER); CREATE TABLE hosted_settings(user INTEGER,value TEXT);");

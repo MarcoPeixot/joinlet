@@ -12,7 +12,7 @@
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "browser",
-      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria.",
+      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {

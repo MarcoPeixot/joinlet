@@ -32,7 +32,7 @@ try{
   let api=start('apps/remote/src/main.ts',env),worker=start('apps/remote/src/repositoryWorker.ts',env);
   try{
    await ready(api,worker,origin);
-   const body={email:'startup@example.test',password:'synthetic test password'},headers={'content-type':'application/json',origin};
+   const body={email:'startup@example.test',password:'synthetic test password!'},headers={'content-type':'application/json',origin};
    assert.equal((await fetch(origin+'/api/auth/register',{method:'POST',headers,body:JSON.stringify(body)})).status,200);
    const login=await fetch(origin+'/api/auth/login',{method:'POST',headers,body:JSON.stringify(body)});assert.equal(login.status,200);
    const cookie=login.headers.getSetCookie().find(value=>value.startsWith('joinlet_session='))!.split(';')[0]!;

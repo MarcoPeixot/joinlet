@@ -198,7 +198,7 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - @strukt/core — `packages/core` — `apps/remote/src/hostedAi.ts:7`
 - @strukt/mcp — `apps/mcp` — `apps/remote/src/app.ts:10`
 - @strukt/server — `apps/server` — `apps/remote/src/hosted.ts:5`
-- @strukt/workspace — `packages/workspace` — `apps/remote/src/app.ts:2`
+- @strukt/workspace — `packages/workspace` — `apps/remote/src/accounts.ts:3`
 - express — `apps/remote/src/app.ts:4`
 - ws — `apps/remote/src/collaboration.ts:9`
 - yjs — `apps/remote/src/hostedSmoke.ts:12`

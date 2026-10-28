@@ -1,4 +1,5 @@
 import type { RequestHandler } from 'express';
+import { isPasswordInput } from '@strukt/workspace/password-policy';
 import { AccountError, authToken, normalizeEmail, tokenHash, validatePassword } from './accounts';
 import type { RemoteAuth, RemoteAuthOptions } from './auth';
 import { publicProfile, validateProfile } from './profile';
@@ -56,7 +57,7 @@ export function createPasswordAuth(options: RemoteAuthOptions, auth: RemoteAuth,
           const account = auth.accounts.get(session.userId);
           if (!account?.password_hash) throw new AccountError(401, 'invalid_credentials');
           validatePassword(req.body.password);
-          validatePassword(req.body.currentPassword);
+          if (!isPasswordInput(req.body.currentPassword)) throw new AccountError(401, 'invalid_credentials');
           limited('account:' + account.id, 10, 15 * 60_000);
           const nextHash = await work(async () => {
             if (!await Bun.password.verify(req.body.currentPassword, account.password_hash!)) throw new AccountError(401, 'invalid_credentials');
@@ -75,7 +76,8 @@ export function createPasswordAuth(options: RemoteAuthOptions, auth: RemoteAuth,
       }
       if (req.path !== '/api/auth/register' && req.path !== '/api/auth/login') return res.status(404).json({ error: 'not_found' });
       const email = normalizeEmail(req.body.email);
-      validatePassword(req.body.password);
+      if (req.path === '/api/auth/register') validatePassword(req.body.password);
+      else if (!isPasswordInput(req.body.password)) throw new AccountError(401, 'invalid_credentials');
       limited('email:' + tokenHash(email), 10, 15 * 60_000);
       if (req.path === '/api/auth/register') {
         const hash = await work(() => Bun.password.hash(req.body.password, hashOptions));
