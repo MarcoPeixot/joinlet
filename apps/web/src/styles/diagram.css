@@ -166,7 +166,8 @@
 .react-flow__node,
 .react-flow__edge,
 .strukt-edge-label {
-  transition: opacity var(--sk-motion) var(--sk-ease);
+  /* Long and easing out: hovering down the Inspector's connections crossfades from one to the next. */
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sk-focusing .react-flow__node.sk-dim {
