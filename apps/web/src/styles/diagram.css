@@ -245,8 +245,23 @@
   pointer-events: none;
 }
 
+/*
+ * The canvas keeps one pointer, like Figma: the arrow over the empty canvas and over nodes (React Flow would
+ * alternate a pointing hand on the pane with an open hand on nodes), a closed hand while something is dragged, a
+ * crosshair on the ports. A title reads as part of its node: no text cursor until it is being edited.
+ */
+.react-flow__pane,
+.react-flow__pane.selection,
+.react-flow__pane.draggable,
+.react-flow__node,
+.react-flow__node.draggable,
 .strukt-label {
-  cursor: text;
+  cursor: default;
+}
+
+.react-flow__pane.dragging,
+.react-flow__node.draggable.dragging {
+  cursor: grabbing;
 }
 
 .strukt-label-input {

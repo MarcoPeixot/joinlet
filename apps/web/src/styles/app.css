@@ -206,11 +206,34 @@ body {
   font-feature-settings: 'ss01', 'cv11';
 }
 
-button {
+/*
+ * Text is read, not typed: the app shows the arrow (a node title, a label, a button's text never turn the pointer
+ * into a text cursor). Only what can be typed in shows it; buttons and links point; nodes keep React Flow's grab.
+ */
+body {
+  cursor: default;
+}
+
+input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit']),
+textarea,
+[contenteditable]:not([contenteditable='false']) {
+  cursor: text;
+}
+
+button,
+a[href],
+select,
+[role='button'],
+[role='menuitem'],
+[role='menuitemcheckbox'],
+[role='option'],
+[role='tab'] {
   cursor: pointer;
 }
 
-button:disabled {
+button:disabled,
+[aria-disabled='true'],
+[data-disabled] {
   cursor: default;
 }
 
