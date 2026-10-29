@@ -316,6 +316,25 @@
   pointer-events: none;
 }
 
+/* Each dash of a comet: offset and fade in one CSS animation (no per-frame style recalc, unlike SMIL); duration, offsets and strength come per dash. */
+.strukt-flow path {
+  fill: none;
+  stroke-linecap: butt;
+  animation: sk-flow-pulse 1s linear infinite;
+  /* Timed in diagram units (flowPulse.ts): one speed along the drawing, whatever the zoom. */
+  animation-duration: var(--sk-pulse-dur, 1s);
+  animation-delay: var(--sk-pulse-delay, 0s);
+}
+
+@keyframes sk-flow-pulse {
+  from {
+    stroke-dashoffset: var(--sk-pulse-from);
+  }
+  to {
+    stroke-dashoffset: var(--sk-pulse-to);
+  }
+}
+
 .sk-draft .strukt-flow {
   display: none;
 }

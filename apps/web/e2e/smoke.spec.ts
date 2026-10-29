@@ -92,7 +92,8 @@ test('focus: a clicked node lights its neighbours and pulses its edges; the pass
   await expect(node(page, 'Pedidos')).toHaveClass(/sk-focus-origin/);
   await expect(focusEdges).toHaveCount(4);
   // "Animar fluxo" is off, yet the focused edges carry their requests (two bars per direction).
-  await expect(page.locator('.react-flow__edge[data-id="Pedidos→Redis"] [data-flow-pulse]')).toHaveCount(2);
+  // Requests leave every PULSE_PERIOD at one speed: as many on the line as its length holds, at least one.
+  await expect(page.locator('.react-flow__edge[data-id="Pedidos→Redis"] [data-flow-pulse]')).not.toHaveCount(0);
   await expect(page.locator('.react-flow__edge[data-id="Web App→API Gateway"] [data-flow-pulse]')).toHaveCount(0);
 
   const panel = page.getByRole('complementary', { name: 'Propriedades' });
