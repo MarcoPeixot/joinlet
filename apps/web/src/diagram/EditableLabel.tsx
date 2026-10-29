@@ -1,8 +1,10 @@
 import { commitLabel } from '../actions/labels';
+import { useCanvasScope } from '../canvas/scope';
 import { uiStore, useUi } from '../ui/uiStore';
 
 export function EditableLabel({ id, text, displayText = text }: { id: string; text: string; displayText?: string }) {
   const editing = useUi((s) => s.editingId === id);
+  const scope = useCanvasScope();
   if (!editing) {
     return (
       <span
@@ -18,7 +20,7 @@ export function EditableLabel({ id, text, displayText = text }: { id: string; te
   }
   const finish = (value: string | null) => {
     uiStore.setState({ editingId: null });
-    if (value !== null) commitLabel(id, value);
+    if (value !== null) commitLabel(id, value, scope.store, scope.kind === 'diagram');
   };
   return (
     <input
