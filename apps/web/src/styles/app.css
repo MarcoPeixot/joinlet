@@ -370,23 +370,11 @@ kbd,
   }
 }
 
+/* The shared tooltip bubble (ui/Tooltip.tsx TooltipLayer): motion pops it in and glides it between triggers. */
 .sk-tooltip {
   background: var(--sk-tooltip-bg);
   color: var(--sk-tooltip-ink);
   box-shadow: var(--sk-elev-2);
-  transform-origin: var(--radix-tooltip-content-transform-origin);
-  animation: sk-tooltip-in 140ms var(--sk-ease);
-}
-
-.sk-tooltip[data-state='instant-open'] {
-  animation: none;
-}
-
-@keyframes sk-tooltip-in {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
 }
 
 .sk-tooltip__keys kbd {

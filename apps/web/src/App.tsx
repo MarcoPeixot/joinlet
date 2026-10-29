@@ -1,6 +1,6 @@
 import { LazyMotion, MotionConfig } from 'motion/react';
-import { Tooltip } from 'radix-ui';
 import { AppShell } from './app/AppShell';
+import { TooltipLayer } from './ui/Tooltip';
 import { useUi } from './ui/uiStore';
 import { AnalyticsConsent } from './analytics/AnalyticsConsent';
 
@@ -12,10 +12,9 @@ export function App() {
     // Under "reduce motion" (the OS's, or Configurações' own) the app keeps its fades but nothing slides or scales.
     <MotionConfig reducedMotion={reduce ? 'always' : 'user'}>
       <LazyMotion features={loadFeatures} strict>
-        <Tooltip.Provider delayDuration={500} skipDelayDuration={300}>
-          <AppShell />
-          <AnalyticsConsent />
-        </Tooltip.Provider>
+        <AppShell />
+        <AnalyticsConsent />
+        <TooltipLayer />
       </LazyMotion>
     </MotionConfig>
   );
