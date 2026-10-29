@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { pathPoints } from './paths';
 
+test.use({ reducedMotion: 'no-preference' });
+
 type Box = { x: number; y: number; width: number; height: number };
 const label = (page: Page, text: string) => page.locator('.strukt-edge-label', { hasText: text });
 const overlaps = (a: Box, b: Box) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
@@ -44,6 +46,17 @@ test('example edge labels are placed clear of each other and of group borders', 
   // draws quick fallback lines. The routed Pedidos → Kafka goes around Pagamentos (corners), its fallback is straight.
   const detour = page.locator('.react-flow__edge[data-id="Pedidos→Kafka"] .react-flow__edge-path');
   await expect.poll(async () => ((await detour.getAttribute('d')) ?? '').split('Q').length - 1).toBeGreaterThanOrEqual(2);
+
+  // Corners appear on the first frame of the route tween. Wait for fonts and the final positions before
+  // checking collisions; labels can cross a group border while gliding to their routed positions.
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  let previous = '';
+  await expect.poll(async () => {
+    const current = JSON.stringify(await boxes(page.locator('.strukt-edge-label, .react-flow__node-sgroup')));
+    const settled = current === previous;
+    previous = current;
+    return settled;
+  }, { intervals: [250] }).toBe(true);
 
   const [cache] = await boxes(label(page, 'cache'));
   const [events] = await boxes(label(page, 'eventos'));
