@@ -173,14 +173,29 @@ describe('route cache (derived state)', () => {
     return store;
   };
 
-  it('keeps routes out of history, so undo/redo never restore stale ones', () => {
+  it('keeps routes out of history, so undo/redo never restore stale ones: they carry the live ones', () => {
     const store = routed();
     store.getState().apply([{ op: 'update', id: 'A', set: { label: 'Alfa' } }]);
     expect(store.getState().past.every((s) => Object.keys(s.layout.edges).length === 0)).toBe(true);
     store.getState().setRoutes({ 'A→B': { points: [[0, 0], [1, 1]], key: 'k2' } });
     store.getState().undo();
-    expect(store.getState().layout.edges).toEqual({});
+    expect(store.getState().layout.edges['A→B']?.key).toBe('k2');
     expect(store.getState().future[0]?.layout.edges).toEqual({});
+    store.getState().apply([{ op: 'remove_edge', edgeId: 'A→B' }]);
+    store.getState().undo();
+    expect(store.getState().layout.edges).toEqual({});
+  });
+
+  it('an edit keeps the routes it did not touch, so connecting or disconnecting never redraws every edge', () => {
+    const store = routed();
+    store.getState().apply([{ op: 'add_node', id: 'C' }, { op: 'connect', from: 'B', to: 'C' }], { C: { x: 600, y: 0 } });
+    expect(Object.keys(store.getState().layout.edges)).toEqual(['A→B']);
+    store.getState().setRoutes({ ...store.getState().layout.edges, 'B→C': { points: [[0, 0], [1, 1]], key: 'bc' } });
+    store.getState().apply([{ op: 'remove_edge', edgeId: 'B→C' }]);
+    expect(store.getState().layout.edges).toEqual({ 'A→B': { points: [[160, 32], [300, 32]], key: 'k' } });
+    // Restyling a connection keeps its route on screen until the router redraws it.
+    store.getState().apply([{ op: 'update_edge', edgeId: 'A→B', set: { toPort: 'top', connector: '<>', color: 'red' } }]);
+    expect(store.getState().layout.edges['A→B']?.key).toBe('k');
   });
 
   it('moveLive keeps the cached routes; setRoutes is not an undo step', () => {
