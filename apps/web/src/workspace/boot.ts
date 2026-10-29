@@ -172,11 +172,16 @@ async function openFolder(handle: DirHandleLike, init: () => WorkspaceData, done
   await rememberOpened({ kind: 'folder', handle }, projectId);
 }
 
-/** Dev only (`?mock`, `?mock=<slug>`): ready diagrams in memory for UI work; nothing is saved or remembered. */
+/**
+ * Dev only (`?mock`, `?mock=<slug>` opens that diagram, `?mock=reset` starts over): ready diagrams for UI work, saved
+ * like any workspace in this browser, in their own space (never listed with the visitor's projects).
+ */
 async function openMock(slug: string): Promise<void> {
   const { mockWorkspace } = await import('../samples/mock');
   folder = null;
-  await openWith(createMemoryAdapter({}, 'Mock (não salvo)'), mockWorkspace);
+  const storage = createIdbAdapter('joinlet-dev-mock');
+  if (slug === 'reset') for (const path of await storage.list()) await storage.remove(path);
+  await openWith(storage, mockWorkspace);
   const diagrams = workspace.store.getState().data?.diagrams;
   if (slug && diagrams && Object.hasOwn(diagrams, slug)) {
     await workspace.openDiagram(slug);
@@ -578,19 +583,15 @@ export async function importZip(file: File): Promise<void> {
 }
 
 /** Closing the tab loses something: writes still pending, or a memory workspace (nothing of it is ever saved). */
-export function shouldWarnOnUnload(): boolean {
-  return workspace.hasUnsaved() || workspace.store.getState().source?.kind === 'memory';
-}
-
+/**
+ * Every change saves itself (a moment after the edit, see createSaver): leaving never asks. Whatever is still queued
+ * is written as the page is hidden or closed.
+ */
 export function guardUnsavedChanges(): void {
-  window.addEventListener('beforeunload', (event) => {
-    if (!shouldWarnOnUnload()) return;
-    void workspace.flush();
-    event.preventDefault();
-    event.returnValue = ''; // Safari still needs it for the prompt
-  });
+  const flush = () => void workspace.flush();
+  window.addEventListener('pagehide', flush);
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') void workspace.flush();
+    if (document.visibilityState === 'hidden') flush();
   });
 }
 

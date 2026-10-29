@@ -61,6 +61,24 @@ export function createIdbAdapter(namespace: string | null = null): StorageAdapte
     read: async (path) => ((await run('files', 'readonly', (s) => s.get(key(path)))) as string | undefined) ?? null,
     write: async (path, text) => void (await run('files', 'readwrite', (s) => s.put(text, key(path)))),
     remove: async (path) => void (await run('files', 'readwrite', (s) => s.delete(key(path)))),
+    // Everything queued in one transaction, opened at once: a save still running as the page closes (no "leave
+    // site?" prompt waits for it) is committed whole, never cut after its first file.
+    batch: async (changes) => {
+      const db = await openDb();
+      await new Promise<void>((resolve, reject) => {
+        const tx = db.transaction('files', 'readwrite');
+        const files = tx.objectStore('files');
+        for (const { path, text } of changes) {
+          if (text === null) files.delete(key(path));
+          else files.put(text, key(path));
+        }
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error ?? new Error(uiText("Transação do IndexedDB abortada.")));
+        // Commit now rather than when the event loop idles: the page may be on its way out.
+        tx.commit?.();
+      });
+    },
     list: async () => (await run('files', 'readonly', (s) => s.getAllKeys())).flatMap((entry) => {
       if (namespace === null) return typeof entry === 'string' ? [entry] : [];
       return Array.isArray(entry) && entry[0] === namespace && typeof entry[1] === 'string' ? [entry[1]] : [];

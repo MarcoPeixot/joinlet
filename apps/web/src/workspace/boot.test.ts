@@ -433,22 +433,22 @@ describe('a remembered folder without strukt.json (fix wave 7): never plants a w
   });
 });
 
-describe('shouldWarnOnUnload (fix wave 8)', () => {
-  it('warns in memory mode (nothing is ever saved), even with no pending write', async () => {
+describe('guardUnsavedChanges: changes save themselves, leaving never asks', () => {
+  it('registers no "leave site?" prompt and writes what is queued when the page is hidden or closed', async () => {
     const f = await freshBoot();
-    vi.mocked(f.idb.loadBackendChoice).mockResolvedValue({ kind: 'indexeddb' });
-    vi.mocked(f.idb.createIdbAdapter).mockReturnValue({ ...fakeAdapter('indexeddb', 'Navegador'), list: vi.fn().mockRejectedValue(new Error('bloqueado')) });
-    await f.boot.bootWorkspace();
-    expect(f.appWorkspace.workspace.store.getState().source?.kind).toBe('memory');
-    expect(f.boot.shouldWarnOnUnload()).toBe(true);
-  });
-
-  it('does not warn for a browser workspace with nothing pending', async () => {
-    const f = await freshBoot();
-    await bootIntoBrowser(f);
-    await f.context.contextSync.ready();
-    await f.appWorkspace.workspace.flush();
-    expect(f.boot.shouldWarnOnUnload()).toBe(false);
+    const listeners: Record<string, (() => void)[]> = {};
+    const target = { addEventListener: (type: string, fn: () => void) => { (listeners[type] ??= []).push(fn); } };
+    const before = { window: globalThis.window, document: globalThis.document };
+    vi.stubGlobal('window', target);
+    vi.stubGlobal('document', { ...target, visibilityState: 'hidden' });
+    const flush = vi.spyOn(f.appWorkspace.workspace, 'flush').mockResolvedValue();
+    f.boot.guardUnsavedChanges();
+    expect(listeners.beforeunload).toBeUndefined();
+    listeners.pagehide!.forEach((fn) => fn());
+    listeners.visibilitychange!.forEach((fn) => fn());
+    expect(flush).toHaveBeenCalledTimes(2);
+    vi.stubGlobal('window', before.window);
+    vi.stubGlobal('document', before.document);
   });
 });
 
