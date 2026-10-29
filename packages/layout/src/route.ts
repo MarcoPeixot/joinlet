@@ -11,6 +11,8 @@ export interface Route {
 
 /** Minimum shared span for a straight connector instead of an elbow. */
 const MIN_OVERLAP = 16;
+/** How far past two touching boxes the line that goes around them runs. */
+const AROUND = 16;
 
 /**
  * Obstacle-unaware orthogonal route between two boxes (M1).
@@ -51,5 +53,12 @@ export function routeOrthogonal(a: Rect, b: Rect): Route {
     const my = (sy + ty) / 2;
     return { points: [[ax, sy], [ax, my], [bx, my], [bx, ty]], sourceSide: vSides[0], targetSide: vSides[1] };
   }
-  return { points: [[ax, ay], [bx, by]], sourceSide: hSides[0], targetSide: hSides[1] };
+  // Touching or overlapping: no room between them, so the line goes around both (a straight one would run under
+  // them, hidden), out of and into the same side: to the right of stacked boxes, under side-by-side ones.
+  if (Math.abs(bx - ax) < Math.abs(by - ay)) {
+    const out = Math.max(a.x + a.w, b.x + b.w) + AROUND;
+    return { points: [[a.x + a.w, ay], [out, ay], [out, by], [b.x + b.w, by]], sourceSide: 'right', targetSide: 'right' };
+  }
+  const out = Math.max(a.y + a.h, b.y + b.h) + AROUND;
+  return { points: [[ax, a.y + a.h], [ax, out], [bx, out], [bx, b.y + b.h]], sourceSide: 'bottom', targetSide: 'bottom' };
 }

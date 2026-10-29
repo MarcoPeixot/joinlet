@@ -45,13 +45,19 @@ describe('placeLabels', () => {
     expect(placeLabels([{ id: 'own', points: own, ...size }], { boxes: [], routes }).own).toEqual([200, 0]);
   });
 
-  it('uses a free header band for a wide label between two adjacent cards', () => {
+  it('stays on its own short connector between two adjacent cards, even if it has to cover them a little', () => {
     const own: Point[] = [[500, 42], [528, 42]], wide = { w: 180, h: 20 };
     const caption = { x: 0, y: -36, w: 180, h: 22 };
     const boxes = [{ x: 400, y: 0, w: 100, h: 84 }, { x: 528, y: 0, w: 100, h: 84 }, caption];
     const at = placeLabels([{ id: 'own', points: own, ...wide }], { boxes, borders: [{ x: -28, y: -44, w: 684, h: 156 }], routes: { own } }).own!;
-    expect(at[1]).toBeLessThan(0);
-    for (const box of boxes) expect(overlaps(boxAt(at, wide), box)).toBe(false);
+    expect(Math.abs(at[1] - 42)).toBeLessThanOrEqual(wide.h / 2);
+  });
+
+  it('never leaves its own line to dodge other lines: the line runs through the pill or along its edge', () => {
+    const own: Point[] = [[0, 0], [400, 0]];
+    const routes = { own, ...Object.fromEntries([-8, 8, 16, 24, 40, 60].map((y) => [String(y), [[0, y], [400, y]] as Point[]])) };
+    const at = placeLabels([{ id: 'own', points: own, ...size }], { boxes: [], routes }).own!;
+    expect(Math.abs(at[1])).toBeLessThanOrEqual(size.h / 2);
   });
 
   it('puts a label in the middle of the longest segment when nothing is in the way', () => {

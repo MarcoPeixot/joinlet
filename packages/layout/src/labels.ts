@@ -40,7 +40,8 @@ const bandArea = (box: Rect, r: Rect) => area(box, inset(r, -BORDER_BAND)) - are
 
 /**
  * Label centers to try, best first: the longest segment before the shorter ones, and on each segment its
- * middle, then 8 px steps either way while the label stays within the segment.
+ * middle, then 8 px steps either way while the label stays within the segment. Nudges across the segment (to
+ * clear another line or a box) never take the pill off its own line: the line always runs through it or along its edge.
  */
 function candidates(points: readonly Point[], w: number, h: number, includeNearby: boolean, avoidRoutes = false): Point[] {
   const segments = points
@@ -54,12 +55,14 @@ function candidates(points: readonly Point[], w: number, h: number, includeNearb
     const ux = (b[0] - a[0]) / length;
     const uy = (b[1] - a[1]) / length;
     const half = Math.abs(ux) * (w / 2) + Math.abs(uy) * (h / 2);
+    const across = Math.abs(uy) * (w / 2) + Math.abs(ux) * (h / 2);
     const room = Math.max(0, length / 2 - half);
+    const shifts = (avoidRoutes ? [4, 8, 12, 16, 24, 32, 48, 64, 80] : [4, 8, 12, 16]).filter((shift) => shift <= across);
     for (let k = 0; k * STEP <= room; k++) {
       for (const d of k ? [k * STEP, -k * STEP] : [0]) {
         const at: Point = [a[0] + ux * (length / 2 + d), a[1] + uy * (length / 2 + d)];
         out.push(at);
-        if (includeNearby) for (const shift of avoidRoutes ? [4, 8, 12, 16, 24, 32, 48, 64, 80] : [4, 8, 12, 16]) {
+        if (includeNearby) for (const shift of shifts) {
           nearby.push([at[0] - uy * shift, at[1] + ux * shift], [at[0] + uy * shift, at[1] - ux * shift]);
         }
       }
