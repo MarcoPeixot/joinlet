@@ -4,6 +4,7 @@ import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { startCollabHost } from './support/collabHost';
 import type { CollabHost } from './support/collabHost';
+import { itemAction } from './sidebarMenu';
 
 let host: CollabHost;
 test.beforeEach(async () => {
@@ -132,7 +133,7 @@ test('a guest whose open diagram another guest deletes ends on the Overview with
   await sidebar(cris).getByRole('button', { name: 'Outro', exact: true }).click();
   await expect(nodes(cris)).toHaveCount(2);
   await editable(cris);
-  await sidebar(ana).getByRole('button', { name: 'Excluir Outro' }).click();
+  await itemAction(ana, 'Outro', 'Excluir');
   await expect(sidebar(cris).getByRole('button', { name: 'Outro', exact: true })).toHaveCount(0, { timeout: 15_000 });
   await expect(cris.getByText(/foi excluído por outra pessoa|Este item foi excluído/).first()).toBeVisible();
   // Not left on another diagram's content with the old title and a "Connecting" assistant.

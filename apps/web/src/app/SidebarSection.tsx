@@ -1,7 +1,7 @@
 import { uiText } from '../i18n';
 import { ITEM_LIST, MAX_FOLDER_DEPTH, buildFolderTree, folderParent, knownFolders } from '@strukt/workspace';
 import type { FolderNode, ItemEntry, ItemKind } from '@strukt/workspace';
-import { ChevronDown, ChevronRight, Ellipsis, Folder, FolderInput, FolderOpen, FolderPlus, Pencil, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, Ellipsis, Folder, FolderOpen, FolderPlus, Pencil, Plus, Trash2 } from 'lucide-react';
 import { m } from 'motion/react';
 import { useMemo } from 'react';
 import type { DragEvent, ReactNode } from 'react';
@@ -37,7 +37,7 @@ export function Row({ active, children, over = false, ...rest }: { active: boole
   return (
     <div
       {...rest}
-      className={`group relative flex h-8 pointer-coarse:h-10 items-center gap-2 rounded-control pl-2 pr-1 transition-colors duration-(--sk-motion-fast) ${over ? 'bg-accent-soft text-ink ring-1 ring-accent/40' : active ? 'text-ink' : 'text-muted hover:bg-panel-2/60 hover:text-ink'}`}
+      className={`group relative flex h-8 pointer-coarse:h-10 cursor-pointer items-center gap-2 rounded-control pl-2 pr-1 transition-colors duration-(--sk-motion-fast) ${over ? 'bg-accent-soft text-ink ring-1 ring-accent/40' : active ? 'text-ink' : 'text-muted hover:bg-panel-2/60 hover:text-ink'}`}
     >
       {active && <ActivePill />}
       {children}
@@ -101,12 +101,14 @@ function ItemRow({ kind, item, active, folders, editing, setEditing }: { kind: I
         <Icon size={15} className={`flex-none ${active ? 'text-accent' : ''}`} />
         <span className="truncate">{item.title}</span>
       </button>
-      {/* Touch has no hover: rename, move and delete live in a menu that is always there. */}
-      {!viewOnly && <span className="relative hidden items-center pointer-coarse:flex">
+      {/* Rename, move and delete in one "…" menu: on hover (or focus) with a mouse, always there on touch. */}
+      {!viewOnly && <span className="relative -mr-1 ml-auto hidden flex-none items-center self-stretch group-hover:flex group-focus-within:flex has-[[data-state=open]]:flex pointer-coarse:flex">
+        {/* Like Nora's sidebar: the menu opens from the button's left edge and grows past the sidebar, over the canvas. */}
         <Menu
           label={uiText("Ações de {0}", [item.title])}
+          align="start"
           trigger={
-            <IconButton label={uiText("Ações de {0}", [item.title])} className="h-6 min-w-6 px-1">
+            <IconButton label={uiText("Ações de {0}", [item.title])} title={uiText("Mais ações")} iconSize={14} className="h-full px-0">
               <Ellipsis />
             </IconButton>
           }
@@ -117,24 +119,6 @@ function ItemRow({ kind, item, active, folders, editing, setEditing }: { kind: I
           <MenuSeparator />
           <MenuItem icon={<Trash2 size={14} />} danger onSelect={() => void deleteItem(kind, item.slug)}>{uiText("Excluir")}</MenuItem>
         </Menu>
-      </span>}
-      {!viewOnly && <span className="relative hidden items-center group-hover:flex group-focus-within:flex pointer-coarse:hidden">
-        <IconButton label={uiText("Renomear {0}", [item.title])} title={uiText("Renomear")} iconSize={12} className="h-6 min-w-6 px-1" onClick={() => setEditing({ kind, slug: item.slug })}>
-          <Pencil />
-        </IconButton>
-        <Menu
-          label={uiText("Mover para")}
-          trigger={
-            <IconButton label={uiText("Mover {0} para uma pasta", [item.title])} title={uiText("Mover para uma pasta")} iconSize={12} className="h-6 min-w-6 px-1">
-              <FolderInput />
-            </IconButton>
-          }
-        >
-          <MoveItems kind={kind} slug={item.slug} current={item.folder} folders={folders} />
-        </Menu>
-        <IconButton label={uiText("Excluir {0}", [item.title])} title={uiText("Excluir")} iconSize={12} className="h-6 min-w-6 px-1 hover:text-danger" onClick={() => void deleteItem(kind, item.slug)}>
-          <Trash2 />
-        </IconButton>
       </span>}
     </Row>
   );

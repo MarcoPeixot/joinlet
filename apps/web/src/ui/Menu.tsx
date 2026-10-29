@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react';
 import { DropdownMenu } from 'radix-ui';
 import type { ReactElement, ReactNode } from 'react';
+import { Glide } from './Glide';
 import { Keys } from './Kbd';
 
 interface MenuProps {
@@ -23,9 +24,11 @@ export function Menu({ trigger, label, align = 'end', side = 'bottom', children 
           side={side}
           sideOffset={6}
           collisionPadding={12}
-          className="sk-pop sk-elev-2 sk-anim-pop z-[60] min-w-52 rounded-[12px] p-1 outline-none"
+          className="sk-pop sk-menu sk-elev-2 relative z-[60] min-w-52 rounded-[12px] p-1 outline-none"
           style={{ transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)' }}
         >
+          {/* One highlight sliding between the items (Nora's glide), not each item lighting up on its own. */}
+          <Glide items="[role^='menuitem']" />
           {children}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
@@ -48,7 +51,8 @@ export function MenuItem({ icon, shortcut, hint, danger, disabled, onSelect, chi
     <DropdownMenu.Item
       disabled={disabled}
       onSelect={onSelect}
-      className={`flex h-8 pointer-coarse:h-10 cursor-default select-none items-center gap-2.5 rounded-[8px] px-2 text-body outline-none transition-colors duration-(--sk-motion-fast) data-disabled:opacity-40 data-highlighted:bg-panel-2 ${
+      data-danger={danger || undefined}
+      className={`relative z-[1] flex h-8 pointer-coarse:h-10 cursor-default select-none items-center gap-2.5 rounded-[8px] px-2 text-body outline-none transition-colors duration-(--sk-motion-fast) data-disabled:opacity-40 ${
         danger ? 'text-danger' : 'text-ink'
       }`}
     >
@@ -76,7 +80,7 @@ export function MenuCheckItem({ icon, checked, description, hint, onSelect, chil
     <DropdownMenu.CheckboxItem
       checked={checked}
       onSelect={onSelect}
-      className="flex min-h-8 pointer-coarse:min-h-10 cursor-default select-none items-center gap-2.5 rounded-[8px] px-2 py-1.5 text-body text-ink outline-none transition-colors duration-(--sk-motion-fast) data-highlighted:bg-panel-2"
+      className="relative z-[1] flex min-h-8 pointer-coarse:min-h-10 cursor-default select-none items-center gap-2.5 rounded-[8px] px-2 py-1.5 text-body text-ink outline-none transition-colors duration-(--sk-motion-fast)"
     >
       {icon && <span className={`flex w-4 flex-none justify-center ${checked ? 'text-accent' : 'text-muted'}`}>{icon}</span>}
       <span className="flex min-w-0 flex-1 flex-col">

@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
+import { itemAction } from './sidebarMenu';
 
 const node = (page: Page, id: string) => page.locator(`.react-flow__node[data-id="${id}"]`);
 const sidebar = (page: Page) => page.getByRole('navigation', { name: 'Workspace' });
@@ -34,8 +35,7 @@ test('deleting a diagram offers "Desfazer" and undoing restores title and nodes'
   await expect(node(page, 'Stripe')).toBeVisible();
   const item = sidebar(page).getByRole('button', { name: 'Pagamentos', exact: true });
   await page.waitForTimeout(800);
-  await item.hover();
-  await sidebar(page).getByRole('button', { name: 'Excluir Pagamentos' }).click();
+  await itemAction(page, 'Pagamentos', 'Excluir');
   await expect(item).toHaveCount(0);
   const undo = page.getByRole('button', { name: 'Desfazer', exact: true });
   await expect(undo).toBeVisible();
@@ -52,10 +52,11 @@ test('keyboard only: deleting via the item buttons focuses "Desfazer"; Enter res
   const item = sidebar(page).getByRole('button', { name: 'Pagamentos', exact: true });
   await page.waitForTimeout(800);
   await item.focus();
-  await page.keyboard.press('Tab'); // Renomear
-  await page.keyboard.press('Tab'); // Mover para uma pasta
-  await page.keyboard.press('Tab'); // Excluir
-  await expect(sidebar(page).getByRole('button', { name: 'Excluir Pagamentos' })).toBeFocused();
+  await page.keyboard.press('Tab'); // the item's "…" menu
+  await expect(sidebar(page).getByRole('button', { name: 'Ações de Pagamentos' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('End'); // Excluir, the last action
+  await expect(page.getByRole('menuitem', { name: 'Excluir', exact: true })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(item).toHaveCount(0);
   const undo = page.getByRole('button', { name: 'Desfazer', exact: true });

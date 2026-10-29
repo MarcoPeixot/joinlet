@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
+import { itemAction } from './sidebarMenu';
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -43,9 +44,7 @@ test.beforeEach(async ({ page }) => {
 test('a folder holds docs; moving, folding and reloading keep them there', async ({ page }) => {
   await newDoc(page, 'Notas');
   await newFolder(page, 'documentos', 'Guias');
-  await sidebar(page).getByRole('button', { name: 'Notas', exact: true }).hover(); // the row's buttons show on hover
-  await sidebar(page).getByRole('button', { name: 'Mover Notas para uma pasta' }).click();
-  await page.getByRole('menuitem', { name: 'Guias' }).click();
+  await itemAction(page, 'Notas', 'Guias');
   const group = sidebar(page).getByRole('group', { name: 'Pasta Guias' });
   await expect(group.getByRole('button', { name: 'Notas', exact: true })).toBeVisible();
 
