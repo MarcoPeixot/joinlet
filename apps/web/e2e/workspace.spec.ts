@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { pathPoints } from './paths';
 import { readFile, savedDiagram } from './storage';
+import { itemAction } from './sidebarMenu';
 
 const node = (page: Page, id: string) => page.locator(`.react-flow__node[data-id="${id}"]`);
 const sidebar = (page: Page) => page.getByRole('navigation', { name: 'Workspace' });
@@ -80,7 +81,7 @@ test('deleting an item removes it at once and "Desfazer" brings it back', async 
   const item = sidebar(page).getByRole('button', { name: 'Rascunho', exact: true });
   await expect(item).toBeVisible();
   await item.hover();
-  await sidebar(page).getByRole('button', { name: 'Excluir Rascunho' }).click();
+  await itemAction(page, 'Rascunho', 'Excluir');
   await expect(item).toHaveCount(0);
   await expect.poll(() => readFile(page, 'docs/rascunho.md')).toBeNull();
   await page.getByRole('button', { name: 'Desfazer', exact: true }).click();
@@ -133,8 +134,8 @@ test('a Overview connection takes a label, and "Animar fluxo" sends packets alon
   await page.keyboard.press('ControlOrMeta+k');
   await page.keyboard.type('Animar fluxo');
   await page.keyboard.press('Enter');
-  // Two packets per edge, half a trip apart, on the request's way (Mobile → gateway).
-  for (const edge of https) await expect(edge.locator('[data-flow-pulse]')).toHaveCount(2);
+  // Packets leave every PULSE_PERIOD at one speed, on the request's way (Mobile → gateway).
+  for (const edge of https) await expect(edge.locator('[data-flow-pulse]')).not.toHaveCount(0);
 
   await sidebar(page).getByRole('button', { name: 'Overview' }).click();
   const board = page.locator('.strukt-board');
@@ -149,23 +150,28 @@ test('a Overview connection takes a label, and "Animar fluxo" sends packets alon
   };
   const center = (box: { x: number; y: number; width: number; height: number } | null) => ({ x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 });
   // The new note lands flush under the card: the connection goes around them, visible.
-  await drag(center(await node(page, 'diagram:exemplo').locator('.react-flow__handle.source').boundingBox()), center(await note.boundingBox()));
+  await drag(center(await node(page, 'diagram:exemplo').locator('.react-flow__handle-right').boundingBox()), center(await note.boundingBox()));
   const link = board.locator('.react-flow__edge');
   await expect(link).toHaveCount(1);
   const path = link.locator('.react-flow__edge-path');
   expect(await path.evaluate((el) => (el as SVGPathElement).getTotalLength())).toBeGreaterThan(40);
 
+  // The line glides from its first draft to the routed one: label it once it has settled.
+  let settled = '';
+  await expect.poll(async () => { const d = await path.getAttribute('d'); const same = d === settled; settled = d ?? ''; return same; }, { intervals: [300] }).toBe(true);
+  // The new note is still selected: its color bar could sit over the line. Deselect it first.
+  await page.locator('.strukt-board .react-flow__pane').click({ position: { x: 10, y: 300 } });
   const [, middle] = await pathPoints(path, 2);
   await page.mouse.dblclick(middle!.x, middle!.y);
   await page.getByRole('textbox', { name: 'Rótulo da conexão' }).fill('HTTP');
   await page.keyboard.press('Enter');
-  await expect(board.locator('.strukt-link__label')).toHaveText('HTTP');
+  await expect(board.locator('.strukt-edge-label')).toHaveText('HTTP');
   await expect.poll(() => readFile(page, 'board.json')).toContain('"label": "HTTP"');
 
   // The preference is the visitor's, shared by both canvases: already on here.
   const boardFlow = board.getByRole('button', { name: 'Animar fluxo' });
   await expect(boardFlow).toHaveAttribute('aria-pressed', 'true');
-  await expect(pulses('.strukt-board')).toHaveCount(2);
+  await expect(pulses('.strukt-board')).not.toHaveCount(0);
   await boardFlow.click();
   await expect(pulses('.strukt-board')).toHaveCount(0);
   await sidebar(page).getByRole('button', { name: 'Exemplo', exact: true }).click();
@@ -174,7 +180,7 @@ test('a Overview connection takes a label, and "Animar fluxo" sends packets alon
   await page.keyboard.press('ControlOrMeta+k');
   await page.keyboard.type('Animar fluxo');
   await page.keyboard.press('Enter');
-  for (const edge of https) await expect(edge.locator('[data-flow-pulse]')).toHaveCount(2);
+  for (const edge of https) await expect(edge.locator('[data-flow-pulse]')).not.toHaveCount(0);
 });
 
 test('M4 criterion: a workspace with 3 diagrams and 2 docs is navigable from the Overview and survives a reload', async ({ page }) => {

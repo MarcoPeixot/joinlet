@@ -14,7 +14,7 @@ import type { StorageAdapter, WorkspaceData } from '@strukt/workspace';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 import { downloadBlob } from '../export/png';
-import { flushCodeEdits } from '../code/registry';
+import { flushCodeEdits, hasPendingCodeEdits, hasUnappliedCodeEdits } from '../code/registry';
 import { exampleSnapshot } from '../samples/example';
 import { diagramStore } from '../state/appStore';
 import { clearSnapshot, loadSnapshot } from '../state/persist';
@@ -172,6 +172,23 @@ async function openFolder(handle: DirHandleLike, init: () => WorkspaceData, done
   await rememberOpened({ kind: 'folder', handle }, projectId);
 }
 
+/**
+ * Dev only (`?mock`, `?mock=<slug>` opens that diagram, `?mock=reset` starts over): ready diagrams for UI work, saved
+ * like any workspace in this browser, in their own space (never listed with the visitor's projects).
+ */
+async function openMock(slug: string): Promise<void> {
+  const { mockWorkspace } = await import('../samples/mock');
+  folder = null;
+  const storage = createIdbAdapter('joinlet-dev-mock');
+  if (slug === 'reset') for (const path of await storage.list()) await storage.remove(path);
+  await openWith(storage, mockWorkspace);
+  const diagrams = workspace.store.getState().data?.diagrams;
+  if (slug && diagrams && Object.hasOwn(diagrams, slug)) {
+    await workspace.openDiagram(slug);
+    requestFit();
+  }
+}
+
 export async function signInToCloud(): Promise<void> {
   await flushCodeEdits();
   await workspace.flush();
@@ -211,6 +228,7 @@ export async function bootWorkspace(): Promise<void> {
   const optional = hosted && allowsOptionalLogin();
   const query = new URLSearchParams(location.search);
   try {
+    if (import.meta.env.DEV && query.has('mock')) return await openMock(query.get('mock') ?? '');
     if (optional && query.get('account') === 'local') return await openBrowserGuest();
     const remote = preview ? null : await remoteSession();
     if (remote?.kind === 'login') {
@@ -564,20 +582,24 @@ export async function importZip(file: File): Promise<void> {
   }
 }
 
-/** Closing the tab loses something: writes still pending, or a memory workspace (nothing of it is ever saved). */
+/** Confirmed durable saves leave quietly; pending, failed, unapplied or volatile changes still need protection. */
 export function shouldWarnOnUnload(): boolean {
-  return workspace.hasUnsaved() || workspace.store.getState().source?.kind === 'memory';
+  const state = workspace.store.getState();
+  return state.source?.kind === 'memory' || state.save === 'error' || workspace.hasUnsaved() || hasPendingCodeEdits() || hasUnappliedCodeEdits();
 }
 
 export function guardUnsavedChanges(): void {
+  // Page lifecycle events cannot await asynchronous saves. Flush opportunistically, but never claim durability.
+  const flush = () => { void flushCodeEdits().then(() => workspace.flush()).catch(() => {}); };
   window.addEventListener('beforeunload', (event) => {
     if (!shouldWarnOnUnload()) return;
-    void workspace.flush();
+    flush();
     event.preventDefault();
-    event.returnValue = ''; // Safari still needs it for the prompt
+    event.returnValue = ''; // Safari also requires returnValue for its native confirmation.
   });
+  window.addEventListener('pagehide', flush);
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') void workspace.flush();
+    if (document.visibilityState === 'hidden') flush();
   });
 }
 

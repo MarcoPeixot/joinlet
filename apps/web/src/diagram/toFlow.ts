@@ -1,6 +1,6 @@
 import { computeRects, depthsOf, nodeVariant, own } from '@strukt/core';
 import type { ColorMode, DiagramElement, DiagramModel, EdgeEl, ID, LayoutState, Rect, StyleMode, Typeface } from '@strukt/core';
-import { cachedLabel, cachedRoute, sequenceMessages } from '@strukt/layout';
+import { cachedLabel, cachedRoute, routeKey, sequenceMessages } from '@strukt/layout';
 import type { Point } from '@strukt/layout';
 import type { Edge, Node } from '@xyflow/react';
 import { edgeAriaLabel, nodeAriaLabel } from './aria';
@@ -27,6 +27,8 @@ export interface EdgeData extends Record<string, unknown> {
   points: Point[];
   /** Center of the label (labelled edges): placed with the routes, halfway along until then. */
   labelAt?: Point;
+  /** Identifies the endpoint rects (`routeKey`): a new route with the same ends glides in, a moved end snaps. */
+  ends?: string;
   theme: Theme;
   typeface: Typeface;
   diff?: DiffMark;
@@ -38,7 +40,7 @@ export interface EdgeData extends Record<string, unknown> {
   draw?: boolean;
 }
 
-export type ElementNode = Node<ElementData, 'shape' | 'icon' | 'card' | 'table' | 'participant' | 'sgroup'>;
+export type ElementNode = Node<ElementData, 'shape' | 'icon' | 'card' | 'table' | 'participant' | 'sgroup' | 'boardCard'>;
 export type StruktEdge = Edge<EdgeData, 'strukt'>;
 
 export interface FlowProjection {
@@ -78,6 +80,8 @@ export function toFlow(
   frozen?: Readonly<Record<ID, Rect>>,
   focus?: Focus | null,
   evidence?: Readonly<Record<ID, readonly unknown[]>>,
+  /** The canvas's own node type for an element (the Overview's cards), else the diagram's. */
+  typeOf?: (el: DiagramElement) => ElementNode['type'] | undefined,
 ): FlowProjection {
   const rects = computeRects(model, layout, frozen);
   const selectedNodes = new Set(selection.nodes);
@@ -119,7 +123,7 @@ export function toFlow(
     }
     const node: ElementNode = {
       id,
-      type: el.kind === 'group' ? 'sgroup' : nodeVariant(el),
+      type: typeOf?.(el) ?? (el.kind === 'group' ? 'sgroup' : nodeVariant(el)),
       position: { x: r.x - (parent?.x ?? 0), y: r.y - (parent?.y ?? 0) },
       ...(el.parentId ? { parentId: el.parentId } : {}),
       width: r.w,
@@ -155,7 +159,8 @@ export function toFlow(
     const labelAt = sequence[edge.id]?.label ?? (edge.label ? cachedLabel(layout.edges, edge, a, b, points) : undefined);
     const selected = selectedEdges.has(edge.id);
     const ariaLabel = edgeAriaLabel(model.elements[edge.from]?.label ?? edge.from, model.elements[edge.to]?.label ?? edge.to, edge.label);
-    const key = JSON.stringify([ariaLabel, points, labelAt ?? null, sequence[edge.id]?.order ?? null, selected, dir ?? null, dimmed, theme, model.style.typeface]);
+    const ends = routeKey(a, b);
+    const key = JSON.stringify([ariaLabel, points, labelAt ?? null, ends, sequence[edge.id]?.order ?? null, selected, dir ?? null, dimmed, theme, model.style.typeface]);
     const hit = edgeCache.get(edge.id);
     if (hit && hit.ref === edge && hit.key === key) {
       nextEdges.set(edge.id, hit);
@@ -178,6 +183,7 @@ export function toFlow(
         points,
         ...(sequence[edge.id] ? { sequenceOrder: sequence[edge.id]!.order } : {}),
         ...(labelAt ? { labelAt } : {}),
+        ends,
         theme,
         typeface: model.style.typeface,
         ...(dir ? { focus: dir } : {}),

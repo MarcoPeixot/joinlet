@@ -127,7 +127,7 @@
       "presentation": "card",
       "icon": "file-text",
       "tech": "Markdown · pastas · vínculos",
-      "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita.",
+      "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. O Overview traduz board.json em modelo/layout para DiagramCanvas com CanvasScope e store próprios. Cards viram nós e seções viram grupos; filtros preservam itens ocultos. IDs persistentes e curvas das conexões sobrevivem à renumeração de arestas, exclusão e undo/redo por chaves estáveis no histórico e metadados lembrados. Arrastes e redimensionamentos são gravados ao fim do gesto. Cards novos têm corredores de 120 px; Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções, usando o mesmo núcleo via MCP. O roteador compartilhado calcula rotas automáticas; curvas manuais usam connectionPath. Preserva autoria, exclusões e posições até ação explícita.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -246,7 +246,7 @@
 | .arch (`Architecture`) | nó | — | Modelo, layout, docs, evidências, fontes, base gerenciada e contexto. Gravações com versões esperadas. | — |
 | Estado de execução (`Runtime`) | nó | — | SQLite, tarefas, outbox e leases. API, worker e colaboração aguardam locks por até 5 segundos antes das migrações/WAL. Segredos e journals ficam fora do Git. | — |
 | `GitHub` | nó | — | Árvores/blobs imutáveis, branch de trabalho e PR; sem execução de código do projeto. | — |
-| Documentação e Overview (`Knowledge`) | nó | Markdown · pastas · vínculos | Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita. | — |
+| Documentação e Overview (`Knowledge`) | nó | Markdown · pastas · vínculos | Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. O Overview traduz board.json em modelo/layout para DiagramCanvas com CanvasScope e store próprios. Cards viram nós e seções viram grupos; filtros preservam itens ocultos. IDs persistentes e curvas das conexões sobrevivem à renumeração de arestas, exclusão e undo/redo por chaves estáveis no histórico e metadados lembrados. Arrastes e redimensionamentos são gravados ao fim do gesto. Cards novos têm corredores de 120 px; Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções, usando o mesmo núcleo via MCP. O roteador compartilhado calcula rotas automáticas; curvas manuais usam connectionPath. Preserva autoria, exclusões e posições até ação explícita. | — |
 | Parsers sintáticos (`Syntax`) | nó | Tree-sitter · WASM | Gramáticas locais verificadas para 18 linguagens e formatos. Scripts/frontmatter preservam linhas. Não executa fontes; tipos/desenvolvimento e limitações ficam separados do mapa principal. Assets acompanham conectores e imagem. | — |
 
 ## Evidências no código
@@ -317,12 +317,16 @@
 - `Knowledge`: `packages/workspace/src/repository/knowledge.ts#L21` — trecho esperado: `export function projectRepositoryDocuments`
 - `Knowledge`: `packages/workspace/src/repository/knowledge.ts#L55` — trecho esperado: `export function connectRepositoryKnowledge`
 - `Knowledge`: `packages/workspace/src/repository/knowledge.test.ts#L7` — trecho esperado: `it('imports every recognized Markdown`
-- `Knowledge`: `apps/web/src/board/boardFlow.ts#L13` — trecho esperado: `export function boardInFolder`
+- `Knowledge`: `apps/web/src/board/boardFlow.ts#L5` — trecho esperado: `export function boardInFolder`
 - `Knowledge`: `packages/workspace/src/board.ts#L208` — trecho esperado: `export function spaceBoard`
-- `Knowledge`: `apps/web/src/board/boardRoutes.ts#L34` — trecho esperado: `export function separateEndpoints`
-- `Knowledge`: `apps/web/src/board/BoardView.tsx#L147` — trecho esperado: `const spaceOverview`
+- `Knowledge`: `apps/web/src/board/BoardView.tsx#L195` — trecho esperado: `const spaceOverview`
 - `Knowledge`: `apps/mcp/src/repositoryKnowledge.ts#L28` — trecho esperado: `server.registerTool('space_overview'`
 - `Knowledge`: `apps/web/e2e/overview-spacing.spec.ts#L3` — trecho esperado: `test('spaces existing Overview cards`
+- `Knowledge`: `apps/web/src/board/scene.ts#L41` — trecho esperado: `export function boardToScene`
+- `Knowledge`: `apps/web/src/state/diagramStore.ts#L56` — trecho esperado: `function followEdgeKeys`
+- `Knowledge`: `apps/web/src/board/BoardView.tsx#L93` — trecho esperado: `const before = prev.pending ?? prev`
+- `Knowledge`: `apps/web/src/board/connectionPath.ts#L60` — trecho esperado: `export function connectionRoute`
+- `Knowledge`: `apps/web/e2e/overview-persistence.spec.ts#L27` — trecho esperado: `test('an Overview drag`
 - `Local`: `apps/server/src/repositories.ts#L24` — trecho esperado: `export function createRepositoryService`
 - `Local`: `packages/workspace/src/repository/agentInstructions.ts#L17` — trecho esperado: `export async function syncAgentInstructions`
 - `Local`: `packages/workspace/src/repository/agentInstructions.test.ts#L21` — trecho esperado: `it('preserves malformed markers`

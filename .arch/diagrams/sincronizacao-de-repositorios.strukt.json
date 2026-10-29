@@ -120,7 +120,7 @@
       "presentation": "card",
       "icon": "file-text",
       "tech": "Markdown · pastas · vínculos",
-      "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. Cards novos têm corredores de 120 px. Ação Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções; MCP usa o mesmo núcleo. Rotas afastam pontas e rótulos das bordas. Preserva autoria, exclusões e posições até uma ação explícita.",
+      "description": "Projeções de Markdown com origem, hashes e conflitos; pastas por caminho, vínculos explícitos e visão principal. O Overview traduz board.json em modelo/layout para DiagramCanvas com CanvasScope e store próprios. Cards viram nós e seções viram grupos; filtros preservam itens ocultos. IDs persistentes e curvas das conexões sobrevivem à renumeração de arestas, exclusão e undo/redo por chaves estáveis no histórico e metadados lembrados. Arrastes e redimensionamentos são gravados ao fim do gesto. Cards novos têm corredores de 120 px; Espaçar amplia intervalos sem reordenar cards, mantém conteúdo/conexões e expande seções, usando o mesmo núcleo via MCP. O roteador compartilhado calcula rotas automáticas; curvas manuais usam connectionPath. Preserva autoria, exclusões e posições até ação explícita.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {

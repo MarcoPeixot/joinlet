@@ -3,8 +3,9 @@ import { routeKey } from '@strukt/layout';
 import type { DiagramModel, LayoutState } from '@strukt/core';
 import { loadDiagramIcons, renderDiagramSvg } from '../export/svg';
 import type { IconDef } from '../diagram/icons/registry';
-import { diagramStore } from '../state/appStore';
+import { useCanvasScope } from './scope';
 import { Panel, useReactFlow, useStore, useStoreApi } from '@xyflow/react';
+import { AnimatePresence, m } from 'motion/react';
 import type { ReactFlowState } from '@xyflow/react';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, PointerEvent } from 'react';
@@ -13,6 +14,7 @@ import type { ElementData, EdgeData } from '../diagram/toFlow';
 import { boundsFitViewport } from './fitView';
 import type { Box } from './fitView';
 import { MINIMAP_SIZE, miniMapTransform } from './minimap';
+import { EASE_OUT, SPRING } from '../ui/motion';
 
 interface MapNode extends Box { id: string; group: boolean; selected: boolean; data: ElementData }
 const mapNodes = (state: ReactFlowState): MapNode[] => [...state.nodeLookup.values()].flatMap((node) => {
@@ -22,25 +24,36 @@ const mapNodes = (state: ReactFlowState): MapNode[] => [...state.nodeLookup.valu
 });
 const equalNodes = (a: MapNode[], b: MapNode[]) => a.length === b.length && a.every((node, index) => shallow(node, b[index]));
 
-/** The same SVG renderer as export: actual shapes, icons, labels, colors and live canvas geometry. */
-export function DiagramMiniMap() {
+/** Grows out of (and folds back into) the bottom-left corner it is docked to. */
+const CORNER = {
+  initial: { opacity: 0, scale: 0.6, filter: 'blur(2px)' },
+  animate: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: SPRING },
+  exit: { opacity: 0, scale: 0.6, filter: 'blur(2px)', transition: { duration: 0.16, ease: EASE_OUT } },
+};
+
+/**
+ * The same SVG renderer as export: actual shapes, icons, labels, colors and live canvas geometry. `open` is the
+ * visitor's preference; the card also folds away by itself while the whole diagram fits on screen.
+ */
+export function DiagramMiniMap({ open }: { open: boolean }) {
   const nodes = useStore(mapNodes, equalNodes);
   const edges = useStore((state) => state.edges);
   const transform = useStore((state) => state.transform);
   const pane = useStore((state) => ({ width: state.width, height: state.height }), shallow);
   const flow = useReactFlow();
   const store = useStoreApi();
+  const diagram = useCanvasScope().store;
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef<{ x: number; y: number } | null>(null);
   const clipId = useId();
   const helpId = useId();
   const map = useMemo(() => miniMapTransform(nodes), [nodes]);
   const model = useMemo<DiagramModel>(() => ({
-    ...diagramStore.getState().model,
+    ...diagram.getState().model,
     order: nodes.map((node) => node.id),
     elements: Object.fromEntries(nodes.map((node) => [node.id, { ...node.data.el, colorMode: node.data.colorMode, styleMode: node.data.styleMode, typeface: node.data.typeface }])),
     edges: edges.filter((edge) => !edge.hidden && edge.data).map((edge) => (edge.data as EdgeData).edge),
-  }), [nodes, edges]);
+  }), [nodes, edges, diagram]);
   const [icons, setIcons] = useState<Record<string, IconDef | null>>({});
   useEffect(() => {
     let live = true;
@@ -60,6 +73,7 @@ export function DiagramMiniMap() {
     return { src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`, x: bounds[0]!, y: bounds[1]!, w: bounds[2]!, h: bounds[3]! };
   }, [nodes, edges, model, icons]);
   const visible = !!map && !boundsFitViewport(map.bounds, transform, pane.width, pane.height);
+  const shown = open && visible;
 
   useEffect(() => {
     const element = svg.current;
@@ -73,9 +87,9 @@ export function DiagramMiniMap() {
     };
     element.addEventListener('wheel', wheel, { passive: false });
     return () => element.removeEventListener('wheel', wheel);
-  }, [flow, store, visible, pane.height]);
+  }, [flow, store, shown, pane.height]);
 
-  if (!visible || !map) return null;
+  const card = shown && map ? (() => {
   const point = (x: number, y: number) => ({ x: x * map.scale + map.x, y: y * map.scale + map.y });
   const view = { x: -transform[0] / transform[2], y: -transform[1] / transform[2], w: pane.width / transform[2], h: pane.height / transform[2] };
   const viewport = { ...point(view.x, view.y), width: view.w * map.scale, height: view.h * map.scale };
@@ -95,7 +109,7 @@ export function DiagramMiniMap() {
     void flow.setCenter(view.x + view.w / 2 + offset[0]!, view.y + view.h / 2 + offset[1]!, { zoom: transform[2], duration: 0 });
   };
   return (
-    <Panel position="bottom-left" className="sk-minimap react-flow__minimap">
+    <m.div key="minimap" className="sk-minimap react-flow__minimap" style={{ transformOrigin: '0% 100%' }} {...CORNER}>
       <div className="sk-minimap-heading"><span>{uiText("Minimapa")}</span><span className="sk-minimap-legend" title={uiText("Área visível no canvas")} aria-hidden /></div>
       <svg ref={svg} width={MINIMAP_SIZE.width} height={MINIMAP_SIZE.height} viewBox={`0 0 ${MINIMAP_SIZE.width} ${MINIMAP_SIZE.height}`} role="img" aria-label={uiText("Minimapa")} aria-describedby={helpId} tabIndex={0} onKeyDown={onKey}
         onPointerDown={(event) => {
@@ -118,6 +132,8 @@ export function DiagramMiniMap() {
           <rect {...viewport} className="sk-minimap-viewport" />
         </g>
       </svg>
-    </Panel>
+    </m.div>
   );
+  })() : null;
+  return <Panel position="bottom-left" className="sk-minimap-slot"><AnimatePresence>{card}</AnimatePresence></Panel>;
 }

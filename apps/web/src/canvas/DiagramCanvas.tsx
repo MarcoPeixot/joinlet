@@ -1,13 +1,16 @@
 import { uiText } from '../i18n';
 import { selectPresentationComponent } from '../present/presentStore';
-import { center, connectorStyle, descendantsOf, innermostGroupAt, isAncestor, own, translateSubtree } from '@strukt/core';
+import { center, computeRects, connectorStyle, descendantsOf, innermostGroupAt, isAncestor, own, translateSubtree } from '@strukt/core';
 import type { DiagramModel, DiagramOp, ID, NodeBox, Rect, SnapGuide } from '@strukt/core';
 import { Background, BackgroundVariant, ConnectionMode, Panel, ReactFlow, useReactFlow } from '@xyflow/react';
-import type { Connection, EdgeChange, NodeChange, OnNodeDrag } from '@xyflow/react';
+import type { Connection, EdgeChange, NodeChange, NodeTypes, OnConnectEnd, OnNodeDrag } from '@xyflow/react';
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { draftProjection } from '../ai/overlay';
 import { useAi } from '../ai/session';
+import { ConnectionPreview } from '../diagram/edges/ConnectionPreview';
+import { dropPreview, emptiedGroups } from './dropPreview';
+import { createGroupGlide } from './groupGlide';
 import { StruktEdgeView } from '../diagram/edges/StruktEdge';
 import { GroupNode } from '../diagram/nodes/GroupNode';
 import { IconNode } from '../diagram/nodes/IconNode';
@@ -20,7 +23,8 @@ import type { EnterMarks } from '../diagram/enter';
 import { DIM_OPACITY, neighborhood, reachFocus, withPreview } from '../diagram/focus';
 import { toFlow } from '../diagram/toFlow';
 import type { ElementNode, FlowProjection, StruktEdge } from '../diagram/toFlow';
-import { diagramStore, useDiagram } from '../state/appStore';
+import type { DiagramElement } from '@strukt/core';
+import { useCanvasScope, useCanvasStore } from './scope';
 import { CANVAS } from '../ui/theme';
 import { useIsMobile } from '../ui/useBreakpoint';
 import { ZoomControls } from '../ui/ZoomControls';
@@ -76,6 +80,10 @@ function useEnterMarks(model: DiagramModel, slug: string | null): EnterMarks | n
 
 const snapshot = (model: DiagramModel) => ({ nodes: model.order, edges: model.edges.map((edge) => edge.id) });
 
+/** Edges the user just drew by dragging: already on screen as the connection preview, so they do not draw in again. */
+const drawnByHand = new Set<ID>();
+
+
 function withEnter(projection: FlowProjection, marks: EnterMarks): FlowProjection {
   return {
     ...projection,
@@ -85,7 +93,7 @@ function withEnter(projection: FlowProjection, marks: EnterMarks): FlowProjectio
       return { ...node, className: joinClass(node.className, 'sk-enter'), style: { ...node.style, '--sk-enter-delay': `${delay}ms` } as CSSProperties };
     }),
     edges: projection.edges.map((edge) => {
-      if (!marks.edges.has(edge.id) || !edge.data || connectorStyle(edge.data.edge.connector).dashed) return edge;
+      if (!marks.edges.has(edge.id) || drawnByHand.has(edge.id) || !edge.data || connectorStyle(edge.data.edge.connector).dashed) return edge;
       return { ...edge, className: joinClass(edge.className, 'sk-edge-draw'), data: { ...edge.data, draw: true } };
     }),
   };
@@ -96,28 +104,52 @@ function toggle(list: ID[], id: ID, on: boolean): ID[] {
   return list.filter((other) => other !== id);
 }
 
-export function DiagramCanvas() {
-  const model = useDiagram((s) => s.model);
-  const layout = useDiagram((s) => s.layout);
-  const selection = useDiagram((s) => s.selection);
+export interface CanvasOptions {
+  /** Node types of the canvas's own (the Overview's cards), next to the diagram's. */
+  nodeTypes?: NodeTypes;
+  typeOf?: (el: DiagramElement) => ElementNode['type'] | undefined;
+  onNodeDoubleClick?: (id: ID) => void;
+  /** Chrome drawn inside the canvas (the Overview's toolbar and status). */
+  children?: ReactNode;
+  className?: string;
+}
+
+const NO_FLOWS: string[] = [];
+
+/**
+ * The one canvas: the open diagram, or the Overview (board/OverviewCanvas.tsx) on its own store through
+ * CanvasScope. The interactions are the same for both; what only a diagram has (an AI draft, a version or branch
+ * compare, perspectives, flows, tags, evidence, the hover card) stays off on the Overview.
+ */
+export function DiagramCanvas({ nodeTypes: extraTypes, typeOf, onNodeDoubleClick, children, className }: CanvasOptions = {}) {
+  const scope = useCanvasScope();
+  const store = scope.store;
+  const isDiagram = scope.kind === 'diagram';
+  const types = useMemo(() => (extraTypes ? { ...nodeTypes, ...extraTypes } : nodeTypes), [extraTypes]);
+  const model = useCanvasStore((s) => s.model);
+  const layout = useCanvasStore((s) => s.layout);
+  const selection = useCanvasStore((s) => s.selection);
   const theme = useUi((s) => s.theme);
   const frozen = useUi((s) => s.frozen);
   const fitRequest = useUi((s) => s.fitRequest);
-  const aiDraft = useAi((s) => s.draft);
-  const comparing = useVersions((s) => s.view?.preview ?? null);
+  const aiDraft = useAi((s) => (isDiagram ? s.draft : null));
+  const comparing = useVersions((s) => (isDiagram ? s.view?.preview ?? null : null));
   const compareOldLayout = useVersions((s) => s.view?.oldLayout ?? null);
-  const branchPreview = useBranchCompare((s) => s.preview);
+  const branchPreview = useBranchCompare((s) => (isDiagram ? s.preview : null));
   const branchOldLayout = useBranchCompare((s) => s.oldLayout);
   const minimap = useUi((s) => s.minimap);
-  const presenting = useUi((s) => s.presenting);
-  const activeFlowEdges = useUi((s) => s.activeFlowEdges);
-  const activeFlowNodes = useUi((s) => s.activeFlowNodes);
-  const activeTag = useUi((s) => s.activeTag);
+  // The minimap's chunk loads the first time it is turned on, then stays mounted so it can fold away when turned off.
+  const [minimapLoaded, setMinimapLoaded] = useState(minimap);
+  if (minimap && !minimapLoaded) setMinimapLoaded(true);
+  const presenting = useUi((s) => isDiagram && s.presenting);
+  const activeFlowEdges = useUi((s) => (isDiagram ? s.activeFlowEdges : NO_FLOWS));
+  const activeFlowNodes = useUi((s) => (isDiagram ? s.activeFlowNodes : NO_FLOWS));
+  const activeTag = useUi((s) => (isDiagram ? s.activeTag : null));
   const shared = useWorkspace((s) => s.data?.shared);
-  const diagramSlug = useWorkspace((s) => s.diagram);
-  const evidence = useWorkspace((s) => evidenceFor(s.data, s.diagram));
+  const diagramSlug = useWorkspace((s) => (isDiagram ? s.diagram : 'overview'));
+  const evidence = useWorkspace((s) => (isDiagram ? evidenceFor(s.data, s.diagram) : undefined));
   // A perspective is a way of reading the diagram, not an edit: the model below stays whole and only what is drawn changes.
-  const read = useUi((s) => s.perspectiveRead);
+  const read = useUi((s) => (isDiagram ? s.perspectiveRead : null));
   // Hiding changes the geometry the pointer works on: the canvas does not move or connect things while it is on.
   const reading = read?.reading;
   // An AI draft and a version compare are the same read-only diff preview (only one can be open at a time).
@@ -182,7 +214,7 @@ export function DiagramCanvas() {
   }, [focused, model, reachChain, preview]);
   // While an AI draft is pending the canvas shows the proposal (read-only), not the diagram.
   const projection = useMemo(() => {
-    const result = draft ? draftProjection(draft, draft === branchPreview ? branchOldLayout ?? layout : draft === comparing ? compareOldLayout ?? layout : layout, theme) : toFlow(read?.model ?? model, read?.layout ?? layout, selection, theme, frozen ?? undefined, focus, evidence);
+    const result = draft ? draftProjection(draft, draft === branchPreview ? branchOldLayout ?? layout : draft === comparing ? compareOldLayout ?? layout : layout, theme) : toFlow(read?.model ?? model, read?.layout ?? layout, selection, theme, frozen ?? undefined, focus, evidence, typeOf);
     if (draft) return result;
     if (!activeFlowEdges.length && !activeFlowNodes.length && activeTag && diagramSlug) {
       const matching = new Set(model.order.filter((id) => {
@@ -214,21 +246,42 @@ export function DiagramCanvas() {
           : { ...edge, className: 'sk-dim', data: { ...edge.data, focus: undefined, dimmed: true } };
       }),
     };
-  }, [draft, branchPreview, branchOldLayout, comparing, compareOldLayout, model, layout, read, selection, theme, frozen, focus, activeFlowEdges, activeFlowNodes, activeTag, shared, diagramSlug, evidence]);
+  }, [draft, branchPreview, branchOldLayout, comparing, compareOldLayout, model, layout, read, selection, theme, frozen, focus, activeFlowEdges, activeFlowNodes, activeTag, shared, diagramSlug, evidence, typeOf]);
   const entering = useEnterMarks(model, diagramSlug ?? null);
   const dimmedProjection = useMemo(() => (draft || !read ? projection : read.dim(projection)), [projection, read, draft]);
   const shown = useMemo(() => (entering && !draft ? withEnter(dimmedProjection, entering) : dimmedProjection), [dimmedProjection, entering, draft]);
   const rectsRef = useRef(projection.rects);
   rectsRef.current = projection.rects;
   const draggedRef = useRef<ID | null>(null);
+  /** Group rects pinned when the drag started; the drop preview grows its target on top of them. */
+  const pinnedRef = useRef<Record<ID, Rect>>({});
+  /** Groups the drop preview has resized during this drag: they glide back when the element moves away again. */
+  const touchedRef = useRef(new Set<ID>());
+  /** Groups glide to the size a drop gives them, edge by edge (groupGlide.ts), drawn through `frozen`. */
+  const paintBase = useRef<Record<ID, Rect>>({});
+  /**
+   * The element being dragged, drawn on its own (no React Flow parent) until the drop: its group glides to new sizes
+   * meanwhile, and as its child it would be carried along with the group's moving corner instead of the pointer.
+   */
+  const [detached, setDetached] = useState<ID | null>(null);
+  const glide = useMemo(() => createGroupGlide((shown) => uiStore.setState({ frozen: { ...paintBase.current, ...shown } })), []);
+  useEffect(() => () => glide.stop(), [glide]);
+  const nodes = useMemo(() => {
+    const rect = detached ? own(shown.rects, detached) : undefined;
+    if (!rect) return shown.nodes;
+    return shown.nodes.map((node) => (node.id === detached && node.parentId ? { ...node, parentId: undefined, position: { x: rect.x, y: rect.y } } : node));
+  }, [shown, detached]);
+  /** Where a drop puts the element being dragged, as of the last pointer move (null: the top level). */
+  const targetRef = useRef<ID | null>(null);
 
   const onNodesChange = useCallback((changes: NodeChange<ElementNode>[]) => {
-    const state = diagramStore.getState();
+    const state = store.getState();
     const rects = rectsRef.current;
     const moving = new Set(changes.flatMap((c) => (c.type === 'position' && c.position ? [c.id] : [])));
     const positions: Record<ID, NodeBox> = {};
     let selected: ID[] | null = null;
     let guides: SnapGuide[] | null = null;
+    let resized = false;
     for (const change of changes) {
       if (change.type === 'position' && change.position) {
         const el = state.model.elements[change.id];
@@ -236,7 +289,9 @@ export function DiagramCanvas() {
         if (!el || !current) continue;
         // A dragged ancestor already carries this element along.
         if ([...moving].some((other) => other !== change.id && isAncestor(state.model, other, change.id))) continue;
-        const parent = el.parentId ? rects[el.parentId] : undefined;
+        // Relative to the parent React Flow has for it (none for the element being dragged, see `detached`).
+        const flowParent = flow.getInternalNode(change.id)?.parentId;
+        const parent = flowParent ? rects[flowParent] : undefined;
         let x = change.position.x + (parent?.x ?? 0);
         let y = change.position.y + (parent?.y ?? 0);
         if (moving.size === 1 && (change.dragging || change.id === draggedRef.current)) {
@@ -247,31 +302,67 @@ export function DiagramCanvas() {
         }
         if (el.kind === 'group') Object.assign(positions, translateSubtree(state.model, rects, change.id, x - current.x, y - current.y));
         else positions[change.id] = { x, y };
+      } else if (change.type === 'dimensions' && change.dimensions && change.resizing !== undefined) {
+        // A resizer (an empty Overview section): one undo step per resize.
+        if (change.resizing && !state.pending) state.beginGesture();
+        positions[change.id] = { ...own(positions, change.id), x: own(positions, change.id)?.x ?? rects[change.id]?.x ?? 0, y: own(positions, change.id)?.y ?? rects[change.id]?.y ?? 0, w: change.dimensions.width, h: change.dimensions.height };
+        if (!change.resizing) resized = true;
       } else if (change.type === 'select') {
         selected = toggle(selected ?? [...state.selection.nodes], change.id, change.selected);
       }
     }
     if (guides) uiStore.setState({ guides });
     if (Object.keys(positions).length) state.moveLive(positions);
+    if (resized) store.getState().endGesture();
+    const dragged = draggedRef.current;
+    if (dragged && moving.has(dragged)) {
+      const now = store.getState();
+      const preview = dropPreview(now.model, now.layout, pinnedRef.current, dragged, targetRef.current);
+      if (preview) {
+        targetRef.current = preview.target;
+        for (const id of Object.keys(preview.frames)) touchedRef.current.add(id);
+      }
+      if (touchedRef.current.size) {
+        // Each group the drop changes glides to its new size; one it no longer changes glides back to where it was.
+        const resting = computeRects(now.model, now.layout, pinnedRef.current);
+        const targets: Record<ID, Rect> = {};
+        for (const id of touchedRef.current) {
+          const rect = own(preview?.frames ?? {}, id) ?? own(resting, id);
+          if (rect) targets[id] = rect;
+        }
+        glide.to(targets, resting);
+      }
+    }
     if (selected) state.select({ nodes: selected });
-  }, []);
+  }, [glide, flow, store]);
 
   const onEdgesChange = useCallback((changes: EdgeChange<StruktEdge>[]) => {
-    const state = diagramStore.getState();
+    const state = store.getState();
     let selected: ID[] | null = null;
     for (const change of changes) {
       if (change.type === 'select') selected = toggle(selected ?? [...state.selection.edges], change.id, change.selected);
     }
     if (selected) state.select({ edges: selected });
-  }, []);
+  }, [store]);
 
   const onConnect = useCallback((connection: Connection) => {
     if (connection.source === connection.target) return;
-    diagramStore.getState().apply([{ op: 'connect', from: connection.source, to: connection.target }]);
-  }, []);
+    const before = new Set(store.getState().model.edges.map((edge) => edge.id));
+    drawnByHand.clear();
+    if (!store.getState().apply([{ op: 'connect', from: connection.source, to: connection.target }])) return;
+    for (const edge of store.getState().model.edges) if (!before.has(edge.id)) drawnByHand.add(edge.id);
+  }, [store]);
+
+  /** Dropped over an element but away from its ports: it connects all the same (the preview already showed it). */
+  const onConnectEnd = useCallback<OnConnectEnd>((event, state) => {
+    if (state.isValid || !state.fromNode) return;
+    const point = 'changedTouches' in event ? event.changedTouches[0]! : event;
+    const target = document.elementFromPoint(point.clientX, point.clientY)?.closest('.react-flow__node')?.getAttribute('data-id');
+    if (target && target !== state.fromNode.id) onConnect({ source: state.fromNode.id, target, sourceHandle: null, targetHandle: null });
+  }, [onConnect]);
 
   const onNodeDragStart = useCallback<OnNodeDrag<ElementNode>>((_event, _node, dragged) => {
-    const state = diagramStore.getState();
+    const state = store.getState();
     const pinned: Record<ID, Rect> = {};
     for (const node of dragged) {
       let parent = state.model.elements[node.id]?.parentId;
@@ -282,54 +373,89 @@ export function DiagramCanvas() {
       }
     }
     draggedRef.current = dragged.length === 1 ? dragged[0]!.id : null;
+    setDetached(draggedRef.current);
+    glide.stop();
+    touchedRef.current = new Set();
+    paintBase.current = pinned;
+    pinnedRef.current = pinned;
+    targetRef.current = dragged.length === 1 ? state.model.elements[dragged[0]!.id]?.parentId ?? null : null;
     uiStore.setState({ frozen: pinned });
     state.beginGesture();
-  }, []);
+  }, [glide, store]);
 
   const onNodeDragStop = useCallback<OnNodeDrag<ElementNode>>((_event, _node, dragged) => {
-    const state = diagramStore.getState();
-    const rects = rectsRef.current;
+    const state = store.getState();
+    // The same rects the drop preview decided from (pinned groups, no preview), so the drop does what it showed.
+    const rects = computeRects(state.model, state.layout, pinnedRef.current);
     const ops: DiagramOp[] = [];
+    const moves = new Map<ID, ID | null>();
     for (const node of dragged) {
       const el = state.model.elements[node.id];
       const rect = rects[node.id];
       if (!el || !rect || (el.parentId && dragged.some((other) => other.id === el.parentId))) continue;
       const exclude = new Set([node.id, ...descendantsOf(state.model, node.id)]);
-      const target = innermostGroupAt(state.model, rects, center(rect), exclude) ?? null;
-      if (target !== (el.parentId ?? null)) ops.push({ op: 'move_to_group', id: node.id, parentId: target });
+      // One element: exactly what the preview showed (with its hysteresis); several: the group under each.
+      const target = dragged.length === 1 && draggedRef.current === node.id ? targetRef.current : innermostGroupAt(state.model, rects, center(rect), exclude) ?? null;
+      if (target !== (el.parentId ?? null)) {
+        ops.push({ op: 'move_to_group', id: node.id, parentId: target });
+        moves.set(node.id, target);
+      }
+    }
+    // A group left empty stays where it was, at its size (without a box of its own it would fall back to the origin).
+    const kept: Record<ID, NodeBox> = {};
+    for (const id of emptiedGroups(state.model, moves)) {
+      const rect = own(rects, id);
+      if (rect) kept[id] = { x: rect.x, y: rect.y, w: rect.w, h: rect.h };
     }
     draggedRef.current = null;
-    uiStore.setState({ frozen: null, guides: [] });
+    setDetached(null);
+    uiStore.setState({ guides: [] });
     // Drag and regrouping are one batch: one undo step.
-    state.endGesture(ops);
-  }, []);
+    state.endGesture(ops, kept);
+    // The groups the drag resized (and the ones pinned through it) glide on to where the drop leaves them, then let go.
+    const after = store.getState();
+    const final = computeRects(after.model, after.layout);
+    const targets: Record<ID, Rect> = {};
+    for (const id of new Set([...touchedRef.current, ...Object.keys(pinnedRef.current)])) {
+      const rect = own(final, id);
+      if (rect) targets[id] = rect;
+    }
+    paintBase.current = {};
+    if (!Object.keys(targets).length) uiStore.setState({ frozen: null });
+    else glide.settle(targets, pinnedRef.current, () => uiStore.setState({ frozen: null }));
+  }, [glide, store]);
 
   const onPaneClick = useCallback(() => {
-    diagramStore.getState().select({ nodes: [], edges: [] });
+    store.getState().select({ nodes: [], edges: [] });
     uiStore.setState({ editingId: null });
-  }, []);
+  }, [store]);
 
   const canvas = CANVAS[theme];
   return (
-    <div style={{ '--sk-dim': DIM_OPACITY } as CSSProperties} className={`absolute inset-0${draft ? ' sk-draft' : ''}${focus || (!draft && (activeFlowNodes.length > 0 || activeFlowEdges.length > 0 || !!(activeTag || read?.dims))) ? ' sk-focusing' : ''}`}>
+    <div style={{ '--sk-dim': DIM_OPACITY } as CSSProperties} className={`absolute inset-0${className ? ` ${className}` : ''}${draft ? ' sk-draft' : ''}${focus || (!draft && (activeFlowNodes.length > 0 || activeFlowEdges.length > 0 || !!(activeTag || read?.dims))) ? ' sk-focusing' : ''}`}>
       <WatercolorDefs />
       <ReactFlow<ElementNode, StruktEdge>
         proOptions={{ hideAttribution: true }}
-        nodes={shown.nodes}
+        nodes={nodes}
         edges={shown.edges}
-        nodeTypes={nodeTypes}
+        nodeTypes={types}
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onConnectEnd={onConnectEnd}
         onNodeDragStart={onNodeDragStart}
         onNodeDragStop={onNodeDragStop}
         onPaneClick={onPaneClick}
         onNodeClick={(_event, node) => { if (presenting) selectPresentationComponent(node.id); }}
+        onNodeDoubleClick={onNodeDoubleClick ? (_event, node) => onNodeDoubleClick(node.id) : undefined}
         nodesDraggable={!draft && !presenting && !reading}
         nodesConnectable={!draft && !presenting && !reading}
         elementsSelectable={!draft && !presenting}
+        // Dragging only moves: selecting (and with it the Propriedades panel) is a click, so a drag keeps the room.
+        selectNodesOnDrag={false}
         connectionMode={ConnectionMode.Loose}
+        connectionLineComponent={ConnectionPreview}
         connectionRadius={28}
         deleteKeyCode={null}
         // Keys are ours (useShortcuts): React Flow's arrow nudge would bypass history.
@@ -351,8 +477,8 @@ export function DiagramCanvas() {
         <Background id="minor" variant={BackgroundVariant.Dots} gap={22} size={1.6} color={canvas.dot} bgColor={canvas.bg} />
         {/* Minimap and zoom share the bottom-left corner; the right edge belongs to Propriedades/Versões. The minimap
             has no toggle here (it hides by itself while the diagram fits): Configurações › Geral and ⌘K switch it. */}
-        {minimap && !presenting && projection.nodes.length <= MINIMAP_MAX_NODES && (
-          <ChunkBoundary><Suspense fallback={null}><DiagramMiniMap /></Suspense></ChunkBoundary>
+        {minimapLoaded && (
+          <ChunkBoundary><Suspense fallback={null}><DiagramMiniMap open={minimap && !presenting && projection.nodes.length <= MINIMAP_MAX_NODES} /></Suspense></ChunkBoundary>
         )}
         {!presenting && (
           <Panel position="bottom-left" className="sk-corner">
@@ -360,8 +486,9 @@ export function DiagramCanvas() {
           </Panel>
         )}
         <HelperLines />
+        {children}
       </ReactFlow>
-      <ChunkBoundary><Suspense fallback={null}><NodeHoverCard /></Suspense></ChunkBoundary>
+      {isDiagram && <ChunkBoundary><Suspense fallback={null}><NodeHoverCard /></Suspense></ChunkBoundary>}
     </div>
   );
 }

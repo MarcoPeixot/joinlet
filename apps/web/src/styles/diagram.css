@@ -166,7 +166,8 @@
 .react-flow__node,
 .react-flow__edge,
 .strukt-edge-label {
-  transition: opacity var(--sk-motion) var(--sk-ease);
+  /* Long and easing out: hovering down the Inspector's connections crossfades from one to the next. */
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sk-focusing .react-flow__node.sk-dim {
@@ -245,8 +246,23 @@
   pointer-events: none;
 }
 
+/*
+ * The canvas keeps one pointer, like Figma: the arrow over the empty canvas and over nodes (React Flow would
+ * alternate a pointing hand on the pane with an open hand on nodes), a closed hand while something is dragged, a
+ * crosshair on the ports. A title reads as part of its node: no text cursor until it is being edited.
+ */
+.react-flow__pane,
+.react-flow__pane.selection,
+.react-flow__pane.draggable,
+.react-flow__node,
+.react-flow__node.draggable,
 .strukt-label {
-  cursor: text;
+  cursor: default;
+}
+
+.react-flow__pane.dragging,
+.react-flow__node.draggable.dragging {
+  cursor: grabbing;
 }
 
 .strukt-label-input {
@@ -316,6 +332,25 @@
   pointer-events: none;
 }
 
+/* Each dash of a comet: offset and fade in one CSS animation (no per-frame style recalc, unlike SMIL); duration, offsets and strength come per dash. */
+.strukt-flow path {
+  fill: none;
+  stroke-linecap: butt;
+  animation: sk-flow-pulse 1s linear infinite;
+  /* Timed in diagram units (flowPulse.ts): one speed along the drawing, whatever the zoom. */
+  animation-duration: var(--sk-pulse-dur, 1s);
+  animation-delay: var(--sk-pulse-delay, 0s);
+}
+
+@keyframes sk-flow-pulse {
+  from {
+    stroke-dashoffset: var(--sk-pulse-from);
+  }
+  to {
+    stroke-dashoffset: var(--sk-pulse-to);
+  }
+}
+
 .sk-draft .strukt-flow {
   display: none;
 }
@@ -358,8 +393,13 @@
   margin: 12px;
 }
 
-.react-flow__minimap.sk-minimap {
+/* The corner stays docked; the card inside folds into it and grows out of it (canvas/DiagramMiniMap.tsx). */
+.react-flow__panel.sk-minimap-slot {
   margin: 0 0 64px 12px;
+}
+
+.react-flow__minimap.sk-minimap {
+  margin: 0;
 }
 
 .react-flow__minimap,

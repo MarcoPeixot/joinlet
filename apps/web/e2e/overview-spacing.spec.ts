@@ -23,8 +23,11 @@ test('spaces existing Overview cards and routes without losing content or relati
   const after = await snapshot();
   expect(after.cards.map(({x,y,...card})=>card)).toEqual(before.cards.map(({x,y,...card})=>card));
   expect(after.connections).toEqual(before.connections);
-  expect(after.sections[0]).toMatchObject({w:720,h:560});
-  await expect.poll(() => page.evaluate(async () => (await import('/src/board/boardRoutes.ts')).boardRoutesStore.getState().routes['spacing-ab']?.points[0]?.[0])).toBe(332);
+  // The section hugs its spaced cards like a diagram group: their bounds (40..720 × 40..560) plus the group's padding.
+  expect(after.sections[0]).toMatchObject({x:12,y:-4,w:736,h:592});
+  // Both connections are still drawn on the canvas, labels included.
+  await expect(page.locator('.strukt-board .react-flow__edge')).toHaveCount(2);
+  await expect(page.locator('.strukt-board .strukt-edge-label')).toHaveText(['Reads','Documents']);
   await expect.poll(() => page.evaluate(async () => (await import('/src/workspace/appWorkspace.ts')).workspace.store.getState().save)).toBe('saved');
   await page.screenshot({path:info.outputPath('overview-spacing.png'),animations:'disabled'});
   await page.reload();

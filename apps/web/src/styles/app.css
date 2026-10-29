@@ -206,11 +206,34 @@ body {
   font-feature-settings: 'ss01', 'cv11';
 }
 
-button {
+/*
+ * Text is read, not typed: the app shows the arrow (a node title, a label, a button's text never turn the pointer
+ * into a text cursor). Only what can be typed in shows it; buttons and links point; nodes keep React Flow's grab.
+ */
+body {
+  cursor: default;
+}
+
+input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit']),
+textarea,
+[contenteditable]:not([contenteditable='false']) {
+  cursor: text;
+}
+
+button,
+a[href],
+select,
+[role='button'],
+[role='menuitem'],
+[role='menuitemcheckbox'],
+[role='option'],
+[role='tab'] {
   cursor: pointer;
 }
 
-button:disabled {
+button:disabled,
+[aria-disabled='true'],
+[data-disabled] {
   cursor: default;
 }
 
@@ -356,6 +379,60 @@ kbd,
   animation: sk-pop-out 110ms ease-in forwards;
 }
 
+/*
+ * Menus (ui/Menu.tsx, as in Nora's sidebar): they open with a short blur, scale and drop, and one highlight (the
+ * glide, ui/Glide.tsx) slides between the items instead of each item lighting up on its own.
+ */
+.sk-menu[data-state='open'] {
+  animation: sk-menu-in 360ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.sk-menu[data-state='closed'] {
+  animation: sk-menu-out 220ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes sk-menu-in {
+  from { opacity: 0; filter: blur(5px); scale: 0.97; translate: 0 -6px; }
+  to { opacity: 1; filter: blur(0); scale: 1; translate: 0 0; }
+}
+
+@keyframes sk-menu-out {
+  to { opacity: 0; filter: blur(5px); scale: 0.97; translate: 0 -6px; }
+}
+
+.sk-pop.sk-menu [role^='menuitem'],
+.sk-pop.sk-menu [data-highlighted] {
+  background: transparent;
+}
+
+.sk-glide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: var(--sk-panel-2);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 300ms cubic-bezier(0.32, 0.72, 0, 1),
+    width 300ms cubic-bezier(0.32, 0.72, 0, 1),
+    height 300ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 180ms ease,
+    background-color 180ms ease;
+}
+
+.sk-glide[data-visible] {
+  opacity: 1;
+}
+
+.sk-glide[data-tone='danger'] {
+  background: var(--sk-danger-soft);
+}
+
 @keyframes sk-pop-in {
   from {
     opacity: 0;
@@ -370,23 +447,11 @@ kbd,
   }
 }
 
+/* The shared tooltip bubble (ui/Tooltip.tsx TooltipLayer): motion pops it in and glides it between triggers. */
 .sk-tooltip {
   background: var(--sk-tooltip-bg);
   color: var(--sk-tooltip-ink);
   box-shadow: var(--sk-elev-2);
-  transform-origin: var(--radix-tooltip-content-transform-origin);
-  animation: sk-tooltip-in 140ms var(--sk-ease);
-}
-
-.sk-tooltip[data-state='instant-open'] {
-  animation: none;
-}
-
-@keyframes sk-tooltip-in {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
 }
 
 .sk-tooltip__keys kbd {

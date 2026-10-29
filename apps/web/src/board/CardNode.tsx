@@ -1,7 +1,7 @@
 import { uiText } from '../i18n';
-import { ITEM_LIST, NOTE_COLORS, docExcerpt, sketchElementCount, updateCard } from '@strukt/workspace';
+import { ITEM_LIST, NOTE_COLORS, docExcerpt, sketchElementCount } from '@strukt/workspace';
 import type { BoardCard, ItemKind } from '@strukt/workspace';
-import { Handle, NodeToolbar, Position } from '@xyflow/react';
+import { NodeToolbar, Position } from '@xyflow/react';
 import { ArrowUpRight } from 'lucide-react';
 import type { NodeProps } from '@xyflow/react';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,10 +9,13 @@ import { renderMarkdown, useMarkdownReady } from '../docs/markdown';
 import { sketchThumbnail } from '../sketch/thumbnail';
 import { useUi } from '../ui/uiStore';
 import { openItem } from '../workspace/actions';
-import { useWorkspace, workspace } from '../workspace/appWorkspace';
+import { useWorkspace } from '../workspace/appWorkspace';
 import { ITEM_ICONS } from '../workspace/labels';
+import { useCanvasScope } from '../canvas/scope';
+import type { OverviewScope } from '../canvas/scope';
+import { NodeHandles } from '../diagram/nodes/NodeHandles';
+import type { ElementNode } from '../diagram/toFlow';
 import { diagramFor, docFor, sketchFor } from './boardFlow';
-import type { CardNode } from './boardFlow';
 import { useDiagramThumbnail } from './thumbnail';
 
 function DiagramPreview({ slug }: { slug: string }) {
@@ -82,7 +85,7 @@ function OpenCard({ card }: { card: BoardCard }) {
   );
 }
 
-function NoteBody({ card, autoFocus }: { card: BoardCard; autoFocus: boolean }) {
+function NoteBody({ card, autoFocus, overview }: { card: BoardCard; autoFocus: boolean; overview: OverviewScope }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   // `preventScroll`: focusing must not scroll the board's pane (the note is already placed in view).
   useEffect(() => {
@@ -97,13 +100,13 @@ function NoteBody({ card, autoFocus }: { card: BoardCard; autoFocus: boolean }) 
         aria-label={uiText("Texto da nota")}
         placeholder={uiText("Escreva…")}
         value={card.text ?? ''}
-        onChange={(event) => workspace.updateBoard((board) => updateCard(board, card.id, { text: event.target.value }))}
+        onChange={(event) => overview.setNote(card.id, { text: event.target.value })}
       />
     </>
   );
 }
 
-function NoteColors({ card }: { card: BoardCard }) {
+function NoteColors({ card, overview }: { card: BoardCard; overview: OverviewScope }) {
   const current = card.color ?? NOTE_COLORS[0];
   return (
     <div className="strukt-card__colors" role="group" aria-label={uiText("Cor da nota")}>
@@ -114,16 +117,21 @@ function NoteColors({ card }: { card: BoardCard }) {
           aria-label={uiText("Cor {0}", [color])}
           aria-pressed={current === color}
           style={{ background: color }}
-          onClick={() => workspace.updateBoard((board) => updateCard(board, card.id, { color }))}
+          onClick={() => overview.setNote(card.id, { color })}
         />
       ))}
     </div>
   );
 }
 
-/** A Overview card: live preview of a diagram/doc/sketch, or a post-it note. The right port starts connections. */
-export const CardNodeView = memo(function CardNodeView({ data, selected }: NodeProps<CardNode>) {
-  const { card, autoFocus } = data;
+/**
+ * An Overview card on the canvas (board/OverviewCanvas.tsx): live preview of a diagram/doc/sketch, or a post-it
+ * note. It connects through the same ports as a diagram node; text and color are edits of the canvas (undoable).
+ */
+export const OverviewCardNode = memo(function OverviewCardNode({ id, selected }: NodeProps<ElementNode>) {
+  const { overview } = useCanvasScope();
+  const card = overview?.card(id);
+  if (!overview || !card) return null;
   const note = card.kind === 'note';
   return (
     <div
@@ -132,18 +140,17 @@ export const CardNodeView = memo(function CardNodeView({ data, selected }: NodeP
       data-selected={selected || undefined}
       style={note ? { background: card.color ?? NOTE_COLORS[0] } : undefined}
     >
-      {note ? <NoteBody card={card} autoFocus={autoFocus} /> : <ItemBody card={card} />}
+      {note ? <NoteBody card={card} autoFocus={overview.focusId === id} overview={overview} /> : <ItemBody card={card} />}
       {note ? (
         <NodeToolbar isVisible={selected} position={Position.Top}>
-          <NoteColors card={card} />
+          <NoteColors card={card} overview={overview} />
         </NodeToolbar>
       ) : (
         <NodeToolbar position={Position.Top}>
           <OpenCard card={card} />
         </NodeToolbar>
       )}
-      <Handle type="target" position={Position.Left} className="strukt-card__port strukt-card__port--in" />
-      <Handle type="source" position={Position.Right} className="strukt-card__port" title={uiText("Arraste até outro card para conectar")} />
+      <NodeHandles />
     </div>
   );
 });

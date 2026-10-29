@@ -1,4 +1,4 @@
-import { applyOps, emptyLayout, emptyModel, own, syncLayout } from '@strukt/core';
+import { applyOps, carryRoutes, emptyLayout, emptyModel, own, syncLayout } from '@strukt/core';
 import type { DiagramModel, DiagramOp, ID, LayoutState, NodeBox } from '@strukt/core';
 import { createStore } from 'zustand/vanilla';
 import { VIEW_LOCK } from './locks';
@@ -6,6 +6,8 @@ import { VIEW_LOCK } from './locks';
 export interface Snapshot {
   model: DiagramModel;
   layout: LayoutState;
+  /** Optional stable identities for consumers such as the Overview; canonical edge ids can be renumbered. */
+  edgeKeys?: Record<ID, string>;
 }
 
 export interface Selection {
@@ -35,8 +37,8 @@ export interface DiagramState extends Snapshot {
   /** Layout-only undo step (e.g. "Reorganizar"): new positions, same model object. */
   arrange: (positions: Record<ID, NodeBox>) => void;
   beginGesture: () => void;
-  /** Ends the gesture; `ops` (e.g. regrouping on drop) join the drag in the same undo step. */
-  endGesture: (ops?: DiagramOp[]) => void;
+  /** Ends the gesture; `ops` (e.g. regrouping on drop) and `positions` join the drag in the same undo step. */
+  endGesture: (ops?: DiagramOp[], positions?: Record<ID, NodeBox>) => void;
   undo: () => void;
   redo: () => void;
   select: (selection: Partial<Selection>) => void;
@@ -48,7 +50,28 @@ const HISTORY_LIMIT = 100;
 const NO_SELECTION: Selection = { nodes: [], edges: [] };
 
 /** History keeps positions only: routes are derived and recomputed after undo/redo. */
-const withoutRoutes = (snapshot: Snapshot): Snapshot => ({ model: snapshot.model, layout: { nodes: snapshot.layout.nodes, edges: {} } });
+const withoutRoutes = (snapshot: Snapshot): Snapshot => ({ model: snapshot.model, layout: { nodes: snapshot.layout.nodes, edges: {} }, ...(snapshot.edgeKeys ? { edgeKeys: snapshot.edgeKeys } : {}) });
+
+/** Follow the operation's identity mapping, including identical parallel edges. History keeps these keys. */
+function followEdgeKeys(s: Snapshot, model: DiagramModel, ids: Readonly<Record<ID, ID>>): Record<ID, string> | undefined {
+  if (!s.edgeKeys) return undefined;
+  const keys: Record<ID, string> = {};
+  for (const [before, after] of Object.entries(ids)) {
+    const key = own(s.edgeKeys, before);
+    if (key !== undefined) keys[after] = key;
+  }
+  for (const edge of model.edges) if (!Object.hasOwn(keys, edge.id)) keys[edge.id] = crypto.randomUUID();
+  return keys;
+}
+
+/**
+ * `target` with the current routes of the edges it still has, until the router catches up: without them every
+ * connection would flash to a plain line and back on each edit (only the edges that moved do).
+ */
+const withLiveRoutes = (s: DiagramState, target: Snapshot, edgeIds?: Readonly<Record<ID, ID>>): LayoutState => ({
+  nodes: target.layout.nodes,
+  edges: carryRoutes(s.layout.edges, s.model, target.model, edgeIds),
+});
 
 function push(stack: Snapshot[], snapshot: Snapshot): Snapshot[] {
   const next = [...stack, withoutRoutes(snapshot)];
@@ -89,7 +112,8 @@ function commit(s: DiagramState, before: Snapshot, ops: readonly DiagramOp[], po
     ok: true,
     patch: {
       model: result.model,
-      layout: syncLayout(s.layout, result.model, ops, positions),
+      edgeKeys: followEdgeKeys(s, result.model, result.edgeIds),
+      layout: withLiveRoutes(s, { model: result.model, layout: syncLayout(s.layout, result.model, ops, positions) }, result.edgeIds),
       past: push(s.past, before),
       future: [],
       lastError: null,
@@ -102,6 +126,7 @@ export function createDiagramStore(initial?: Snapshot) {
   return createStore<DiagramState>()((set, get) => ({
     model: initial?.model ?? emptyModel(),
     layout: initial?.layout ?? emptyLayout(),
+    edgeKeys: initial?.edgeKeys,
     selection: NO_SELECTION,
     past: [],
     future: [],
@@ -116,7 +141,7 @@ export function createDiagramStore(initial?: Snapshot) {
         set(failure(s, s.readOnly));
         return false;
       }
-      const result = commit(s, { model: s.model, layout: s.layout }, ops, positions);
+      const result = commit(s, s, ops, positions);
       if (!result.ok) {
         set(failure(s, result.message));
         return false;
@@ -145,23 +170,23 @@ export function createDiagramStore(initial?: Snapshot) {
       }
       const nodes = { ...s.layout.nodes };
       for (const [id, box] of Object.entries(positions)) if (own(s.model.elements, id)) nodes[id] = { ...own(nodes, id), ...box };
-      set({ layout: { nodes, edges: {} }, past: push(s.past, { model: s.model, layout: s.layout }), future: [] });
+      set({ layout: { nodes, edges: {} }, past: push(s.past, s), future: [] });
     },
 
     beginGesture() {
       const s = get();
       if (s.pending || s.readOnly) return;
-      set({ pending: { model: s.model, layout: s.layout } });
+      set({ pending: { model: s.model, layout: s.layout, edgeKeys: s.edgeKeys } });
     },
 
-    endGesture(ops = []) {
+    endGesture(ops = [], positions = {}) {
       const s = get();
       // Locked with nothing pending: no gesture to finish, so this must not start committing ops.
       if (s.readOnly && !s.pending) return;
-      const before = s.pending ?? { model: s.model, layout: s.layout };
+      const before = s.pending ?? s;
       let outcome: Partial<DiagramState> = { lastError: null };
       if (ops.length) {
-        const result = commit(s, before, ops);
+        const result = commit(s, before, ops, positions);
         if (result.ok) {
           set({ ...result.patch, pending: null });
           return;
@@ -183,9 +208,10 @@ export function createDiagramStore(initial?: Snapshot) {
       if (!prev) return;
       set({
         model: prev.model,
-        layout: prev.layout,
+        edgeKeys: prev.edgeKeys,
+        layout: withLiveRoutes(s, prev),
         past: s.past.slice(0, -1),
-        future: [withoutRoutes({ model: s.model, layout: s.layout }), ...s.future],
+        future: [withoutRoutes(s), ...s.future],
         selection: historySelection(s.selection, prev.model),
       });
     },
@@ -200,8 +226,9 @@ export function createDiagramStore(initial?: Snapshot) {
       if (!next) return;
       set({
         model: next.model,
-        layout: next.layout,
-        past: push(s.past, { model: s.model, layout: s.layout }),
+        edgeKeys: next.edgeKeys,
+        layout: withLiveRoutes(s, next),
+        past: push(s.past, s),
         future: s.future.slice(1),
         selection: historySelection(s.selection, next.model),
       });
@@ -219,7 +246,7 @@ export function createDiagramStore(initial?: Snapshot) {
         set(failure(s, s.readOnly));
         return;
       }
-      set({ ...snapshot, past: [], future: [], pending: null, selection: NO_SELECTION, lastError: null });
+      set({ ...snapshot, edgeKeys: snapshot.edgeKeys, past: [], future: [], pending: null, selection: NO_SELECTION, lastError: null });
     },
 
     setReadOnly(reason) {

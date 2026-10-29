@@ -90,7 +90,7 @@ describe('renderDiagramSvg', () => {
   });
 
   it('draws edge labels as pills and groups with the rounder corners', () => {
-    expect(svg).toMatch(/<rect [^>]*rx="10"[^>]*stroke-opacity="0.22"/);
+    expect(svg).toMatch(/<rect [^>]*height="22" rx="11"[^>]*stroke-opacity="0.22"/);
     expect(svg).toMatch(/<rect x="-?[\d.]+" y="-?[\d.]+" width="[\d.]+" height="[\d.]+" rx="14" fill=/);
   });
 

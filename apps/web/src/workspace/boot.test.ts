@@ -433,22 +433,72 @@ describe('a remembered folder without strukt.json (fix wave 7): never plants a w
   });
 });
 
-describe('shouldWarnOnUnload (fix wave 8)', () => {
-  it('warns in memory mode (nothing is ever saved), even with no pending write', async () => {
+describe('guardUnsavedChanges: warn only when durability is not confirmed', () => {
+  it('warns for the actual memory fallback even after its queue is flushed', async () => {
     const f = await freshBoot();
     vi.mocked(f.idb.loadBackendChoice).mockResolvedValue({ kind: 'indexeddb' });
-    vi.mocked(f.idb.createIdbAdapter).mockReturnValue({ ...fakeAdapter('indexeddb', 'Navegador'), list: vi.fn().mockRejectedValue(new Error('bloqueado')) });
+    vi.mocked(f.idb.createIdbAdapter).mockReturnValue({ ...fakeAdapter('indexeddb', 'Navegador'), list: vi.fn().mockRejectedValue(new Error('blocked')) });
     await f.boot.bootWorkspace();
+    await f.context.contextSync.ready();
+    await f.appWorkspace.workspace.flush();
     expect(f.appWorkspace.workspace.store.getState().source?.kind).toBe('memory');
     expect(f.boot.shouldWarnOnUnload()).toBe(true);
   });
 
-  it('does not warn for a browser workspace with nothing pending', async () => {
+  it('warns for a pending or failed save and stops after a successful retry', async () => {
+    const f = await freshBoot();
+    const adapter = fakeAdapter('indexeddb', 'Navegador');
+    let fail = false;
+    vi.mocked(f.idb.loadBackendChoice).mockResolvedValue({ kind: 'indexeddb' });
+    vi.mocked(f.idb.createIdbAdapter).mockReturnValue({ ...adapter, write: async (path, text) => {
+      if (fail) throw new Error('quota');
+      await adapter.write(path, text);
+    } });
+    await f.boot.bootWorkspace();
+    await f.context.contextSync.ready();
+    const ws = f.appWorkspace.workspace;
+    const slug = await ws.create('doc', 'Pending');
+    await ws.flush();
+    expect(f.boot.shouldWarnOnUnload()).toBe(false);
+    fail = true;
+    ws.setDoc(slug, 'Unsaved');
+    expect(f.boot.shouldWarnOnUnload()).toBe(true);
+    for (let attempt = 0; attempt < 3; attempt++) await ws.flush();
+    expect(ws.store.getState().save).toBe('error');
+    expect(f.boot.shouldWarnOnUnload()).toBe(true);
+    fail = false;
+    await ws.retrySave();
+    expect(f.boot.shouldWarnOnUnload()).toBe(false);
+  });
+
+  it('cancels unsafe exits, leaves saved work quietly and flushes on lifecycle events', async () => {
     const f = await freshBoot();
     await bootIntoBrowser(f);
     await f.context.contextSync.ready();
     await f.appWorkspace.workspace.flush();
-    expect(f.boot.shouldWarnOnUnload()).toBe(false);
+    const listeners: Record<string, ((event: { preventDefault(): void; returnValue?: string }) => void)[]> = {};
+    const target = { addEventListener: (type: string, fn: (event: { preventDefault(): void; returnValue?: string }) => void) => { (listeners[type] ??= []).push(fn); } };
+    const before = { window: globalThis.window, document: globalThis.document };
+    vi.stubGlobal('window', target);
+    vi.stubGlobal('document', { ...target, visibilityState: 'hidden' });
+    const flush = vi.spyOn(f.appWorkspace.workspace, 'flush').mockResolvedValue();
+    try {
+      f.boot.guardUnsavedChanges();
+      const event = { preventDefault: vi.fn(), returnValue: undefined as string | undefined };
+      listeners.beforeunload!.forEach((fn) => fn(event));
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      f.appWorkspace.workspace.store.setState({ source: { kind: 'memory', label: 'Memory' } });
+      listeners.beforeunload!.forEach((fn) => fn(event));
+      expect(event.preventDefault).toHaveBeenCalledOnce();
+      expect(event.returnValue).toBe('');
+      listeners.pagehide!.forEach((fn) => fn(event));
+      listeners.visibilitychange!.forEach((fn) => fn(event));
+      await Promise.resolve();
+      expect(flush).toHaveBeenCalledTimes(3);
+    } finally {
+      vi.stubGlobal('window', before.window);
+      vi.stubGlobal('document', before.document);
+    }
   });
 });
 

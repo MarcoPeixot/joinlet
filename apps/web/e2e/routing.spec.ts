@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { pathPoints } from './paths';
 
+test.use({ reducedMotion: 'no-preference' });
+
 type Box = { x: number; y: number; width: number; height: number };
 const label = (page: Page, text: string) => page.locator('.strukt-edge-label', { hasText: text });
 const overlaps = (a: Box, b: Box) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
@@ -45,6 +47,17 @@ test('example edge labels are placed clear of each other and of group borders', 
   const detour = page.locator('.react-flow__edge[data-id="Pedidos→Kafka"] .react-flow__edge-path');
   await expect.poll(async () => ((await detour.getAttribute('d')) ?? '').split('Q').length - 1).toBeGreaterThanOrEqual(2);
 
+  // Corners appear on the first frame of the route tween. Wait for fonts and the final positions before
+  // checking collisions; labels can cross a group border while gliding to their routed positions.
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  let previous = '';
+  await expect.poll(async () => {
+    const current = JSON.stringify(await boxes(page.locator('.strukt-edge-label, .react-flow__node-sgroup')));
+    const settled = current === previous;
+    previous = current;
+    return settled;
+  }, { intervals: [250] }).toBe(true);
+
   const [cache] = await boxes(label(page, 'cache'));
   const [events] = await boxes(label(page, 'eventos'));
   expect(overlaps(cache!, events!)).toBe(false);
@@ -69,11 +82,18 @@ test('a Overview connection goes around the card in its way, its label clear of 
   await sidebar.getByRole('button', { name: 'Overview' }).click();
   const cards = page.locator('.strukt-board .react-flow__node');
   await expect(cards).toHaveCount(3);
+  let previousBoxes = '';
+  await expect.poll(async () => {
+    const current = JSON.stringify(await boxes(cards));
+    const settled = current === previousBoxes;
+    previousBoxes = current;
+    return settled;
+  }, { intervals: [250] }).toBe(true);
   // The Overview grid puts the three diagram cards in a row.
-  const boxes = (await Promise.all((await cards.all()).map(async (card) => ({ card, box: (await card.boundingBox())! })))).sort((a, b) => a.box.x - b.box.x);
-  const [first, middle, last] = boxes as [(typeof boxes)[number], (typeof boxes)[number], (typeof boxes)[number]];
+  const cardBoxes = (await Promise.all((await cards.all()).map(async (card) => ({ card, box: (await card.boundingBox())! })))).sort((a, b) => a.box.x - b.box.x);
+  const [first, middle, last] = cardBoxes as [(typeof cardBoxes)[number], (typeof cardBoxes)[number], (typeof cardBoxes)[number]];
   expect(Math.abs(first.box.y - last.box.y)).toBeLessThan(1);
-  const port = (await first.card.locator('.react-flow__handle.source').boundingBox())!;
+  const port = (await first.card.locator('.react-flow__handle-right.source').boundingBox())!;
   await page.mouse.move(port.x + port.width / 2, port.y + port.height / 2);
   await page.mouse.down();
   await page.mouse.move(last.box.x + last.box.width / 2, last.box.y + last.box.height / 2, { steps: 16 });
@@ -90,7 +110,7 @@ test('a Overview connection goes around the card in its way, its label clear of 
   await page.mouse.dblclick(halfway!.x, halfway!.y);
   await page.getByRole('textbox', { name: 'Rótulo da conexão' }).fill('HTTP');
   await page.keyboard.press('Enter');
-  const pill = page.locator('.strukt-board .strukt-link__label');
+  const pill = page.locator('.strukt-board .strukt-edge-label');
   await expect(pill).toHaveText('HTTP');
   await expect.poll(async () => overlaps((await pill.boundingBox())!, middle.box)).toBe(false);
 });

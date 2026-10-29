@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { readFile } from './storage';
 import { axeFindings } from './support/axe';
+import { itemAction } from './sidebarMenu';
 
 const side = (page: Page) => page.getByRole('navigation', { name: 'Workspace' });
 async function create(page: Page, title: string, text = '') {
@@ -79,7 +80,7 @@ test('sidebar navigation replaces the focused slot, and deleting the other docum
   await expect(page.getByRole('region', { name: 'Documento: Tres', exact: true })).toBeVisible();
   await expect(page.getByRole('region', { name: 'Documento: Dois', exact: true })).toHaveCount(0);
   await side(page).getByRole('button', { name: 'Um', exact: true }).hover();
-  await side(page).getByRole('button', { name: 'Excluir Um', exact: true }).click();
+  await itemAction(page, 'Um', 'Excluir');
   await expect(page.locator('.cm-content')).toHaveCount(1);
   await expect(page.getByRole('region', { name: 'Documento: Tres', exact: true })).toBeVisible();
 });

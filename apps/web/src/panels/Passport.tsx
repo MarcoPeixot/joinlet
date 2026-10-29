@@ -13,6 +13,7 @@ import { uiStore, useUi } from '../ui/uiStore';
 import { openDiagramLink, openDocLink } from '../workspace/actions';
 import { useWorkspace } from '../workspace/appWorkspace';
 import { ElementGlyph } from './ElementIdentity';
+import { createHoverPreview } from './hoverPreview';
 
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 const nameOf = (el: DiagramElement | undefined, id: ID) => el?.label || id;
@@ -24,7 +25,7 @@ function useGoTo() {
   const reduced = useReducedMotion();
   const reduceMotion = useUi(s => s.reduceMotion);
   return (id: ID) => {
-    uiStore.setState({ focusPreview: null });
+    focusPreview.cancel();
     diagramStore.getState().select({ nodes: [id], edges: [] });
     const node = flow.getInternalNode(id);
     const pane = document.querySelector('.react-flow')?.getBoundingClientRect();
@@ -58,12 +59,14 @@ export function ReachButton({ direction, count, active, onToggle }: { direction:
   >{content}</button>;
 }
 
+/** The canvas preview of the hovered connection, shared by all rows so moving between them never flashes. */
+const focusPreview = createHoverPreview<ID>((edgeId) => uiStore.setState({ focusPreview: edgeId }));
+
 function Row({ connection, onGo }: { connection: Connection; onGo: (id: ID) => void }) {
   const neighbor = useDiagram((s) => own(s.model.elements, connection.neighbor));
   const label = connection.edge.label || uiText("Conexão sem rótulo");
-  const preview = (on: boolean) => uiStore.setState({ focusPreview: on ? connection.edge.id : null });
   return <li>
-    <button type="button" onMouseEnter={() => preview(true)} onMouseLeave={() => preview(false)} onFocus={() => preview(true)} onBlur={() => preview(false)} onClick={() => onGo(connection.neighbor)} className="sk-inspector-connection group">
+    <button type="button" onMouseEnter={() => focusPreview.enter(connection.edge.id)} onMouseLeave={() => focusPreview.leave()} onFocus={() => focusPreview.enter(connection.edge.id)} onBlur={() => focusPreview.leave()} onClick={() => onGo(connection.neighbor)} className="sk-inspector-connection group">
       <span className="sk-inspector-neighbor" aria-hidden><ElementGlyph el={neighbor} /></span>
       <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="truncate text-body font-medium">{nameOf(neighbor, connection.neighbor)}</span>
@@ -97,7 +100,7 @@ export function Passport({ el }: { el: DiagramElement }) {
   const down = useMemo(() => reach(model, el.id, 'downstream'), [model, el.id]);
   const path = useMemo(() => breadcrumb(model, el.id), [model, el.id]);
   const goTo = useGoTo();
-  useEffect(() => () => uiStore.setState({ reach: null, focusPreview: null }), [el.id]);
+  useEffect(() => () => { focusPreview.cancel(); uiStore.setState({ reach: null }); }, [el.id]);
   const toggle = (direction: ReachDirection) => uiStore.setState({ reach: chain === direction ? null : { origin: el.id, direction } });
   const active = chain === 'upstream' ? up : chain === 'downstream' ? down : null;
 
@@ -128,7 +131,7 @@ export function Passport({ el }: { el: DiagramElement }) {
     </section> : <>
       {([{ items: outgoing, dir: 'out', label: uiText("Saídas"), Icon: ArrowUpRight }, { items: incoming, dir: 'in', label: uiText("Entradas"), Icon: ArrowDownLeft }] as const).map(({ items, dir, label, Icon }) => items.length > 0 && <section key={dir} className="sk-inspector-section">
         <h3 className="sk-inspector-section-title flex items-center gap-2"><Icon size={14} className="text-muted" />{label}<span className="ml-auto font-normal text-faint sk-num">{items.length}</span></h3>
-        <ul aria-label={label} className="-mx-2 flex flex-col gap-1">{items.map(c => <Row key={c.edge.id} connection={c} onGo={goTo} />)}</ul>
+        <ul aria-label={label} className="-mx-2 flex flex-col">{items.map(c => <Row key={c.edge.id} connection={c} onGo={goTo} />)}</ul>
       </section>)}
     </>}
     <LinkedResource el={el} />
