@@ -377,8 +377,13 @@
   margin: 12px;
 }
 
-.react-flow__minimap.sk-minimap {
+/* The corner stays docked; the card inside folds into it and grows out of it (canvas/DiagramMiniMap.tsx). */
+.react-flow__panel.sk-minimap-slot {
   margin: 0 0 64px 12px;
+}
+
+.react-flow__minimap.sk-minimap {
+  margin: 0;
 }
 
 .react-flow__minimap,
