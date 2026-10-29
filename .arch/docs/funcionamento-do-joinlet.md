@@ -56,7 +56,7 @@ A ação manual Context for agents foi removida do editor. O contexto gerado aco
 
 Novos cards usam intervalos de 120 px para acomodar conexões e rótulos. O botão **Espaçar**, na barra do Overview, amplia corredores estreitos do quadro inteiro sem reordenar cards nem reduzir espaços já maiores. Notas, dimensões, conteúdo, conexões e curvas manuais são preservados. Seções acompanham a expansão de seu conteúdo. Projeções sobrepostas ficam juntas; a ação não resolve sobreposições intencionais nem reorganiza os componentes dos diagramas.
 
-Abrir ou sincronizar um workspace preserva as posições existentes. Agentes podem consultar `get_overview` e solicitar `space_overview`, que usa a mesma operação de layout do editor e a gravação coordenada. As pontas das conexões ficam até 12 px afastadas das bordas, com redução proporcional em trechos muito curtos; as rotas automáticas e os rótulos reservam margem adicional em relação aos cards.
+Abrir ou sincronizar um workspace preserva as posições existentes. Agentes podem consultar `get_overview` e solicitar `space_overview`, que usa a mesma operação de layout do editor e a gravação coordenada. As conexões usam o roteador compartilhado do canvas para o traçado automático e `connectionPath` para curvas manuais. A alça de curva fica afastada da linha para preservar o duplo clique que edita o rótulo.
 
 ## Escopo de verificação do próprio repositório
 
@@ -69,3 +69,11 @@ A configuração compartilhada deste repositório usa `ai: false` para que a man
 A configuração operacional `JOINLET_OPTIONAL_LOGIN=1` permite abrir o editor sem conta. Uma resposta de sessão não autenticada abre o workspace deste navegador com a cota de um workspace local. A conta continua disponível por **Entrar na conta**; a tela explícita de entrada oferece **Continuar sem conta**, sem exigir preencher e-mail ou senha. A opção preserva rascunhos e mantém seu ZIP recuperável na tela de entrada. Dados locais não são importados automaticamente na conta.
 
 Uma sessão válida continua abrindo o workspace Cloud. URLs de workspace remoto e convites respeitam o acesso autorizado; erros de rede não são apresentados silenciosamente como outro projeto local. A escolha explícita de continuar no navegador pode abrir os dados locais mesmo sem acesso ao servidor. Cloud, pareamento, providers pessoais e colaboração mantêm autenticação e CSRF. Os painéis indicam quando entrar na conta é necessário. Sem a configuração, instalações existentes conservam a entrada obrigatória.
+
+## Canvas compartilhado e gravação do Overview
+
+`DiagramCanvas` recebe um `CanvasScope`: diagrama e Overview compartilham renderização, gestos, seleção, roteamento e atalhos, mas cada um mantém seu store e histórico. `board/scene.ts` traduz cards em nós, seções em grupos e conexões em arestas; `board.json` conserva seu formato e os campos próprios de cada card. O filtro não remove itens ocultos do workspace.
+
+`BoardView` ignora os estados intermediários de um gesto e compara seu resultado ao snapshot anterior ao início para persistir o movimento ou redimensionamento ao soltar. As chaves estáveis de conexão acompanham o mapa de renumeração de `applyOps` e são guardadas nos snapshots de undo/redo. Metadados de conexões removidas são lembrados enquanto esse histórico existe, preservando seus IDs e curvas manuais ao desfazer. Recarregar ou trocar o filtro reconstrói o store a partir do quadro persistido.
+
+Gravações concluídas em IndexedDB, pasta ou outro adaptador persistente permitem sair sem confirmação. Memória volátil, gravações pendentes/falhas e código pendente ou não aplicado mantêm a proteção de saída. `pagehide` e `visibilitychange` tentam concluir gravações; o ciclo de vida do navegador não espera essas promessas e não comprova durabilidade.

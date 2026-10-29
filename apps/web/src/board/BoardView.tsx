@@ -3,7 +3,7 @@ import { isViewOnly } from '../workspace/boot';
 import { computeRects, own } from '@strukt/core';
 import type { DiagramElement, ID, NodeBox } from '@strukt/core';
 import { freeSpot, ITEM_LIST, knownFolders, NOTE_COLORS, NOTE_SIZE, SECTION_SIZE, spaceBoard, updateConnection } from '@strukt/workspace';
-import type { Board, BoardCard, ItemKind, Manifest } from '@strukt/workspace';
+import type { Board, BoardCard, BoardConnection, ItemKind, Manifest } from '@strukt/workspace';
 import { Panel, ReactFlowProvider, useReactFlow } from '@xyflow/react';
 import { Expand, Square, StickyNote } from 'lucide-react';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
@@ -67,6 +67,8 @@ function OverviewCanvas() {
   const shownFolder = useRef<string | null>(null);
   /** Ids the canvas has drawn since it loaded: one gone from the canvas is gone from the board; the rest is kept. */
   const drawn = useRef(new Set<ID>());
+  /** Removed connections remain available to undo, including their stable id and manual bend. */
+  const connections = useRef(new Map<string, BoardConnection>());
   const loading = useRef(false);
 
   // The board changed elsewhere (a new item, another tab, a pull) or the folder filter changed: draw it afresh.
@@ -76,6 +78,7 @@ function OverviewCanvas() {
     written.current = board;
     shownFolder.current = folder;
     const snapshot = boardToScene(visible, titleOf(manifest));
+    connections.current = new Map(board.connections.map((c) => [c.id, c]));
     drawn.current = new Set(snapshot.model.order);
     loading.current = true;
     store.getState().load(snapshot);
@@ -86,18 +89,21 @@ function OverviewCanvas() {
 
   // Every committed edit is written back to the board (a drag once, when it ends).
   useEffect(() => store.subscribe((state, prev) => {
-    if (loading.current || state.pending || (state.model === prev.model && state.layout.nodes === prev.layout.nodes)) return;
+    if (loading.current || state.pending) return;
+    const before = prev.pending ?? prev;
+    if (state.model === before.model && state.layout.nodes === before.layout.nodes) return;
     const base = currentBoard();
     if (!base) return;
     for (const id of state.model.order) drawn.current.add(id);
-    const next = sceneToBoard(state, base, drawn.current);
+    const next = sceneToBoard(state, base, drawn.current, [...connections.current.values()]);
+    for (const connection of next.connections) connections.current.set(connection.id, connection);
     written.current = next;
     workspace.updateBoard(() => next);
   }), [store]);
 
   const bendOf = useCallback((edgeId: ID) => {
     const base = currentBoard();
-    return base ? matchConnections(store.getState().model.edges, base.connections).get(edgeId)?.bend : undefined;
+    return base ? matchConnections(store.getState(), base.connections).get(edgeId)?.bend : undefined;
   }, [store]);
 
   // Routed like a diagram; a connection with a manual elbow keeps it.
@@ -122,9 +128,10 @@ function OverviewCanvas() {
     bend: bendOf,
     setBend(edgeId, bend) {
       const base = currentBoard();
-      const connection = base && matchConnections(store.getState().model.edges, base.connections).get(edgeId);
+      const connection = base && matchConnections(store.getState(), base.connections).get(edgeId);
       if (!base || !connection) return;
       const next = updateConnection(base, connection.id, { bend });
+      for (const connection of next.connections) connections.current.set(connection.id, connection);
       written.current = next;
       workspace.updateBoard(() => next);
       // Drawn at once: the elbow, or (back to routing) no route until the router draws one.

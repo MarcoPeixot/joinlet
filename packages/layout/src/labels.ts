@@ -4,9 +4,9 @@ import type { Point } from './route';
 /** Rough advance width, ~0.56 em per character: the canvas measures real text, placement and export estimate. */
 export const textWidth = (text: string, fontSize: number) => text.length * fontSize * 0.56;
 
-/** An edge label's pill: 12 px text with 6 px padding each side (`.strukt-edge-label`), 20 px tall like the export. */
+/** Canvas pill: 12 px text, 8 px horizontal/2 px vertical padding, 1 px border and a 16 px line height. */
 export function edgeLabelSize(text: string): { w: number; h: number } {
-  return { w: textWidth(text, 12) + 12, h: 20 };
+  return { w: textWidth(text, 12) + 18, h: 22 };
 }
 
 export interface LabelRequest {

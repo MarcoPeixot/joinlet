@@ -14,7 +14,7 @@ import type { StorageAdapter, WorkspaceData } from '@strukt/workspace';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 import { downloadBlob } from '../export/png';
-import { flushCodeEdits } from '../code/registry';
+import { flushCodeEdits, hasPendingCodeEdits, hasUnappliedCodeEdits } from '../code/registry';
 import { exampleSnapshot } from '../samples/example';
 import { diagramStore } from '../state/appStore';
 import { clearSnapshot, loadSnapshot } from '../state/persist';
@@ -582,13 +582,21 @@ export async function importZip(file: File): Promise<void> {
   }
 }
 
-/** Closing the tab loses something: writes still pending, or a memory workspace (nothing of it is ever saved). */
-/**
- * Every change saves itself (a moment after the edit, see createSaver): leaving never asks. Whatever is still queued
- * is written as the page is hidden or closed.
- */
+/** Confirmed durable saves leave quietly; pending, failed, unapplied or volatile changes still need protection. */
+export function shouldWarnOnUnload(): boolean {
+  const state = workspace.store.getState();
+  return state.source?.kind === 'memory' || state.save === 'error' || workspace.hasUnsaved() || hasPendingCodeEdits() || hasUnappliedCodeEdits();
+}
+
 export function guardUnsavedChanges(): void {
-  const flush = () => void workspace.flush();
+  // Page lifecycle events cannot await asynchronous saves. Flush opportunistically, but never claim durability.
+  const flush = () => { void flushCodeEdits().then(() => workspace.flush()).catch(() => {}); };
+  window.addEventListener('beforeunload', (event) => {
+    if (!shouldWarnOnUnload()) return;
+    flush();
+    event.preventDefault();
+    event.returnValue = ''; // Safari also requires returnValue for its native confirmation.
+  });
   window.addEventListener('pagehide', flush);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') flush();

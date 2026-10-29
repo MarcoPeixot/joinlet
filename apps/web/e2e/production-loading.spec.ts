@@ -17,6 +17,8 @@ test('cold production editor stays within the complete JavaScript loading budget
  expect(errors).toEqual([]);expect(bytes).toBeLessThanOrEqual(INITIAL_JS_BYTES);expect(requests.length).toBeLessThanOrEqual(INITIAL_JS_REQUESTS);
  expect(requests.some(r=>/tree-sitter|\.wasm|codemirror|simple-icons-/.test(r.url))).toBe(false);
  await page.getByRole('button',{name:'Mostrar/ocultar código'}).click();await expect(page.locator('.cm-editor').first()).toBeVisible();expect(await page.locator('.react-flow__node').count()).toBeGreaterThan(0);
+ // Opening the panel persists workspace UI state; reload after that write is durable.
+ await expect(page.getByText('Salvo',{exact:true})).toBeVisible();
  await page.reload();await expect(page.locator('.cm-editor').first()).toBeVisible();
 });
 

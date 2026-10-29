@@ -309,7 +309,7 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - marked — `apps/web/docs/site.mjs:2`
 - motion — `apps/web/src/App.tsx:1`
 - pdfmake — `apps/web/src/docs/pdf.ts:10`
-- radix-ui — `apps/web/src/App.tsx:2`
+- radix-ui — `apps/web/src/panels/Inspector.tsx:13`
 - react — `apps/web/src/analytics/AnalyticsConsent.tsx:1`
 - react-dom — `apps/web/src/comments/CommentsHost.tsx:6`
 - simple-icons — `apps/web/docs/site.mjs:3`
@@ -331,14 +331,13 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - @strukt/json — `packages/json` — `apps/web/src/code/sync.ts:5`
 - @strukt/layout — `packages/layout` — `apps/web/src/ai/aiStore.ts:3`
 - @strukt/workspace — `packages/workspace` — `apps/web/src/actions/commands.ts:2`
-- @xyflow/react — `apps/web/src/board/boardFlow.ts:4`
+- @xyflow/react — `apps/web/src/board/CardNode.tsx:6`
 - dompurify — `apps/web/src/docs/markdown.ts:4`
 - lucide-react — `apps/web/src/landing/Diagram.tsx:4`
 - marked — `apps/web/src/docs/markdown.ts:5`
 - motion — `apps/web/src/ui/motion.ts:1`
 - pdfmake — `apps/web/src/docs/pdf.ts:6`
 - react — `apps/web/src/app/EmptyCanvas.tsx:5`
-- zustand — `apps/web/src/board/boardRoutes.ts:4`
 
 #### Desenvolvimento
 
@@ -353,12 +352,12 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - @strukt/dsl — `packages/dsl` — `apps/web/src/code/importFormats.test.ts:2`
 - @strukt/json — `packages/json` — `apps/web/src/code/sync.test.ts:5`
 - @strukt/json — `packages/json` — `apps/web/e2e/group-composition.spec.ts:5`
-- @strukt/layout — `packages/layout` — `apps/web/src/board/boardRoutes.test.ts:2`
+- @strukt/layout — `packages/layout` — `apps/web/src/samples/example-routing.test.ts:4`
 - @strukt/layout — `packages/layout` — `apps/web/e2e/group-composition.spec.ts:1`
 - @strukt/mcp — `apps/mcp` — `apps/web/e2e/architecture-features.spec.ts:4`
 - @strukt/remote — `apps/remote` — `apps/web/e2e/fixtures/hosted.ts:6`
 - @strukt/server — `apps/server` — `apps/web/src/integrations/svgCompat.test.ts:7`
-- @strukt/workspace — `packages/workspace` — `apps/web/src/actions/templates.test.ts:3`
+- @strukt/workspace — `packages/workspace` — `apps/web/e2e/overview-persistence.spec.ts:3`
 - @strukt/workspace — `packages/workspace` — `apps/web/e2e/optional-login.spec.ts:5`
 - @tailwindcss/vite — `apps/web/vite.config.ts:1`
 - @vitejs/plugin-react — `apps/web/vite.config.ts:2`
@@ -370,13 +369,12 @@ Relações estáticas de imports do código. Bibliotecas não são, por si só, 
 - vite — `apps/web/vite.config.ts:3`
 - vitest — `apps/web/src/actions/clipboard.test.ts:2`
 - yjs — `apps/web/src/docs/remoteCursors.test.ts:2`
-- zustand — `apps/web/src/board/boardRoutes.test.ts:7`
 
 #### Referências não resolvidas
 
 - ../build/loadingBudget — `apps/web/e2e/production-loading.spec.ts:1`
 - ./analytics.css — `apps/web/src/analytics/ConsentView.tsx:5`
-- ./board.css — `apps/web/src/board/BoardView.tsx:26`
+- ./board.css — `apps/web/src/board/BoardView.tsx:30`
 - ../build/loadingBudget — `apps/web/src/bundle.test.ts:2`
 - ../build/sourceStamp.mjs — `apps/web/src/bundle.test.ts:3`
 - ./cloud/aws.json — `apps/web/src/diagram/icons/registry.ts:91`

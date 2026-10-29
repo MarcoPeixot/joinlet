@@ -1,5 +1,5 @@
 import { applyOps, computeRects, emptyModel, own } from '@strukt/core';
-import type { DiagramModel, DiagramOp, EdgeEl, ID, NodeBox } from '@strukt/core';
+import type { DiagramModel, DiagramOp, ID, NodeBox } from '@strukt/core';
 import type { Board, BoardCard, BoardConnection, BoardSection } from '@strukt/workspace';
 import type { Snapshot } from '../state/diagramStore';
 
@@ -7,24 +7,20 @@ import type { Snapshot } from '../state/diagramStore';
  * The Overview drawn by the diagram canvas: `board.json` as a diagram model. Sections are groups (a card belongs to
  * the smallest section around its center, the rule `cardsInSection` uses), cards are nodes at their saved size,
  * connections are edges. What the model has no field for (a card's kind and item, a connection's id and bend)
- * stays on the board: `matchConnections` finds the connection each edge draws.
+ * stays on the board: the scene's stable edge keys retain connection identity through edits and history.
  */
 
 /**
- * Edge id → the board connection it draws: the n-th edge between two ends is the n-th connection between them, in
- * order (edge ids are renumbered when a sibling goes, connection ids never are, so matching by id would drift).
+ * Edge id → the board connection it draws. The store remaps keys on edits and restores them with undo/redo.
+ * `connections` can include deleted connections retained for history, including their manual bends.
  */
-export function matchConnections(edges: readonly EdgeEl[], connections: readonly BoardConnection[]): Map<ID, BoardConnection> {
-  const byEnds = new Map<string, BoardConnection[]>();
-  for (const c of connections) {
-    const key = `${c.from}\u0000${c.to}`;
-    byEnds.set(key, [...(byEnds.get(key) ?? []), c]);
-  }
+export function matchConnections(snapshot: Snapshot, connections: readonly BoardConnection[]): Map<ID, BoardConnection> {
+  const byId = new Map(connections.map((c) => [c.id, c]));
   const out = new Map<ID, BoardConnection>();
-  for (const edge of edges) {
-    const queue = byEnds.get(`${edge.from}\u0000${edge.to}`);
-    const next = queue?.shift();
-    if (next) out.set(edge.id, next);
+  for (const edge of snapshot.model.edges) {
+    const key = snapshot.edgeKeys && own(snapshot.edgeKeys, edge.id);
+    const connection = key === undefined ? undefined : byId.get(key);
+    if (connection) out.set(edge.id, connection);
   }
   return out;
 }
@@ -59,7 +55,8 @@ export function boardToScene(board: Board, title: (card: BoardCard) => string): 
   for (const c of drawn) ops.push({ op: 'connect', from: c.from, to: c.to, ...(c.label ? { label: c.label } : {}) });
   const result = applyOps(emptyModel(), ops);
   if (!result.ok) throw new Error(result.error.message);
-  return { model: result.model, layout: { nodes, edges: {} } };
+  const edgeKeys = Object.fromEntries(result.model.edges.map((edge, i) => [edge.id, drawn[i]!.id]));
+  return { model: result.model, layout: { nodes, edges: {} }, edgeKeys };
 }
 
 const rounded = (r: { x: number; y: number; w: number; h: number }) => ({ x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.w), h: Math.round(r.h) });
@@ -70,7 +67,7 @@ const rounded = (r: { x: number; y: number; w: number; h: number }) => ({ x: Mat
  * their cards); a node the board does not know is a note made on the canvas, an edge it does not know a new
  * connection. Order is the board's, new entries last.
  */
-export function sceneToBoard(snapshot: Snapshot, base: Board, drawn: ReadonlySet<ID>, newId: () => string = () => crypto.randomUUID()): Board {
+export function sceneToBoard(snapshot: Snapshot, base: Board, drawn: ReadonlySet<ID>, remembered: readonly BoardConnection[] = base.connections): Board {
   const { model, layout } = snapshot;
   const rects = computeRects(model, layout);
   const known = new Map(base.cards.map((c) => [c.id, c] as const));
@@ -109,22 +106,25 @@ export function sceneToBoard(snapshot: Snapshot, base: Board, drawn: ReadonlySet
     const el = model.elements[id]!;
     if (el.kind === 'group' && !kept.has(id)) sections.push({ id, title: el.label ?? '', ...rounded(rects[id]!) });
   }
-  const matched = matchConnections(model.edges, base.connections);
-  const drawnBy = new Map([...matched].map(([edgeId, c]) => [c, edgeId] as const));
-  const edges = new Map(model.edges.map((edge) => [edge.id, edge] as const));
+  const matched = matchConnections(snapshot, remembered);
   const labelled = (c: BoardConnection, label: string | undefined): BoardConnection => {
     const next = { ...c };
     if (label) next.label = label;
     else delete next.label;
     return next;
   };
-  const connections: BoardConnection[] = [];
-  for (const c of base.connections) {
-    const edgeId = drawnBy.get(c);
-    if (edgeId) connections.push(labelled(c, edges.get(edgeId)!.label));
-    else if (!drawn.has(c.from) || !drawn.has(c.to)) connections.push(c);
-  }
-  for (const edge of model.edges) if (!matched.has(edge.id)) connections.push(labelled({ id: newId(), from: edge.from, to: edge.to }, edge.label));
+  const visible = model.edges.map((edge) => {
+    const id = snapshot.edgeKeys && own(snapshot.edgeKeys, edge.id);
+    if (id === undefined) throw new Error('Overview scene is missing a stable connection key.');
+    return labelled({ ...matched.get(edge.id), id, from: edge.from, to: edge.to }, edge.label);
+  });
+  // Restore visible edges in model/history order while leaving filtered-out connections in their slots.
+  let index = 0;
+  const connections = base.connections.flatMap((c) => {
+    if (!drawn.has(c.from) || !drawn.has(c.to)) return [c];
+    return index < visible.length ? [visible[index++]!] : [];
+  });
+  connections.push(...visible.slice(index));
   // A connection whose card is gone goes with it, even one the scene did not draw.
   const ends = new Set<ID>([...cards.map((c) => c.id), ...sections.map((x) => x.id)]);
   return { ...base, cards, sections, connections: connections.filter((c) => ends.has(c.from) && ends.has(c.to)) };

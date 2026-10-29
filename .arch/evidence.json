@@ -30,6 +30,18 @@
       {
         "contains": "reports completed writes",
         "path": "packages/workspace/src/saver.test.ts"
+      },
+      {
+        "contains": "export function shouldWarnOnUnload",
+        "line": 586,
+        "path": "apps/web/src/workspace/boot.ts",
+        "snippet": "b0e1e0c4"
+      },
+      {
+        "contains": "warns for the actual memory fallback",
+        "line": 437,
+        "path": "apps/web/src/workspace/boot.test.ts",
+        "snippet": "50d58c2c"
       }
     ],
     "Domain": [
@@ -265,13 +277,13 @@
       },
       {
         "contains": "if (optional && query.get('account') === 'local')",
-        "line": 214,
+        "line": 232,
         "path": "apps/web/src/workspace/boot.ts",
-        "snippet": "fdf03f67"
+        "snippet": "b50fa85d"
       },
       {
         "contains": "if (optional && query.get('account') !== 'login'",
-        "line": 217,
+        "line": 235,
         "path": "apps/web/src/workspace/boot.ts",
         "snippet": "b12a3e4e"
       },
@@ -292,6 +304,18 @@
         "line": 13,
         "path": "apps/web/e2e/optional-login.spec.ts",
         "snippet": "a81c9a4f"
+      },
+      {
+        "contains": "export interface CanvasScope",
+        "line": 26,
+        "path": "apps/web/src/canvas/scope.tsx",
+        "snippet": "365b3a1d"
+      },
+      {
+        "contains": "export function DiagramCanvas",
+        "line": 124,
+        "path": "apps/web/src/canvas/DiagramCanvas.tsx",
+        "snippet": "dde0335a"
       }
     ],
     "Workspace": [
@@ -375,9 +399,9 @@
     "edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed": [
       {
         "contains": "'@strukt/workspace'",
-        "line": 2,
-        "path": "apps/web/src/actions/commands.ts",
-        "snippet": "8319b8ce"
+        "line": 3,
+        "path": "apps/web/e2e/overview-persistence.spec.ts",
+        "snippet": "4cf82377"
       }
     ],
     "edge:repo_3b4e3efd29cd13→repo_e27f3faa9152db": [
@@ -2383,7 +2407,7 @@
       },
       {
         "contains": "export function boardInFolder",
-        "line": 13,
+        "line": 5,
         "path": "apps/web/src/board/boardFlow.ts",
         "snippet": "137bc429"
       },
@@ -2394,16 +2418,10 @@
         "snippet": "b0d3d3dc"
       },
       {
-        "contains": "export function separateEndpoints",
-        "line": 34,
-        "path": "apps/web/src/board/boardRoutes.ts",
-        "snippet": "c6782faf"
-      },
-      {
         "contains": "const spaceOverview",
-        "line": 147,
+        "line": 195,
         "path": "apps/web/src/board/BoardView.tsx",
-        "snippet": "24627c0a"
+        "snippet": "31ab39cf"
       },
       {
         "contains": "server.registerTool('space_overview'",
@@ -2416,6 +2434,36 @@
         "line": 3,
         "path": "apps/web/e2e/overview-spacing.spec.ts",
         "snippet": "0053a267"
+      },
+      {
+        "contains": "export function boardToScene",
+        "line": 41,
+        "path": "apps/web/src/board/scene.ts",
+        "snippet": "af346b0f"
+      },
+      {
+        "contains": "function followEdgeKeys",
+        "line": 56,
+        "path": "apps/web/src/state/diagramStore.ts",
+        "snippet": "a8a6eaf2"
+      },
+      {
+        "contains": "const before = prev.pending ?? prev",
+        "line": 93,
+        "path": "apps/web/src/board/BoardView.tsx",
+        "snippet": "b1b4d7bd"
+      },
+      {
+        "contains": "export function connectionRoute",
+        "line": 60,
+        "path": "apps/web/src/board/connectionPath.ts",
+        "snippet": "28d154f1"
+      },
+      {
+        "contains": "test('an Overview drag",
+        "line": 27,
+        "path": "apps/web/e2e/overview-persistence.spec.ts",
+        "snippet": "674485dd"
       }
     ],
     "Local": [

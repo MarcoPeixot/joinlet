@@ -352,7 +352,7 @@
 - `edge:repo_09e11a52066c67→repo_e86a0d465b5caa`: `apps/vscode/src/diagnostics.ts#L2` — trecho esperado: `'@strukt/json'`
 - `edge:repo_3b4e3efd29cd13→repo_41ba823706ed42`: `apps/web/src/ai/aiStore.ts#L3` — trecho esperado: `'@strukt/layout'`
 - `edge:repo_3b4e3efd29cd13→repo_5c1ab4b7e80ad1`: `apps/web/src/code/importFormats.ts#L2` — trecho esperado: `'@strukt/dsl/lite'`
-- `edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed`: `apps/web/src/actions/commands.ts#L2` — trecho esperado: `'@strukt/workspace'`
+- `edge:repo_3b4e3efd29cd13→repo_d4ff4b28356bed`: `apps/web/e2e/overview-persistence.spec.ts#L3` — trecho esperado: `'@strukt/workspace'`
 - `edge:repo_3b4e3efd29cd13→repo_e27f3faa9152db`: `apps/web/e2e/group-composition.spec.ts#L4` — trecho esperado: `'@strukt/core'`
 - `edge:repo_3b4e3efd29cd13→repo_e86a0d465b5caa`: `apps/web/src/code/sync.test.ts#L5` — trecho esperado: `'@strukt/json'`
 - `edge:repo_41ba823706ed42→repo_e27f3faa9152db`: `packages/layout/src/canvasFrames.ts#L2` — trecho esperado: `'@strukt/core'`

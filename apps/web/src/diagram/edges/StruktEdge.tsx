@@ -18,6 +18,8 @@ import { LinkLabelInput } from '../../board/LinkLabelInput';
 import { uiText } from '../../i18n';
 
 const ARROW = 10;
+// Keep the grip off the line: selecting an unlabeled edge must not intercept the second click that edits it.
+const GRIP_OFFSET = 16;
 const DIFF_COLOR = { added: 'var(--sk-diff-added)', removed: 'var(--sk-diff-removed)', changed: 'var(--sk-diff-changed)' } as const;
 const DIFF_TEXT = { added: 'var(--sk-diff-added-text)', removed: 'var(--sk-diff-removed-text)', changed: 'var(--sk-diff-changed-text)' } as const;
 /** Requests leaving the focused element in Iris, arriving at it in cyan: the two ends of the brand gradient. */
@@ -93,7 +95,10 @@ export const StruktEdgeView = memo(function StruktEdgeView({ id, source, target,
     labelAt = elbow.handle;
   }
   const showGrip = selected && bendable && !editing;
-  const bendAt = (event: { clientX: number; clientY: number }) => bendFromPointer(a!, b!, screenToFlowPosition({ x: event.clientX, y: event.clientY }));
+  const bendAt = (event: { clientX: number; clientY: number }) => {
+    const point = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+    return bendFromPointer(a!, b!, { x: point.x - GRIP_OFFSET, y: point.y - GRIP_OFFSET });
+  };
   const startEditing = overview ? () => setEditing(true) : undefined;
   const saveLabel = (value: string | null) => {
     setEditing(false);
@@ -163,7 +168,7 @@ export const StruktEdgeView = memo(function StruktEdgeView({ id, source, target,
           <div
             className="strukt-link__grip nodrag nopan"
             title={uiText("Arraste para mover o trecho · duplo clique volta ao traçado automático")}
-            style={{ position: 'absolute', transform: `translate(-50%, -50%) translate(${mx}px, ${my + (edge.label ? 16 : 0)}px)`, pointerEvents: 'all' }}
+            style={{ position: 'absolute', transform: `translate(-50%, -50%) translate(${mx + GRIP_OFFSET}px, ${my + GRIP_OFFSET}px)`, pointerEvents: 'all' }}
             onPointerDown={(event) => { event.stopPropagation(); event.currentTarget.setPointerCapture(event.pointerId); }}
             onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setDragBend(bendAt(event)); }}
             onPointerUp={() => { if (dragBend !== null) overview!.setBend(edge.id, dragBend); setDragBend(null); }}

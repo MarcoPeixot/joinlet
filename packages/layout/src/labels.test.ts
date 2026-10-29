@@ -9,7 +9,7 @@ const overlaps = (a: Rect, b: Rect) => a.x < b.x + b.w && b.x < a.x + a.w && a.y
 
 describe('edgeLabelSize', () => {
   it('estimates the pill from the text (0.56 em per character at 12 px, 6 px padding each side, 20 px tall)', () => {
-    expect(edgeLabelSize('cache')).toEqual({ w: 5 * 12 * 0.56 + 12, h: 20 });
+    expect(edgeLabelSize('cache')).toEqual({ w: 5 * 12 * 0.56 + 18, h: 22 });
   });
 });
 
