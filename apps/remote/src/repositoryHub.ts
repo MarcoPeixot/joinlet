@@ -24,12 +24,19 @@ import { repositoryLocale } from '@strukt/workspace/repository-contracts';
 import {repositorySourceContext,repositoryPolicy,scopedRepositoryReader} from '@strukt/workspace/repository-source-access';
 
 const emptyStatus = (id: string): RepositoryStatus => ({ id, phase: 'queued', completed: 0, total: 0, analyzedRevision: null, persistedRevision: null, coverage: 'none', pending: [], proposals: [], metrics: { files: 0, reads: 0, aiCalls: 0, written: 0 } });
+const repositoryErrors = {
+  github_not_configured: { status: 503, error: 'GitHub repository connections are not configured on this Joinlet server.' },
+  github_authorization_required: { status: 409, error: 'Authorize GitHub to connect a repository.' },
+  github_authorization_expired: { status: 409, error: 'GitHub authorization expired. Authorize GitHub again.' },
+} as const;
+const repositoryError = (code: keyof typeof repositoryErrors) => Object.assign(Error(repositoryErrors[code].error), { code, status: repositoryErrors[code].status });
 const publicConnection = (c: RepositoryConnection) => ({ ...JSON.parse(c.status), ...(c.kind==='local' && Date.now()-c.updated>15_000?{phase:'disconnected'}:{}), id: c.id, kind: c.kind, updated: c.updated, repo: c.kind === 'github' ? JSON.parse(c.data).repo : undefined, branch: c.kind === 'github' ? JSON.parse(c.data).branch : undefined });
 
 /** Authenticated control plane. Connector tokens and GitHub credentials never enter workspace files. */
 export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {
   const router=express.Router(), db=auth.database, queue=repositoryQueue(db), values=privateValues(options.encryptionKey), fetcher=options.fetch ?? fetch;
   const now=options.now ?? Date.now;
+  const githubConfigured=!!options.githubClientId&&!!options.githubClientSecret;
   const view=(c:RepositoryConnection)=>({...publicConnection(c),pendingWrites:c.kind==='local'?queue.commands(c.id).filter(command=>JSON.parse(command.data).type==='apply').length:queue.pending(c.id)});
   db.exec(`CREATE TABLE IF NOT EXISTS repository_credentials(owner INTEGER PRIMARY KEY,value TEXT NOT NULL,version INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS repository_oauth(state TEXT PRIMARY KEY,owner INTEGER NOT NULL,session TEXT NOT NULL,expires INTEGER NOT NULL,workspace TEXT);
@@ -71,14 +78,16 @@ export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth
     } };
   };
   const tokenFor=async(owner:number) => {
+    if(!githubConfigured)throw repositoryError('github_not_configured');
     const row=db.query('SELECT value,version FROM repository_credentials WHERE owner=?').get(owner) as {value:string;version:number}|null;
-    if(!row || row.version!==auth.accounts.get(owner)?.session_version) throw Error('Authorize GitHub again.');
+    if(!row || row.version!==auth.accounts.get(owner)?.session_version) throw repositoryError('github_authorization_required');
     const credentials=JSON.parse(values.open(row.value,`repository-github:${owner}`));
     if(credentials.expires && credentials.expires<now()+60_000) {
-      if(!credentials.refreshToken) throw Error('GitHub authorization expired.');
+      if(!credentials.refreshToken) throw repositoryError('github_authorization_expired');
       const response=await fetcher('https://github.com/login/oauth/access_token',{method:'POST',headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify({client_id:options.githubClientId,client_secret:options.githubClientSecret,grant_type:'refresh_token',refresh_token:credentials.refreshToken})});
+      if(response.status===429||response.status>=500)throw new GithubHttpError(response.status,'/login/oauth/access_token');
       const next=await response.json() as {access_token?:string;refresh_token?:string;expires_in?:number};
-      if(!response.ok || !next.access_token) throw Error('GitHub authorization expired.');
+      if(!response.ok || !next.access_token) throw repositoryError('github_authorization_expired');
       Object.assign(credentials,{token:next.access_token,refreshToken:next.refresh_token ?? credentials.refreshToken,expires:next.expires_in?now()+next.expires_in*1000:null});
       db.query('UPDATE repository_credentials SET value=? WHERE owner=?').run(values.seal(JSON.stringify(credentials),`repository-github:${owner}`),owner);
     }
@@ -86,11 +95,19 @@ export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth
   };
   const snapshot=async(workspace:string) => {const storage=hosted.store.adapter(workspace);return Object.fromEntries(await Promise.all((await storage.list()).map(async path=>[path,await storage.read(path)] as const))) as Record<string,string>;};
   const archive=async(workspace:string) => {if(!db.query('SELECT 1 FROM repository_archives WHERE workspace=?').get(workspace)) db.query('INSERT INTO repository_archives(workspace,files) VALUES (?,?)').run(workspace,JSON.stringify(await snapshot(workspace)));};
-  const protect=(handler:express.RequestHandler):express.RequestHandler => (req,res,next)=>Promise.resolve().then(()=>handler(req,res,next)).catch(error=>{if(!res.headersSent)res.status(Number.isInteger(error?.status)?error.status:400).json({error:'Joinlet could not complete this repository request. Check the connection and permissions.'});});
+  const protect=(handler:express.RequestHandler):express.RequestHandler => (req,res,next)=>Promise.resolve().then(()=>handler(req,res,next)).catch(error=>{
+    if(res.headersSent)return;
+    const code=error instanceof GithubHttpError&&error.status===401?'github_authorization_expired':error?.code;
+    if(typeof code==='string'&&Object.hasOwn(repositoryErrors,code)){
+      const known=repositoryErrors[code as keyof typeof repositoryErrors];
+      return res.status(known.status).json({code,error:known.error});
+    }
+    res.status(Number.isInteger(error?.status)?error.status:400).json({error:'Joinlet could not complete this repository request. Check the connection and permissions.'});
+  });
 
-  router.get('/api/repositories',protect((req,res)=>{const session=user(req), workspace=session.workspace;res.json({connections:queue.list().filter(c=>c.owner===session.userId&&c.workspace===workspace).map(view),workspace,githubConfigured:!!options.githubClientId,githubConnected:!!db.query('SELECT 1 FROM repository_credentials WHERE owner=?').get(session.userId)});}));
+  router.get('/api/repositories',protect((req,res)=>{const session=user(req), workspace=session.workspace;res.json({connections:queue.list().filter(c=>c.owner===session.userId&&c.workspace===workspace).map(view),workspace,githubConfigured,githubInstallUrl:githubConfigured&&options.githubAppSlug&&/^[a-z0-9-]+$/.test(options.githubAppSlug)?`https://github.com/apps/${options.githubAppSlug}/installations/new`:undefined,githubConnected:!!db.query('SELECT 1 FROM repository_credentials WHERE owner=?').get(session.userId)});}));
   router.post('/api/repositories/github/authorize',protect((req,res)=>{
-    const session=user(req); if(!options.githubClientId) throw Error('GitHub is not configured.');
+    const session=user(req); if(!options.githubClientId||!options.githubClientSecret) throw repositoryError('github_not_configured');
     const state=authToken(); db.query('INSERT INTO repository_oauth(state,owner,session,expires,workspace) VALUES (?,?,?,?,?)').run(tokenHash(state),session.userId,tokenHash(heldCookie(req.headers.cookie,'joinlet_session')!),now()+600_000,session.workspace);
     const url=new URL('https://github.com/login/oauth/authorize');url.searchParams.set('client_id',options.githubClientId);url.searchParams.set('redirect_uri',`${auth.publicUrl}/github/callback`);url.searchParams.set('state',state);res.json({url:url.href});
   }));

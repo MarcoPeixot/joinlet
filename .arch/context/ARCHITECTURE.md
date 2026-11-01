@@ -591,7 +591,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "browser",
-      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas.",
+      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas. Conexão GitHub fica desabilitada quando o operador não a configurou. OAuth só começa para autorização ausente/expirada; erros genéricos não reiniciam login. Lista vazia explica instalação da App e escrita nos repositórios.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -627,7 +627,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "server",
-      "description": "Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem.",
+      "description": "Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem. API expõe configuração GitHub e link fixo de instalação. Ausência de Client ID/Secret retorna github_not_configured (503); falta de autorização ou autorização expirada/revogada retorna código específico (409), sem expor segredos.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -654,7 +654,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "git-merge",
-      "description": "Detecta fontes reconhecidas e mantém mapeamentos e bases.",
+      "description": "Detecta fontes reconhecidas e mantém mapeamentos e bases. Identificadores OpenAPI descobertos são normalizados e limitados; caminhos que exigiam truncamento/normalização recebem hash estável. Mapeamentos existentes mantêm seu slug exato. Uma base de sincronização reconhecida recupera o destino quando sources.json falta; sem vínculo comprovado, um diagrama existente é preservado e o novo destino é separado para revisão.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -806,14 +806,14 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 
 | Componente | Tipo | Tecnologia | Descrição | Grupo |
 | --- | --- | --- | --- | --- |
-| Editor web (`Editor`) | nó | — | Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas. | — |
+| Editor web (`Editor`) | nó | — | Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas. Conexão GitHub fica desabilitada quando o operador não a configurou. OAuth só começa para autorização ausente/expirada; erros genéricos não reiniciam login. Lista vazia explica instalação da App e escrita nos repositórios. | — |
 | CLI e MCP (`CLI`) | nó | — | init/connect/watch/sync/context/verify e MCP. Aprofundamento por inventário/leitura paginados, plano de análise, organização de pastas e vínculos no Overview, com revisão explícita e escrita coordenada. | — |
 | Conector pareado (`Connector`) | nó | — | Pasta confinada, Git, observação e conexão autenticada de saída com o Cloud. Encaminha snapshots de contexto, revisão/política e páginas de fontes ao editor e MCP sem endpoints privilegiados públicos em localhost. | — |
 | Serviço local (`Local`) | nó | — | Conexões limitadas à pasta, diagnóstico Git, tarefas, eventos e acompanhamento incremental. Mantém blocos de referência ao contexto em AGENTS.md e CLAUDE.md, preservando conteúdo manual e sinalizando conflitos. | — |
-| API hospedada (`Hub`) | nó | — | Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem. | — |
+| API hospedada (`Hub`) | nó | — | Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem. API expõe configuração GitHub e link fixo de instalação. Ausência de Client ID/Secret retorna github\_not\_configured (503); falta de autorização ou autorização expirada/revogada retorna código específico (409), sem expor segredos. | — |
 | Worker GitHub (`Worker`) | nó | — | Tarefas com lease; snapshots SHA, revisão antes de publicação e um PR atualizado. Inclui as instruções de agentes no mesmo commit da arquitetura e do contexto. | — |
 | Análise e mesclagem (`Engine`) | nó | — | Extração sintática, propriedade de arquivos, classificação de dependências e mesclagem de três versões. Descrições de IA exigem referências do próprio módulo; inferências cruzadas viram propostas. Diagnósticos sem chamadas de IA preservam metadados e ignoram providers quando ai=false. | — |
-| Importadores (`Importers`) | nó | — | Detecta fontes reconhecidas e mantém mapeamentos e bases. | — |
+| Importadores (`Importers`) | nó | — | Detecta fontes reconhecidas e mantém mapeamentos e bases. Identificadores OpenAPI descobertos são normalizados e limitados; caminhos que exigiam truncamento/normalização recebem hash estável. Mapeamentos existentes mantêm seu slug exato. Uma base de sincronização reconhecida recupera o destino quando sources.json falta; sem vínculo comprovado, um diagrama existente é preservado e o novo destino é separado para revisão. | — |
 | IA BYOK (`AI`) | nó | — | Interpretação BYOK de responsabilidades com referências verificadas. A mesma chamada pode escolher a tecnologia principal entre sinais comprovados no próprio módulo. O motor valida o catálogo e as evidências; inferências de componentes e relações vão para revisão. | — |
 | .arch (`Architecture`) | nó | — | Modelo, layout, docs, evidências, fontes, base gerenciada e contexto. Gravações com versões esperadas. | — |
 | Estado de execução (`Runtime`) | nó | — | SQLite, tarefas, outbox e leases. API, worker e colaboração aguardam locks por até 5 segundos antes das migrações/WAL. Segredos e journals ficam fora do Git. | — |
@@ -840,21 +840,21 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `edge:CLI→Engine`: `apps/cli/src/commands/repository.ts#L26` — trecho esperado: `locale: repositoryLocale(Intl.DateTimeFormat()`
 - `edge:Connector→Hub`: `apps/server/src/connector.ts#L79` — trecho esperado: `post('/api/repository-connector/update'`
 - `edge:Connector→Local`: `apps/server/src/connector.ts#L69` — trecho esperado: `service=createRepositoryService`
-- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L62` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
-- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L25` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
+- `edge:Editor→Hub`: `apps/web/src/panels/RepositoryConnection.tsx#L66` — trecho esperado: `request('/api/repositories/github',{repo,branch,locale:getLocale()})`
+- `edge:Editor→Local`: `apps/web/src/panels/RepositoryConnection.tsx#L26` — trecho esperado: `request('/api/repositories',{dir,locale:getLocale()})`
 - `edge:Engine→AI`: `packages/workspace/src/repository/engine.ts#L137` — trecho esperado: `analyzer!.analyze`
 - `edge:Engine→AI`: `apps/server/src/connector.ts#L64` — trecho esperado: `path==='/api/repository-connector/analyze'`
 - `edge:Engine→AI`: `apps/remote/src/repositoryConnectorSmoke.ts#L30` — trecho esperado: `assert.equal(initial.connections[0]!.phase,'paused')`
 - `edge:Engine→Architecture`: `packages/workspace/src/repository/engine.ts#L238` — trecho esperado: `await writeBatch(this.adapter`
 - `edge:Engine→Importers`: `packages/workspace/src/repository/engine.ts#L224` — trecho esperado: `await synchronizeDiscoveredSources`
 - `edge:Engine→Knowledge`: `packages/workspace/src/repository/engine.ts#L168` — trecho esperado: `const projected=projectRepositoryDocuments`
-- `edge:Hub→Runtime`: `apps/remote/src/repositoryHub.ts#L280` — trecho esperado: `queue.command(c.id,{type:'apply'`
+- `edge:Hub→Runtime`: `apps/remote/src/repositoryHub.ts#L297` — trecho esperado: `queue.command(c.id,{type:'apply'`
 - `edge:Knowledge→Architecture`: `packages/workspace/src/repository/knowledge.ts#L55` — trecho esperado: `export function connectRepositoryKnowledge`
 - `edge:Local→Engine`: `apps/server/src/repositories.ts#L53` — trecho esperado: `new RepositoryEngine(reader, storage, analyzer())`
-- `edge:Worker→Engine`: `apps/remote/src/repositoryHub.ts#L259` — trecho esperado: `new RepositoryEngine(source,adapter,analyzer)`
-- `edge:Worker→Engine`: `apps/remote/src/repositoryHub.ts#L260` — trecho esperado: `const instructions=target.syncAgentInstructions()`
-- `edge:Worker→GitHub`: `apps/remote/src/repositoryHub.ts#L266` — trecho esperado: `const pullRequest=await target.flush()`
-- `edge:Worker→Runtime`: `apps/remote/src/repositoryHub.ts#L242` — trecho esperado: `const job=queue.claim()`
+- `edge:Worker→Engine`: `apps/remote/src/repositoryHub.ts#L276` — trecho esperado: `new RepositoryEngine(source,adapter,analyzer)`
+- `edge:Worker→Engine`: `apps/remote/src/repositoryHub.ts#L277` — trecho esperado: `const instructions=target.syncAgentInstructions()`
+- `edge:Worker→GitHub`: `apps/remote/src/repositoryHub.ts#L283` — trecho esperado: `const pullRequest=await target.flush()`
+- `edge:Worker→Runtime`: `apps/remote/src/repositoryHub.ts#L259` — trecho esperado: `const job=queue.claim()`
 - `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L17` — trecho esperado: `export function RepositoryConnection`
 - `Editor`: `apps/web/src/workspace/remote.ts#L22` — trecho esperado: `export function matchesRemoteSource`
 - `Editor`: `apps/web/src/app/CollaborationBridge.tsx#L27` — trecho esperado: `!matchesRemoteSource(session, source)`
@@ -870,9 +870,10 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Editor`: `apps/web/src/workspace/repositoryAnalysis.ts#L14` — trecho esperado: `export async function verifyRepositoryAnalysisContext`
 - `Editor`: `apps/web/e2e/repository-real.spec.ts#L81` — trecho esperado: `test('offers source-backed enrichment`
 - `Editor`: `apps/web/e2e/repository-real.spec.ts#L125` — trecho esperado: `test('rejects a delayed AI edit`
-- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L27` — trecho esperado: `const job=connections.find(c=\>c.id===pendingOpen.current`
-- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L36` — trecho esperado: `if((error as {status?:number}).status===409)return;`
+- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L28` — trecho esperado: `const job=connections.find(c=\>c.id===pendingOpen.current`
+- `Editor`: `apps/web/src/panels/RepositoryConnection.tsx#L37` — trecho esperado: `if((error as {status?:number}).status===409)return;`
 - `Editor`: `apps/web/e2e/repository-real.spec.ts#L100` — trecho esperado: `test('waits for a completed analysis`
+- `Editor`: `apps/web/e2e/optional-login.spec.ts#L29` — trecho esperado: `test('explains unavailable GitHub`
 - `Engine`: `packages/workspace/src/repository/engine.ts#L53` — trecho esperado: `export class RepositoryEngine`
 - `Engine`: `packages/workspace/src/repository/presentation.ts#L11` — trecho esperado: `export function repositoryPresentation`
 - `Engine`: `packages/workspace/src/repository/presentation.ts#L40` — trecho esperado: `export function repositoryReadme`
@@ -882,10 +883,13 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Engine`: `packages/workspace/src/repository/technologies.test.ts#L21` — trecho esperado: `it('detects frameworks`
 - `Engine`: `packages/workspace/src/repository/facts.ts#L23` — trecho esperado: `export async function extractRepositoryFacts`
 - `GitHub`: `apps/remote/src/repositorySnapshot.ts#L9` — trecho esperado: `export async function githubSnapshot(token: string, repo: string, branch: string, fetcher?: typeof fetch): Promise\<RepositoryReader & { sha: string }\> {`
-- `Hub`: `apps/remote/src/repositoryHub.ts#L30` — trecho esperado: `export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {`
+- `Hub`: `apps/remote/src/repositoryHub.ts#L36` — trecho esperado: `export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {`
 - `Hub`: `apps/remote/src/hostedStore.ts#L189` — trecho esperado: `const createWorkspace = db.transaction`
-- `Hub`: `apps/remote/src/repositoryHub.ts#L91` — trecho esperado: `session.workspace;res.json({connections:`
-- `Importers`: `packages/workspace/src/repository/importers.ts#L13` — trecho esperado: `export async function synchronizeDiscoveredSources(texts: Map\<string,string\>, data: WorkspaceData, before: Map\<string,string|null\>) {`
+- `Hub`: `apps/remote/src/repositoryHub.ts#L108` — trecho esperado: `session.workspace;res.json({connections:`
+- `Hub`: `apps/remote/src/repositoryAuthorizationSmoke.ts#L17` — trecho esperado: `assert.equal(response.status, 503)`
+- `Importers`: `packages/workspace/src/repository/importers.ts#L36` — trecho esperado: `export async function synchronizeDiscoveredSources(texts: Map\<string,string\>, data: WorkspaceData, before: Map\<string,string|null\>) {`
+- `Importers`: `packages/workspace/src/repository/importers.test.ts#L19` — trecho esperado: `it('imports long, underscored`
+- `Importers`: `packages/workspace/src/repository/importers.test.ts#L69` — trecho esperado: `it('synchronizes a complete .arch`
 - `Knowledge`: `packages/workspace/src/repository/knowledge.ts#L21` — trecho esperado: `export function projectRepositoryDocuments`
 - `Knowledge`: `packages/workspace/src/repository/knowledge.ts#L55` — trecho esperado: `export function connectRepositoryKnowledge`
 - `Knowledge`: `packages/workspace/src/repository/knowledge.test.ts#L7` — trecho esperado: `it('imports every recognized Markdown`
@@ -908,7 +912,7 @@ Cada diagrama traz o código JSON do Joinlet, que é a fonte da verdade, seguido
 - `Runtime`: `apps/remote/src/database.ts#L5` — trecho esperado: `db.exec('PRAGMA busy_timeout=5000')`
 - `Runtime`: `apps/remote/src/repositoryStartupSmoke.ts#L29` — trecho esperado: `for(let round=0;round\<3;round++)`
 - `Syntax`: `packages/workspace/src/repository/syntax.ts#L44` — trecho esperado: `export async function parseSource`
-- `Worker`: `apps/remote/src/repositoryHub.ts#L240` — trecho esperado: `async function runNext() {`
+- `Worker`: `apps/remote/src/repositoryHub.ts#L257` — trecho esperado: `async function runNext() {`
 
 ### Conexões
 

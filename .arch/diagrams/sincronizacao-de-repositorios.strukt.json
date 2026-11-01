@@ -12,7 +12,7 @@
       "presentation": "card",
       "layoutRole": "entry",
       "icon": "browser",
-      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas.",
+      "description": "Conexão, progresso, conflitos e sincronização contínua. Overview com filtros e aviso de aprofundamento: IA do Joinlet recebe fontes reais delimitadas por revisão/política; agente local recebe tarefa e MCP. Documentos de fonte preservam autoria. Na reconexão, a abertura automática espera estado concluído (ready/review/paused) com revisão persistida. Resposta 409 de inicialização pendente mantém a intenção de abertura para a próxima consulta concluída, sem aberturas simultâneas. Conexão GitHub fica desabilitada quando o operador não a configurou. OAuth só começa para autorização ausente/expirada; erros genéricos não reiniciam login. Lista vazia explica instalação da App e escrita nos repositórios.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -48,7 +48,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "server",
-      "description": "Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem.",
+      "description": "Autorização GitHub na conta existente, pairing, revisão e outbox para a pasta. Conexões isoladas por workspace selecionado e retorno OAuth ao projeto de origem. API expõe configuração GitHub e link fixo de instalação. Ausência de Client ID/Secret retorna github_not_configured (503); falta de autorização ou autorização expirada/revogada retorna código específico (409), sem expor segredos.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {
@@ -75,7 +75,7 @@
       "presentation": "card",
       "layoutRole": "peer",
       "icon": "git-merge",
-      "description": "Detecta fontes reconhecidas e mantém mapeamentos e bases.",
+      "description": "Detecta fontes reconhecidas e mantém mapeamentos e bases. Identificadores OpenAPI descobertos são normalizados e limitados; caminhos que exigiam truncamento/normalização recebem hash estável. Mapeamentos existentes mantêm seu slug exato. Uma base de sincronização reconhecida recupera o destino quando sources.json falta; sem vínculo comprovado, um diagrama existente é preservado e o novo destino é separado para revisão.",
       "link": "doc:conexao-e-sincronizacao-de-repositorios"
     },
     {

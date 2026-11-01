@@ -1,6 +1,12 @@
 import { registerTranslations,uiText } from '../i18n';
 
 registerTranslations({
+  "A conexão com GitHub ainda não foi habilitada pelo administrador do Joinlet.": "GitHub connections have not been enabled by the Joinlet administrator yet.",
+  "Nenhum repositório com acesso de escrita foi encontrado. Instale a GitHub App nos repositórios desejados e confira suas permissões.": "No repositories with write access were found. Install the GitHub App on the desired repositories and check your permissions.",
+  "Instalar ou configurar a GitHub App": "Install or configure the GitHub App",
+  "Autorize o GitHub para conectar um repositório.": "Authorize GitHub to connect a repository.",
+  "A autorização do GitHub expirou. Autorize o GitHub novamente.": "GitHub authorization expired. Authorize GitHub again.",
+  "O diagrama {0} foi preservado. A fonte foi vinculada a {1}; revise os mapeamentos antes de compartilhar.": "Diagram {0} was preserved. The source was assigned to {1}; review the mappings before sharing.",
   "Visão principal": "Main view",
   "O workspace mudou durante a análise. Prepare uma nova análise para usar as fontes atuais.": "The workspace changed during analysis. Prepare a new analysis using current sources.",
   "A revisão do repositório mudou durante a análise. Prepare uma nova análise antes de aplicar alterações.": "The repository revision changed during analysis. Prepare a new analysis before applying changes.",
@@ -85,6 +91,11 @@ registerTranslations({
 });
 
 export function repositoryMessage(message: string): string {
+  const preserved=/^Existing diagram preserved: (\S+)\. Discovered source was assigned to (\S+); review \.arch\/sources\.json\.$/.exec(message);
+  if(preserved)return uiText('O diagrama {0} foi preservado. A fonte foi vinculada a {1}; revise os mapeamentos antes de compartilhar.',[preserved[1]!,preserved[2]!]);
+  if(message==='GitHub repository connections are not configured on this Joinlet server.')return uiText('A conexão com GitHub ainda não foi habilitada pelo administrador do Joinlet.');
+  if(message==='Authorize GitHub to connect a repository.')return uiText('Autorize o GitHub para conectar um repositório.');
+  if(message==='GitHub authorization expired. Authorize GitHub again.')return uiText('A autorização do GitHub expirou. Autorize o GitHub novamente.');
   if(message.startsWith('Repository document has manual changes; review its source projection: '))return uiText('Documento com edição manual; revise a projeção da fonte: {0}',[message.split(': ').slice(1).join(': ')]);
   if(message.startsWith('Repository document source is unavailable; existing projection kept: '))return uiText('Fonte do documento indisponível; a projeção existente foi preservada: {0}',[message.split(': ').slice(1).join(': ')]);
   if(message.startsWith('Repository document was removed in the editor; projection preserved as deleted: '))return uiText('Documento excluído no editor; não foi recriado automaticamente: {0}',[message.split(': ').slice(1).join(': ')]);
