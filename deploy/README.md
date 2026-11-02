@@ -52,6 +52,18 @@ Capacidade continua limitada pelo host, por uma réplica por instalação, pelos
 
 ## Sincronização de repositórios
 
+### Habilitar GitHub para os usuários
+
+Registre uma GitHub App oficial (ou uma App própria para self-hosting). Para outras contas poderem instalá-la, selecione **Any account**. Configure homepage `https://joinlet.co`, callback OAuth `https://app.joinlet.co/github/callback` e setup URL `https://app.joinlet.co/`; instalações próprias usam seus domínios. No fluxo atual, a autorização começa pelo painel do Joinlet: deixe **Request user authorization during installation** desmarcado e mantenha a expiração dos tokens habilitada. O backend renova tokens expirados pelo refresh token.
+
+Conceda **Contents: Read and write**, **Pull requests: Read and write** e **Metadata: Read-only**. Configure o webhook descrito abaixo, com verificação SSL e o mesmo segredo no GitHub e no ambiente do operador. Preencha `STRUKT_GITHUB_APP_CLIENT_ID`, `STRUKT_GITHUB_APP_CLIENT_SECRET`, `STRUKT_GITHUB_APP_SLUG` e `JOINLET_REPOSITORY_WEBHOOK_SECRET` no arquivo de ambiente protegido, fora do Git. API e worker devem receber a mesma configuração; recrie os serviços para aplicar alterações de ambiente, preservando volumes e a chave de criptografia.
+
+Sem Client ID e Client Secret, a interface desabilita a conexão GitHub e informa que o administrador ainda não a habilitou. O endpoint de autorização retorna `github_not_configured` (503), sem iniciar OAuth. A falta de autorização da conta retorna `github_authorization_required` (409); autorização expirada/revogada retorna `github_authorization_expired` (409). Falhas genéricas de rede ou permissão permanecem erros e não iniciam automaticamente outra autorização.
+
+Cada usuário instala a App na conta/organização e concede acesso aos repositórios desejados, entra na conta existente do Joinlet e autoriza GitHub pelo painel **Repositório e sincronização**. Depois escolhe repositório e branch. A autorização da conta não substitui a instalação da App; o usuário também precisa ter escrita no repositório. Uma lista vazia explica esses requisitos e oferece o link de instalação quando o slug está configurado. Use um workspace separado para testar GitHub quando o workspace atual já está conectado a uma pasta, especialmente se houver alterações pendentes.
+
+Valide autorização e callback, repositórios privados selecionados, branches, análise, PR, webhook e revogação com uma conta e repositório descartáveis. A sincronização escreve na branch de trabalho e mantém um PR para a branch escolhida, sem merge automático. A configuração pode seguir a [documentação de registro da GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app).
+
 O serviço `repository-worker` usa a mesma imagem, banco e chave de criptografia da API, em processo separado e sem listener público. Não instala dependências nem executa scripts dos projetos analisados. Mantenha ambos no mesmo host/volume SQLite. `JOINLET_REPOSITORY_WORKER=0` na API evita iniciar um consumidor adicional; o compose define `1` no worker.
 
 Na GitHub App, mantenha callback `/github/callback`, acesso de leitura/escrita a Contents e Pull requests e leitura de Metadata. Assine eventos push e pull_request para `https://app.joinlet.co/api/repositories/webhook` com o segredo externo `JOINLET_REPOSITORY_WEBHOOK_SECRET`. A reconciliação periódica recupera eventos perdidos. O usuário entra no Joinlet e autoriza GitHub pelo painel Repositório e sincronização; contas por senha mantêm sua identidade e seus convites.

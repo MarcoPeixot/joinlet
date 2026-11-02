@@ -26,6 +26,23 @@ test('keeps Cloud sign-in optional and authenticated data isolated',async({page,
  await page.getByRole('button',{name:'Settings (⌘,)',exact:true}).click();const settings=page.getByRole('dialog',{name:'Settings',exact:true});await settings.getByRole('button',{name:'Sign out',exact:true}).click();await expect(page.getByRole('navigation',{name:'Workspace'})).toBeVisible();await expect(page.getByRole('button',{name:'Sign in to your account',exact:true})).toBeVisible();
 });
 
+test('explains unavailable GitHub connections and does not restart OAuth on a repository network failure',async({page})=>{
+ const email=randomUUID()+'@example.test',password='fixture-'+randomUUID();
+ await page.goto(origin+'/app/?lang=en');await page.getByRole('button',{name:'Sign in to your account',exact:true}).click();await page.getByRole('button',{name:'Create an account',exact:true}).click();await page.getByLabel('Email',{exact:true}).fill(email);await page.getByLabel('Password',{exact:true}).fill(password);await page.getByLabel('Confirm password',{exact:true}).fill(password);await page.getByRole('button',{name:'Create account',exact:true}).click();
+ await expect(page.getByRole('navigation',{name:'Workspace'})).toBeVisible();await page.getByRole('navigation',{name:'Workspace'}).getByRole('button',{name:'New diagram',exact:true}).click();await page.getByRole('textbox',{name:'Diagram name',exact:true}).fill('Repository configuration');await page.keyboard.press('Enter');
+ await page.getByRole('button',{name:/^Panels/}).click();await page.getByRole('menuitemcheckbox',{name:/^GitHub/}).click();
+ const connect=page.getByRole('button',{name:'Connect GitHub repository',exact:true});
+ await expect(connect).toBeDisabled();await expect(page.getByText('GitHub connections have not been enabled by the Joinlet administrator yet.',{exact:true})).toBeVisible();
+ await page.route('**/api/repositories',async route=>{const response=await route.fetch();const data=await response.json();await route.fulfill({response,json:{...data,githubConfigured:true,githubInstallUrl:'https://github.com/apps/joinlet-test/installations/new'}});});
+ let authorizations=0;
+ await page.route('**/api/repositories/github/authorize',async route=>{authorizations++;await route.fulfill({status:503,json:{error:'Unexpected authorization'}});});
+ await page.route('**/api/repositories/github/repos',route=>route.fulfill({status:503,json:{error:'Temporary repository network failure'}}));
+ await expect(connect).toBeEnabled();await connect.click();await expect(page.getByRole('alert')).toContainText('Temporary repository network failure');expect(authorizations).toBe(0);
+ await page.route('**/api/repositories/github/repos',route=>route.fulfill({json:{repos:[]}}));await connect.click();
+ await expect(page.getByText('No repositories with write access were found. Install the GitHub App on the desired repositories and check your permissions.',{exact:true})).toBeVisible();
+ await expect(page.getByRole('link',{name:'Install or configure the GitHub App',exact:true})).toHaveAttribute('href','https://github.com/apps/joinlet-test/installations/new');
+});
+
 test('explicit local mode opens offline while a remote outage remains visible by default',async({page})=>{
  await page.route('**/api/remote/session**',route=>route.fulfill({status:503,json:{error:'temporary outage'}}));await page.goto(origin+'/app/?lang=pt-BR');await expect(page.getByRole('alert')).toContainText('servidor remoto');await page.goto(origin+'/app/?lang=pt-BR&account=local');await expect(page.getByRole('navigation',{name:'Workspace'})).toBeVisible();await expect(page.getByRole('button',{name:'Entrar na conta',exact:true})).toBeVisible();
 });

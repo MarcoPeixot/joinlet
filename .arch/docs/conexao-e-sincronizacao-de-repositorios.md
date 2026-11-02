@@ -127,3 +127,22 @@ Testes cobrem importação e idempotência, edição incremental de um Markdown 
 ## Abertura após reconexão
 
 Uma revisão já persistida pode pertencer à análise anterior enquanto o repositório é reanalisado. O editor só abre automaticamente após estado concluído (`ready`, `review` ou `paused`) com revisão persistida. Se uma consulta atrasada causar resposta 409 de inicialização pendente, a intenção é preservada e uma consulta concluída posterior tenta abrir novamente, com uma abertura ativa por vez. Outros erros continuam visíveis. O teste de navegador cobre revisão anterior durante análise e 409 transitório com backend real.
+
+
+## Arquitetura compartilhada pelo Git e identificadores de fontes
+
+Uma pessoa pode inicializar a arquitetura, versionar a pasta .arch completa e outra pessoa pode cloná-la e sincronizar sem criar diagramas duplicados. O manifesto, sources.json, sync.json e repository-state.json preservam os vínculos e as bases usados na retomada. A operação não executa pull/merge nem escolhe outra branch automaticamente; a pessoa deve conferir a raiz selecionada e se sua branch contém o commit da arquitetura.
+
+O importador usa o slug configurado como identificador exato, inclusive para mapeamentos portáveis legados com maiúsculas ou sublinhados; não o passa a tratar como título. Novas fontes OpenAPI recebem identificadores normalizados, com comprimento limitado e hash estável quando o caminho exigia normalização ou truncamento. Os identificadores válidos já emitidos por versões anteriores continuam compatíveis.
+
+Quando sources.json falta, um vínculo automático reconhecido em sync.json permite retomar o diagrama existente. Sem esse vínculo, a descoberta não toma um diagrama autoral apenas pelo nome: registra um destino livre, preserva o existente e sinaliza revisão em caso de colisão. Mapeamentos personalizados perdidos não são inferidos por semelhança. Configurações inválidas continuam erros que precisam de reparo.
+
+Testes em packages/workspace/src/repository/importers.test.ts cobrem caminhos longos e sublinhados, nomes semelhantes, slugs legados, reinício, recuperação da base, preservação autoral e um commit/clone Git real entre duas pastas.
+
+## Configuração e autorização GitHub
+
+Client ID e Client Secret precisam estar presentes para habilitar a integração; a interface desabilita a conexão quando faltam. A API distingue github_not_configured (503), github_authorization_required e github_authorization_expired (409). Apenas estes dois últimos códigos iniciam OAuth; erros genéricos permanecem visíveis. A API só retorna mensagens conhecidas e seguras, preservando a sanitização dos demais erros.
+
+O operador configura uma GitHub App instalável pelas contas atendidas, callback /github/callback na origem do app, permissões de Contents e Pull requests com escrita, Metadata com leitura e webhook autenticado. O fluxo atual começa a autorização pelo painel do Joinlet, separada da instalação. API e worker recebem a mesma configuração protegida. O guia deploy/README.md descreve a ativação.
+
+Cada usuário autoriza GitHub na conta Joinlet existente, instala a App nos repositórios desejados e seleciona repositório/branch. A lista exige escrita e explica o caso vazio. O link de instalação só é exposto quando a integração e um slug seguro estão configurados. O smoke HTTP de autorização e o teste de navegador em optional-login.spec.ts verificam indisponibilidade, isolamento de sessão e ausência de redirecionamento OAuth em falha genérica. Configuração e homologação com GitHub real continuam responsabilidade operacional; testes controlados não comprovam uma App oficial configurada.

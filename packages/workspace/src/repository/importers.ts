@@ -3,11 +3,34 @@ import { importArchitecture } from '@strukt/dsl/import';
 import type { SourceKind, Source } from '../sources';
 import { parseSources, printSources, matchesInclude } from '../sources';
 import { parseSyncState, printSyncState } from '../syncState';
-import { printDiagramJson } from '@strukt/json';
 import { addItem } from '../workspace';
 import type { WorkspaceData } from '../workspace';
 import { mergeIntoDiagram } from '../syncMerge';
 import { applyOps } from '@strukt/core';
+import { reconcileBoard } from '../board';
+import { slugify, uniqueSlug } from '../slug';
+import { digest } from './reader';
+
+/** Keep existing portable mapping slugs, which are identifiers rather than titles. */
+function addSourceDiagram(data: WorkspaceData, slug: string): WorkspaceData {
+  const added = addItem(data, 'diagram', slug);
+  if (added.slug === slug) return added.data;
+  const diagrams = { ...added.data.diagrams, [slug]: added.data.diagrams[added.slug]! };
+  delete diagrams[added.slug];
+  const manifest = { ...added.data.manifest, diagrams: added.data.manifest.diagrams.map(item => item.slug === added.slug ? { ...item, slug } : item) };
+  return { ...added.data, manifest, diagrams, board: reconcileBoard(data.board, manifest) };
+}
+
+function openapiSourceId(path: string): string {
+  const legacy = 'repository-openapi-' + path.replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
+  // Preserve valid identifiers already used by earlier connectors. Hash only paths
+  // whose old identifier would be truncated or changed when used as a title.
+  return slugify(legacy) === legacy ? legacy : `${slugify(legacy).slice(0, 43).replace(/-+$/, '')}-${digest(path).slice(0, 12)}`;
+}
+
+function availableSourceId(preferred: string, taken: ReadonlySet<string>): string {
+  return taken.has(preferred) ? uniqueSlug(preferred.slice(0, 56), taken) : preferred;
+}
 
 /** Discover only formats with a matching importer; arbitrary YAML is not treated as Kubernetes. */
 export async function synchronizeDiscoveredSources(texts: Map<string,string>, data: WorkspaceData, before: Map<string,string|null>) {
@@ -26,25 +49,33 @@ export async function synchronizeDiscoveredSources(texts: Map<string,string>, da
   const configured=parseSources(before.get('sources.json')??null);
   if(configured.diagnostics.length)throw Error('Source mappings need repair before repository synchronization.');
   const sources=[...configured.sources];
+  const state=parseSyncState(before.get('sync.json')??null);
+  if(state.warnings.length)throw Error('Source synchronization baseline needs repair.');
+  const pending:string[]=[];
+  const ids=new Set(sources.map(source=>source.id));
+  const targets=new Set([...data.manifest.diagrams.map(item=>item.slug),...sources.map(source=>source.diagram)]);
+  const register=(preferred:string,kind:SourceKind,include:string[])=>{
+    const id=availableSourceId(preferred,ids);
+    const baseline=state.state.sources[id];
+    const diagram=baseline&&data.diagrams[baseline.diagram]?baseline.diagram:availableSourceId(id,targets);
+    if(diagram!==id&&!baseline)pending.push(`Existing diagram preserved: ${id}. Discovered source was assigned to ${diagram}; review .arch/sources.json.`);
+    const source:Source={id,kind,diagram,mode:'merge',include};
+    sources.push(source);ids.add(id);targets.add(diagram);
+  };
   for(const [kind,paths]of discovered){
     const missing=paths.filter(path=>!sources.some(s=>s.kind===kind&&matchesInclude(s.include,path)));
     if(!missing.length)continue;
     if(kind==='openapi') {
       for(const path of missing){
-        let id='repository-openapi-'+path.replace(/[^a-zA-Z0-9_-]/g,'-').toLowerCase();
-        const prefix=id;let n=2;while(sources.some(source=>source.id===id))id=prefix+'-'+n++;
-        sources.push({id,kind,diagram:id,mode:'merge',include:[path]});
+        register(openapiSourceId(path),kind,[path]);
       }
       continue;
     }
     const id=`repository-${kind}`;
-    const current=sources.find(s=>s.id===id);
+    const current=sources.find(s=>s.id===id&&s.kind===kind);
     if(current){current.include=[...new Set([...current.include,...missing])].sort();continue;}
-    sources.push({id,kind,diagram:id,mode:'merge',include:missing.sort()});
+    register(id,kind,missing.sort());
   }
-  const state=parseSyncState(before.get('sync.json')??null);
-  if(state.warnings.length)throw Error('Source synchronization baseline needs repair.');
-  const pending:string[]=[];
   for(const source of sources){
     const matches=[...texts].filter(([path])=>matchesInclude(source.include,path));
     if(!matches.length){pending.push(`No files matched source ${source.id}.`);continue;}
@@ -54,8 +85,7 @@ export async function synchronizeDiscoveredSources(texts: Map<string,string>, da
     const imported=importArchitecture(groups[0]!,source.kind);
     if(!imported.model.order.length&&imported.diagnostics.length){pending.push(`Importer could not analyze ${source.id}.`);continue;}
     if(!data.diagrams[source.diagram]){
-      const item=addItem(data,'diagram',source.diagram);data=item.data;
-      if(item.slug!==source.diagram)throw Error('Source diagram name conflicts with an existing item.');
+      data=addSourceDiagram(data,source.diagram);
     }
     const snapshot=data.diagrams[source.diagram]!,base=state.state.sources[source.id]?.base;
     const merged=mergeIntoDiagram(snapshot.model,imported.model,base,source.mode),applied=applyOps(snapshot.model,merged.ops);

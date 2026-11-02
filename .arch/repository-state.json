@@ -2574,9 +2574,9 @@
       },
       "deploy/README.md": {
         "folder": "Repositório/deploy",
-        "hash": "ffe47eab830d20e22c5cc191165e08210220c9740e9aa4946c5571d7c1e3e478",
+        "hash": "6edbeaccadda9825698a18fb565f6f0ed0fee58ad943447d7fd3b981f5ec0255",
         "slug": "publicacao-do-joinlet",
-        "sourceHash": "b0b71b4f6f3f83ea0d8dbcb97c088399bd0132eeb14eb276e29d64c46a1bbdec",
+        "sourceHash": "5872b1420760a496a0ce26407cca8d1c449357b9dc5e4bb2611567c8d783a6a0",
         "title": "Publicação do Joinlet"
       },
       "docs/agents.md": {

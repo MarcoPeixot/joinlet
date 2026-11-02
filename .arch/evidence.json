@@ -2283,13 +2283,13 @@
       },
       {
         "contains": "const job=connections.find(c=>c.id===pendingOpen.current",
-        "line": 27,
+        "line": 28,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
         "snippet": "2d1d8175"
       },
       {
         "contains": "if((error as {status?:number}).status===409)return;",
-        "line": 36,
+        "line": 37,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
         "snippet": "7e4d388b"
       },
@@ -2298,6 +2298,12 @@
         "line": 100,
         "path": "apps/web/e2e/repository-real.spec.ts",
         "snippet": "5acdcc00"
+      },
+      {
+        "contains": "test('explains unavailable GitHub",
+        "line": 29,
+        "path": "apps/web/e2e/optional-login.spec.ts",
+        "snippet": "8f174903"
       }
     ],
     "Engine": [
@@ -2361,7 +2367,7 @@
     "Hub": [
       {
         "contains": "export function createRepositoryHub(options: RemoteAuthOptions, auth: RemoteAuth, hosted: HostedBackend) {",
-        "line": 30,
+        "line": 36,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "6cb2f676"
       },
@@ -2373,17 +2379,35 @@
       },
       {
         "contains": "session.workspace;res.json({connections:",
-        "line": 91,
+        "line": 108,
         "path": "apps/remote/src/repositoryHub.ts",
-        "snippet": "44f73a49"
+        "snippet": "b4293efd"
+      },
+      {
+        "contains": "assert.equal(response.status, 503)",
+        "line": 17,
+        "path": "apps/remote/src/repositoryAuthorizationSmoke.ts",
+        "snippet": "483d6f26"
       }
     ],
     "Importers": [
       {
         "contains": "export async function synchronizeDiscoveredSources(texts: Map<string,string>, data: WorkspaceData, before: Map<string,string|null>) {",
-        "line": 13,
+        "line": 36,
         "path": "packages/workspace/src/repository/importers.ts",
         "snippet": "a689e277"
+      },
+      {
+        "contains": "it('imports long, underscored",
+        "line": 19,
+        "path": "packages/workspace/src/repository/importers.test.ts",
+        "snippet": "aecb83aa"
+      },
+      {
+        "contains": "it('synchronizes a complete .arch",
+        "line": 69,
+        "path": "packages/workspace/src/repository/importers.test.ts",
+        "snippet": "f296a674"
       }
     ],
     "Knowledge": [
@@ -2529,7 +2553,7 @@
     "Worker": [
       {
         "contains": "async function runNext() {",
-        "line": 240,
+        "line": 257,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "3bb67179"
       }
@@ -2581,15 +2605,15 @@
     "edge:Editor→Hub": [
       {
         "contains": "request('/api/repositories/github',{repo,branch,locale:getLocale()})",
-        "line": 62,
+        "line": 66,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
-        "snippet": "a047c5a9"
+        "snippet": "e86e78b2"
       }
     ],
     "edge:Editor→Local": [
       {
         "contains": "request('/api/repositories',{dir,locale:getLocale()})",
-        "line": 25,
+        "line": 26,
         "path": "apps/web/src/panels/RepositoryConnection.tsx",
         "snippet": "4709a4f2"
       }
@@ -2641,7 +2665,7 @@
     "edge:Hub→Runtime": [
       {
         "contains": "queue.command(c.id,{type:'apply'",
-        "line": 280,
+        "line": 297,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "306c5e00"
       }
@@ -2665,13 +2689,13 @@
     "edge:Worker→Engine": [
       {
         "contains": "new RepositoryEngine(source,adapter,analyzer)",
-        "line": 259,
+        "line": 276,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "a34f0271"
       },
       {
         "contains": "const instructions=target.syncAgentInstructions()",
-        "line": 260,
+        "line": 277,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "e5714f98"
       }
@@ -2679,7 +2703,7 @@
     "edge:Worker→GitHub": [
       {
         "contains": "const pullRequest=await target.flush()",
-        "line": 266,
+        "line": 283,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "39d40dc0"
       }
@@ -2687,7 +2711,7 @@
     "edge:Worker→Runtime": [
       {
         "contains": "const job=queue.claim()",
-        "line": 242,
+        "line": 259,
         "path": "apps/remote/src/repositoryHub.ts",
         "snippet": "dc66051a"
       }
